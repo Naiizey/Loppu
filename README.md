@@ -1,1 +1,1 @@
-# Nediek
+# Loppu, an interactive web-story
