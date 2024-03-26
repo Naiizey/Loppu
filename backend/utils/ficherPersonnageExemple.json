@@ -3,10 +3,10 @@
     "prenom": "Alexander",
     "race": "humain",
 
-    "habilite": "5",
-    "endurance": "6",
-    "chance": "8",
-    "magie": "1",
+    "habilite": 5,
+    "endurance": 6,
+    "chance": 8,
+    "magie": 1,
 
     "avantages": {
         "adaptabilite": "description",
