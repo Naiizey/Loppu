@@ -1,0 +1,35 @@
+{
+    "nom": "The terrible",
+    "prenom": "Tor",
+    "race": "Ogre",
+    "genre": "Male",
+
+    "force": 4,
+    "resistance": 5,
+    "intelligence": 3,
+    
+    "equipement": {
+        "Couperet en argent": {
+            "type": "attaque",
+            "efficacite": 3
+        }
+    },
+
+    "inventaire": {
+        "sac": {
+            "type": "utilitaire",
+            "capacite": ""
+        },
+        "rocher": {
+            "type": "autre"
+        }
+    },
+
+    "description": {
+        "text": "Tor est un Ogre qui s'est échappé des catacombes sous le Smokeypeak Mountain pour errer sur le monde au-dessus de terre avec merveille et étonnement. Cependant, il a été battu et harcelé par les légionnaires de Roi Yalamon, et il a juré une vengeance sanglante contre tous supposés Bonnes gens en raison de cela. Heureusement malheureusement, Boulder Ford est la première ville sur son chemin suivant sa récente humeur sombre..."
+    },
+
+    "notes": {
+    
+    }
+}
