@@ -1,0 +1,31 @@
+{
+    "nom": "",
+    "prenom": "Brindlebeard",
+    "race": "Giant",
+    "genre" : "female",
+
+    "force": 6,
+    "resistance": 4,
+    "intelligence": 4,
+
+    "description":
+    {
+        "text" : "Brindlebeard est un géant élevé des collines Sanglantes, et plus précisément, des mines indépendantes d'orfèvre de Pass de Bloodstone. Il a exploité ces colonies pendant des années et a finalement épuis la plupart des approvisionnements en bétail desquelles il a été contraint de chercher de nouvelles terres dans la recherche de nourriture et de butin. Brindlebeard avait longtemps entendu parler des terres riches autour de Boulder Ford et s'est dirigé vers cette direction pour vérifier si cela était réellement le cas…"
+    },
+    
+    "equipement": {
+        "Batte avec des piques": {
+            "type": "attaque",
+            "efficacite": 1
+        }
+    },
+    
+    "inventaire": {
+        "sac": {},
+        "rocher": {}
+    },
+
+    "notes": {
+    
+    }
+}
