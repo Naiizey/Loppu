@@ -2,11 +2,11 @@
     "nom": "",
     "prenom": "Brindlebeard",
     "race": "Giant",
-    "gender" : "female",
+    "genre" : "female",
 
-    "Strengf": 6,
-    "Tuff": 4,
-    "Smarts": 4,
+    "force": 6,
+    "resistance": 4,
+    "intelligence": 4,
 
     "description":
     {
@@ -14,14 +14,15 @@
     },
     
     "equipement": {
-        "Spiked Club": {
+        "Batte avec des piques": {
             "type": "attaque",
-            "hurt": 1
+            "efficacite": 1
         }
     },
+    
     "inventaire": {
         "sac": {},
-        "Boulder": {}
+        "rocher": {}
     },
 
     "notes": {

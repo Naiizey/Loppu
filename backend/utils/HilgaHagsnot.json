@@ -2,11 +2,11 @@
     "nom": "Hagsnot",
     "prenom": "Hilga",
     "race": "troll",
-    "gender": "female",
+    "genre": "female",
 
-    "Strengf": 5,
-    "Tuff": 6,
-    "Smarts": 2,
+    "force": 5,
+    "resistance": 6,
+    "intelligence": 2,
 
     "description":
     {
@@ -14,9 +14,9 @@
     },
     
     "equipement": {
-        "Stone Axe ": {
+        "Hache en pierre": {
             "type": "attaque",
-            "hurt": 2
+            "efficacite": 2
         }
     },
     "inventaire": {
