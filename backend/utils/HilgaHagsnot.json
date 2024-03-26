@@ -1,0 +1,30 @@
+{
+    "nom": "Hagsnot",
+    "prenom": "Hilga",
+    "race": "troll",
+    "gender": "female",
+
+    "Strengf": 5,
+    "Tuff": 6,
+    "Smarts": 2,
+
+    "description":
+    {
+        "text" : "Hilga is a Troll baker who had set up a pastry operation in her cave in the woods. However, the Gnomish subjects of the nearby town of Boulder Ford have proven remarkably resistant to being used as pie filling, and her business gradually collapsed. Now, being poor, hungry, and angry, she has been planning this surprise attack on Boulder Ford for some time!"
+    },
+    
+    "equipement": {
+        "Stone Axe ": {
+            "type": "attaque",
+            "hurt": 2
+        }
+    },
+    "inventaire": {
+        "sac": {},
+        "sac": {}
+    },
+
+    "notes": {
+    
+    }
+}

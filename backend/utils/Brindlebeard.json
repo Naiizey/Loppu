@@ -1,0 +1,30 @@
+{
+    "nom": "",
+    "prenom": "Brindlebeard",
+    "race": "Giant",
+    "gender" : "female",
+
+    "Strengf": 6,
+    "Tuff": 4,
+    "Smarts": 4,
+
+    "description":
+    {
+        "text" : "Brindlebeard is a tall giant from the Bloodstone Hills, and more specifically, the independent Dwarf mines of Bloodstone Pass. Having preyed on these settlements for years, he has finally exhausted most of their livestock supplies and has been forced to move into new territory in search of food and loot. Brindlebeard has long heard the rumours of the rich lands around Boulder Ford and has wandered over in this direction to see for himself if they are true…"
+    },
+    
+    "equipement": {
+        "Spiked Club": {
+            "type": "attaque",
+            "hurt": 1
+        }
+    },
+    "inventaire": {
+        "sac": {},
+        "Boulder": {}
+    },
+
+    "notes": {
+    
+    }
+}
