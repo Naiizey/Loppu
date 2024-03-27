@@ -1,27 +1,26 @@
 {
-    "nom": "The terrible",
-    "prenom": "Tor",
+    "name": "Tor The terrible",
     "race": "Ogre",
     "genre": "Male",
 
     "force": 4,
     "resistance": 5,
     "intelligence": 3,
-    
-    "equipement": {
-        "Couperet en argent": {
+
+    "stuff": {
+        "Silver knife": {
             "type": "attaque",
-            "efficacite": 3
+            "efficacity": 3
         }
     },
 
-    "inventaire": {
-        "sac": {
+    "inventory": {
+        "sack": {
             "type": "utilitaire",
-            "capacite": ""
+            "capacity": ""
         },
-        "rocher": {
-            "type": "autre"
+        "boulder": {
+            "type": "other"
         }
     },
 
@@ -30,6 +29,6 @@
     },
 
     "notes": {
-    
+
     }
 }
