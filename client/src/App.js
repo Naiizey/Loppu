@@ -1,15 +1,13 @@
 import React from 'react'
-
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
 
-//import Header from 'components/header'
 import './App.css';
-
 import HomePage from './pages/homePage/homePage'
+//import Header from './components/header'
 
 function App() {
   return (
@@ -20,7 +18,7 @@ function App() {
           exact
           path="/"
           element={ <HomePage/> }
-        />{ /* Main page */}
+        />
       </Routes>
     </Router>
   );
