@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  webapp:
+    restart: on-failure
+    build: ./webapp.Dockerfile
+    ports:
+      - "80:80"
+  db:
+    image: postgres:latest
+    ports:
+      - "${DATABASE_PORT}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: loppu
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: loppu
+  api:
+    restart: on-failure
+    build: ./api.Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL:
+
+volumes:
+  db-data:
