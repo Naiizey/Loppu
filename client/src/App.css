@@ -1,0 +1,9 @@
+:root {
+    font-size: calc(1rem + 0.25vw);
+    --white-shade: #fafafa;
+    --dark-grey: #3b3b3b;
+}
+
+main {
+    background-color: var(--dark-grey);
+}

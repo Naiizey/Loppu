@@ -3,9 +3,9 @@ import './homePage.css';
 
 const HomePage = () => {
     return (
-        <div>
+        <main>
             <h1>Mathis</h1>
-        </div>
+        </main>
     )
 };
 

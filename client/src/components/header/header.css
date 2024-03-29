@@ -1,0 +1,44 @@
+header {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    z-index: 1;
+    background-color: var(--dark-grey);
+}
+
+header div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+}
+
+header #loppu svg {
+    height: 3em;
+}
+
+nav {
+    width: 8em;
+}
+
+nav svg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+svg {
+    fill: var(--white-shade);
+}
+
+a {
+    display: block;
+}
