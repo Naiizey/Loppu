@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS type (
 CREATE TABLE IF NOT EXISTS sections (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
+    content JSONB NOT NULL,
     image VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,
     type_id INT NOT NULL,
