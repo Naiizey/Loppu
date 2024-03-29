@@ -1,0 +1,28 @@
+{
+    "name": "Hagsnot Hilga",
+    "race": "troll",
+    "gender": "female",
+
+    "force": 5,
+    "resistance": 6,
+    "intelligence": 2,
+
+    "description":
+    {
+        "text" : "Hilga est une boulangère Trolle qui avait établi son opération de pâtisseries dans sa grotte dans la forêt. Cependant, les sujets Nains du petit village de Boulder Ford se sont révélés remarquablement résistants à être utilisés comme farce pour ses tartes, et son affaire a progressivement vacillé. Maintenant pauvre, affamée et en colère, elle avait planifié cette attaque surprise contre Boulder Ford depuis longtemps!"
+    },
+
+    "stuff": {
+        "Stone Axe": {
+            "type": "attaque",
+            "efficacity": 2
+        }
+    },
+    "inventory": {
+        "sack": {}
+    },
+
+    "notes": {
+
+    }
+}

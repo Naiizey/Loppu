@@ -1,0 +1,36 @@
+{
+    "name": "",
+    "race": "",
+    "gender": "",
+
+    "agility": "",
+    "stamina": "",
+    "luck": "",
+    "mana": "",
+
+    "benefits": {
+
+    },
+    "disadvantages": {
+
+    },
+
+    "money": {
+        "gold": "",
+        "silver": "",
+        "copper": ""
+    },
+    "stuff": {
+
+    },
+    "inventory": {
+
+    },
+    "food": {
+
+    },
+
+    "notes": {
+
+    }
+}
