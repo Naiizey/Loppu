@@ -7,14 +7,14 @@ import {
 
 import './App.css';
 import HomePage from './pages/homePage/homePage'
-//import Header from './components/header'
+import Header from './components/header/header'
 
 function App() {
   return (
     <Router>
-      { /*<Header></Header>*/ }
+      <Header/>
       <Routes>
-        <Route 
+        <Route
           exact
           path="/"
           element={ <HomePage/> }
