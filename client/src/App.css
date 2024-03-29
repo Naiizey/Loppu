@@ -2,6 +2,7 @@
     font-size: calc(1rem + 0.25vw);
     --white-shade: #fafafa;
     --dark-grey: #3b3b3b;
+    --grey-shade: #747272 ;
 }
 
 main {

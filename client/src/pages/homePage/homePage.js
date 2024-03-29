@@ -4,7 +4,8 @@ import './homePage.css';
 const HomePage = () => {
     return (
         <main>
-            <h1>Mathis</h1>
+            <h1>Welcome back to Loppu !</h1>
+            <h2>My stories</h2>
         </main>
     )
 };
