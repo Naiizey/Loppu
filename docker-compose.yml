@@ -4,7 +4,7 @@ services:
   webapp:
     restart: on-failure
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: ../containers/webapp/Dockerfile
     ports:
       - "${WEB_PORT}:80"
