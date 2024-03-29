@@ -3,9 +3,9 @@ version: "3"
 services:
   webapp:
     restart: on-failure
-    build: ./webapp.Dockerfile
+    build: ./containers/webapp.Dockerfile
     ports:
-      - "80:80"
+      - "${WEB_PORT}:80"
   db:
     image: postgres:latest
     ports:
@@ -13,9 +13,9 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: loppu
+      POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: loppu
+      POSTGRES_DB: ${DATABASE_NAME}
   api:
     restart: on-failure
     build: ./api.Dockerfile
@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL:
+      DATABASE_URL: "postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}"
 
 volumes:
   db-data:
