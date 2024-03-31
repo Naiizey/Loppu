@@ -1,4 +1,6 @@
 const express = require("express");
+const db = require("../db/connect");
+const pool = db.getPool();
 
 const router = express.Router();
 
