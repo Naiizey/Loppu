@@ -1,0 +1,30 @@
+.userMenu{
+    height: 100%;
+    width: 95%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+
+.userMenu h2{
+    font-size: 1.25em;
+    max-width: max-content;
+    height: 2em;
+}
+
+.userMenu section{
+    width: 90%;
+    height: 15em;
+    
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.userMenu hr{
+    width: 100%;
+    color: #797979;
+}

@@ -4,6 +4,11 @@
     --dark-grey: #3b3b3b;
 }
 
+*{
+    color: var(--white-shade);
+    overflow: hidden;
+}
+
 main {
     background-color: var(--dark-grey);
 }

@@ -1,0 +1,29 @@
+aside.slider {
+    position: absolute;
+    right: 0;
+    top: 3rem;
+
+    width: 20vw;
+    height: calc(100vh - 3rem);
+
+    background-color: var(--dark-grey);
+
+    padding-top: .5em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+aside.slider svg{
+    cursor: pointer;
+}
+
+aside.slider > svg{
+    position: absolute;
+    top: 0.25em;
+    right: 0.25em;
+
+    z-index: 1;
+}

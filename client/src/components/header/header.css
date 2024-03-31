@@ -35,6 +35,10 @@ ul {
     justify-content: space-between;
 }
 
+nav ul li {
+    cursor: pointer;
+}
+
 svg {
     fill: var(--white-shade);
 }

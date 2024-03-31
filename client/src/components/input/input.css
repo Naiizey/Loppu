@@ -1,0 +1,36 @@
+.inputComponent{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+
+    max-width: 100%;
+}
+
+.inputComponent > .inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+div.inputContainer input{
+    color: var(--dark-grey);
+
+    height: 2em;
+    max-width: 100%;
+    min-width: 80%;
+
+    border:none;
+    border-radius: .5em;
+    padding: 0 .5em;
+}
+
+div.inputContainer svg{
+    height: 2em;
+    fill: transparent;
+}
+
+div.inputContainer svg path, div svg circle{
+    stroke: var(--white-shade);
+    stroke-width: 2;
+}
