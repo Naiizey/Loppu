@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS type (
 );
 CREATE TABLE IF NOT EXISTS sections (
     id SERIAL PRIMARY KEY,
+    id_book_section SERIAL,
     title VARCHAR(255) NOT NULL,
     content JSONB NOT NULL,
     image VARCHAR(255) NOT NULL,
@@ -56,11 +57,12 @@ CREATE TABLE IF NOT EXISTS paths (
     FOREIGN KEY (id_sections) REFERENCES sections(id)
 );
 CREATE TABLE IF NOT EXISTS choices (
+    id_story SERIAL,
     id_section_from SERIAL,
     id_section_to SERIAL,
     content TEXT NOT NULL,
     impact JSONB NOT NULL,
-    PRIMARY KEY (id_section_from, id_section_to)
+    PRIMARY KEY (id_story, id_section_from, id_section_to)
 );
 CREATE TABLE IF NOT EXISTS tags (
     id SERIAL PRIMARY KEY,
