@@ -42,10 +42,8 @@ CREATE TABLE IF NOT EXISTS sections (
     title VARCHAR(255) NOT NULL,
     content JSONB NOT NULL,
     image VARCHAR(255) NOT NULL,
-    user_id INT NOT NULL,
     type_id INT NOT NULL,
     story_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (type_id) REFERENCES type(id),
     FOREIGN KEY (story_id) REFERENCES stories(id)
 );
