@@ -27,7 +27,6 @@ div.inputContainer input{
 
 div.inputContainer svg{
     height: 2em;
-    fill: transparent;
 }
 
 div.inputContainer svg path, div svg circle{

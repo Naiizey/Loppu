@@ -3,17 +3,23 @@ import SettingsMenu from './settingsMenu/settingsMenu';
 import {ReactComponent as CloseCross} from '../../assets/icons/cross.svg'
 import './headerSlider.css';
 
-const HeaderSlider = ({type, setIsSliderOpened}) => {
+const HeaderSlider = ({sliderType, setSliderType, setIsSliderOpened, darkMode, setDarkMode, displayMode, setDisplayMode, lineSpace, setLineSpace}) => {
     return (
         <aside className="slider">
             <CloseCross onClick={() => setIsSliderOpened(false)}/>
             {
-                type === 'user' &&
+                sliderType === 'user' &&
                 <UserProfileMenu/>
             }
             {
-                type === 'settings' && 
-                <SettingsMenu/>
+                sliderType === 'settings' && 
+                <SettingsMenu 
+                    darkMode={darkMode} setDarkMode={setDarkMode} 
+                    displayMode={displayMode} setDisplayMode={setDisplayMode}
+                    lineSpace={lineSpace} setLineSpace={setLineSpace}
+                    setSliderType={setSliderType}
+
+                />
             }
         </aside>
     )

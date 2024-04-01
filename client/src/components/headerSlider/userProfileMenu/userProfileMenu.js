@@ -9,7 +9,7 @@ import { ReactComponent as DeleteIcon } from '../../../assets/icons/delete.svg'
 const UserProfileMenu = () => {
     return (
         <div className="userMenu">
-            <h2>Account parameters</h2>
+            <h2>Account's settings</h2>
             <hr/>
             <section className="userInfos">
                 <Input label="Username" placeholder="username"/>
@@ -22,12 +22,10 @@ const UserProfileMenu = () => {
             </section>
             <hr/>
             <section className="utils">
-                <div>
-                    { /* <h4>Two-factor authentication</h4> */ }
-                    <SliderButton type='danger' Icon={DisconnectIcon} text='Disconnect'/>
-                    <SliderButton type='info' Icon={DataIcon} text='Recover my data'/>
-                    <SliderButton type='danger' Icon={DeleteIcon} text='Delete my account'/>
-                </div>
+                { /* <h4>Two-factor authentication</h4> */ }
+                <SliderButton type="danger" Icon={DisconnectIcon} text="Disconnect"/>
+                <SliderButton type="info" Icon={DataIcon} text="Recover my data"/>
+                <SliderButton type="danger" Icon={DeleteIcon} text="Delete my account"/>
             </section>
         </div>
     )

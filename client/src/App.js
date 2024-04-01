@@ -12,15 +12,27 @@ import HeaderSlider from './components/headerSlider/headerSlider';
 
 
 function App() {
-  const [isSliderOpened, setIsSliderOpened] = useState(true);
+  const [isSliderOpened, setIsSliderOpened] = useState(false);
 
-  const [sliderType, setSliderType] = useState('user');
+  const [sliderType, setSliderType] = useState();
+
+  const [darkMode, setDarkMode] = useState(true);
+
+  const [displayMode, setDisplayMode] = useState("simple");
+
+  const [lineSpace, setLineSpace] = useState(1);
 
   return (
     <Router>
       <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
       {isSliderOpened && 
-        <HeaderSlider type={sliderType} setIsSliderOpened={setIsSliderOpened}/>
+        <HeaderSlider 
+          sliderType={sliderType} setSliderType={setSliderType}
+          setIsSliderOpened={setIsSliderOpened} 
+          darkMode={darkMode} setDarkMode={setDarkMode} 
+          displayMode={displayMode} setDisplayMode={setDisplayMode}
+          lineSpace={lineSpace} setLineSpace={setLineSpace}
+        />
       }
       <Routes>
         <Route

@@ -21,7 +21,6 @@
 
 .slider-button-danger{
     background-color: #E40000;
-    text-align: justify;
 
     color: var(--dark-grey);
     stroke: var(--dark-grey);
@@ -33,7 +32,6 @@
 
 .slider-button-info{
     background-color: #2360FF;
-    text-align: justify;
 
     color: var(--white-shade);
     stroke: var(--white-shade);
@@ -41,4 +39,17 @@
 
 .slider-button-info path{
     fill: var(--white-shade);
+}
+
+.slider-button-incoming{
+    background-color: black;
+
+    color: var(--dark-grey);
+    stroke: var(--dark-grey);
+
+    opacity: .8;
+}
+
+.slider-button-incoming path{
+    fill: var(--dark-grey);
 }
