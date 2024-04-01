@@ -14,7 +14,7 @@ services:
       - "${DATABASE_PORT}:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
-      - ./server/db/0-init.sql:/docker-entrypoint-initdb.d/0-init.sql
+      - ./containers/db/0-init.sql:/docker-entrypoint-initdb.d/0-init.sql
     environment:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}

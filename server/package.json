@@ -1,24 +1,17 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "name": "loppu_backend",
+  "version": "0.0.1",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Naiizey/Loppu.git"
-  },
-  "author": "Nediek",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Naiizey/Loppu/issues"
-  },
-  "homepage": "https://github.com/Naiizey/Loppu#readme",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "express": "^4.19.2",
-    "pg": "^8.11.4"
+    "express": "^4.18.3",
+    "pg": "^8.10.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
