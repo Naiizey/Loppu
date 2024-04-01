@@ -16,7 +16,7 @@
 
 .userMenu section{
     width: 90%;
-    height: 15em;
+    min-height: 10em;
     
     align-self: center;
     display: flex;
@@ -27,4 +27,10 @@
 .userMenu hr{
     width: 100%;
     color: #797979;
+}
+
+.userMenu .utils div{
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
 }

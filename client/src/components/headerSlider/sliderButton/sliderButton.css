@@ -1,0 +1,44 @@
+[class*=slider-button]{
+    width: 100%;
+    height: 3rem;
+    font-size: 1em;
+    padding: 0 2em;
+
+    border: none;
+    border-radius: .5em;
+
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+[class*=slider-button] svg{
+    height: 2em;
+    vertical-align: middle;
+}
+
+.slider-button-danger{
+    background-color: #E40000;
+    text-align: justify;
+
+    color: var(--dark-grey);
+    stroke: var(--dark-grey);
+}
+
+.slider-button-danger path{
+    fill: var(--dark-grey);
+}
+
+.slider-button-info{
+    background-color: #2360FF;
+    text-align: justify;
+
+    color: var(--white-shade);
+    stroke: var(--white-shade);
+}
+
+.slider-button-info path{
+    fill: var(--white-shade);
+}
