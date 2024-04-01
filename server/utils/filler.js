@@ -69,11 +69,9 @@ pool.connect().then(async () => {
 
     for (var i = 1; i <= max_section; i++) {
         var section = dico[i].section;
-        var turnToNumbers = dico[i].turnToNumbers;
         var id_book_section = i;
         var content = {
-            text: section,
-            turnToNumbers: turnToNumbers
+            text: section
         };
 
         var sectionInsertResult = await pool.query("INSERT INTO sections (id_book_section,title, content, image, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", [id_book_section,title, content, image, type_id, story_id]);
