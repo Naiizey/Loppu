@@ -5,8 +5,8 @@ const readline = require('readline');
 
 var calling_file_path = require('path').dirname(require.main.filename) + "/";
 
-var characters = ["../db/brindlebeard.json", "../db/hilgaHagsnot.json", "../db/torTheTerrible.json"];
-var story_path = "../db/RAMPAGE.json";
+var characters = ["../../misc/brindlebeard.json", "../../misc/hilgaHagsnot.json", "../../misc/torTheTerrible.json"];
+var story_path = "../../misc/RAMPAGE.json";
 
 // transform the relative paths to absolute paths
 characters = characters.map((character) => calling_file_path + character);
@@ -72,13 +72,13 @@ pool.connect().then(async () => {
     for (var i = 1; i <= max_section; i++) {
         var section = dico[i].section;
         var turnToNumbers = dico[i].turnToNumbers;
-
+        var id_book_section = i;
         var content = {
             text: section,
             turnToNumbers: turnToNumbers
         };
 
-        var sectionInsertResult = await pool.query("INSERT INTO sections (title, content, image, user_id, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", [title, content, image, user_id, type_id, story_id]);
+        var sectionInsertResult = await pool.query("INSERT INTO sections (id_book_section,title, content, image, user_id, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id", [id_book_section,title, content, image, user_id, type_id, story_id]);
     }
 
     console.log("story created: " + story_name);
@@ -104,12 +104,13 @@ pool.connect().then(async () => {
         var turnToNumbers = dico[i].turnToNumbers;
 
         for (var j = 0; j < turnToNumbers.length; j++) {
+            var id_story = story_id;
             var id_section_from = i;
             var id_section_to = turnToNumbers[j];
             var content = "unknown";
             var impact = JSON.stringify({});
 
-            var choiceInsertResult = await pool.query("INSERT INTO choices (id_section_from, id_section_to, content, impact) VALUES ($1, $2, $3, $4)", [id_section_from, id_section_to, content, impact]);
+            var choiceInsertResult = await pool.query("INSERT INTO choices (id_story, id_section_from, id_section_to, content, impact) VALUES ($1, $2, $3, $4, $5)", [id_story ,id_section_from, id_section_to, content, impact]);
         }
     }
     console.log("database filled with the choices");
