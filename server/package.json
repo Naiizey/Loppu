@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Naiizey/Loppu#readme",
   "dependencies": {
-    "express": "^4.19.2"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.4"
   }
 }

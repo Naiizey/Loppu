@@ -8,3 +8,5 @@ Then you can run the following command in the root of the project:
 ```bash
 docker-compose up -d
 ```
+
+## Node Server (API)
