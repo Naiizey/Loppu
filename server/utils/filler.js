@@ -62,7 +62,6 @@ pool.connect().then(async () => {
     var userInsertResult = await pool.query("INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING id", [username, password, email]);
 
     // insert the sections
-    var user_id = userInsertResult.rows[0].id;
     var story_id = storyInsertResult.rows[0].id;
     var type_id = typeInsertResult.rows[0].id;
     var title = "unknown";
@@ -77,7 +76,7 @@ pool.connect().then(async () => {
             turnToNumbers: turnToNumbers
         };
 
-        var sectionInsertResult = await pool.query("INSERT INTO sections (id_book_section,title, content, image, user_id, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id", [id_book_section,title, content, image, user_id, type_id, story_id]);
+        var sectionInsertResult = await pool.query("INSERT INTO sections (id_book_section,title, content, image, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", [id_book_section,title, content, image, type_id, story_id]);
     }
 
     console.log("story created: " + story_name);
