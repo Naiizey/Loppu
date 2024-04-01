@@ -8,6 +8,10 @@ main {
     color: var(--white-shade);
 }
 
+h1, h2 {
+    font-family: 'Inria-Sans-Regular', sans-serif;
+}
+
 h1 {
     font-size: 2em;
 }
