@@ -1,7 +1,6 @@
 const db = require("../db/connect");
 const pool = db.getPool();
 const fs = require('fs');
-const readline = require('readline');
 
 var calling_file_path = require('path').dirname(require.main.filename) + "/";
 
