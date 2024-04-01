@@ -35,6 +35,10 @@ for (var i = 1; i <= max_section; i++) {
 
     var matches = [...section.matchAll(regex_turn)];
     var turnToNumbers = matches.map(match => match[1]);
+
+    // Convert turnToNumbers to a Set to remove duplicates, then convert it back to an array
+    turnToNumbers = [...new Set(turnToNumbers)];
+
     dico[i] = {section, turnToNumbers};
 }
 
@@ -77,5 +81,41 @@ pool.connect().then(async () => {
         var sectionInsertResult = await pool.query("INSERT INTO sections (title, content, image, user_id, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", [title, content, image, user_id, type_id, story_id]);
     }
 
-    console.log("done, database filled with the story: " + story_name);
+    console.log("story created: " + story_name);
+
+    // insert the characters
+    for (var i = 0; i < characters.length; i++) {
+        var character = characters[i];
+        var name = character.name;
+        var description = character.description.text;
+        var image = "unknown.png";
+        var story_id = story_id;
+        var base_stats = JSON.stringify({"strength":character.strength, "intelligence": character.intelligence, "resistance":character.resistance});
+        var base_stuff = JSON.stringify({"stuff":character.stuff, "inventory": character.inventory});
+
+        var characterInsertResult = await pool.query("INSERT INTO characters_models (name, description, image, story_id, base_stats, base_stuff) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", [name, description, image, story_id, base_stats, base_stuff]);
+    }
+
+    console.log("database filled with the characters: " + characters.map(character => character.name).join(", "));
+    
+    // fill the choice with the turns
+    for (var i = 1; i <= max_section; i++) {
+        var section = dico[i].section;
+        var turnToNumbers = dico[i].turnToNumbers;
+
+        for (var j = 0; j < turnToNumbers.length; j++) {
+            var id_section_from = i;
+            var id_section_to = turnToNumbers[j];
+            var content = "unknown";
+            var impact = JSON.stringify({});
+
+            var choiceInsertResult = await pool.query("INSERT INTO choices (id_section_from, id_section_to, content, impact) VALUES ($1, $2, $3, $4)", [id_section_from, id_section_to, content, impact]);
+        }
+    }
+    console.log("database filled with the choices");
+
+    pool.end();
+    console.log("database filled with the story: " + story_name);
+    process.exit();
 });
+
