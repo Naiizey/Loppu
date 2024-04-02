@@ -6,23 +6,37 @@
     "choices": [
       {
         "text": "Try to open the gates",
-        "goto": 26,
         "requires": {
-          "type": "roll",
-          "value": 1,
-          "comparison": "<",
-          "attribute": "strength"
+          "action" : {
+            "type": "dice",
+            "text": "",
+            "numberOfDice": 1,
+            "diceResult": [
+              {
+                "checkType": "comparison",
+                "stat": "strength",
+                "operator": "<",
+                "successText": "You have opened the gates",
+                "goto": 26
+              },
+              {
+                "checkType": "comparison",
+                "stat": "strength",
+                "operator": ">=",
+                "failureText": "You fail to open the gate",
+                "impact": {
+                  "stats": {
+                    "resistance": -1
+                  }
+                }
+              }
+            ]
+          }
         }
       },
       {
-        "text": "Give up and go back to your cave",
-        "goto": 50,
-        "requires": {
-          "type": "roll",
-          "value": 1,
-          "comparison": ">=",
-          "attribute": "strength"
-        }
+        "text": "Go back to your cave",
+        "goto": 50
       }
     ]
   },
@@ -63,8 +77,10 @@
         "text": "Throw a boulder at Vaed",
         "goto": 22,
         "requires": {
-          "type": "item",
-          "item": "boulder"
+          "action" : {
+            "type": "item",
+            "item": "boulder"
+          }
         }
       },
       {
@@ -73,11 +89,11 @@
       }
     ],
     "win": {
-      "text": "You have slain the innkeeper. Tick the box above. You may add the Keg of Beer (1 Food Point) he was sitting on, to your Sack. Turn to 22.",
+      "text": "You have slain the innkeeper. Tick the box above. You may add the Keg of Beer (1 Food Point) he was sitting on, to your Sack.",
       "goto": 22
     },
     "lose": {
-      "text": "Vaed reduces your TUFF score to zero. Turn to 13.",
+      "text": "Vaed reduces your TUFF score to zero.",
       "goto": 13
     }
   },
@@ -96,8 +112,10 @@
         "text": "Throw a boulder at the Yobbos",
         "goto": 12,
         "requires": {
-          "type": "item",
-          "item": "boulder"
+          "action": {
+            "type": "item",
+            "item": "boulder"
+          }
         }
       },
       {
@@ -106,11 +124,11 @@
       }
     ],
     "win": {
-      "text": "You have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You can: Assault the tower turn to 18 Leave the area turn to 12",
+      "text": "You have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You can: Assault the tower turn to 18 Leave the area",
       "goto": 12
     },
     "lose": {
-      "text": "The Yobbos reduce your TUFF score to zero. Turn to 13.",
+      "text": "The Yobbos reduce your TUFF score to zero.",
       "goto": 13
     }
   },
@@ -128,9 +146,11 @@
       {
         "text": "Throw a boulder at Stubbs",
         "goto": 19,
-        "requires": {
-          "type": "item",
-          "item": "boulder"
+        "require": {
+          "action" : {
+            "type" : "item",
+            "item": "boulder"
+          }
         }
       },
       {
@@ -139,11 +159,11 @@
       }
     ],
     "win": {
-      "text": "You have slain the insolent Dwarf. Turn to 19.",
+      "text": "You have slain the insolent Dwarf",
       "goto": 19
     },
     "lose": {
-      "text": "Stubbs reduces your TUFF score to zero. Turn to 13.",
+      "text": "Stubbs reduces your TUFF score to zero",
       "goto": 13
     }
   },
