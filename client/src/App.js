@@ -8,6 +8,7 @@ import {
 import './App.css';
 import HomePage from './pages/homePage/homePage'
 import Header from './components/header/header'
+import CharacterSelection from './pages/characterSelection/characterSelection'
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
           exact
           path="/"
           element={ <HomePage/> }
+        />
+        <Route
+          path="/characterSelection"
+          element={ <CharacterSelection/> }
         />
       </Routes>
     </Router>
