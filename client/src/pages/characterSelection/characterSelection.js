@@ -4,14 +4,14 @@ import CharacterSheet from '../../components/characterSheet/characterSheet';
 
 const characterSelection = () => {
     return (
-        <main id="characterSelection">
+        <section id="characterSelection">
             <h1>Choose your character</h1>
             <ul>
-                <CharacterSheet img="https://via.placeholder.com/150" name="John" strength="10" intelligence="5" resistance="8" luck="3" perso="John"/>
-                <CharacterSheet img="https://via.placeholder.com/150" name="Jane" strength="5" intelligence="10" resistance="3" luck="8" perso="Jane"/>
-                <CharacterSheet img="https://via.placeholder.com/150" name="Jack" strength="8" intelligence="3" resistance="10" luck="5" perso="Jack"/>
+                <CharacterSheet name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150"/>
+                <CharacterSheet name="Mage" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["staff", "spellbook"]} img="https://via.placeholder.com/150"/>
+                <CharacterSheet name="Rogue" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["dagger", "lockpick"]} img="https://via.placeholder.com/150"/>
             </ul>
-        </main>
+        </section>
     )
 };
 

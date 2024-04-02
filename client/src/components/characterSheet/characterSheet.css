@@ -1,9 +1,9 @@
-main#characterScharacterSheetelection hr{
+#characterSheet > hr{
     color : var(--white-shade);
     width: 100%;
 }
 
-main#characterScharacterSheetelection button{
+#characterSheet button{
     padding: 1em 2em;
     background-color: var(--grey-button-sel-char);
     color: var(--black-text-on-grey-button);
@@ -13,14 +13,14 @@ main#characterScharacterSheetelection button{
     cursor: pointer;
 }
 
-main#characterScharacterSheetelection ul{
+#characterSheet ul{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 16em;
 }
 
-main#characterScharacterSheetelection ul > li{
+#characterSheet ul > li{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
