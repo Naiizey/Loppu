@@ -4,7 +4,14 @@
         "conditionnals": {
             "already_passed": {
                 "times": 1,
-                "goto": 14
+                "goto": {
+                    "id_section" : 14,
+                    "impact" : {
+                        "stats" : [
+
+                        ]
+                    }
+                }
             },
             "dice": {
                 "message": "you try to open the gates",
@@ -12,14 +19,28 @@
                     ">=": {
                         "stat": "force",
                         "then": {
-                            "goto": 26,
+                            "goto": {
+                                "id_section" : 26,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ]
+                                }
+                            },
                             "message": "you open the gates"
                         }
                     },
                     "<": {
                         "stat": "force",
                         "then": {
-                            "goto": 13,
+                            "goto": {
+                                "id_section" : 13,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ]
+                                }
+                            },
                             "message": "gnomes fire arrows at you"
                         }
                     }
@@ -32,7 +53,14 @@
         "conditionnals": {
             "already_passed": {
                 "times": 5,
-                "goto": 14
+                "goto": {
+                    "id_section" : 14,
+                    "impact" : {
+                        "stats" : [
+                            
+                        ]
+                    }
+                }
             },
             "dice": {}
         }
@@ -42,7 +70,14 @@
         "conditionnals": {
             "already_passed": {
                 "times": 1,
-                "goto": 22
+                "goto": {
+                    "id_section" :22,
+                    "impact" : {
+                        "stats" : [
+                            
+                        ]
+                    }
+                }
             },
             "dice": {
                 "message": "throw a Boulder at Vaed",
@@ -50,14 +85,28 @@
                     ">=": {
                         "stat": "force",
                         "then": {
-                            "goto": 22,
+                            "goto": {
+                                "id_section" :22,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ]
+                                }
+                            },
                             "message": "sucess"
                         }
                     },
                     "<": {
                         "stat": "force",
                         "then": {
-                            "goto": 13,
+                            "goto": {
+                                "id_section" :13,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ]
+                                }
+                            },
                             "message": "You miss"
                         }
                     }
