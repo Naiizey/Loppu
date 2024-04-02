@@ -1,17 +1,16 @@
-main {
+main#home{
     display: flex;
     flex-direction: column;
     align-items: center;
     row-gap: 2em;
-    padding: 4em 2em 0;
-    background-color: var(--dark-grey);
+    padding-top: 2em;
     color: var(--white-shade);
 }
 
-h1, h2 {
+main#home h1, main#home h2{
     font-family: 'Inria-Sans-Regular', sans-serif;
 }
 
-h1 {
+main#home h1{
     font-size: 2em;
 }

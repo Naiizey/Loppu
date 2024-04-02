@@ -1,99 +1,103 @@
-:root {
+:root{
     font-size: calc(1rem + 0.25vw);
     --white-shade: #fafafa;
     --dark-grey: #3b3b3b;
-    --grey-shade: #747272 ;
+    --grey-shade: #747272;
+    --light-grey: #d8d8d8;
 }
 
-main {
+body{
+    height: 100vh;
+    color: var(--white-shade);
     background-color: var(--dark-grey);
+    overflow: hidden;
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Regular";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-regular-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-regular-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Medium";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-medium-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-medium-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Light";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-light-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-light-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Semi-Bold";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-semibold-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-semibold-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Bold";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-bold-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-bold-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Extra-Bold";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-extrabold-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-extrabold-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inknut-Antiqua-Black";
     src:
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-black-webfont.woff2") format('woff2'),
         url("assets/fonts/Inknut_Antiqua/inknutantiqua-black-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inria-Sans-Regular";
     src:
         url("assets/fonts/Inria_Sans/inriasans-regular-webfont.woff2") format('woff2'),
         url("assets/fonts/Inria_Sans/inriasans-regular-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inria-Sans-Light";
     src:
         url("assets/fonts/Inria_Sans/inriasans-light-webfont.woff2") format('woff2'),
         url("assets/fonts/Inria_Sans/inriasans-light-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inria-Sans-Bold";
     src:
         url("assets/fonts/Inria_Sans/inriasans-bold-webfont.woff2") format('woff2'),
         url("assets/fonts/Inria_Sans/inriasans-bold-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inria-Sans-Italic";
     src:
         url("assets/fonts/Inria_Sans/inriasans-italic-webfont.woff2") format('woff2'),
         url("assets/fonts/Inria_Sans/inriasans-italic-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inria-Sans-Bold-Italic";
     src:
         url("assets/fonts/Inria_Sans/inriasans-bolditalic-webfont.woff2") format('woff2'),
         url("assets/fonts/Inria_Sans/inriasans-bolditalic-webfont.woff") format('woff');
 }
 
-@font-face {
+@font-face{
     font-family: "Inria-Sans-Light-Italic";
     src:
         url("assets/fonts/Inria_Sans/inriasans-lightitalic-webfont.woff2") format('woff2'),
