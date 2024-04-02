@@ -1,5 +1,5 @@
 .largeButtonComponent{
-    height: 3rem;
+    height: 2.5rem;
     width: 100%;
 }
 
@@ -33,7 +33,7 @@ button[class*=button]{
 }
 
 [class^=largeButton] > button svg{
-    height: 2em;
+    height: 1.5em;
 }
 
 [class^=mediumButton] > button{

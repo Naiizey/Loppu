@@ -17,8 +17,7 @@ div.inputContainer input{
     color: var(--dark-grey);
 
     height: 2em;
-    max-width: 100%;
-    min-width: 80%;
+    flex-grow: 1;
 
     border:none;
     border-radius: .5em;

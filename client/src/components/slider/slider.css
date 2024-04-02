@@ -1,19 +1,18 @@
 aside.slider {
     position: absolute;
     right: 0;
-    top: 3rem;
-
+    top: 0;
+    bottom: 0;
+    font-family: 'Inria-Sans-Regular', sans-serif;
     width: 20vw;
-    height: calc(100vh - 3rem);
-
     padding-top: .5em;
-
+    
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
-
-    box-shadow: inset 1px 0 5px var(--grey-shade);
+    
+    border-left: 1px solid var(--grey-shade);
+    background-color: rgb(55, 55, 55);
 }
 
 aside.slider svg{

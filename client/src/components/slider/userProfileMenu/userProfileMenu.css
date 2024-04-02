@@ -17,7 +17,7 @@
 
 .userMenu section{
     width: 90%;
-    min-height: 10em;
+    flex-grow: 1;
     
     align-self: center;
     display: flex;

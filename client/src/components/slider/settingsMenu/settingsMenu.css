@@ -13,6 +13,7 @@
 .incoming{
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 
     width: 100%;
 
@@ -26,7 +27,7 @@
 
     content: "Incoming";
     font-size: 2em;
-    background-color: var(--dark-grey);
+    background-color: rgb(55, 55, 55);
     opacity: .95;
 
     position: absolute;
@@ -45,8 +46,7 @@
 
 .settingsMenu section{
     width: 90%;
-    min-height: 7.5em;
-    height: max-content;
+    flex-grow: 1;
     
     align-self: center;
     display: flex;
