@@ -288,90 +288,94 @@
   },
   "46": {
     "text": " Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
-    "type": "dice",
-    "numberOfDice": 1,
-    "dice_result": [
-      {
-        "checkType": "fromTo",
-        "from": 1,
-        "to": 1,
-        "impact": {
-          "stats": {
-            "resistance": -1
-          }
-        }
-      },
-      {
-        "checkType": "fromTo",
-        "from": 2,
-        "to": 2,
-        "impact": {
-          "stats": {
-            "resistance": -2
-          }
-        }
-      },
-      {
-        "checkType": "fromTo",
-        "from": 3,
-        "to": 3,
-        "impact": {
-          "stats": {
-            "resistance": -3
-          }
-        }
-      },
-      {
-        "checkType": "fromTo",
-        "from": 4,
-        "to": 4,
-        "impact": {
-          "stats": {
-            "resistance": -4
-          }
-        }
-      },
-      {
-        "checkType": "fromTo",
-        "from": 5,
-        "to": 5,
-        "impact": {
-          "stats": {
-            "resistance": -5
-          }
-        }
-      },
-      {
-        "checkType": "fromTo",
-        "from": 6,
-        "to": 6,
-        "impact": {
-          "stats": {
-            "resistance": -6
-          }
-        }
-      }
-    ],
-    "loose": {
-      "text": "The fiery blast of blue energy incinerates you where you stand!",
-      "goto": 13
-    },
-    "win": {
-      "text": "The blast also destroys your inventory and any items it contains Blackened, charred, and scorched nearly to the bone, but still alive.",
-      "impact": {
-        "stuff": "delete_all"
-      },
-      "type": "story",
-      "choices": [
+    "action": {
+      "type": "dice",
+      "numberOfDice": 1,
+      "dice_result": [
         {
-          "text": "Assault the tower",
-          "goto": 18
+          "checkType": "fromTo",
+          "from": 1,
+          "to": 1,
+          "impact": {
+            "stats": {
+              "resistance": -1
+            }
+          }
         },
         {
-          "text": "Leave the area",
-          "goto": 12
+          "checkType": "fromTo",
+          "from": 2,
+          "to": 2,
+          "impact": {
+            "stats": {
+              "resistance": -2
+            }
+          }
+        },
+        {
+          "checkType": "fromTo",
+          "from": 3,
+          "to": 3,
+          "impact": {
+            "stats": {
+              "resistance": -3
+            }
+          }
+        },
+        {
+          "checkType": "fromTo",
+          "from": 4,
+          "to": 4,
+          "impact": {
+            "stats": {
+              "resistance": -4
+            }
+          }
+        },
+        {
+          "checkType": "fromTo",
+          "from": 5,
+          "to": 5,
+          "impact": {
+            "stats": {
+              "resistance": -5
+            }
+          }
+        },
+        {
+          "checkType": "fromTo",
+          "from": 6,
+          "to": 6,
+          "impact": {
+            "stats": {
+              "resistance": -6
+            }
+          }
         }
-      ]
+      ],
+      "loose": {
+        "text": "The fiery blast of blue energy incinerates you where you stand!",
+        "goto": 13
+      },
+      "win": {
+        "text": "The blast also destroys your inventory and any items it contains Blackened, charred, and scorched nearly to the bone, but still alive.",
+        "impact": {
+          "stuff": "delete_all"
+        },
+        "action": {
+          "type": "story",
+          "choices": [
+            {
+              "text": "Assault the tower",
+              "goto": 18
+            },
+            {
+              "text": "Leave the area",
+              "goto": 12
+            }
+          ]
+        }
+      }
     }
   },
   "47": {
