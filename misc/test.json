@@ -482,7 +482,6 @@
           "stuff": [
             {
               "name": "Legendary Sword of Goff",
-              //  "legendary Sword of Goff (HURT 3)"
               "quantity": 1,
               "type": "weapon"
             },
@@ -494,6 +493,304 @@
           ]
         }
       }
+    }
+  },
+  "16": {
+    "action": {
+      "type": "story",
+      "text": "Glowing blue chains of scorching electrical energy surround you in a crackling prison. The sorcery rends a hole in space, and, in the blink of an eye, teleports you away from your current location to another part of the town.",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "fromTo",
+                  "from": 1,
+                  "to": 2,
+                  "goto": 20
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 3,
+                  "to": 4,
+                  "goto": 25
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 5,
+                  "to": 6,
+                  "goto": 40
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "17": {
+    "action": {
+      "type": "story",
+      "text": "You are at the Temple of Goff.",
+      "choices": [
+        {
+          "text": "Go North, to the Workshop of Hicobemus",
+          "goto": 40
+        },
+        {
+          "text": "Go South, to the livestock pens",
+          "goto": 30
+        },
+        {
+          "text": "Go West, to the forge",
+          "goto": 5
+        }
+      ]
+    }
+  },
+  "18": {
+    "action": {
+      "type": "story",
+      "text": "Gastromo's white-walled tower sits spell-tight and magically locked. It will take an immense effort to break through its defences.",
+      "choices": [
+        {
+          "text": "Try to flatten the tower",
+          "requires": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "comparison",
+                  "stat": "strength",
+                  "operator": "<",
+                  "successText": "You have razed the tower",
+                  "goto": 21
+                },
+                {
+                  "checkType": "comparison",
+                  "stat": "strength",
+                  "operator": ">=",
+                  "failureText": "You fail to raze the tower",
+                  "impact": {
+                    "stats": {
+                      "resistance": -1
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "text": "Go back somewhere else",
+          "goto": 12
+        }
+      ]
+    }
+  },
+  "19": {
+    "action": {
+      "text": "You ransack the forge by lifting the roof off the building, and reach inside with a grubby fist. Most of its contents are useless. Unfortunately, you knock over a barrel of pitch, which spills into the fireplace, and before long the entire forge is ablaze with roaring flames.",
+      "type": "story",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "action": {
+            "type": "dice",
+            "text": "",
+            "numberOfDice": 1,
+            "diceResult": [
+              {
+                "checkType": "comparison",
+                "stat": "intelligence",
+                "operator": "<",
+                "successText": "You manage to avoid the flames",
+                "impact": {
+                  "stuff": [
+                    {
+                      "name": "Shield",
+                      "quantity": 1,
+                      "type": "armor"
+                    }
+                  ]
+                },
+                "goto": 2
+              },
+              {
+                "checkType": "comparison",
+                "stat": "intelligence",
+                "operator": ">=",
+                "failureText": "You suffer burns",
+                "impact": {
+                  "stats": {
+                    "resistance": -1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "20": {
+    "action": {
+      "alreadyVisited": 3,
+      "type": "combat",
+      "text": "The Blue Crab Tavern sits atop a grassy rise overlooking the market, and as you stomp up the path towards it, most of the patrons flee out the back and away to the north. One figure remains, a tall muscular human holding a dark-bladed sword. It is none other than Yadda Blackhead, an albino warrior with a bad skin complexion. His magical blade Soultaker is sentient and reputed to steal the spirits of those it wounds. \"Every bloody time!\" he rants at you. \"Can't you monsters give me a moment's peace? All I want is a quiet afternoon quaffing ale and carousing with tavern wenches, but, no, you have to decide to attack Boulder Ford today…\" \"Could be worse,\" adds Soultaker in a metallic voice. \"At least it's not Malthus Fire, seeking revenge for that time with his wife Delectia when you…\" \"Silence!' screams Yadda, charging towards you, waving the talkative sword. You must fight one of the greatest heroes in all Gallansia! If you want. However",
+      "enemy": {
+        "name": "Yadda Blackhead",
+        "strength": 4,
+        "toughness": 4,
+        "hurt": 2
+      },
+      "choices": [
+        {
+          "text": "Throw a boulder at Yadda",
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          },
+          "impact": {
+            "stats": {
+              "résistance": {
+                "operator": "-",
+                "value": 2
+              }
+            }
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 22
+        }
+      ],
+      "loose": {
+        "text": "Yadda reduces your strenght score to zero",
+        "goto": 13
+      },
+      "win": {
+        "text": "You have triumphed over one of Gallansia's selected scions of glory!",
+        "goto": 11,
+        "impact": {
+          "stuff": [
+            {
+              "name": "Soultaker",
+              "quantity": 1,
+              "type": "treasure"
+            }
+          ],
+          "stats": {
+            "inteligence": {
+              "operator": "-",
+              "value": 1
+            }
+          }
+        }
+      }
+    }
+  },
+  "21": {
+    "action": {
+      "text": "You succeed in toppling the tower of Gastromo the Wizard, despite whatever magic he had enchanted his dwelling with! With a long inhuman groan, the whole structure collapses in on itself, raising a huge cloud of white dust. Coughing and retching, you pick over the rubble, looking for items of interest. There is no sign of Gastromo.",
+      "type": "story",
+      "choices": [
+        {
+          "text": "Add a boulder to your inventory",
+          "goto": 12,
+          "impact": {
+            "stuff": [
+              {
+                "name": "Boulder",
+                "quantity": 1,
+                "type": "weapon"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Add a Barrel of Wine to your inventory",
+          "goto": 12,
+          "impact": {
+            "stuff": [
+              {
+                "name": "Barrel of Wine",
+                "quantity": 1,
+                "type": "food"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Add a Crate of Sweetcakes to your inventory",
+          "goto": 12,
+          "impact": {
+            "stuff": [
+              {
+                "name": "Crate of Sweetcakes",
+                "quantity": 1,
+                "type": "food"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Add a Brass Telescope to your inventory",
+          "goto": 12,
+          "impact": {
+            "stuff": [
+              {
+                "name": "Brass Telescope",
+                "quantity": 1,
+                "type": "treasure"
+              }
+            ]
+          }
+        },
+        {
+          "text": "Add an Ebony Staff to your inventory",
+          "goto": 12,
+          "impact": {
+            "stuff": [
+              {
+                "name": "Ebony Staff",
+                "quantity": 1,
+                "type": "treasure"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "22": {
+    "action": {
+      "type": "story",
+      "text": "You are at the Blue Crab Tavern.",
+      "choices": [
+        {
+          "text": "Go North, to the mansion of Bronze the Merchant",
+          "goto": 35
+        },
+        {
+          "text": "Go East, to the market",
+          "goto": 45
+        }
+      ]
+    }
+  },
+  "23": {
+    
+    "action" : {
+      "text" : "The forge, and many of the surrounding buildings, have all burned down, and are now little more than blackened shells and smoking piles of ash. If there is a tick in the above box, you have Been Here Before. Turn to 2. Otherwise, read on. True to form, Stubbs was a miserly Dwarf, and now that his forge is no more, you spot his magical strongbox lying unburned among the ruins. Cracking it open with your weapon reveals gold and jewels beyond your feeblest imaginings! Add the Dwarven Strongbox (3 Loot Points) to your Sack, and tick the box above. Turn to 2."
+
     }
   },
   "46": {
@@ -651,6 +948,7 @@
               "numberOfDice": 1,
               "diceResult": [
                 {
+                  "checkType": "fromTo",
                   "from": 1,
                   "to": 2,
                   "stuff": {

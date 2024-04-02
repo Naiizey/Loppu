@@ -38,5 +38,44 @@
     "name": "Gold statue of Goff",
     "type": "treasure",
     "loot_points": 2
-  }
+  },
+  "8" : {
+    "name" : "legendary Sword of Goff",
+    "type" : "weapon",
+    "stats" : {
+      "strength" : 3
+    }
+  },
+  "9" : {
+    "name" : "shield",
+    "type" : "armor",
+    "stats" : {
+      "defense" : 2
+    }
+  },
+  "10" : {
+    "name" : "soultaker",
+    "type" : "treasure",
+    "loot_points" : 3
+  },
+  "11" : {
+    "name" : "Barrel of Wine",
+    "type" : "food",
+    "food_points" : 1
+  },
+  "12" : {
+    "name" : "Crate of Sweetcakes",
+    "type" : "food",
+    "food_points" : 2
+  },
+  "13" : {
+    "name" : "Brass Telescope",
+    "type" : "treasure",
+    "loot_points" : 1
+  },
+  "14" : {
+    "name" : "Ebony Staff",
+    "type" : "treasure",
+    "loot_points" : 1
+  },
 }
