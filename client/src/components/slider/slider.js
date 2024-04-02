@@ -1,7 +1,7 @@
 import UserProfileMenu from './userProfileMenu/userProfileMenu';
 import SettingsMenu from './settingsMenu/settingsMenu';
 import {ReactComponent as CloseCross} from '../../assets/icons/cross.svg'
-import './headerSlider.css';
+import './slider.css';
 
 const HeaderSlider = ({sliderType, setSliderType, setIsSliderOpened, darkMode, setDarkMode, displayMode, setDisplayMode, lineSpace, setLineSpace}) => {
     return (

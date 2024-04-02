@@ -8,7 +8,7 @@ import {
 import './App.css';
 import HomePage from './pages/homePage/homePage'
 import Header from './components/header/header'
-import HeaderSlider from './components/headerSlider/headerSlider';
+import Slider from './components/slider/slider';
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
     <Router>
       <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
       {isSliderOpened && 
-        <HeaderSlider 
+        <Slider 
           sliderType={sliderType} setSliderType={setSliderType}
           setIsSliderOpened={setIsSliderOpened} 
           darkMode={darkMode} setDarkMode={setDarkMode} 

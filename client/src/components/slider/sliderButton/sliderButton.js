@@ -1,9 +1,10 @@
 import './sliderButton.css'
+import Button from '../../button/button'
 
 const SliderButton = ({type, Icon, text, onClick}) => {
     return(
         <div>
-            <button type="button" className={`slider-button-${type}`} title={type === "incoming" ? "Incoming" : ""} onClick={onClick}><Icon/>{text}</button>
+            <Button size="large" type={type} Icon={Icon} text={text} onClick={onClick}/>
         </div>
     );
 }

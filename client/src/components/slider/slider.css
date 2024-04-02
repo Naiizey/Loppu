@@ -6,14 +6,14 @@ aside.slider {
     width: 20vw;
     height: calc(100vh - 3rem);
 
-    background-color: var(--dark-grey);
-
     padding-top: .5em;
 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
+    box-shadow: inset 1px 0 5px var(--grey-shade);
 }
 
 aside.slider svg{
@@ -23,7 +23,7 @@ aside.slider svg{
 
 aside.slider > svg{
     position: absolute;
-    top: 0.25em;
+    top: 0.5em;
     right: 0.25em;
 
     z-index: 1;

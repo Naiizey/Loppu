@@ -1,4 +1,4 @@
-header {
+header#mainHeader {
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -8,11 +8,11 @@ header {
     background-color: var(--dark-grey);
 }
 
-header a {
+header#mainHeader a {
     display: block;
 }
 
-header div {
+header#mainHeader div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,16 +24,16 @@ header div {
     height: 3em;
 }
 
-header nav {
+header#mainHeader nav {
     width: 8em;
 }
 
-header nav svg {
+header#mainHeader nav svg {
     width: 1.5em;
     height: 1.5em;
 }
 
-header ul {
+header#mainHeader ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -43,11 +43,11 @@ nav ul li {
     cursor: pointer;
 }
 
-header svg {
+header#mainHeader svg {
     fill: var(--white-shade);
 }
 
-header hr {
+header#mainHeader hr {
     height: 2px;
     width: 100%;
     margin: 0;

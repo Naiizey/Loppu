@@ -19,7 +19,7 @@ const Header = ({isSliderOpened, setIsSliderOpened, sliderType, setSliderType}) 
     }
     
     return (
-        <header>
+        <header id="mainHeader">
             <div>
                 <a href="/" id="loppu"><LoppuLogo/></a>
                 <nav>

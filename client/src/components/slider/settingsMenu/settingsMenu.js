@@ -21,8 +21,10 @@ const SettingsMenu = ({darkMode, setDarkMode, displayMode, setDisplayMode, lineS
 
     return (
         <div className="settingsMenu">
-            <h2>Settings</h2>
-            <hr/>
+            <header id="settingsHeader">
+                <h2>Settings</h2>
+                <hr/>
+            </header>
             <section className="darkMode">
                 <h4>Theme</h4>
                 <div className="buttonsContainer">

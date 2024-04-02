@@ -1,0 +1,94 @@
+.largeButtonComponent{
+    height: 3rem;
+    width: 100%;
+}
+
+.mediumButtonComponent{
+    align-self: center;
+
+    height: 2rem;
+    width: 75%;
+}
+
+button[class*=button]{
+    border: none;
+    border-radius: .5em;
+
+    padding: 0 2em;
+    cursor: pointer;
+
+    display: flex;
+    column-gap: 1.5em;
+    align-items: center;
+}
+
+button[class*=button]{
+    vertical-align: middle;
+}
+
+[class^=largeButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+}
+
+[class^=largeButton] > button svg{
+    height: 2em;
+}
+
+[class^=mediumButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: .75em;
+    justify-content: center;
+}
+
+[class^=mediuButton] > button svg{
+    height: 1em;
+}
+
+[class$=button-danger]{
+    background-color: #E40000;
+
+    color: var(--dark-grey);
+    stroke: var(--dark-grey);
+}
+
+[class$=button-danger] path{
+    fill: var(--dark-grey);
+}
+
+[class$=button-info]{
+    background-color: #2360FF;
+
+    color: var(--white-shade);
+    stroke: var(--white-shade);
+}
+
+[class$=button-info] path{
+    fill: var(--white-shade);
+}
+
+[class$=button-incoming]{
+    background-color: black;
+
+    color: var(--dark-grey);
+    stroke: var(--dark-grey);
+
+    opacity: .8;
+}
+
+[class$=button-incoming] path{
+    fill: var(--dark-grey);
+}
+
+[class$=button-success]{
+    background-color: #24F238;
+
+    color: var(--dark-grey);
+    stroke: var(--dark-grey);
+}
+
+[class$=button-incoming] path{
+    fill: var(--dark-grey);
+}

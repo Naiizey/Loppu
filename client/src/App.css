@@ -5,13 +5,11 @@
     --grey-shade: #747272 ;
 }
 
-*{
+body{
+    height: 100vh;
     color: var(--white-shade);
-    overflow: hidden;
-}
-
-main {
     background-color: var(--dark-grey);
+    overflow: hidden;
 }
 
 @font-face {
