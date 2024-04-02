@@ -12,8 +12,8 @@ const UserProfileMenu = () => {
         <div className="userMenu">
             <header id="userHeader">
                 <h2>Account's settings</h2>
+                <hr/>
             </header>
-            <hr/>
             <section className="userInfos">
                 <Input label="Username" placeholder="username"/>
                 <Input label="Email" placeholder="email" />
