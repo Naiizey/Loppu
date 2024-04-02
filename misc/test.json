@@ -155,13 +155,13 @@
         "text": "Save a keg for future reference",
         "goto": 22,
         "impact": {
-          "stuff": {
-            "add": [
-              {
-                "name": "Keg of Beer"
-              }
-            ]
-          },
+          "stuff": [
+            {
+              "name": "Keg of Beer",
+              "quantity": 1,
+              "type": "food"
+            }
+          ],
           "stats": {
             "résistance": {
               "operator": "+",
@@ -173,7 +173,6 @@
             }
           }
         }
-        
       }
     ],
     "impact": {
@@ -201,30 +200,38 @@
     "type": "story",
     "choices": [
       {
-        "text": "Roll the die",
-        "goto": 17
-      }
-    ],
-    "requires": {
-      "type": "roll",
-      "value": 1,
-      "comparison": "<",
-      "attribute": "smarts"
-    },
-    "win": {
-      "text": "You are immune to the effects of the statue's curse. Turn to 17.",
-      "goto": 17
-    },
-    "lose": {
-      "text": "You have been cursed! Your TUFF gets subtracted by 2 and SMARTS by 1. Turn to 17.",
-      "impact": {
-        "stats": {
-          "tuff": -2,
-          "smarts": -1
+        "text": "Roll the dice",
+        "requires": {
+          "action": {
+            "type": "dice",
+            "text": "",
+            "numberOfDice": 1,
+            "diceResult": [
+              {
+                "checkType": "comparison",
+                "stat": "intelligence",
+                "operator": "<",
+                "successText": "You are immune to the effects of the statue's curse",
+                "goto": 17
+              },
+              {
+                "checkType": "comparison",
+                "stat": "intelligence",
+                "operator": ">=",
+                "failureText": "You have been cursed!",
+                "goto": 17,
+                "impact": {
+                  "stats": {
+                    "resistance": -2,
+                    "intelligence": -1
+                  }
+                }
+              }
+            ]
+          }
         }
-      },
-      "goto": 17
-    }
+      }
+    ]
   },
   "9": {
     "action": {
@@ -254,197 +261,228 @@
       "win": {
         "text": "You crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items.",
         "goto": 17,
-        "impact" :{
-          "stuff": {
-            "add": [
-              {
-                "name": "Silver Candelabra"
-              },
-              {
-                "name": "Gold Statue of Goff"
-              }
-            ]
-          }
+        "impact": {
+          "stuff": [
+            {
+              "name": "Silver Candelabra",
+              "quantity": 1,
+              "type": "treasure"
+            },
+            {
+              "name": "Gold Statue of Goff",
+              "quantity": 1,
+              "type": "treasure"
+            }
+          ]
         }
-
-        }
-      },
-      "loose": {
-        "text": "The Curer reduces your TUFF score to zero. Turn to 13.",
-        "goto": 13
       }
+    },
+    "loose": {
+      "text": "The Curer reduces your TUFF score to zero. Turn to 13.",
+      "goto": 13
     }
   },
   "10": {
     "action": {
+      "type": "story",
       "text": "Gastromo's Tower stands like a white fang looming above the Gnomish dwellings of Boulder Ford. Gastromo is a human spellcaster who is good friends with King Brilligan of the Gnomes, and has lived in the town for decades. Some say Gastromo's price for helping to defend Boulder Ford is an unlimited tab at the local bakery. Suddenly the thick door at the base of the tower is thrown open! The fat wizard himself, azure robes straining from containing his enormous bulk, comes shambling out, wiping crumbs from his long white beard and licking his fingers clean. He points one hand at you, makes a series of arcane gestures, and, still with a mouthful of food, mutters something unintelligible. Instantly, the air around you is filled with a glowing blue flash of light. Gastromo has cast a spell upon you!",
-      "type": "dice",
       "alreadyVisited": "18",
-      "numberOfDice": 1,
-      "diceResult": [
+      "choices": [
         {
-          "checkType": "fromTo",
-          "from": 1,
-          "to": 2,
-          "goto": 46
-        },
-        {
-          "checkType": "fromTo",
-          "from": 3,
-          "to": 4,
-          "goto": 16
-        },
-        {
-          "checkType": "fromTo",
-          "from": 5,
-          "to": 6,
-          "goto": 4
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "fromTo",
+                  "from": 1,
+                  "to": 2,
+                  "goto": 46
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 3,
+                  "to": 4,
+                  "goto": 16
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 5,
+                  "to": 6,
+                  "goto": 4
+                }
+              ]
+            }
+          }
         }
       ]
     }
   },
   "11": {
     "action": {
-      "type": "dice",
+      "type": "story",
       "text": "The Blue Crab Tavern lies undefended and at your mercy! Of course, you're too big to enter the place, but you stick an arm through a window and scrabble around for barrels or kegs to grab.",
-      "numberOfDice": 1,
-      "dice_result": [
+      "choices": [
         {
-          "checkType": "comparison",
-          "stat": "intelligence",
-          "operator": "<",
-          "impact": {
-            "stuff": {
-              "add": [
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "dice_result": [
                 {
-                  "name": "Keg of Beer"
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": "<",
+                  "impact": {
+                    "stuff": [
+                      {
+                        "name": "Keg of Beer",
+                        "quantity": 1,
+                        "type": "food"
+                      }
+                    ]
+                  },
+                  "successText": "You Add a Keg of Beer to your Sack",
+                  "goto": 22
+                },
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": ">=",
+                  "failure_text": "You pull out a keg of beer, and then another, and then another…",
+                  "goto": 6
                 }
               ]
             }
-          },
-          "successText": "You Add a Keg of Beer to your Sack",
-          "goto": 22
-        },
-        {
-          "checkType": "comparison",
-          "stat": "intelligence",
-          "operator": ">=",
-          "impact": {
-            "text": "You pull out a keg of beer, and then another, and then another…"
-          },
-          "goto": 6
+          }
         }
       ]
     }
   },
   "46": {
     "action": {
-      "text": " Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
-      "type": "dice",
-      "numberOfDice": 1,
-      "dice_result": [
+      "type": "story",
+      "text": "Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
+      "choices": [
         {
-          "checkType": "fromTo",
-          "from": 1,
-          "to": 1,
-          "impact": {
-            "stats": {
-              "resistance": {
-                "operator" : "-",
-                "value": 1
-              }
-            }
-          }
-        },
-        {
-          "checkType": "fromTo",
-          "from": 2,
-          "to": 2,
-          "impact": {
-            "stats": {
-              "resistance": {
-                "operator" : "-",
-                "value": 2
-              }
-            }
-          }
-        },
-        {
-          "checkType": "fromTo",
-          "from": 3,
-          "to": 3,
-          "impact": {
-            "stats": {
-              "resistance": {
-                "operator" : "-",
-                "value": 3
-              }
-            }
-          }
-        },
-        {
-          "checkType": "fromTo",
-          "from": 4,
-          "to": 4,
-          "impact": {
-            "stats": {
-              "resistance": {
-                "operator" : "-",
-                "value": 4
-              }
-            }
-          }
-        },
-        {
-          "checkType": "fromTo",
-          "from": 5,
-          "to": 5,
-          "impact": {
-            "stats": {
-              "resistance": {
-                "operator" : "-",
-                "value": 5
-              }
-            }
-          }
-        },
-        {
-          "checkType": "fromTo",
-          "from": 6,
-          "to": 6,
-          "impact": {
-            "stats": {
-              "resistance": {
-                "operator" : "-",
-                "value": 6
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "text": " ",
+              "type": "dice",
+              "numberOfDice": 1,
+              "dice_result": [
+                {
+                  "checkType": "fromTo",
+                  "from": 1,
+                  "to": 1,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 2,
+                  "to": 2,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 2
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 3,
+                  "to": 3,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 4,
+                  "to": 4,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 4
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 5,
+                  "to": 5,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 5
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 6,
+                  "to": 6,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 6
+                      }
+                    }
+                  }
+                }
+              ],
+              "loose": {
+                "text": "The fiery blast of blue energy incinerates you where you stand!",
+                "goto": 13
+              },
+              "win": {
+                "text": "The blast also destroys your inventory and any items it contains Blackened, charred, and scorched nearly to the bone, but still alive.",
+                "impact": {
+                  "stuff": "delete_all"
+                },
+                "action": {
+                  "type": "story",
+                  "choices": [
+                    {
+                      "text": "Assault the tower",
+                      "goto": 18
+                    },
+                    {
+                      "text": "Leave the area",
+                      "goto": 12
+                    }
+                  ]
+                }
               }
             }
           }
         }
-      ],
-      "loose": {
-        "text": "The fiery blast of blue energy incinerates you where you stand!",
-        "goto": 13
-      },
-      "win": {
-        "text": "The blast also destroys your inventory and any items it contains Blackened, charred, and scorched nearly to the bone, but still alive.",
-        "impact": {
-          "stuff": "delete_all"
-        },
-        "action": {
-          "type": "story",
-          "choices": [
-            {
-              "text": "Assault the tower",
-              "goto": 18
-            },
-            {
-              "text": "Leave the area",
-              "goto": 12
-            }
-          ]
-        }
-      }
+      ]
     }
   },
   "47": {
@@ -469,45 +507,56 @@
   },
   "48": {
     "action": {
-      "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
-      "type": "dice",
-      "numberOfDice": 1,
-      "diceResult": [
+      "type": "story",
+      "text": "Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
+      "choices": [
         {
-          "from": 1,
-          "to": 2,
-          "stuff": {
-            "add": [
-              {
-                "name": "Cured Ham"
-              }
-            ]
-          }
-        },
-        {
-          "from": 3,
-          "to": 4,
-          "stuff": {
-            "add": [
-              {
-                "name": "Keg of Beer"
-              }
-            ]
-          }
-        },
-        {
-          "from": 5,
-          "to": 6,
-          "stuff": {
-            "add": [
-              {
-                "name": "Potion of Healing"
-              }
-            ]
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
+              "type": "dice",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "from": 1,
+                  "to": 2,
+                  "stuff": {
+                    "add": [
+                      {
+                        "name": "Cured Ham"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "from": 3,
+                  "to": 4,
+                  "stuff": {
+                    "add": [
+                      {
+                        "name": "Keg of Beer"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "from": 5,
+                  "to": 6,
+                  "stuff": {
+                    "add": [
+                      {
+                        "name": "Potion of Healing"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "goto": 37
+            }
           }
         }
-      ],
-      "goto": 37
+      ]
     }
   },
   "49": {
