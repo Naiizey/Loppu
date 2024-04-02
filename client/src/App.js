@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,8 +5,9 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import HomePage from './pages/homePage/homePage'
 import Header from './components/header/header'
+import Home from './pages/home/home'
+import Story from './pages/story/story'
 
 function App() {
   return (
@@ -17,7 +17,12 @@ function App() {
         <Route
           exact
           path="/"
-          element={ <HomePage/> }
+          element={ <Home/> }
+        />
+        <Route
+          exact
+          path="/story"
+          element={ <Story/> }
         />
       </Routes>
     </Router>

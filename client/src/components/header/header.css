@@ -1,18 +1,18 @@
-header {
-    position: fixed;
+header{
+    position: sticky;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     z-index: 1;
-    background-color: var(--dark-grey);
+    top: 0;
 }
 
-header a {
+header a{
     display: block;
 }
 
-header div {
+header div{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -20,30 +20,30 @@ header div {
     width: 95%;
 }
 
-#loppu svg {
+#loppu svg{
     height: 3em;
 }
 
-header nav {
+header nav{
     width: 8em;
 }
 
-header nav svg {
+header nav svg{
     width: 1.5em;
     height: 1.5em;
 }
 
-header ul {
+header ul{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-header svg {
+header svg{
     fill: var(--white-shade);
 }
 
-header hr {
+header hr{
     height: 2px;
     width: 100%;
     margin: 0;
