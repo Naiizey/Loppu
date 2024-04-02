@@ -396,7 +396,7 @@
     "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
     "type": "dice",
     "numberOfDice": 1,
-    "dice_result": [
+    "diceResult": [
       {
         "from": 1,
         "to": 2,
