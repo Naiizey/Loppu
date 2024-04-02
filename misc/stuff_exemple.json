@@ -28,5 +28,15 @@
     "stats": {
       "strength": 2
     }
+  },
+  "6": {
+    "name": "Silver candelabra",
+    "type": "treasure",
+    "loot_points": 1
+  },
+  "7": {
+    "name": "Gold statue of Goff",
+    "type": "treasure",
+    "loot_points": 2
   }
 }

@@ -7,7 +7,7 @@
       {
         "text": "Try to open the gates",
         "requires": {
-          "action" : {
+          "action": {
             "type": "dice",
             "text": "",
             "numberOfDice": 1,
@@ -77,7 +77,7 @@
         "text": "Throw a boulder at Vaed",
         "goto": 22,
         "requires": {
-          "action" : {
+          "action": {
             "type": "item",
             "item": "boulder"
           }
@@ -147,8 +147,8 @@
         "text": "Throw a boulder at Stubbs",
         "goto": 19,
         "require": {
-          "action" : {
-            "type" : "item",
+          "action": {
+            "type": "item",
             "item": "boulder"
           }
         }
@@ -384,11 +384,11 @@
       ]
     }
   },
-  "12" : {
-    "action" : {
-      "type" : "story",
+  "12": {
+    "action": {
+      "type": "story",
       "text": "You are at the tower of Gastromo the Wizard.",
-      "choices" :[
+      "choices": [
         {
           "text": "Go South, to the mansion of Bronze the Merchant",
           "goto": 35
@@ -400,96 +400,96 @@
       ]
     }
   },
-  "13" : {
+  "13": {
     "text": "You are dead!"
   },
-  "14" : {
-    "action" : {
-      "type" :"combat",
+  "14": {
+    "action": {
+      "type": "combat",
       "text": "The gates of Boulder Ford have been torn from their hinges and the garrison of guards have long since fled. \"Flippin' heck!\" mutters a female human adventurer who has just wandered into town through the ruined archway. \"All I wanted was a hot bath and a soft bed! I am Vaitharre the Adventuress, and I will not be denied!\" Unsheathing a magical sword that glows with emerald flames, she attacks you with speed and precision.",
-      "alreadyVisited" : 7,
-      "enemy" : {
-        "name" : "vaitharre the adventuress",
-        "strength" : 3,
-        "toughness" : 4,
-        "hurt" : 2
+      "alreadyVisited": 7,
+      "enemy": {
+        "name": "vaitharre the adventuress",
+        "strength": 3,
+        "toughness": 4,
+        "hurt": 2
       },
-      "choices" : [
+      "choices": [
         {
-          "text" : "Throw a boulder at Vaitharre",
-          "goto" : 7,
-          "requires" : {
-            "type" : "item",
-            "item" : "boulder"
+          "text": "Throw a boulder at Vaitharre",
+          "goto": 7,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
           }
         },
         {
-          "text" : "Flee",
-          "goto" : 7
+          "text": "Flee",
+          "goto": 7
         }
       ],
-      "win" :{
-        "text" : "you have slain the adventuress",
-        "impact" :{
-          "stuff" : [
+      "win": {
+        "text": "you have slain the adventuress",
+        "impact": {
+          "stuff": [
             {
-              "name" : "Fire Sword",
-              "quantity" : 1,
-              "type" : "treasure"
+              "name": "Fire Sword",
+              "quantity": 1,
+              "type": "treasure"
             }
           ]
         }
       },
-      "loose" :{
-        "text" : "You have loose",
-        "goto" : 13
+      "loose": {
+        "text": "You have loose",
+        "goto": 13
       }
     }
   },
   "15": {
-    "action" :  {
+    "action": {
       "type": "combat",
-      "text" :"The Temple of Goff is the most important religious edifice in the Shrine District of Boulder Ford. Goff is the patron earth god of the Gnomes, and the enormous stone statue of him outside the temple depicts Goff as a muscular, serious-looking Gnome with spiky hair and beard, black robes, and a huge steel broadsword. Even as you look on, the statue suddenly comes to life, and clambers down from its plinth! As it stomps towards you on legs of rock, waving the great sword about in murderous fashion, you realize with horror that it is just about as tall as you are. \"Desecrator! Prepare to pay for your sins!\" it intones in a thunderous voice. \"Those who defile the Temple the Goff face certain death!\" You must fight the statue of the earth god in a titanic combat that shakes the very ground itself!",
-      "alreadyVisited" : 8,
-      "enemy" :{
-        "name" : "Status of goff",
-        "strength" : 5,
+      "text": "The Temple of Goff is the most important religious edifice in the Shrine District of Boulder Ford. Goff is the patron earth god of the Gnomes, and the enormous stone statue of him outside the temple depicts Goff as a muscular, serious-looking Gnome with spiky hair and beard, black robes, and a huge steel broadsword. Even as you look on, the statue suddenly comes to life, and clambers down from its plinth! As it stomps towards you on legs of rock, waving the great sword about in murderous fashion, you realize with horror that it is just about as tall as you are. \"Desecrator! Prepare to pay for your sins!\" it intones in a thunderous voice. \"Those who defile the Temple the Goff face certain death!\" You must fight the statue of the earth god in a titanic combat that shakes the very ground itself!",
+      "alreadyVisited": 8,
+      "enemy": {
+        "name": "Status of goff",
+        "strength": 5,
         "toughness": 4,
-        "hurt" : 3
+        "hurt": 3
       },
-      "choices" : [
+      "choices": [
         {
-          "text" : "Throw a boulder at the statue",
-          "goto" : 17,
-          "requires" : {
-            "type" : "item",
-            "item" : "boulder"
+          "text": "Throw a boulder at the statue",
+          "goto": 17,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
           }
         },
         {
-          "text" : "Flee",
-          "goto" : 17
+          "text": "Flee",
+          "goto": 17
         }
       ],
-      "loose" :{
-        "text" : "You have loose",
-        "goto" : 13
+      "loose": {
+        "text": "You have loose",
+        "goto": 13
       },
-      "win" : {
-        "text" : "You have defeated the avatar of Goff! The statue is now little more than a pile of boulder-sized rubble.",
-        "goto" : 44,
-        "impact" : {
-          "stuff" : [
+      "win": {
+        "text": "You have defeated the avatar of Goff! The statue is now little more than a pile of boulder-sized rubble.",
+        "goto": 44,
+        "impact": {
+          "stuff": [
             {
-              "name" : "Legendary Sword of Goff",
+              "name": "Legendary Sword of Goff",
               //  "legendary Sword of Goff (HURT 3)"
-              "quantity" : 1,
-              "type" : "weapon"
+              "quantity": 1,
+              "type": "weapon"
             },
             {
-              "name" : "Boulder",
-              "quantity" : 1,
-              "type" : "weapon"
+              "name": "Boulder",
+              "quantity": 1,
+              "type": "weapon"
             }
           ]
         }
