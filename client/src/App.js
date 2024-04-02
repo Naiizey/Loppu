@@ -7,7 +7,7 @@ import {
 import './App.css';
 import Header from './components/header/header'
 import Home from './pages/home/home'
-import Section from './pages/story/story'
+import Story from './pages/story/story'
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route
           exact
           path="/story"
-          element={ <Section/> }
+          element={ <Story/> }
         />
       </Routes>
     </Router>
