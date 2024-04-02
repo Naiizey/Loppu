@@ -39,10 +39,10 @@ nav ul li {
     cursor: pointer;
 }
 
-svg {
+header svg {
     fill: var(--white-shade);
 }
 
-a {
+header a {
     display: block;
 }

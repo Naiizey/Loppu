@@ -18,6 +18,7 @@ aside.slider {
 
 aside.slider svg{
     cursor: pointer;
+    fill: var(--white-shade);
 }
 
 aside.slider > svg{
