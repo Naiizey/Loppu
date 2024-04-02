@@ -207,36 +207,52 @@
     }
   },
   "9": {
-    "text": "Enough with the sorcery! Now is the time to smite this old Gnomish priest and grind his bones into the dirt! Resigning himself to his fate, the Curer casts one last spell that covers him in a glittering panoply of golden sparks that enervates him somewhat, and advances slowly towards you brandishing his staff. THE CURER STRENGF 2 TUFF 2 HURT 2 You may throw a Boulder at the Curer if you have one. If the Curer reduces your TUFF score to zero, turn to 13. If you want flee, turn to 17. If you reduce the Curer's TUFF score to zero, you crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items. Add any of the following to your Rampage Sheet: a Sack, a Silver Candelabra (1 Loot Point), a Gold Statue of Goff (2 Loot Points). When you have finished here, turn to 17.",
-    "type": "combat",
-    "alreadyVisited": "17",
-    "enemy": {
-      "name": "The Curer",
-      "strength": 2,
-      "toughness": 2,
-      "hurt": 2
-    },
-    "choices": [
-      {
-        "text": "Throw a boulder at the Curer",
+    "action": {
+      "text": "Enough with the sorcery! Now is the time to smite this old Gnomish priest and grind his bones into the dirt! Resigning himself to his fate, the Curer casts one last spell that covers him in a glittering panoply of golden sparks that enervates him somewhat, and advances slowly towards you brandishing his staff. THE CURER STRENGF 2 TUFF 2 HURT 2 You may throw a Boulder at the Curer if you have one. If the Curer reduces your TUFF score to zero, turn to 13. If you want flee, turn to 17. If you reduce the Curer's TUFF score to zero, you crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items. Add any of the following to your Rampage Sheet: a Sack, a Silver Candelabra (1 Loot Point), a Gold Statue of Goff (2 Loot Points). When you have finished here, turn to 17.",
+      "type": "combat",
+      "alreadyVisited": "17",
+      "enemy": {
+        "name": "The Curer",
+        "strength": 2,
+        "toughness": 2,
+        "hurt": 2
+      },
+      "choices": [
+        {
+          "text": "Throw a boulder at the Curer",
+          "goto": 17,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 17
+        }
+      ],
+      "win": {
+        "text": "You crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items.",
         "goto": 17,
-        "requires": {
-          "type": "item",
-          "item": "boulder"
+        "impact" :{
+          "stuff": {
+            "add": [
+              {
+                "name": "Silver Candelabra"
+              },
+              {
+                "name": "Gold Statue of Goff"
+              }
+            ]
+          }
+        }
+
         }
       },
-      {
-        "text": "Flee",
-        "goto": 17
+      "loose": {
+        "text": "The Curer reduces your TUFF score to zero. Turn to 13.",
+        "goto": 13
       }
-    ],
-    "win": {
-      "text": "You crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items. Add any of the following to your Rampage Sheet: a Sack, a Silver Candelabra (1 Loot Point), a Gold Statue of Goff (2 Loot Points). When you have finished here, turn to 17.",
-      "goto": 17
-    },
-    "lose": {
-      "text": "The Curer reduces your TUFF score to zero. Turn to 13.",
-      "goto": 13
     }
   },
   "10": {
@@ -247,19 +263,19 @@
       "numberOfDice": 1,
       "diceResult": [
         {
-          "checkType":"fromTo",
+          "checkType": "fromTo",
           "from": 1,
           "to": 2,
           "goto": 46
         },
         {
-          "checkType":"fromTo",
+          "checkType": "fromTo",
           "from": 3,
           "to": 4,
           "goto": 16
         },
         {
-          "checkType":"fromTo",
+          "checkType": "fromTo",
           "from": 5,
           "to": 6,
           "goto": 4
@@ -313,7 +329,10 @@
           "to": 1,
           "impact": {
             "stats": {
-              "resistance": -1
+              "resistance": {
+                "operator" : "-",
+                "value": 1
+              }
             }
           }
         },
@@ -323,7 +342,10 @@
           "to": 2,
           "impact": {
             "stats": {
-              "resistance": -2
+              "resistance": {
+                "operator" : "-",
+                "value": 2
+              }
             }
           }
         },
@@ -333,7 +355,10 @@
           "to": 3,
           "impact": {
             "stats": {
-              "resistance": -3
+              "resistance": {
+                "operator" : "-",
+                "value": 3
+              }
             }
           }
         },
@@ -343,7 +368,10 @@
           "to": 4,
           "impact": {
             "stats": {
-              "resistance": -4
+              "resistance": {
+                "operator" : "-",
+                "value": 4
+              }
             }
           }
         },
@@ -353,7 +381,10 @@
           "to": 5,
           "impact": {
             "stats": {
-              "resistance": -5
+              "resistance": {
+                "operator" : "-",
+                "value": 5
+              }
             }
           }
         },
@@ -363,7 +394,10 @@
           "to": 6,
           "impact": {
             "stats": {
-              "resistance": -6
+              "resistance": {
+                "operator" : "-",
+                "value": 6
+              }
             }
           }
         }
