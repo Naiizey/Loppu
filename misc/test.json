@@ -285,5 +285,193 @@
       "text": "You pull out a keg of beer, and then another, and then another…turn to 6.",
       "goto": 6
     }
+  },
+  "46": {
+    "text": " Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
+    "type": "dice",
+    "numberOfDice": 1,
+    "dice_result": [
+      {
+        "checkType": "fromTo",
+        "from": 1,
+        "to": 1,
+        "impact": {
+          "stats": {
+            "resistance": -1
+          }
+        }
+      },
+      {
+        "checkType": "fromTo",
+        "from": 2,
+        "to": 2,
+        "impact": {
+          "stats": {
+            "resistance": -2
+          }
+        }
+      },
+      {
+        "checkType": "fromTo",
+        "from": 3,
+        "to": 3,
+        "impact": {
+          "stats": {
+            "resistance": -3
+          }
+        }
+      },
+      {
+        "checkType": "fromTo",
+        "from": 4,
+        "to": 4,
+        "impact": {
+          "stats": {
+            "resistance": -4
+          }
+        }
+      },
+      {
+        "checkType": "fromTo",
+        "from": 5,
+        "to": 5,
+        "impact": {
+          "stats": {
+            "resistance": -5
+          }
+        }
+      },
+      {
+        "checkType": "fromTo",
+        "from": 6,
+        "to": 6,
+        "impact": {
+          "stats": {
+            "resistance": -6
+          }
+        }
+      }
+    ],
+    "loose": {
+      "text": "The fiery blast of blue energy incinerates you where you stand!",
+      "goto": 13
+    },
+    "win": {
+      "text": "The blast also destroys your inventory and any items it contains Blackened, charred, and scorched nearly to the bone, but still alive.",
+      "impact": {
+        "stuff": "delete_all"
+      },
+      "type": "story",
+      "choices": [
+        {
+          "text": "Assault the tower",
+          "goto": 18
+        },
+        {
+          "text": "Leave the area",
+          "goto": 12
+        }
+      ]
+    }
+  },
+  "47": {
+    "text": "You are at the mansion of Bronze the Merchant.",
+    "type": "story",
+    "choices": [
+      {
+        "text": "North, to Gastromo's Tower",
+        "goto": 10
+      },
+      {
+        "text": "South, to the Blue Crab Tavern",
+        "goto": 20
+      },
+      {
+        "text": "East, to the forge turn",
+        "goto": 5
+      }
+    ]
+  },
+  "48": {
+    "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
+    "type": "dice",
+    "numberOfDice": 1,
+    "dice_result": [
+      {
+        "from": 1,
+        "to": 2,
+        "stuff": {
+          "add": [
+            {
+              "name": "Cured Ham"
+            }
+          ]
+        }
+      },
+      {
+        "from": 3,
+        "to": 4,
+        "stuff": {
+          "add": [
+            {
+              "name": "Keg of Beer"
+            }
+          ]
+        }
+      },
+      {
+        "from": 5,
+        "to": 6,
+        "stuff": {
+          "add": [
+            {
+              "name": "Potion of Healing"
+            }
+          ]
+        }
+      }
+    ],
+    "goto": 37
+  },
+  "49": {
+    "text": "The tower of Gastromo the Wizard is now little more than a heap of white rubble, from which emanates wisps of sulphurous yellow smoke. You scrabble about in the debris looking for valuables, but succeed only in freeing a demon that must have previously been bound in Gastromo's cellar! It shoots up into the sky, hanging in the air above you, and taking the form of a bulky bat-winged ape with red skin and goat-like horns. \"Haha! Free at last!\" it howls with demonic glee, before spotting you. \"Yes, you'll do! I need to harvest souls for the Dark Master!\" Waving a rusty barbed trident in your direction, the Pit Demon swoops down on black wings to attack.",
+    "type": "combat",
+    "alreadyVisited": "22",
+    "enemy": {
+      "name": "Pit demon",
+      "strength": 4,
+      "toughness": 4,
+      "hurt": 2
+    },
+    "choices": [
+      {
+        "text": "Launch Boulder",
+        "goto": 22,
+        "requires": {
+          "type": "item",
+          "item": "boulder"
+        }
+      },
+      {
+        "text": "Flee",
+        "goto": 12
+      }
+    ],
+    "win": {
+      "text": "you have slain the foul hellspawn and banished it back to the Six Hells! It leaves behind a giant glowing ruby",
+      "stuff": {
+        "add": [
+          {
+            "name": "Demon Gem"
+          }
+        ]
+      }
+    },
+    "goto": 12
+  },
+  "50": {
+    "text": "You think you've spent enough time sacking and looting the town of Boulder Ford, and decide to return to your cave and take stock of the booty you've acquired. Besides, King Yalamon of the Southlands has a garrison nearby, and you'll be damned to the Six Hells if you are still stuck here when his crack legions show up! Back in your humble lair, you empty out the contents of your Sack(s) and recount your exploits. Consult your Rampage Sheet, and add up all your Chaos Points, Loot Points, and Food Points into one total score. This total is the number of Rampage Points you achieved for this adventure. Compare your Rampage Points total to the chart below to see how well you did when you went on a RAMPAGE! 0-5 Carpet-bagger! You need practice at this looting malarkey! Your feeble endeavours have been laughed off by both your beast colleagues and your townsfolk foes as the turgid scratchings of a rank amateur. You need to embrace your inner monster and really cut loose in an orgy of senseless destruction. 6-10 Robber! Well, you caused a bit of havoc, but it was nuisance value more than anything else. Perhaps you will inspire some callow farmer's son to seek his fame and fortune by slaying you with a rusty blunderbuss. Your exploits are hardly the stuff of legend however, and you should try harder next time! 11-15 Marauder! Not a bad start to your rampaging career, but you still could do better. The evil warlord Malthus Fire wants you as a trusted sidekick for his dungeon lair. This is a bad thing though, because it means he doesn't consider you a threat, and that shows disrespect to your inner monster. Pull your leather breeches up and swing that weapon a bit harder! 16-20 Destroyer! A good solid beginning to a (hopefully) long life of looting and pillaging. You've done well. So well in fact, that a small band of beginning adventurers formed amidst the ruins of Boulder Ford following your rampage, with the express purpose of bringing you down! They consider you their arch-nemesis… 21-25 Obliterator! You've done very well in your rampaging, and are capable of wasting an entire town without much trouble. But your card is marked now! With your reputation being what it is, it won't be long before there is a long line of famed hireswords and sorcerous spellslingers beating the well-worn path to your lair. Be warned… 26+ Annihilator! You are the master of devastation! Your name is whispered throughout the lands of Gallansia as a despoiler without compare,by both fellow monsters and glory-seeking adventurers. Actually, that's the downside. King Yalamon has heard of your exploits and sent out the call for legendary heroes everywhere to slay you and protect the land from evil. Therein lies another tale… OPTIONAL RULES After you've played through RAMPAGE! a couple of times with the different starting characters, you might like to use any or all of the following optional rules, to keep the adventure fresh and replayable. Consider though that the aim of the game is to have fun, so if you find the rule or rules \"not fun\" then don't use them, or change them into something different. Top Ten Rampage Chart Below is a simple top ten Rampage Chart to record the details of your best RAMPAGE! characters. Bear in mind you can only do direct comparisons between characters using the same number of Time Boxes, so if you've changed this rule (see below), you'll have to use different Rampage Charts for different Time Box conditions. TOP TEN RAMPAGE CHART (Number of Time Boxes = ) 1. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 2. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 3. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 4. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 5. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 6. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 7. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 8. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 9. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 10. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) Time and Time Boxes The limit of five Time Boxes was developed to provide a fixed length to the adventure. Smart readers, though, will have discovered that there are some sections of RAMPAGE! that are unreachable if you're playing with the five Time Boxes limit. For this reason, you might like to increase the number of Time Boxes on your Rampage Sheet to seven or even 10 Time Boxes, in order to allow you more time to reduce the town of Boulder Ford to dusty rubble. After you've ticked off seven or 10 Time Boxes, simply turn to 50 to check your Rampage Points score. Bear in mind though, that the more Time Boxes you allow, the easier it is increase your Rampage Points total. Conversely, reducing the number of Time Boxes is not a good idea as there would now be entire areas of Boulder Ford that are impossible to venture into and stay within the time limit. However, do feel free to play RAMPAGE! without any Time Boxes whatsoever, if you just want to explore the town and the adventure that takes place upon its blood-soaked streets and roads. Creating New Characters Once you've played through RAMPAGE! with the starting characters, you might like to start creating your own. This is extremely easy to do, using the following process: 1. Split 16 points among the following: a. STRENGF (anywhere from 2 to 6) b. TUFF (anywhere from 2 to 6) c. SMARTS (anywhere from 2 to 6) d. A weapon from the following (cost in points equals HURT value): i. Spiked Club (HURT 1) ii. Stone Axe (HURT 2) iii. Steel Cleaver (HURT 3) e. Any of the following extra equipment at 1 point each (and you already start with 1 Sack, at no extra cost): i. A Boulder ii. An extra Sack 2. Chose your character's Sex and give them a Name. 3. Chose your character's Race. They could be a standard Troll, Ogre, or Giant, like the starting characters. Alternatively, you could choose a new race that is similar in nature, such as a Minotaur, a Cyclops, or a Great Ape (see below in the Special Abilities section for more information about this). 4. Give your character a colorful background, and unleash them upon the world of RAMPAGE! An Example of Character Creation Warren is bored witless with the standard characters and wants to create someone with a bit more bang. This is how he does it: 1. He splits 16 points, allocating 6 each for his STRENGF and TUFF scores, and 2 for his SMARTS score. 14 points spent, two left, which he spends on a Stone Axe (HURT 2) 2. Warren decides his character is female, and her name is Brunda Bogglebum. 3. He thinks she'd make a good new race, so he writes down that Brunda is in fact a Cyclops. 4. He comes up with a quick, entertaining background: Brunda Bogglebum was originally from Skull Island, off the southern coast of Gallansia. She was washed out to sea by a freak wave while harvesting sea cucumbers, and ended up on the shores of the mainland. She settled near Boulder Ford as she'd heard of the Temple of Goff, and Goff is a deity also worshipped by Cyclops. However, the xenophobic Gnomes turned her away from the town and temple, and since that day she has sworn bloody vengeance against King Brilligan and Boulder Ford. New Races and Special Abilities As seen above, you may wish to create alternative races for your new characters that are exploring the world of RAMPAGE! One good way to take this customization a step further is to construct low-powered Special Abilities for the various races, to add some individuality to your characters. Some sample Special Abilities are given below, but feel free to edit these as you see fit, and propose new abilities for new races. Troll: Cannibal: Trolls will eat anything. Add 1 TUFF point at anytime you defeat a group of Gnomish opponents (such as a Gnomish mob) to reflect your Troll character feasting on the bodies of the dead after the battle. Ogre: Fireproof: As a race Ogres were forged in the warp furnaces of Chaos and are resistant to fire-based damage. Deduct one point from the amount of damage you have to suffer every time you are wounded by fires, explosions, and magic spells using flames, except if the damage is already one point, in which case there is no effect. Giant: Strong: Giants are immensely strong. At any time you need to roll one die and compare the result to your STRENGF score, you may deduct one from the die roll. Minotaur: Charge: Minotaurs charge into battle hoping to impale their foes on great curving horns. If you win the first Battle Turn, treat the Charge as the same as a HURT 3 weapon. Cyclops: Deadeye: Any Cyclops loves chucking stuff about, especially big rocks. At any time you roll a die and compare it to your SMARTS score in order to throw a Boulder, you may deduct one from the roll. Great Ape: Battle Howl: At the start of any battle you embark on a tirade of howling and chest thumping to unnerve your opponent. You may deduct one from their die roll in the first Battle Turn only, to represent this potential loss of courage. RAMPAGE! by Andrew Wright"
   }
 }
+
+
