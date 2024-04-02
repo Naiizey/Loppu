@@ -78,4 +78,9 @@
     "type" : "treasure",
     "loot_points" : 1
   },
+  "15" : {
+    "name":"Dwarven Strongbox",
+    "type":"treasure",
+    "loot_points":3
+  }
 }

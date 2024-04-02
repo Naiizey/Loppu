@@ -853,6 +853,30 @@
     "action": {
       "type": "story",
       "text": "Still flush with success from your recent conquest, you begin smashing holes in the domed roof of the Temple of Goff, looking for treasure. This enrages the high priest, a decrepit old balding Gnome in a scarlet robe, known as the Curer. He rushes out of the temple in a fury, frothing at the mouth and yelling near-incomprehensible obscenities at you. The Curer then waves a gnarled staff in the air and begins to pronounce a mystical chant. A glowing blue nimbus of light surrounds him, and as his prayers reach a screaming crescendo, he makes a stabbing gesture with the staff, pointing it directly at you. Blue light races down the priest's arm, along the staff, and arcs through the air towards you in a blast of divine energy. You have been ensorcelled by the Curer! ",
+      "text": "The forge, and many of the surrounding buildings, have all burned down, and are now little more than blackened shells and smoking piles of ash. True to form, Stubbs was a miserly Dwarf, and now that his forge is no more, you spot his magical strongbox lying unburned among the ruins. Cracking it open with your weapon reveals gold and jewels beyond your feeblest imaginings!",
+      "type": "story",
+      "alreadyVisited": 2,
+      "choices": [
+        {
+          "text": "Add the Dwarven Strongbox to your inventory",
+          "impact": {
+            "stuff": [
+              {
+                "name": "Dwarven Strongbox",
+                "quantity": 1,
+                "type": "treasure"
+              }
+            ]
+          },
+          "goto": 2
+        }
+      ]
+    }
+  },
+  "24": {
+    "action": {
+      "type": "story",
+      "text": "The Curer is not the most reliable of spellcasters, especially when incandescent with rage due to the destruction of his temple. Roll one die and turn to the paragraph indicated to discover the effect of his spell upon you:",
       "choices": [
         {
           "text": "Roll the dice",
@@ -875,6 +899,22 @@
                   "operator": ">=",
                   "failureText": "You are now the victim of unknown sorcery!",
                   "goto": 24
+                  "checkType": "fromTo",
+                  "from": 1,
+                  "to": 2,
+                  "goto": 31
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 3,
+                  "to": 4,
+                  "goto": 16
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 5,
+                  "to": 6,
+                  "goto": 34
                 }
               ]
             }
@@ -932,6 +972,57 @@
     }
   },
 
+      ]
+    }
+  },
+  "25": {
+    "action": {
+      "type": "story",
+      "text": "The keep of King Brilligan the Great, overlord of the Gnomes of Boulder Ford, is a small sturdy fortress at the north end of town. Gnomish archers armed with short bows and clad in green livery line the battlements. Pennants bearing the emblem of King Brilligan, a grey boulder being split by a steel pick on an emerald field, flutter in the breeze from the tops of the tallest towers.",
+      "alreadyVisited": 38,
+      "choices": [
+        {
+          "text": "Leave the area",
+          "goto": 27
+        },
+        {
+          "text": "assault the fortress",
+          "require": {
+            "action": {
+              "type": "dice",
+              "diceResult": [
+                {
+                  "checkType": "comparison",
+                  "stat": "strength",
+                  "operator": "<",
+                  "successText": "You have smashed a way into the keep",
+                  "goto": 41
+                },
+                {
+                  "checkType": "comparison",
+                  "stat": "strength",
+                  "operator": ">=",
+                  "failureText": "You fail to smash a way into the keep",
+                  "impact": {
+                    "stats": {
+                      "resistance": -1
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "text": "Go back somewhere else",
+          "goto": 27
+        }
+      ]
+    }
+  },
+  "26": {
+    "With a howl of rage you rip aside the gates of Boulder Ford and storm into the town! A horde of Gnomish guards clad in green battle-leathers and armed with shortswords pour forth from the gatehouse to attack you from all sides. Standing your ground, you flail about at them with your weapon. Fight the Gnomish guards as one opponent. GNOMISH GUARDS STRENGF 2 TUFF 6 HURT 1 You may throw a Boulder at the Gnomish guards if you have one. If the guards reduce your TUFF score to zero, turn to 13. If you want to flee, turn to 7. If you reduce the guards' TUFF score to zero, you have beaten most of them off, and the rest flee in panic. Turn to 7."
+  },
   "46": {
     "action": {
       "type": "story",
