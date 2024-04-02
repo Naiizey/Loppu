@@ -1,0 +1,30 @@
+main#characterScharacterSheetelection hr{
+    color : var(--white-shade);
+    width: 100%;
+}
+
+main#characterScharacterSheetelection button{
+    padding: 1em 2em;
+    background-color: var(--grey-button-sel-char);
+    color: var(--black-text-on-grey-button);
+    border-radius: 10px;
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+main#characterScharacterSheetelection ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 16em;
+}
+
+main#characterScharacterSheetelection ul > li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em;
+    width: 14em;
+    text-transform: uppercase;
+}
