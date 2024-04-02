@@ -148,12 +148,32 @@
     }
   },
   "6": {
-    "text": "You crack open one of the kegs to test that it's \"still fresh\". Draining it in one long gulp, you throw the keg aside and open another, finishing it just as quickly. You may restore 2 TUFF points if wounded, for the wonderful curative properties of good ale. You're also drunk. Reduce your SMARTS score by 1, unless it is 2 already (it can't go any lower!). Hic! You save a final keg for future reference - add a Keg of Beer (1 Food Point) to your Sack, and turn to 22.",
+    "text": "You crack open one of the kegs to test that it's \"still fresh\". Draining it in one long gulp, you throw the keg aside and open another, finishing it just as quickly. You're also drunk.",
     "type": "story",
     "choices": [
       {
         "text": "Save a keg for future reference",
-        "goto": 22
+        "goto": 22,
+        "impact": {
+          "stuff": {
+            "add": [
+              {
+                "name": "Keg of Beer"
+              }
+            ]
+          },
+          "stats": {
+            "résistance": {
+              "operator": "+",
+              "value": 2
+            },
+            "inteligence": {
+              "operator": "-",
+              "value": 1
+            }
+          }
+        }
+        
       }
     ],
     "impact": {
