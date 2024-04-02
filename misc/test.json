@@ -240,27 +240,32 @@
     }
   },
   "10": {
-    "text": "Gastromo's Tower stands like a white fang looming above the Gnomish dwellings of Boulder Ford. Gastromo is a human spellcaster who is good friends with King Brilligan of the Gnomes, and has lived in the town for decades. Some say Gastromo's price for helping to defend Boulder Ford is an unlimited tab at the local bakery. Suddenly the thick door at the base of the tower is thrown open! The fat wizard himself, azure robes straining from containing his enormous bulk, comes shambling out, wiping crumbs from his long white beard and licking his fingers clean. He points one hand at you, makes a series of arcane gestures, and, still with a mouthful of food, mutters something unintelligible. Instantly, the air around you is filled with a glowing blue flash of light. Gastromo has cast a spell upon you! Tick the box above and roll one die. Turn to the paragraph indicated to discover the effect of his magic: Roll 1 to 2 turn to 46 Roll 3 to 4 turn to 16 Roll 5 to 6 turn to 4",
-    "type": "dice",
-    "alreadyVisited": "18",
-    "numberOfDice": 1,
-    "dice_result": [
-      {
-        "from": 1,
-        "to": 2,
-        "goto": 46
-      },
-      {
-        "from": 3,
-        "to": 4,
-        "goto": 16
-      },
-      {
-        "from": 5,
-        "to": 6,
-        "goto": 4
-      }
-    ]
+    "action": {
+      "text": "Gastromo's Tower stands like a white fang looming above the Gnomish dwellings of Boulder Ford. Gastromo is a human spellcaster who is good friends with King Brilligan of the Gnomes, and has lived in the town for decades. Some say Gastromo's price for helping to defend Boulder Ford is an unlimited tab at the local bakery. Suddenly the thick door at the base of the tower is thrown open! The fat wizard himself, azure robes straining from containing his enormous bulk, comes shambling out, wiping crumbs from his long white beard and licking his fingers clean. He points one hand at you, makes a series of arcane gestures, and, still with a mouthful of food, mutters something unintelligible. Instantly, the air around you is filled with a glowing blue flash of light. Gastromo has cast a spell upon you!",
+      "type": "dice",
+      "alreadyVisited": "18",
+      "numberOfDice": 1,
+      "diceResult": [
+        {
+          "checkType":"fromTo",
+          "from": 1,
+          "to": 2,
+          "goto": 46
+        },
+        {
+          "checkType":"fromTo",
+          "from": 3,
+          "to": 4,
+          "goto": 16
+        },
+        {
+          "checkType":"fromTo",
+          "from": 5,
+          "to": 6,
+          "goto": 4
+        }
+      ]
+    }
   },
   "11": {
     "action": {
