@@ -163,7 +163,7 @@
     }
   },
   "7": {
-    "text": "You are at the gates of Boulder Ford. You can go: North, to the market turn to 45 South, to your cave turn to 50",
+    "text": "You are at the gates of Boulder Ford.",
     "type": "story",
     "choices": [
       {
