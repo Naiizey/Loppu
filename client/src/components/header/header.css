@@ -1,11 +1,11 @@
 header#mainHeader {
-    position: fixed;
+    position: sticky;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     z-index: 1;
-    background-color: var(--dark-grey);
+    top: 0;
 }
 
 header#mainHeader a {
@@ -20,7 +20,7 @@ header#mainHeader div {
     width: 95%;
 }
 
-#loppu svg {
+#loppu svg{
     height: 3em;
 }
 

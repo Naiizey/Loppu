@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 
 import './App.css';
-import HomePage from './pages/homePage/homePage'
+
 import Header from './components/header/header'
 import Slider from './components/slider/slider';
-
+import Home from './pages/home/home'
+import Story from './pages/story/story'
 
 function App() {
   const [isSliderOpened, setIsSliderOpened] = useState(false);
@@ -38,7 +39,12 @@ function App() {
         <Route
           exact
           path="/"
-          element={ <HomePage/> }
+          element={ <Home/> }
+        />
+        <Route
+          exact
+          path="/story"
+          element={ <Story/> }
         />
       </Routes>
     </Router>
