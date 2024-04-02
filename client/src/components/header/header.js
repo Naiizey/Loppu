@@ -34,6 +34,7 @@ const Header = ({isSliderOpened, setIsSliderOpened, sliderType, setSliderType}) 
                     </ul>
                 </nav>
             </div>
+            <hr/>
         </header>
     )
 };
