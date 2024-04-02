@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "type": {
+      "enum": ["dice"]
+    },
+    "numberOfDice": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "diceResult": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": ["fromTo", "equalsTo", "comparison"]
+          },
+          "from": {
+            "type": "integer"
+          },
+          "to": {
+            "type": "integer"
+          },
+          "equals": {
+            "type": "integer"
+          },
+          "comparison": {
+            "type": "object",
+            "properties": {
+              "operator": {
+                "enum": ["<", ">"]
+              },
+              "stat": {
+                "enum": ["strength", "intelligence", "restistance"]
+              }
+            }
+          }
+        },
+        "goto": {
+          "type": "integer"
+        },
+        "success_text": {
+          "type": "string"
+        },
+        "failure_text": {
+          "type": "string"
+        },
+        "impact": {
+          "$ref": "impact_type.json"
+        }
+      }
+    }
+  }
+}
