@@ -2,8 +2,11 @@
     font-size: calc(1rem + 0.25vw);
     --white-shade: #fafafa;
     --dark-grey: #3b3b3b;
-    --grey-shade: #747272;
+    --grey-shade: #747272 ;
     --light-grey: #d8d8d8;
+    --black-shade: #282828;
+    --grey-button-sel-char: #D9D9D9;
+    --black-text-on-grey-button: #1e1c1c;
 }
 
 body{
@@ -11,6 +14,17 @@ body{
     color: var(--white-shade);
     background-color: var(--dark-grey);
     overflow: hidden;
+}
+
+div#root{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div#mainContainer{
+    flex-grow: 1;
+    position: relative;
 }
 
 @font-face{
