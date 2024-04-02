@@ -263,32 +263,42 @@
     ]
   },
   "11": {
-    "text": "The Blue Crab Tavern lies undefended and at your mercy! Of course, you're too big to enter the place, but you stick an arm through a window and scrabble around for barrels or kegs to grab. Roll one die. If you roll under your SMARTS score, add a Keg of Beer (1 Food Point) to your Sack, and turn to 22. If you roll equal to or over your SMARTS score, you pull out a keg of beer, and then another, and then another…turn to 6.",
-    "type": "story",
-    "choices": [
-      {
-        "text": "Roll the die",
-        "goto": 22
-      }
-    ],
-    "requires": {
-      "type": "roll",
-      "value": 1,
-      "comparison": "<",
-      "attribute": "smarts"
-    },
-    "win": {
-      "text": "Add a Keg of Beer (1 Food Point) to your Sack, and turn to 22.",
-      "goto": 22
-    },
-    "lose": {
-      "text": "You pull out a keg of beer, and then another, and then another…turn to 6.",
-      "goto": 6
+    "action": {
+      "type": "dice",
+      "text": "The Blue Crab Tavern lies undefended and at your mercy! Of course, you're too big to enter the place, but you stick an arm through a window and scrabble around for barrels or kegs to grab.",
+      "numberOfDice": 1,
+      "dice_result": [
+        {
+          "checkType": "comparison",
+          "stat": "intelligence",
+          "operator": "<",
+          "impact": {
+            "stuff": {
+              "add": [
+                {
+                  "name": "Keg of Beer"
+                }
+              ]
+            }
+          },
+          "successText": "You Add a Keg of Beer to your Sack",
+          "goto": 22
+        },
+        {
+          "checkType": "comparison",
+          "stat": "intelligence",
+          "operator": ">=",
+          "impact": {
+            "text": "You pull out a keg of beer, and then another, and then another…"
+          },
+          "goto": 6
+        }
+      ]
     }
   },
   "46": {
-    "text": " Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
     "action": {
+      "text": " Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
       "type": "dice",
       "numberOfDice": 1,
       "dice_result": [
@@ -379,8 +389,8 @@
     }
   },
   "47": {
-    "text": "You are at the mansion of Bronze the Merchant.",
     "action": {
+      "text": "You are at the mansion of Bronze the Merchant.",
       "type": "story",
       "choices": [
         {
@@ -399,8 +409,8 @@
     }
   },
   "48": {
-    "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
     "action": {
+      "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
       "type": "dice",
       "numberOfDice": 1,
       "diceResult": [
@@ -442,8 +452,8 @@
     }
   },
   "49": {
-    "text": "The tower of Gastromo the Wizard is now little more than a heap of white rubble, from which emanates wisps of sulphurous yellow smoke. You scrabble about in the debris looking for valuables, but succeed only in freeing a demon that must have previously been bound in Gastromo's cellar! It shoots up into the sky, hanging in the air above you, and taking the form of a bulky bat-winged ape with red skin and goat-like horns. \"Haha! Free at last!\" it howls with demonic glee, before spotting you. \"Yes, you'll do! I need to harvest souls for the Dark Master!\" Waving a rusty barbed trident in your direction, the Pit Demon swoops down on black wings to attack.",
     "action": {
+      "text": "The tower of Gastromo the Wizard is now little more than a heap of white rubble, from which emanates wisps of sulphurous yellow smoke. You scrabble about in the debris looking for valuables, but succeed only in freeing a demon that must have previously been bound in Gastromo's cellar! It shoots up into the sky, hanging in the air above you, and taking the form of a bulky bat-winged ape with red skin and goat-like horns. \"Haha! Free at last!\" it howls with demonic glee, before spotting you. \"Yes, you'll do! I need to harvest souls for the Dark Master!\" Waving a rusty barbed trident in your direction, the Pit Demon swoops down on black wings to attack.",
       "type": "combat",
       "alreadyVisited": "22",
       "enemy": {
