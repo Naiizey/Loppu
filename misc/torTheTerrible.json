@@ -1,9 +1,9 @@
 {
     "name": "Tor The terrible",
     "race": "Ogre",
-    "genre": "Male",
+    "gender": "Male",
 
-    "force": 4,
+    "strength": 4,
     "resistance": 5,
     "intelligence": 3,
 

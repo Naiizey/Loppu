@@ -1,4 +1,7 @@
 const pg = require("pg");
+require("dotenv").config({
+  path: "../.env",
+});
 
 // Connect to the postgres db
 var pool = new pg.Pool({
@@ -6,6 +9,7 @@ var pool = new pg.Pool({
   host: process.env.DATABASE_HOST,
   database: process.env.DATABASE_NAME,
   password: process.env.DATABASE_PASSWORD,
+  port: process.env.DATABASE_PORT,
 });
 
 pool.connect().then(() => {
