@@ -9,7 +9,10 @@
                     "impact" : {
                         "stats" : [
 
-                        ]
+                        ],
+                        "inventory" : {
+
+                        }
                     }
                 }
             },
@@ -24,7 +27,10 @@
                                 "impact" : {
                                     "stats" : [
                                         
-                                    ]
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
                                 }
                             },
                             "message": "you open the gates"
@@ -38,7 +44,10 @@
                                 "impact" : {
                                     "stats" : [
                                         
-                                    ]
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
                                 }
                             },
                             "message": "gnomes fire arrows at you"
@@ -58,7 +67,10 @@
                     "impact" : {
                         "stats" : [
                             
-                        ]
+                        ],
+                        "inventory" : {
+                            
+                        }
                     }
                 }
             },
@@ -75,7 +87,10 @@
                     "impact" : {
                         "stats" : [
                             
-                        ]
+                        ],
+                        "inventory" : {
+                            
+                        }
                     }
                 }
             },
@@ -90,7 +105,10 @@
                                 "impact" : {
                                     "stats" : [
                                         
-                                    ]
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
                                 }
                             },
                             "message": "sucess"
@@ -104,7 +122,10 @@
                                 "impact" : {
                                     "stats" : [
                                         
-                                    ]
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
                                 }
                             },
                             "message": "You miss"
@@ -125,14 +146,34 @@
                     ">=": {
                         "stat": "force",
                         "then": {
-                            "goto": 18,
+                            "goto": {
+                                "id_section" :18,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You assault the tower"
                         }
                     },
                     "<": {
                         "stat": "force",
                         "then": {
-                            "goto": 13,
+                            "goto": {
+                                "id_section" :13,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "You loose"
                         }
                     }
@@ -145,7 +186,17 @@
         "conditionnals": {
             "already_passed": {
                 "times": 1,
-                "goto": 23
+                "goto": {
+                    "id_section" :23,
+                    "impact" : {
+                        "stats" : [
+                            
+                        ],
+                        "inventory" : {
+                            
+                        }
+                    }
+                }
             },
             "dice": {
                 "message": "throw a Boulder at Stubbs",
@@ -153,14 +204,34 @@
                     ">=": {
                         "stat": "force",
                         "then": {
-                            "goto": 19,
+                            "goto": {
+                                "id_section" :19,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "you have slain the insolent Dwarf"
                         }
                     },
                     "<": {
                         "stat": "force",
                         "then": {
-                            "goto": 13,
+                            "goto": {
+                                "id_section" :13,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "You miss"
                         }
                     }
@@ -173,7 +244,17 @@
         "conditionnals": {
             "already_passed": {
                 "times": 5,
-                "goto": 50
+                "goto": {
+                    "id_section" :50,
+                    "impact" : {
+                        "stats" : [
+                            
+                        ],
+                        "inventory" : {
+                            
+                        }
+                    }
+                }
             },
             "dice": {
             }
@@ -184,7 +265,17 @@
         "conditionnals": {
             "already_passed": {
                 "times": 5,
-                "goto": 50
+                "goto": {
+                    "id_section" :50,
+                    "impact" : {
+                        "stats" : [
+                            
+                        ],
+                        "inventory" : {
+                            
+                        }
+                    }
+                }
             },
             "dice": {
             }
@@ -201,14 +292,34 @@
                     ">=": {
                         "stat": "intelligence",
                         "then": {
-                            "goto": 17,
+                            "goto": {
+                                "id_section" :17,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "you have been cursed!"
                         }
                     },
                     "<": {
                         "stat": "intelligence",
                         "then": {
-                            "goto": 17,
+                            "goto": {
+                                "id_section" :17,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "you are immune to the effects of the statue's curse"
                         }
                     }
@@ -227,14 +338,34 @@
                     ">=": {
                         "stat": "force",
                         "then": {
-                            "goto": 17,
+                            "goto": {
+                                "id_section" :17,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "you crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside"
                         }
                     },
                     "<": {
                         "stat": "force",
                         "then": {
-                            "goto": 13,
+                            "goto": {
+                                "id_section" :13,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            },
                             "message": "fail"
                         }
                     }
@@ -247,7 +378,17 @@
         "conditionnals": {
             "already_passed": {
                 "times": 1,
-                "goto": 18
+                "goto": {
+                    "id_section" :18,
+                    "impact" : {
+                        "stats" : [
+                            
+                        ],
+                        "inventory" : {
+                            
+                        }
+                    }
+                }
             },
             "dice": {
                 "message": "you try to open the gates",
@@ -255,19 +396,49 @@
                     "=": {
                         "stat": "resistance",
                         "then": {
-                            "goto": 16
+                            "goto": {
+                                "id_section" :16,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            }
                         }
                     },
                     "<": {
                         "stat": "resistance",
                         "then": {
-                            "goto": 46
+                            "goto": {
+                                "id_section" :46,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            }
                         }
                     },
                     ">": {
                         "stat": "resistance",
                         "then": {
-                            "goto": 4
+                            "goto": {
+                                "id_section" :4,
+                                "impact" : {
+                                    "stats" : [
+                                        
+                                    ],
+                                    "inventory" : {
+                                        
+                                    }
+                                }
+                            }
                         }
                     }
                 }
