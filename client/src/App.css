@@ -1,12 +1,15 @@
 :root{
     font-size: calc(1rem + 0.25vw);
     --white-shade: #fafafa;
+
     --dark-grey: #3b3b3b;
+    --black-shade: #282828;
+    --black-text: #1e1c1c;
+    
     --grey-shade: #747272 ;
     --light-grey: #d8d8d8;
-    --black-shade: #282828;
-    --grey-button-sel-char: #D9D9D9;
-    --black-text-on-grey-button: #1e1c1c;
+    --grey-button: #D9D9D9;
+    
 }
 
 body{

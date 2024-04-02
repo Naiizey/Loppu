@@ -12,7 +12,7 @@ aside.slider {
     align-items: center;
     
     border-left: 1px solid var(--grey-shade);
-    background-color: rgb(55, 55, 55);
+    background-color: color-mix(in srgb, var(--dark-grey) 90%, black 10%);
 }
 
 aside.slider svg{
