@@ -82,5 +82,51 @@
     "name":"Dwarven Strongbox",
     "type":"treasure",
     "loot_points":3
+  },
+  "16" : {
+    "name":"Roast Ox",
+    "type":"food",
+    "food_points":2
+  },
+  "17" : {
+    "name":"Asantian Rug",
+    "type":"treasure",
+    "loot_points":1
+  },
+  "18" : {
+    "name":"Gold Dragon Statue",
+    "type":"treasure",
+    "loot_points":2
+  },
+  "19": {
+    "name" : "Roast Hog",
+    "type" : "food",
+    "food_points" : 1
+  },
+  "20" : {
+    "name" : "Gilt-frame Portrait",
+    "type" : "treasure",
+    "loot_points" : 1
+    
+  },
+  "21" : {
+    "name" : "Roast Ox",
+    "type" : "food",
+    "food_points" : 2
+  },
+  "22" : {
+    "name" : "Mithril Tabard",
+    "type" : "treasure",
+    "loot_points" : 2
+  },
+  "23" : {
+    "name" : "cow",
+    "type" : "food",
+    "food_points" : 2
+  }, 
+  "24" : {
+    "name" : "ox",
+    "type" : "food",
+    "food_points" : 2
   }
 }
