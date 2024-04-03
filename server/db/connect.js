@@ -1,13 +1,19 @@
 const pg = require("pg");
 
-// Connect to the postgres db
-var pool = new pg.Pool({
-  user: process.env.DATABASE_USER,
-  host: process.env.DATABASE_HOST,
-  database: process.env.DATABASE_NAME,
-  password: process.env.DATABASE_PASSWORD,
-});
-
+// Connect to the postgres db using the connection string in the .env file
+const pool = new pg.Pool(
+  process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+      }
+    : {
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB_DATABASE,
+        password: process.env.DB_PASSWORD,
+        port: process.env.DB_PORT,
+      }
+);
 pool.connect().then(() => {
   console.log("connected to the database");
 });
