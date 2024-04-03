@@ -96,25 +96,3 @@ main#section article{
     line-height: 1.5em;
     padding-right: 1em;
 }
-
-.choices{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    column-gap: 1em;
-    margin-top: 2em;
-
-}
-
-.choices > button{
-    margin: 0;
-    padding: 0.5em 1em;
-    font-size: 1.25em;
-    font-family: 'Inria-Sans-Regular', sans-serif;
-    text-transform: uppercase;
-    background-color: var(--grey-button);
-    color: var(--black-text);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
