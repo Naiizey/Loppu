@@ -21,34 +21,37 @@ router.get("/users/:id", (req, res) => {
 
 // POST a new user
 router.post("/users", (req, res) => {
-  const { name } = req.body;
-  pool.query("INSERT INTO users (name) VALUES ($1)", [name]).then(() => {
-    res.json({
-      message: "user added successfully!",
+  console.log(req.body);
+  const { username, password, email } = req.body;
+  pool
+    .query(
+      "INSERT INTO users (username, password, email) VALUES ($1, $2, $3)",
+      [username, password, email]
+    )
+    .then(() => {
+      res.json({ message: "User created" });
     });
-  });
 });
 
-// PUT updated user
+// PUT updated user info
 router.put("/users/:id", (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const { username, password, email } = req.body;
   pool
-    .query("UPDATE users SET name = $1 WHERE id = $2", [name, id])
+    .query(
+      "UPDATE users SET username = $1, password = $2, email = $3 WHERE id = $4",
+      [username, password, email, id]
+    )
     .then(() => {
-      res.json({
-        message: "user updated successfully!",
-      });
+      res.json({ message: "User updated" });
     });
 });
 
-// DELETE user
+// DELETE a user
 router.delete("/users/:id", (req, res) => {
   const { id } = req.params;
   pool.query("DELETE FROM users WHERE id = $1", [id]).then(() => {
-    res.json({
-      message: "user deleted successfully!",
-    });
+    res.json({ message: "User deleted" });
   });
 });
 

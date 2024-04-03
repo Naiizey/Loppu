@@ -14,7 +14,7 @@ router.get("/choices", (req, res) => {
 router.get("/choices/:id", (req, res) => {
   const { id } = req.params;
   pool.query("SELECT * FROM choices WHERE id = $1", [id]).then((results) => {
-    res.json(results.rows);
+    res.json(results.rows[0]);
   });
 });
 
