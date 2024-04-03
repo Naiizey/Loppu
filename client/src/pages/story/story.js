@@ -1,8 +1,7 @@
 import "./story.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Choices from "../../components/choices/choices";
 import API from "../../utils/API";
-import { useEffect } from "react";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 
 const SectionPage = () => {
