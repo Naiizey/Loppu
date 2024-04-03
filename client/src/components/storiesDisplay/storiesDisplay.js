@@ -5,7 +5,7 @@ import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow.svg'
 
 const StoriesDisplay = ({Image, name, isStarted, isClicked, onClick}) => {
     return(
-        <div className={`storiesDisplayComponent ${isClicked ? "clicked" : ""}`} onClick={onClick}>
+        <div className={`storiesDisplayComponent${isClicked ? " clicked" : ""}`} onClick={onClick}>
             <div className="storyInfos">
                 <h4>{name}</h4>
                 { isStarted &&

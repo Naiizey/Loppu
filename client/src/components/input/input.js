@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 import './input.css'
-//TODO trouver de meilleurs SVG
 import { ReactComponent as PasswordVisible } from '../../assets/icons/passwordVisible.svg'
 import { ReactComponent as PasswordHidden } from '../../assets/icons/passwordHidden.svg'
 

@@ -1,7 +1,10 @@
+/*
+    TODO Make a better transition for cards
+*/
 .storiesDisplayComponent{
     width: 75%;
     height: 5em;
-    transition: height 1s;
+    transition: height 500ms;
     border-radius: 15px;
 
     background-color: color-mix(in srgb, var(--dark-grey) 80%, black 15%);
@@ -12,7 +15,7 @@
 
 .storiesDisplayComponent.clicked{
     height: 20em;
-    transition: height 1s;
+    transition: height 500ms;
 }
 
 .storyInfos{

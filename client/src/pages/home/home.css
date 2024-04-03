@@ -1,3 +1,8 @@
+/*
+    TODO ADD Scroll possibility to section containing the displayed stories
+*/
+
+
 main#home{
     display: flex;
     flex-direction: column;
