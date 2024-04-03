@@ -7,23 +7,29 @@ import { useEffect } from "react";
 const SectionPage = () => {
     const [title, setTitle] = useState("");
 
-
-    const [data, setData] = useState({
+    const [section, setSection] = useState({
         id: 0,
-        title: "",
-        story_id: 0,
+        id_book_section: 0,
         content: {
-            text: "",
+            action : {
+                text : "",
+            }
         },
+        image: "",
+        story_id: 0,
+        title: "",
+        type_id: 0,
     });
-
 
     const defaultSection = 1;
     const [sectionId, setSectionId] = useState(document.cookie.split("sectionId=")[1] || defaultSection);
 
-    useEffect(() => { API("sections/" + sectionId).then((res) => { const section = res; console.log(section); }); }, [sectionId]);
-
-
+    useEffect(() => {
+        API("sections/" + sectionId).then((res) => {
+            res = res[0];
+            setSection(res);
+        });
+    }, [sectionId]);
 
     return (
         <main id="section">
@@ -51,17 +57,17 @@ const SectionPage = () => {
                     </div>
                     <div>
                         <h2>{title}</h2>
-                        <h3>section {data.id} - village</h3>
+                        <h3>section {section.id} - village</h3>
                     </div>
                 </div>
                 <article>
-                    <p>{data.content.text}</p>
+                    <p>{section.content.action.text}</p>
                 </article>
             </section>
-            <Choices
+            {/* <Choices
                 id={sectionId}
                 setSectionId={setSectionId}
-            />
+            /> */}
         </main >
     )
 };
