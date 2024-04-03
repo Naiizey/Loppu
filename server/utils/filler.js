@@ -147,13 +147,15 @@ pool.connect().then(async () => {
     }
     console.log("database filled with the choices");
 
+    var character = await pool.query("INSERT INTO characters(id, stats, character_model_id, stuff, user_id) VALUES(1, $1, 1, $2, 1)", [base_stats, base_stuff])
+
     pool.end();
     console.log("database filled with the story: " + story_name);
     process.exit();
 });
 
 function findGotoKeys(obj, result = [], parentKey = null, superParentKey = null) {
-    for (let key in obj) {
+    for (var key in obj) {
         if (typeof obj[key] === 'object' && obj[key] !== null) {
             if (!isNaN(key)) {
                 findGotoKeys(obj[key], result, key, parentKey);
