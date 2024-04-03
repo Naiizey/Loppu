@@ -12,9 +12,9 @@ function App() {
 
   const [sliderType, setSliderType] = useState();
 
-  /* useStates for future implementations
   const [darkMode, setDarkMode] = useState(true);
-
+  
+  /* useStates for future implementations
   const [displayMode, setDisplayMode] = useState("simple");
 
   const [lineSpace, setLineSpace] = useState(1);
@@ -30,7 +30,8 @@ function App() {
       <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
       <Main 
         sliderType={sliderType} setSliderType={setSliderType}
-        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} 
+        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened}
+        darkMode={darkMode} setDarkMode={setDarkMode} 
       />
     </Router>
   );

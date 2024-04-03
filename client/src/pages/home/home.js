@@ -7,12 +7,9 @@ import { useState } from 'react';
 const HomePage = () => {
     const [isClicked, setIsClicked] = useState(0);
 
-    const handleClick = (storyId) => {
-        if(isClicked === storyId){
-            setIsClicked(null);
-        }
-        else{
-            setIsClicked(storyId)
+    const handleClick = (storyId, e) => {
+        if(e.target.tagName !== "BUTTON"){
+            setIsClicked(prev => prev === storyId ? null : storyId);
         }
     }
 
@@ -44,7 +41,7 @@ const HomePage = () => {
             <section className="storiesList">
                 {
                     json.map(story => (
-                        <StoriesDisplay key={story.id} storyId={story.id} Image={story.image.Image} name={story.title} isStarted={true} isClicked={isClicked} onClick={() => {handleClick(story.id)}}/>
+                        <StoriesDisplay key={story.id} storyId={story.id} Image={story.image.Image} name={story.title} isStarted={true} isClicked={isClicked} onClick={(e) => {handleClick(story.id, e)}}/>
                     ))
                 }
             </section>

@@ -2,7 +2,7 @@ import UserProfileMenu from './userProfileMenu/userProfileMenu';
 import SettingsMenu from './settingsMenu/settingsMenu';
 import './slider.css';
 
-const HeaderSlider = ({sliderType, setSliderType, setIsSliderOpened, darkMode, setDarkMode, displayMode, setDisplayMode, lineSpace, setLineSpace}) => {
+const HeaderSlider = ({sliderType, setSliderType, darkMode, setDarkMode, displayMode, setDisplayMode, lineSpace, setLineSpace}) => {
     return (
         <aside className="sliderComponent">
             {
@@ -16,7 +16,6 @@ const HeaderSlider = ({sliderType, setSliderType, setIsSliderOpened, darkMode, s
                     displayMode={displayMode} setDisplayMode={setDisplayMode}
                     lineSpace={lineSpace} setLineSpace={setLineSpace}
                     setSliderType={setSliderType}
-
                 />
             }
         </aside>
