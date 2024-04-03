@@ -1,6 +1,7 @@
 :root{
     font-size: calc(1rem + 0.25vw);
-    --white-shade: #fafafa;
+    --white-shade : #fafafa;
+    --white-shadow: rgba(222,222,222,0.1);
 
     --dark-grey: #3b3b3b;
     --black-shade: #282828;
