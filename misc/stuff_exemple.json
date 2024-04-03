@@ -1,0 +1,42 @@
+{
+  "1": {
+    "name": "Sword of Goth",
+    "type": "weapon",
+    "stats": {
+      "strength": 1
+    },
+    "loot_points": 1
+  },
+  "2": {
+    "name": "Keg of beer",
+    "type": "consumable",
+    "food_points": 1
+  },
+  "3": {
+    "name": "Cured ham",
+    "type": "consumable",
+    "food_points": 1
+  },
+  "4": {
+    "name": "Potion of healing",
+    "type": "consumable",
+    "healing_points": 2
+  },
+  "5": {
+    "name": "Boulder",
+    "type": "weapon",
+    "stats": {
+      "strength": 2
+    }
+  },
+  "6": {
+    "name": "Silver candelabra",
+    "type": "treasure",
+    "loot_points": 1
+  },
+  "7": {
+    "name": "Gold statue of Goff",
+    "type": "treasure",
+    "loot_points": 2
+  }
+}

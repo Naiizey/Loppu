@@ -1,0 +1,107 @@
+.settingsMenu{
+    height: 100%;
+    width: 95%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    position: relative;
+}
+
+
+.incoming{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    width: 100%;
+
+    position: relative;
+}
+
+.incoming::after{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    content: "Incoming";
+    font-size: 2em;
+    background-color: rgb(55, 55, 55);
+    opacity: .95;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.settingsMenu h2{
+    font-size: 1.25em;
+    line-height: 1.25;
+    max-width: max-content;
+}
+
+.settingsMenu section{
+    width: 90%;
+    flex-grow: 1;
+    
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.settingsMenu hr{
+    width: 100%;
+    color: #797979;
+}
+
+.settingsMenu .buttonsContainer{
+    display: flex;
+    justify-content: space-around;
+}
+
+.settingsMenu .buttonsContainer > button{
+    width: 45%;
+    border: none;
+    border-radius: .5em;
+    color: var(--dark-grey);
+
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+.settingsMenu .buttonsContainer button.active{
+    background-color: #2360FF;
+    color: var(--white-shade)
+}
+
+.settingsMenu .buttonsContainer button svg{
+    vertical-align: middle;
+    fill: var(--dark-grey)
+}
+
+.settingsMenu .buttonsContainer button.active svg{
+    vertical-align: middle;
+    fill: var(--white-shade);
+}
+
+.settingsMenu .addLineSpace, .settingsMenu .removeLineSpace{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.settingsMenu .addLineSpace p, .settingsMenu .removeLineSpace p{
+    text-align: center;
+    font-size: .75em; 
+    color: var(--white-shade);
+    opacity: .75;
+}
