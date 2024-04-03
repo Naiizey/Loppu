@@ -3,8 +3,11 @@ import './home.css';
 const HomePage = () => {
     return (
         <main id="home">
-            <h1>Welcome back to Loppu !</h1>
-            <h2>My stories</h2>
+            <h1>Welcome to Loppu !</h1>
+            <div class="buttons">
+                <button>Play</button>
+                <button onClick={() => window.location.href = '/Credits'}>Credits</button>
+            </div>
         </main>
     )
 };

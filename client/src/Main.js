@@ -5,6 +5,7 @@ import {
 
 import Home from './pages/home/home'
 import Story from './pages/story/story'
+import Credits from "./pages/credits/credits";
 import Slider from './components/slider/slider';
 
 const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened}) => {
@@ -27,6 +28,12 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened}) =>
                     exact
                     path="/story"
                     element={ <Story/> }
+                />
+
+                <Route
+                    exact
+                    path="/credits"
+                    element={ <Credits/> }
                 />
             </Routes>
         </div>

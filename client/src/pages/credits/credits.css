@@ -1,4 +1,4 @@
-main#home{
+main#credits{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,22 +7,15 @@ main#home{
     color: var(--white-shade);
 }
 
-main#home h1, main#home h2{
+main#credits h1, main#credits h2{
     font-family: 'Inknut-Antiqua-Regular', sans-serif;
 }
 
-main#home h1{
+main#credits h1{
     font-size: 2em;
 }
 
-main#home .buttons{
-    display: flex;
-    flex-direction: column;
-    row-gap: 2em;
-    padding-top: 2em;
-}
-
-main#home .buttons > button{
+main#credits button{
     font-family: 'Inria-Sans-Regular', sans-serif;
     font-size: 1.25em;
     padding: 0.5em 1em;
@@ -33,8 +26,20 @@ main#home .buttons > button{
     cursor: pointer;
 }
 
-main#home .buttons > button:hover{
+main#credits button:hover{
     background-color: var(--white-shade);
     color: var(--black-shade);
     transition: background-color 0.5s, color 0.5s;
+}
+
+main#credits ul{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+
+main#credits ul li{
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    font-size: 1.25em;
+    text-align: center;
 }
