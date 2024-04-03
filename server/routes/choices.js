@@ -11,11 +11,16 @@ router.get("/choices", (req, res) => {
 });
 
 // GET choice by id
-router.get("/choices/:id", (req, res) => {
-  const { id } = req.params;
-  pool.query("SELECT * FROM choices WHERE id = $1", [id]).then((results) => {
-    res.json(results.rows[0]);
-  });
+router.get("/choices/:storyId/:idFrom", (req, res) => {
+  const { idFrom, storyId } = req.params;
+  pool
+    .query(
+      "SELECT * FROM choices WHERE id_section_from = $1 and id_story = $2",
+      [idFrom, storyId]
+    )
+    .then((results) => {
+      res.json(results.rows);
+    });
 });
 
 // POST a new choice
