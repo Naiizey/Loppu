@@ -26,7 +26,7 @@ const SectionPage = () => {
     //     setData(res[0]);
     // });
     // }, []);
-    API("sections/story/"+  sectionId).then((res)=> {
+    API("sections/"+  sectionId).then((res)=> {
         const section = res
         console.log(section);
     })
