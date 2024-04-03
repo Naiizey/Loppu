@@ -2,18 +2,19 @@ import { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import './App.css';
-import Main from './Main'
 
 import Header from './components/header/header'
+import Main from './Main'
+
 
 function App() {
   const [isSliderOpened, setIsSliderOpened] = useState(false);
 
   const [sliderType, setSliderType] = useState();
 
-  /* useStates for future implementations
   const [darkMode, setDarkMode] = useState(true);
-
+  
+  /* useStates for future implementations
   const [displayMode, setDisplayMode] = useState("simple");
 
   const [lineSpace, setLineSpace] = useState(1);
@@ -26,14 +27,12 @@ function App() {
 
   return (
     <Router>
-      <Header/>
-      <Routes>
       <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
       <Main 
         sliderType={sliderType} setSliderType={setSliderType}
-        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} 
+        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened}
+        darkMode={darkMode} setDarkMode={setDarkMode} 
       />
-      </Routes>
     </Router>
   );
 }
