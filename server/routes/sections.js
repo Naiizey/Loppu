@@ -18,6 +18,16 @@ router.get("/sections/:id", (req, res) => {
   });
 });
 
+// GET section by story id
+router.get("/sections/story/:id", (req, res) => {
+  const { id } = req.params;
+  pool
+    .query("SELECT * FROM sections WHERE story_id = $1", [id])
+    .then((results) => {
+      res.json(results.rows);
+    });
+});
+
 // POST a new section
 router.post("/sections", (req, res) => {
   const { name } = req.body;
