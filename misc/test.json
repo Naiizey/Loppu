@@ -31,7 +31,7 @@
                 }
               }
             ]
-          }
+          }  
         }
       },
       {
@@ -1923,6 +1923,122 @@
           "goto": 20
         }
       ]
+    }
+  },
+  "43": {
+    "action": {
+      "type": "combat",
+      "text": "In all the chaos a pack of underfed dogs have needed little encouragement to go feral, and are now feasting on the carcasses of several dead cattle. Seeing you as fellow competition, they attack in a flurry of snarls and bared fangs.",
+      "enemy": {
+        "name": "Feral Dog Pack",
+        "strength": 2,
+        "toughness": 4,
+        "hurt": 1
+      },
+      "choices" : [
+        {
+          "text": "Throw a boulder at the dog pack",
+          "goto": 32,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 32
+        }
+      ],
+      "win": {
+        "text": "You have beaten most of them off, and the rest slink away with their tails between their legs.",
+        "goto": 32
+      },
+      "loose": {
+        "text": "The dog pack reduces your TUFF score to zero.",
+        "goto": 13
+      }
+    }
+  }, 
+  "44": {
+    "action": {
+      "type": "story",
+      "text": "Still flush with success from your recent conquest, you begin smashing holes in the domed roof of the Temple of Goff, looking for treasure. This enrages the high priest, a decrepit old balding Gnome in a scarlet robe, known as the Curer. He rushes out of the temple in a fury, frothing at the mouth and yelling near-incomprehensible obscenities at you. The Curer then waves a gnarled staff in the air and begins to pronounce a mystical chant. A glowing blue nimbus of light surrounds him, and as his prayers reach a screaming crescendo, he makes a stabbing gesture with the staff, pointing it directly at you. Blue light races down the priest's arm, along the staff, and arcs through the air towards you in a blast of divine energy. You have been ensorcelled by the Curer! ",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": "<",
+                  "successText": "You shrug off the effects of the spell",
+                  "goto": 9
+                },
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": ">=",
+                  "failureText": "You are now the victim of unknown sorcery!",
+                  "goto": 24
+                }
+              ]
+            }
+          }
+        }
+      ]  
+  },
+  "45": {
+    "action": {
+      "type": "enemy",
+      "alreadyVisited": "33",
+      "text": "The market is in an uproar owing to your intrusion. Stall-holders are frantically shutting up shop, people are rushing all over the place, pack-animals are milling around in confusion, and Gnomish guards are everywhere trying to maintain order. You leisurely contemplate the rich pickings on offer, but one lone figure stands in your way.",
+      "enemy": {
+        "name": "Sournoise the guard",
+        "strength": 3,
+        "toughness": 2,
+        "hurt": 1
+      },
+      "choices": [
+        {
+          "text": "Throw a boulder at Sournoise",
+          "goto": 42,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 42
+        }
+      ],
+      "win": {
+        "text": "You stand triumphant amidst the ruins of the market place. You strip the market of a few choice items, add a Barrel of Sausages (1 Food Point) and an Asantian Rug (1 Loot Point) to your Sack.",
+        "impact": {
+          "stuff": [
+            {
+              "name": "Barrel of Sausages",
+              "quantity": 1,
+              "type": "food"
+            },
+            {
+              "name": "Asantian Rug",
+              "quantity": 1,
+              "type": "treasure"
+            }
+          ]
+        },
+        "goto": 42
+      },
+      "loose": {
+        "text": "Your opponent reduces your TUFF score to zero.",
+        "goto": 13
+      }
     }
   },
   "46": {
