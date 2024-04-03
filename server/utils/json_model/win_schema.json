@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "win_schema.json",
+  "title": "Win Schema",
+  "description": "Schema for the 'win' property.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "impact": {
+      "$ref": "impact_schema.json"
+    },
+    "goto": {
+      "type": "string"
+    }
+  },
+  "required": ["text"]
+}
