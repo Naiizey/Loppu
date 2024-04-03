@@ -9,10 +9,6 @@ section#characterSelection{
     color: var(--white-shade);
 }
 
-section#characterSelection h1, section#characterSelection h2{
-    font-family: 'Inria-Sans-Regular', sans-serif;
-}
-
 section#characterSelection h1{
     font-size: 2em;
 }
@@ -23,11 +19,4 @@ section#characterSelection > ul{
     align-items: center;
     column-gap: 2em;
     padding: auto;
-}
-
-
-
-section#characterSelection > ul > li:hover{
-    box-shadow: 0 0 10px var(--white-shade);
-    transform: scale(1.05);
 }
