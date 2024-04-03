@@ -36,10 +36,16 @@ main#credits ul{
     display: flex;
     flex-direction: column;
     row-gap: 1em;
+    justify-content: center;
 }
 
 main#credits ul li{
     font-family: 'Inria-Sans-Regular', sans-serif;
     font-size: 1.25em;
     text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em;
+    gap: 4em;
 }
