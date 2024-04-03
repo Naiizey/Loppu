@@ -1,39 +1,37 @@
 #characterSheetBig{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 0.5em;
-    padding: 1em;
+    flex-direction: row;
+    align-items: space-between;
     background-color: var(--black-shade);
     border-radius: 10px;
     box-shadow: 0 0 10px var(--black-shade);
     transition: all 0.3s;
-    width: 16em;
+    padding: 1em;
+    column-gap: 0.5em;
 }
 
-#characterSheetBig > hr{
-    color : var(--white-shade);
-    width: 100%;
+#characterSheetBig > :first-child{
+    align-self: center;
 }
 
-#characterSheetBig button{
-    padding: 1em 2em;
-    background-color: var(--grey-button-sel-char);
-    color: var(--black-text-on-grey-button);
-    border-radius: 10px;
-    font-family: 'Inria-Sans-Regular', sans-serif;
-    font-size: 1em;
-    cursor: pointer;
+#characterSheetBig > :last-child{
+    align-self: center;
 }
 
-#characterSheetBig ul{
+#characterSheetBig > section{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+}
+
+#characterSheetBig > section > ul{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 16em;
 }
 
-#characterSheetBig ul > li{
+#characterSheetBig > section > ul > li{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -43,9 +41,20 @@
 }
 
 #characterSheetBig img{
-    width: 10em;
-    height: 10em;
+    width: 8em;
+    height: 8em;
     border-radius: 10px;
+}
+
+#characterSheetBig.selected{
+    height: auto;
+}
+
+#arrowDownWhite{
+    width: 6em;
+    height: 6em;
+    fill: var(--white-shade);
+    transition: all 0.3s;
 }
 
 /* character Sheet Small */
