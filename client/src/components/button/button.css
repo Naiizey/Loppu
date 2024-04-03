@@ -10,6 +10,13 @@
     width: 75%;
 }
 
+.smallButtonComponent{
+    align-self: center;
+
+    height: 1.5rem;
+    width: 50%;
+}
+
 button[class*=button]{
     display: flex;
     column-gap: .5em;
@@ -38,8 +45,19 @@ button[class*=button]{
     justify-content: center;
 }
 
-[class^=mediuButton] > button svg{
+[class^=mediumButton] > button svg{
     height: 1em;
+}
+
+[class^=smallButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: .5em;
+    justify-content: center;
+}
+
+[class^=smallButton] > button svg{
+    height: .75em;
 }
 
 [class$=button-danger]{
@@ -71,4 +89,16 @@ button[class*=button]{
 [class$=button-success]{
     background-color: var(--green-shade);
     color: var(--dark-grey);
+}
+
+
+[class$=button-dark]{
+    background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
+
+    color: var(--white-shade);
+}
+
+
+[class$=button-dark] path{
+    fill: var(--white-shade);
 }

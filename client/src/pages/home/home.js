@@ -15,8 +15,6 @@ const HomePage = () => {
             </section>
             <section className="storiesList">
                 <StoriesDisplay Image={Image} name="Distortion of Ascalon" isStarted={true} isClicked={isClicked} onClick={() => (setIsClicked(!isClicked))}/>
-                <StoriesDisplay Image={Image} name="Distortion of Ascalon" isStarted={true} isClicked={false}/>
-                <StoriesDisplay Image={Image} name="Distortion of Ascalon" isStarted={true} isClicked={isClicked} onClick={() => (setIsClicked(!isClicked))}/>
             </section>
         </main>
     )
