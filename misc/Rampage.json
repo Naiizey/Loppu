@@ -988,7 +988,7 @@
   "28": {
     "action": {
       "type": "combat",
-      "text": "The mansion of Bronze the Merchant is now little more than a pile of rubble. As are many of the homes of other traders in the area. Rampaging mobs of Gnomish looters prowl the streets, stripping valuables from the ruins. One such gang spots you ambling down a lane. \"It's the monster!\" they howl in unison. \"Get 'im, lads!\" You must fight the mob of Gnomish townsfolk, armed with clubs, spears and other makeshift weaponry, as one opponent. ",
+      "text": "The mansion of Bronze the Merchant is now nothing more than a pile of rubble. As are many of the homes of other traders in the area. Rampaging mobs of Gnomish looters prowl the streets, stripping valuables from the ruins. One such gang spots you ambling down a lane. \"It's the monster!\" they howl in unison. \"Get 'im, lads!\" You must fight the mob of Gnomish townsfolk, armed with clubs, spears and other makeshift weaponry, as one opponent. ",
       "enemy": {
         "name": "Gnomish Mob",
         "strength": 2,
