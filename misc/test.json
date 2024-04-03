@@ -1015,7 +1015,7 @@
       ],
       "win": {
         "text": "You have beaten most of them off, and the survivors flee in fear, screaming \"Run away! Run away!\"",
-        "goto": 28.5,
+        "goto": 2805,
         "impact": {
           "stuff": [
             {
@@ -1032,7 +1032,7 @@
       }
     }
   },
-  "28.5": {
+  "2805": {
     "action": {
       "type": "story",
       "text": "The mob has certainly uncovered plenty of interesting objects in the homes of the merchants however.",
@@ -1620,11 +1620,11 @@
       },
       "win": {
         "text": "you have defeated Bronze the Merchant's elite bodyguard! ",
-        "goto": 35.5
+        "goto": 3505
       }
     }
   },
-  "35.5": {
+  "3505": {
     "action": {
       "type": "story",
       "text": "You are too big to enter Bronze's mansion, but you do manage to smash a few doors, reach in with a taloned fist, and pull some choice items out into the street. ",
