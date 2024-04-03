@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import './App.css';
+import Main from './Main'
 
 import Header from './components/header/header'
 import Main from './Main'
