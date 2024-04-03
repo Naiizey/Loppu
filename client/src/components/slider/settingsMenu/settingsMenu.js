@@ -20,7 +20,7 @@ const SettingsMenu = ({darkMode, setDarkMode, displayMode, setDisplayMode, lineS
     const [inputValue, setInputValue] = useState(15);
 
     return (
-        <div className="settingsMenu">
+        <div className="settingsMenuComponent">
             <header id="settingsHeader">
                 <h2>Settings</h2>
                 <hr/>

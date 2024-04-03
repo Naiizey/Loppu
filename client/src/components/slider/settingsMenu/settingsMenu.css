@@ -1,4 +1,4 @@
-.settingsMenu{
+.settingsMenuComponent{
     height: 100%;
     width: 95%;
 
@@ -38,33 +38,33 @@
     z-index: 1;
 }
 
-.settingsMenu h2{
+.settingsMenuComponent h2{
     font-size: 1.25em;
     line-height: 1.25;
     max-width: max-content;
 }
 
-.settingsMenu section{
+.settingsMenuComponent section{
     width: 90%;
     flex-grow: 1;
-    
+
     align-self: center;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-.settingsMenu hr{
+.settingsMenuComponent hr{
     width: 100%;
     color: #797979;
 }
 
-.settingsMenu .buttonsContainer{
+.settingsMenuComponent .buttonsContainer{
     display: flex;
     justify-content: space-around;
 }
 
-.settingsMenu .buttonsContainer > button{
+.settingsMenuComponent .buttonsContainer > button{
     width: 45%;
     border: none;
     border-radius: .5em;
@@ -78,30 +78,30 @@
     cursor: pointer;
 }
 
-.settingsMenu .buttonsContainer button.active{
+.settingsMenuComponent .buttonsContainer button.active{
     background-color: #2360FF;
     color: var(--white-shade)
 }
 
-.settingsMenu .buttonsContainer button svg{
+.settingsMenuComponent .buttonsContainer button svg{
     vertical-align: middle;
     fill: var(--dark-grey)
 }
 
-.settingsMenu .buttonsContainer button.active svg{
+.settingsMenuComponent .buttonsContainer button.active svg{
     vertical-align: middle;
     fill: var(--white-shade);
 }
 
-.settingsMenu .addLineSpace, .settingsMenu .removeLineSpace{
+.settingsMenuComponent .addLineSpace, .settingsMenuComponent .removeLineSpace{
     width: 45%;
     display: flex;
     flex-direction: column;
 }
 
-.settingsMenu .addLineSpace p, .settingsMenu .removeLineSpace p{
+.settingsMenuComponent .addLineSpace p, .settingsMenuComponent .removeLineSpace p{
     text-align: center;
-    font-size: .75em; 
+    font-size: .75em;
     color: var(--white-shade);
     opacity: .75;
 }

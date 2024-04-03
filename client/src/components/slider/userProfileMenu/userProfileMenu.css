@@ -1,4 +1,4 @@
-.userMenu{
+.userMenuComponent{
     height: 100%;
     width: 95%;
 
@@ -9,27 +9,27 @@
     position: relative;
 }
 
-.userMenu h2{
+.userMenuComponent h2{
     font-size: 1.25em;
     line-height: 1.25;
     max-width: max-content;
 }
 
-.userMenu section{
+.userMenuComponent section{
     width: 90%;
     flex-grow: 1;
-    
+
     align-self: center;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-.userMenu hr{
+.userMenuComponent hr{
     width: 100%;
     color: #797979;
 }
 
-.userMenu .buttonComponent{
+.userMenuComponent .buttonComponent{
     align-self: center;
 }
