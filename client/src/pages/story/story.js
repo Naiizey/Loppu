@@ -21,6 +21,13 @@ const SectionPage = () => {
         type_id: 0,
     });
 
+    const story_id = localStorage.getItem("storyId");
+    if (story_id == null)
+    {
+        localStorage.setItem("storyId",1);
+        story_id = 1;
+    }
+
     const defaultSection = 1;
     const [sectionId, setSectionId] = useState(localStorage.getItem("sectionID") || defaultSection);
 

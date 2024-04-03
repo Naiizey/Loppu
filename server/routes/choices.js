@@ -4,8 +4,9 @@ const pool = db.getPool();
 const router = express.Router();
 
 // GET all choices
-router.get("/choices", (req, res) => {
-  pool.query("SELECT * FROM choices").then((results) => {
+router.get("/choices/:storyId", (req, res) => {
+  const { storyId } = req.params;
+  pool.query("SELECT * FROM choices WHERE id_story = $1", [storyId]).then((results) => {
     res.json(results.rows);
   });
 });
@@ -19,9 +20,10 @@ router.get("/choices/:storyId/:idFrom", (req, res) => {
 });
 
 // POST a new choice
-router.post("/choices", (req, res) => {
+router.post("/choices/:storyId", (req, res) => {
+  const { storyId } = req.params;
   const { name } = req.body;
-  pool.query("INSERT INTO choices (name) VALUES ($1)", [name]).then(() => {
+  pool.query("INSERT INTO choices (name) VALUES ($1) WHERE id_story = $2", [name, storyId]).then(() => {
     res.json({
       message: "choice added successfully!",
     });
@@ -29,11 +31,11 @@ router.post("/choices", (req, res) => {
 });
 
 // PUT updated choice
-router.put("/choices/:id", (req, res) => {
-  const { id } = req.params;
+router.put("/choices/:storyId/:id", (req, res) => {
+  const { id, storyId } = req.params;
   const { name } = req.body;
   pool
-    .query("UPDATE choices SET name = $1 WHERE id = $2", [name, id])
+    .query("UPDATE choices SET name = $1 WHERE id = $2 WHERE id_story = $3", [name, id, storyId])
     .then(() => {
       res.json({
         message: "choice updated successfully!",
@@ -42,9 +44,9 @@ router.put("/choices/:id", (req, res) => {
 });
 
 // DELETE choice
-router.delete("/choices/:id", (req, res) => {
-  const { id } = req.params;
-  pool.query("DELETE FROM choices WHERE id = $1", [id]).then(() => {
+router.delete("/choices/:storyId/:id", (req, res) => {
+  const { id, storyId } = req.params;
+  pool.query("DELETE FROM choices WHERE id = $1 and id_story = $2", [id, storyId]).then(() => {
     res.json({
       message: "choice deleted successfully!",
     });

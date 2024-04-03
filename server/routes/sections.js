@@ -4,25 +4,26 @@ const pool = db.getPool();
 const router = express.Router();
 
 // GET all sections
-router.get("/sections", (req, res) => {
-  pool.query("SELECT * FROM sections").then((results) => {
+router.get("/sections/:idStory", (req, res) => {
+  const { idStory } = req.params;
+  pool.query("SELECT * FROM sections WHERE story_id= $1", [idStory]).then((results) => {
     res.json(results.rows);
   });
 });
 
 // GET section by id
-router.get("/sections/:id", (req, res) => {
-  const { id } = req.params;
-  pool.query("SELECT * FROM sections WHERE id = $1", [id]).then((results) => {
+router.get("/sections/:idStory/:id", (req, res) => {
+  const { id, idStory } = req.params;
+  pool.query("SELECT * FROM sections WHERE id = $1 and story_id = $2", [id, idStory]).then((results) => {
     res.json(results.rows);
   });
 });
 
 // GET section by story id
-router.get("/sections/story/:id", (req, res) => {
-  const { id } = req.params;
+router.get("/sections/story/:idStory", (req, res) => {
+  const { idStory } = req.params;
   pool
-    .query("SELECT * FROM sections WHERE story_id = $1", [id])
+    .query("SELECT * FROM sections WHERE story_id = $1", [idStory])
     .then((results) => {
       res.json(results.rows);
     });
