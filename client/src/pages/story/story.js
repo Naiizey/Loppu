@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const SectionPage = () => {
     const [title, setTitle] = useState("");
-    
+
 
     const [data, setData] = useState({
         id: 0,
@@ -16,24 +16,16 @@ const SectionPage = () => {
             text: "",
         },
     });
-    
+
 
     const defaultSection = 1;
     const [sectionId, setSectionId] = useState(document.cookie.split("sectionId=")[1] || defaultSection);
-    
-    // useEffect(() => {
-    // API("sections/story/1").then((res) => {
-    //     setData(res[0]);
-    // });
-    // }, []);
-    API("sections/"+  sectionId).then((res)=> {
-        const section = res
-        console.log(section);
-    })
 
-    
+    useEffect(() => { API("sections/" + sectionId).then((res) => { const section = res; console.log(section); }); }, [sectionId]);
 
-    return ( 
+
+
+    return (
         <main id="section">
             <section>
                 <div>
