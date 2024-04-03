@@ -4,7 +4,7 @@
     "gender" : "female",
 
     "strength": 6,
-    "resistance": 4,
+    "resistance": 4, 
     "intelligence": 4,
 
     "description": {

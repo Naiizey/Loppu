@@ -60,7 +60,10 @@ CREATE TABLE IF NOT EXISTS choices (
     id_section_to SERIAL,
     content TEXT NOT NULL,
     impact JSONB NOT NULL,
-    PRIMARY KEY (id_story, id_section_from, id_section_to)
+    victory boolean, 
+    lose boolean,
+    parent_key VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id_story, id_section_from, id_section_to, impact, victory, lose, parent_key)
 );
 CREATE TABLE IF NOT EXISTS tags (
     id SERIAL PRIMARY KEY,
@@ -72,4 +75,16 @@ CREATE TABLE IF NOT EXISTS stories_tags (
     PRIMARY KEY (id_story, id_tag),
     FOREIGN KEY (id_story) REFERENCES stories(id),
     FOREIGN KEY (id_tag) REFERENCES tags(id)
+);
+CREATE TABLE IF NOT EXISTS stuff (
+    id SERIAL PRIMARY KEY,
+    id_story SERIAL,
+    id_item SERIAL,
+    item_name VARCHAR(255) NOT NULL,
+    item_type VARCHAR(255) NOT NULL,
+    stats JSONB,
+    loot_points INT,
+    food_points INT,
+    heal_points INT,
+    FOREIGN KEY (id_story) REFERENCES stories(id)
 );

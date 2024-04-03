@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "impact_schema.json",
+  "title": "Impact Schema",
+  "description": "Schema for the 'impact' property.",
+  "type": "object",
+  "properties": {
+    "stuff": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["weapon", "food", "treasure"]
+          }
+        },
+        "required": ["name", "quantity", "type"]
+      }
+    },
+    "stats": {
+      "type": "object",
+      "properties": {
+        "toughness": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
