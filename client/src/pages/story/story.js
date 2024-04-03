@@ -22,7 +22,7 @@ const SectionPage = () => {
     });
 
     const defaultSection = 1;
-    const [sectionId, setSectionId] = useState(document.cookie.split("sectionId=")[1] || defaultSection);
+    const [sectionId, setSectionId] = useState(localStorage.getItem("sectionID") || defaultSection);
 
     useEffect(() => {
         API("sections/" + sectionId).then((res) => {
@@ -64,10 +64,10 @@ const SectionPage = () => {
                     <p>{section.content.action.text}</p>
                 </article>
             </section>
-            {/* <Choices
+            <Choices
                 id={sectionId}
                 setSectionId={setSectionId}
-            /> */}
+            />
         </main >
     )
 };

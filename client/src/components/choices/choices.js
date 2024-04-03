@@ -10,20 +10,21 @@ import API from "../../utils/API";
 
 const Choices = ({ id, setSectionId }) => {
 
-    const [choice, setChoice] = useState({
-        id: 0,
-        id_book_section: 0,
-        content: {
-            action : {
-                text : "",
-            }
-        },
-        image: "",
-        story_id: 0,
-        title: "",
-        type_id: 0,
-    });
-    
+    // const [choice, setChoice] = useState({
+    //     id: 0,
+    //     id_book_section: 0,
+    //     content: {
+    //         action : {
+    //             text : "",
+    //         }
+    //     },
+    //     image: "",
+    //     story_id: 0,
+    //     title: "",
+    //     type_id: 0,
+    // });
+    const story_id = localStorage.getItem("storyId");
+
     useEffect(() => {
         API("choices/" + id).then((res) => {
             res = res[0];
