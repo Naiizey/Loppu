@@ -3,8 +3,15 @@ import { useState } from "react";
 import Choices from "../../components/choices/choices";
 import API from "../../utils/API";
 import { useEffect } from "react";
+import CharacterSheet from '../../components/characterSheet/characterSheet';
 
 const SectionPage = () => {
+    const [clickedCharacter, setClickedCharacter] = useState(null);
+
+    const handleCharacterClick = (characterName) => {
+        setClickedCharacter(prev => prev === characterName ? null : characterName);
+    };
+  
   const [title, setTitle] = useState("");
 
   const [section, setSection] = useState({
@@ -41,6 +48,9 @@ const SectionPage = () => {
 
   return (
     <main id="section">
+      <nav>
+        <CharacterSheet type="small" name="Mage" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["staff", "spellbook"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Mage"} onClick={() => handleCharacterClick("Mage")}/>
+      </nav>
       <section>
         <div>
           <div className="progress">
