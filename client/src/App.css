@@ -5,11 +5,14 @@
     --dark-grey: #3b3b3b;
     --black-shade: #282828;
     --black-text: #1e1c1c;
-    
+
     --grey-shade: #747272 ;
     --light-grey: #d8d8d8;
     --grey-button: #D9D9D9;
-    
+
+    --blue-shade: #50a0d9;
+    --red-shade: #D95050;
+    --green-shade: #24F257;
 }
 
 body{

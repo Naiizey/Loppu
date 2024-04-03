@@ -10,8 +10,8 @@ import { ReactComponent as DisplaySingleIcon } from '../../../assets/icons/page.
 import { ReactComponent as AddLineSpace } from '../../../assets/icons/textMoreSpace.svg';
 import { ReactComponent as RemoveLineSpace } from '../../../assets/icons/textLessSpace.svg';
 
-import { ReactComponent as AccountIcon } from '../../../assets/icons/account.svg'
-import { ReactComponent as KeyboardIcon } from '../../../assets/icons/keyboard.svg'
+import { ReactComponent as AccountIcon } from '../../../assets/icons/account.svg';
+import { ReactComponent as KeyboardIcon } from '../../../assets/icons/keyboard.svg';
 
 import RangeInput from '../../rangeInput/rangeInput';
 import SliderButton from '../sliderButton/sliderButton';
@@ -21,10 +21,8 @@ const SettingsMenu = ({darkMode, setDarkMode, displayMode, setDisplayMode, lineS
 
     return (
         <div className="settingsMenuComponent">
-            <header id="settingsHeader">
-                <h2>Settings</h2>
-                <hr/>
-            </header>
+            <h2>Settings</h2>
+            <hr/>
             <section className="darkMode">
                 <h4>Theme</h4>
                 <div className="buttonsContainer">
@@ -32,6 +30,7 @@ const SettingsMenu = ({darkMode, setDarkMode, displayMode, setDisplayMode, lineS
                     <button className={darkMode ? "active" : ""} onClick={() => {setDarkMode(true)}}><NightIcon/> Night</button>
                 </div>
             </section>
+            <hr/>
             <div className="incoming">
                 <section className="font">
                     <h4>Font</h4>
@@ -56,6 +55,7 @@ const SettingsMenu = ({darkMode, setDarkMode, displayMode, setDisplayMode, lineS
                     </div>
                 </section>
             </div>
+            <hr/>
             <section className="utils">
                 <SliderButton type="info" Icon={AccountIcon} text="Account's settings" onClick={() => {setSliderType("user")}}/>
                 <SliderButton type="incoming" Icon={KeyboardIcon} text="Keybindings"/>

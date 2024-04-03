@@ -1,6 +1,6 @@
 .settingsMenuComponent{
-    height: 100%;
-    width: 95%;
+    height: 95%;
+    width: 85%;
 
     display: flex;
     flex-direction: column;
@@ -9,6 +9,39 @@
     position: relative;
 }
 
+
+.settingsMenuComponent h2{
+    font-size: 1.5em;
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    line-height: 1.25;
+    max-width: max-content;
+}
+
+.settingsMenuComponent section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.settingsMenuComponent hr{
+    width: 100%;
+    color: var(--);
+}
+
+.settingsMenuComponent .darkMode{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    flex-grow: 0;
+}
+
+.settingsMenuComponent .utils{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    flex-grow: 0;
+}
 
 .incoming{
     display: flex;
@@ -38,33 +71,12 @@
     z-index: 1;
 }
 
-.settingsMenuComponent h2{
-    font-size: 1.25em;
-    line-height: 1.25;
-    max-width: max-content;
-}
-
-.settingsMenuComponent section{
-    width: 90%;
-    flex-grow: 1;
-
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.settingsMenuComponent hr{
-    width: 100%;
-    color: #797979;
-}
-
-.settingsMenuComponent .buttonsContainer{
+.buttonsContainer{
     display: flex;
     justify-content: space-around;
 }
 
-.settingsMenuComponent .buttonsContainer > button{
+.buttonsContainer > button{
     width: 45%;
     border: none;
     border-radius: .5em;
@@ -78,28 +90,28 @@
     cursor: pointer;
 }
 
-.settingsMenuComponent .buttonsContainer button.active{
-    background-color: #2360FF;
+.buttonsContainer button.active{
+    background-color: var(--blue-shade);
     color: var(--white-shade)
 }
 
-.settingsMenuComponent .buttonsContainer button svg{
+.buttonsContainer button svg{
     vertical-align: middle;
     fill: var(--dark-grey)
 }
 
-.settingsMenuComponent .buttonsContainer button.active svg{
+.buttonsContainer button.active svg{
     vertical-align: middle;
     fill: var(--white-shade);
 }
 
-.settingsMenuComponent .addLineSpace, .settingsMenuComponent .removeLineSpace{
+.addLineSpace, .removeLineSpace{
     width: 45%;
     display: flex;
     flex-direction: column;
 }
 
-.settingsMenuComponent .addLineSpace p, .settingsMenuComponent .removeLineSpace p{
+.addLineSpace p, .removeLineSpace p{
     text-align: center;
     font-size: .75em;
     color: var(--white-shade);
