@@ -159,6 +159,7 @@
     transition: all 0.3s;
     padding: 1em;
     column-gap: 0.5em;
+    width: 24em;
 }
 
 #characterSheetSmall > :first-child{
@@ -199,7 +200,7 @@
     align-items: center;
     row-gap: 0.5em;
     padding: 1em;
-    width: 16em;
+    width: 24em;
     transition: all 0.3s;
 }
 
