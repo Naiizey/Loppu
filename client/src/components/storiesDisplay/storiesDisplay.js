@@ -3,9 +3,9 @@ import Button from '../button/button';
 import StoryProgress from '../storyProgress/storyProgress'
 import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow.svg'
 
-const StoriesDisplay = ({Image, name, isStarted, isClicked, onClick}) => {
+const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) => {
     return(
-        <div className={`storiesDisplayComponent${isClicked ? " clicked" : ""}`} onClick={onClick}>
+        <div className={`storiesDisplayComponent${isClicked === storyId ? " clicked" : ""}`} onClick={onClick}>
             <div className="storyInfos">
                 <h4>{name}</h4>
                 { isStarted &&
@@ -13,7 +13,7 @@ const StoriesDisplay = ({Image, name, isStarted, isClicked, onClick}) => {
                 }
                 <img src={Image} alt="story illustration"></img>
             </div>
-            { isClicked &&
+            { isClicked === storyId &&
                 <div className="storyDetails">
                     <StoryProgress />
                     <Button size="small" Icon={ArrowIcon} text="Continue my story" type="dark"/>

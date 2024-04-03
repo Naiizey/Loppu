@@ -5,7 +5,35 @@ import { useState } from 'react';
 
 
 const HomePage = () => {
-    const [isClicked, setIsClicked] = useState(false)
+    const [isClicked, setIsClicked] = useState(0);
+
+    const handleClick = (storyId) => {
+        if(isClicked === storyId){
+            setIsClicked(null);
+        }
+        else{
+            setIsClicked(storyId)
+        }
+    }
+
+    const json = [
+        {
+            "id":1,
+            "title":"RAMPAGE",
+            "author":"unknown",
+            "description":"unknown",
+            "created_at":"2024-04-03T12:38:00.705Z",
+            "image": {Image}
+        },
+        {
+            "id":2,
+            "title":"RAMPAGE",
+            "author":"unknown",
+            "description":"unknown",
+            "created_at":"2024-04-03T12:38:00.705Z",
+            "image": {Image}
+        },
+    ]    
 
     return (
         <main id="home">
@@ -14,7 +42,11 @@ const HomePage = () => {
                 <h2>My stories</h2>
             </section>
             <section className="storiesList">
-                <StoriesDisplay Image={Image} name="Distortion of Ascalon" isStarted={true} isClicked={isClicked} onClick={() => (setIsClicked(!isClicked))}/>
+                {
+                    json.map(story => (
+                        <StoriesDisplay key={story.id} storyId={story.id} Image={story.image.Image} name={story.title} isStarted={true} isClicked={isClicked} onClick={() => {handleClick(story.id)}}/>
+                    ))
+                }
             </section>
         </main>
     )
