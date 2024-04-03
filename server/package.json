@@ -15,6 +15,7 @@
     "pg": "^8.10.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "ajv": "^8.12.0"
   }
 }
