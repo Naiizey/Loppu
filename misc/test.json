@@ -1,0 +1,735 @@
+{
+  "1": {
+    "text": "If there is a tick in the above box, you have Been Here Before. Turn to 14. Otherwise, read on. The gates of Boulder Ford are made of thick oak reinforced with iron bands, and set within a sturdy stone gatehouse. Still, that should pose little problem to a determined beast such as yourself. Ignoring the shouts and screams of the Gnomish guards, you proceed to wrench the gates apart. Roll one die. If it is less than your STRENGF score, tick the box above, and turn to 26. If it is equal to or greater than your STRENGF score, you fail to open the gate. Deduct one point from your TUFF score to reflect both your efforts and the Gnomish arrows bouncing off your hardened hide. If your TUFF score is now zero, turn to 13. Otherwise, try again by rolling one die and comparing it to your STRENGF score in the manner above. Keep doing this until you either open the gates, or die trying! Alternatively, you could decide the whole thing is too much hard work and wander back to your cave. If you decide to do this, turn to 50.",
+    "type": "story",
+    "alreadyVisited": "14",
+    "choices": [
+      {
+        "text": "Try to open the gates",
+        "requires": {
+          "action": {
+            "type": "dice",
+            "text": "",
+            "numberOfDice": 1,
+            "diceResult": [
+              {
+                "checkType": "comparison",
+                "stat": "strength",
+                "operator": "<",
+                "successText": "You have opened the gates",
+                "goto": 26
+              },
+              {
+                "checkType": "comparison",
+                "stat": "strength",
+                "operator": ">=",
+                "failureText": "You fail to open the gate",
+                "impact": {
+                  "stats": {
+                    "resistance": -1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "text": "Go back to your cave",
+        "goto": 50
+      }
+    ]
+  },
+  "2": {
+    "text": "You are at the forge. Otherwise, you can go: North, to Brilligan's Keep turn to 25 South, to the market turn to 45 East, to the Temple of Goff turn to 15 West, to the mansion of Bronze the Merchant turn to 35",
+    "type": "story",
+    "choices": [
+      {
+        "text": "Go North, to Brilligan's Keep",
+        "goto": 25
+      },
+      {
+        "text": "Go South, to the market",
+        "goto": 45
+      },
+      {
+        "text": "Go East, to the Temple of Goff",
+        "goto": 15
+      },
+      {
+        "text": "Go West, to the mansion of Bronze the Merchant",
+        "goto": 35
+      }
+    ]
+  },
+  "3": {
+    "text": "The Blue Crab Tavern looks like it has been ransacked by a mob of green-skinned Gorks. The innkeeper, a fat red-faced Gnome called Vaed Thol, sits weeping on a keg outside the ruins of his tavern. On seeing you return, he rises to his feet waving a chair leg menacingly in your direction. \"You heartless bastard!\" Vaed howls. \"I was going to sell the place and retire to a bamboo beach hut on Skull Island. I'll make you pay for this!\" Defend yourself against the irate barman. VAED THOL THE INNKEEPERSTRENGF 1 TUFF 1 HURT 1 You may throw a Boulder at Vaed if you have one. If Vaed reduces your TUFF score to zero, turn to 13. If you want to flee, turn to 22. If you reduce Vaed's TUFF score to zero, you have slain the innkeeper. Tick the box above. You may add the Keg of Beer (1 Food Point) he was sitting on, to your Sack. Turn to 22.",
+    "type": "combat",
+    "alreadyVisited": "22",
+    "enemy": {
+      "name": "Vaed Thol the Innkeeper",
+      "strength": 1,
+      "toughness": 1,
+      "hurt": 1
+    },
+    "choices": [
+      {
+        "text": "Throw a boulder at Vaed",
+        "goto": 22,
+        "requires": {
+          "action": {
+            "type": "item",
+            "item": "boulder"
+          }
+        }
+      },
+      {
+        "text": "Flee",
+        "id": 22
+      }
+    ],
+    "win": {
+      "text": "You have slain the innkeeper. Tick the box above. You may add the Keg of Beer (1 Food Point) he was sitting on, to your Sack.",
+      "goto": 22
+    },
+    "lose": {
+      "text": "Vaed reduces your TUFF score to zero.",
+      "goto": 13
+    }
+  },
+  "4": {
+    "text": "Gastromo wipes his free hand on the hem of his robe, and after reaching into a pocket, scatters a fistful of tiny teeth upon the ground. In a moment, the magical blue light has transformed every tooth into a short, brown-skinned Yobbo, which are highly carnivorous humanoids related to Gorks. Lacking weapons, the horde of Yobbos hurl themselves at you in a great scaly wave, biting at your calves and gnawing on your kneecaps. Fight them as one opponent. HORDE OF YOBBOS STRENGF 2 TUFF 8 HURT 1 You may throw a Boulder at the Yobbos if you have one. If the Yobbos reduce your TUFF score to zero, turn to 13. If you want to flee, turn to 12. If you reduce the horde's TUFF score to zero, you have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You can: Assault the tower turn to 18 Leave the area turn to 12",
+    "type": "combat",
+    "enemy": {
+      "name": "Horde of Yobbos",
+      "strength": 2,
+      "toughness": 8,
+      "hurt": 1
+    },
+    "alreadyVisited": "12",
+    "choices": [
+      {
+        "text": "Throw a boulder at the Yobbos",
+        "goto": 12,
+        "requires": {
+          "action": {
+            "type": "item",
+            "item": "boulder"
+          }
+        }
+      },
+      {
+        "text": "Flee",
+        "goto": 12
+      }
+    ],
+    "win": {
+      "text": "You have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You can: Assault the tower turn to 18 Leave the area",
+      "goto": 12
+    },
+    "lose": {
+      "text": "The Yobbos reduce your TUFF score to zero.",
+      "goto": 13
+    }
+  },
+  "5": {
+    "text": "The forge of Boulder Ford is a stout stone-walled building with a tall smoking chimney. Mirroring the latter is the Dwarven smith Stubbs, who stands proudly outside his workplace puffing on a pipe and leaning on a warhammer. \"Was wondering when you were going to show up,\" he says, blowing smoke rings into the sky. \"Need the practice. Haven't slain any of your kind in years.\" Enraged by the smith's words and nonchalant attitude you howl a battle-cry and attack! STUBBS THE DWARF SMITH STRENGF 3 TUFF 4 HURT 2 You may throw a Boulder at Stubbs if you have one. If Stubbs reduces your TUFF score to zero, turn to 13. If you want to flee, turn to 2. If you reduce Stubb's TUFF score to zero, you have slain the insolent Dwarf. Turn to 19.",
+    "type": "combat",
+    "alreadyVisited": "23",
+    "enemy": {
+      "name": "Stubbs the Dwarf Smith",
+      "strength": 3,
+      "toughness": 4,
+      "hurt": 2
+    },
+    "choices": [
+      {
+        "text": "Throw a boulder at Stubbs",
+        "goto": 19,
+        "require": {
+          "action": {
+            "type": "item",
+            "item": "boulder"
+          }
+        }
+      },
+      {
+        "text": "Flee",
+        "goto": 2
+      }
+    ],
+    "win": {
+      "text": "You have slain the insolent Dwarf",
+      "goto": 19
+    },
+    "lose": {
+      "text": "Stubbs reduces your TUFF score to zero",
+      "goto": 13
+    }
+  },
+  "6": {
+    "text": "You crack open one of the kegs to test that it's \"still fresh\". Draining it in one long gulp, you throw the keg aside and open another, finishing it just as quickly. You're also drunk.",
+    "type": "story",
+    "choices": [
+      {
+        "text": "Save a keg for future reference",
+        "goto": 22,
+        "impact": {
+          "stuff": [
+            {
+              "name": "Keg of Beer",
+              "quantity": 1,
+              "type": "food"
+            }
+          ],
+          "stats": {
+            "résistance": {
+              "operator": "+",
+              "value": 2
+            },
+            "inteligence": {
+              "operator": "-",
+              "value": 1
+            }
+          }
+        }
+      }
+    ],
+    "impact": {
+      "stats": {
+        "smarts": -1
+      }
+    }
+  },
+  "7": {
+    "text": "You are at the gates of Boulder Ford.",
+    "type": "story",
+    "choices": [
+      {
+        "text": "Go North, to the market",
+        "goto": 45
+      },
+      {
+        "text": "Go South, to your cave",
+        "goto": 50
+      }
+    ]
+  },
+  "8": {
+    "text": "The Temple of Goff lies in ruins, the statue of the god now little more than a pile of rocks. \"Iconoclast! Despoiler! Destroyer! I curse you for returning to the scene of your blasphemous crimes!\" moans the ravaged head of the statue of Goff from amidst the rubble. Roll one die. If you roll under your SMARTS score, you are immune to the effects of the statue's curse. Turn to 17. If you roll equal to or over your SMARTS score, you have been cursed! Your TUFF gets subtracted by 2 and SMARTS by 1. Turn to 17.",
+    "type": "story",
+    "choices": [
+      {
+        "text": "Roll the dice",
+        "requires": {
+          "action": {
+            "type": "dice",
+            "text": "",
+            "numberOfDice": 1,
+            "diceResult": [
+              {
+                "checkType": "comparison",
+                "stat": "intelligence",
+                "operator": "<",
+                "successText": "You are immune to the effects of the statue's curse",
+                "goto": 17
+              },
+              {
+                "checkType": "comparison",
+                "stat": "intelligence",
+                "operator": ">=",
+                "failureText": "You have been cursed!",
+                "goto": 17,
+                "impact": {
+                  "stats": {
+                    "resistance": -2,
+                    "intelligence": -1
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "9": {
+    "action": {
+      "text": "Enough with the sorcery! Now is the time to smite this old Gnomish priest and grind his bones into the dirt! Resigning himself to his fate, the Curer casts one last spell that covers him in a glittering panoply of golden sparks that enervates him somewhat, and advances slowly towards you brandishing his staff. THE CURER STRENGF 2 TUFF 2 HURT 2 You may throw a Boulder at the Curer if you have one. If the Curer reduces your TUFF score to zero, turn to 13. If you want flee, turn to 17. If you reduce the Curer's TUFF score to zero, you crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items. Add any of the following to your Rampage Sheet: a Sack, a Silver Candelabra (1 Loot Point), a Gold Statue of Goff (2 Loot Points). When you have finished here, turn to 17.",
+      "type": "combat",
+      "alreadyVisited": "17",
+      "enemy": {
+        "name": "The Curer",
+        "strength": 2,
+        "toughness": 2,
+        "hurt": 2
+      },
+      "choices": [
+        {
+          "text": "Throw a boulder at the Curer",
+          "goto": 17,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 17
+        }
+      ],
+      "win": {
+        "text": "You crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items.",
+        "goto": 17,
+        "impact": {
+          "stuff": [
+            {
+              "name": "Silver Candelabra",
+              "quantity": 1,
+              "type": "treasure"
+            },
+            {
+              "name": "Gold Statue of Goff",
+              "quantity": 1,
+              "type": "treasure"
+            }
+          ]
+        }
+      }
+    },
+    "loose": {
+      "text": "The Curer reduces your TUFF score to zero. Turn to 13.",
+      "goto": 13
+    }
+  },
+  "10": {
+    "action": {
+      "type": "story",
+      "text": "Gastromo's Tower stands like a white fang looming above the Gnomish dwellings of Boulder Ford. Gastromo is a human spellcaster who is good friends with King Brilligan of the Gnomes, and has lived in the town for decades. Some say Gastromo's price for helping to defend Boulder Ford is an unlimited tab at the local bakery. Suddenly the thick door at the base of the tower is thrown open! The fat wizard himself, azure robes straining from containing his enormous bulk, comes shambling out, wiping crumbs from his long white beard and licking his fingers clean. He points one hand at you, makes a series of arcane gestures, and, still with a mouthful of food, mutters something unintelligible. Instantly, the air around you is filled with a glowing blue flash of light. Gastromo has cast a spell upon you!",
+      "alreadyVisited": "18",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "fromTo",
+                  "from": 1,
+                  "to": 2,
+                  "goto": 46
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 3,
+                  "to": 4,
+                  "goto": 16
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 5,
+                  "to": 6,
+                  "goto": 4
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "11": {
+    "action": {
+      "type": "story",
+      "text": "The Blue Crab Tavern lies undefended and at your mercy! Of course, you're too big to enter the place, but you stick an arm through a window and scrabble around for barrels or kegs to grab.",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "type": "dice",
+              "text": "",
+              "numberOfDice": 1,
+              "dice_result": [
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": "<",
+                  "impact": {
+                    "stuff": [
+                      {
+                        "name": "Keg of Beer",
+                        "quantity": 1,
+                        "type": "food"
+                      }
+                    ]
+                  },
+                  "successText": "You Add a Keg of Beer to your Sack",
+                  "goto": 22
+                },
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": ">=",
+                  "failure_text": "You pull out a keg of beer, and then another, and then another…",
+                  "goto": 6
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "12": {
+    "action": {
+      "type": "story",
+      "text": "You are at the tower of Gastromo the Wizard.",
+      "choices": [
+        {
+          "text": "Go South, to the mansion of Bronze the Merchant",
+          "goto": 35
+        },
+        {
+          "text": "Go East, to Brilligan's Keep",
+          "goto": 25
+        }
+      ]
+    }
+  },
+  "13": {
+    "text": "You are dead!"
+  },
+  "14": {
+    "action": {
+      "type": "combat",
+      "text": "The gates of Boulder Ford have been torn from their hinges and the garrison of guards have long since fled. \"Flippin' heck!\" mutters a female human adventurer who has just wandered into town through the ruined archway. \"All I wanted was a hot bath and a soft bed! I am Vaitharre the Adventuress, and I will not be denied!\" Unsheathing a magical sword that glows with emerald flames, she attacks you with speed and precision.",
+      "alreadyVisited": 7,
+      "enemy": {
+        "name": "vaitharre the adventuress",
+        "strength": 3,
+        "toughness": 4,
+        "hurt": 2
+      },
+      "choices": [
+        {
+          "text": "Throw a boulder at Vaitharre",
+          "goto": 7,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 7
+        }
+      ],
+      "win": {
+        "text": "you have slain the adventuress",
+        "impact": {
+          "stuff": [
+            {
+              "name": "Fire Sword",
+              "quantity": 1,
+              "type": "treasure"
+            }
+          ]
+        }
+      },
+      "loose": {
+        "text": "You have loose",
+        "goto": 13
+      }
+    }
+  },
+  "15": {
+    "action": {
+      "type": "combat",
+      "text": "The Temple of Goff is the most important religious edifice in the Shrine District of Boulder Ford. Goff is the patron earth god of the Gnomes, and the enormous stone statue of him outside the temple depicts Goff as a muscular, serious-looking Gnome with spiky hair and beard, black robes, and a huge steel broadsword. Even as you look on, the statue suddenly comes to life, and clambers down from its plinth! As it stomps towards you on legs of rock, waving the great sword about in murderous fashion, you realize with horror that it is just about as tall as you are. \"Desecrator! Prepare to pay for your sins!\" it intones in a thunderous voice. \"Those who defile the Temple the Goff face certain death!\" You must fight the statue of the earth god in a titanic combat that shakes the very ground itself!",
+      "alreadyVisited": 8,
+      "enemy": {
+        "name": "Status of goff",
+        "strength": 5,
+        "toughness": 4,
+        "hurt": 3
+      },
+      "choices": [
+        {
+          "text": "Throw a boulder at the statue",
+          "goto": 17,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 17
+        }
+      ],
+      "loose": {
+        "text": "You have loose",
+        "goto": 13
+      },
+      "win": {
+        "text": "You have defeated the avatar of Goff! The statue is now little more than a pile of boulder-sized rubble.",
+        "goto": 44,
+        "impact": {
+          "stuff": [
+            {
+              "name": "Legendary Sword of Goff",
+              //  "legendary Sword of Goff (HURT 3)"
+              "quantity": 1,
+              "type": "weapon"
+            },
+            {
+              "name": "Boulder",
+              "quantity": 1,
+              "type": "weapon"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "46": {
+    "action": {
+      "type": "story",
+      "text": "Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "text": " ",
+              "type": "dice",
+              "numberOfDice": 1,
+              "dice_result": [
+                {
+                  "checkType": "fromTo",
+                  "from": 1,
+                  "to": 1,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 2,
+                  "to": 2,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 2
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 3,
+                  "to": 3,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 4,
+                  "to": 4,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 4
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 5,
+                  "to": 5,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 5
+                      }
+                    }
+                  }
+                },
+                {
+                  "checkType": "fromTo",
+                  "from": 6,
+                  "to": 6,
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 6
+                      }
+                    }
+                  }
+                }
+              ],
+              "loose": {
+                "text": "The fiery blast of blue energy incinerates you where you stand!",
+                "goto": 13
+              },
+              "win": {
+                "text": "The blast also destroys your inventory and any items it contains Blackened, charred, and scorched nearly to the bone, but still alive.",
+                "impact": {
+                  "stuff": "delete_all"
+                },
+                "action": {
+                  "type": "story",
+                  "choices": [
+                    {
+                      "text": "Assault the tower",
+                      "goto": 18
+                    },
+                    {
+                      "text": "Leave the area",
+                      "goto": 12
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "47": {
+    "action": {
+      "text": "You are at the mansion of Bronze the Merchant.",
+      "type": "story",
+      "choices": [
+        {
+          "text": "North, to Gastromo's Tower",
+          "goto": 10
+        },
+        {
+          "text": "South, to the Blue Crab Tavern",
+          "goto": 20
+        },
+        {
+          "text": "East, to the forge turn",
+          "goto": 5
+        }
+      ]
+    }
+  },
+  "48": {
+    "action": {
+      "type": "story",
+      "text": "Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
+      "choices": [
+        {
+          "text": "Roll the dice",
+          "require": {
+            "action": {
+              "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
+              "type": "dice",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "from": 1,
+                  "to": 2,
+                  "stuff": {
+                    "add": [
+                      {
+                        "name": "Cured Ham"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "from": 3,
+                  "to": 4,
+                  "stuff": {
+                    "add": [
+                      {
+                        "name": "Keg of Beer"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "from": 5,
+                  "to": 6,
+                  "stuff": {
+                    "add": [
+                      {
+                        "name": "Potion of Healing"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "goto": 37
+            }
+          }
+        }
+      ]
+    }
+  },
+  "49": {
+    "action": {
+      "text": "The tower of Gastromo the Wizard is now little more than a heap of white rubble, from which emanates wisps of sulphurous yellow smoke. You scrabble about in the debris looking for valuables, but succeed only in freeing a demon that must have previously been bound in Gastromo's cellar! It shoots up into the sky, hanging in the air above you, and taking the form of a bulky bat-winged ape with red skin and goat-like horns. \"Haha! Free at last!\" it howls with demonic glee, before spotting you. \"Yes, you'll do! I need to harvest souls for the Dark Master!\" Waving a rusty barbed trident in your direction, the Pit Demon swoops down on black wings to attack.",
+      "type": "combat",
+      "alreadyVisited": "22",
+      "enemy": {
+        "name": "Pit demon",
+        "strength": 4,
+        "toughness": 4,
+        "hurt": 2
+      },
+      "choices": [
+        {
+          "text": "Launch Boulder",
+          "goto": 22,
+          "requires": {
+            "type": "item",
+            "item": "boulder"
+          }
+        },
+        {
+          "text": "Flee",
+          "goto": 12
+        }
+      ],
+      "win": {
+        "text": "you have slain the foul hellspawn and banished it back to the Six Hells! It leaves behind a giant glowing ruby",
+        "stuff": {
+          "add": [
+            {
+              "name": "Demon Gem"
+            }
+          ]
+        }
+      },
+      "goto": 12
+    }
+  },
+  "50": {
+    "text": "You think you've spent enough time sacking and looting the town of Boulder Ford, and decide to return to your cave and take stock of the booty you've acquired. Besides, King Yalamon of the Southlands has a garrison nearby, and you'll be damned to the Six Hells if you are still stuck here when his crack legions show up! Back in your humble lair, you empty out the contents of your Sack(s) and recount your exploits. Consult your Rampage Sheet, and add up all your Chaos Points, Loot Points, and Food Points into one total score. This total is the number of Rampage Points you achieved for this adventure. Compare your Rampage Points total to the chart below to see how well you did when you went on a RAMPAGE! 0-5 Carpet-bagger! You need practice at this looting malarkey! Your feeble endeavours have been laughed off by both your beast colleagues and your townsfolk foes as the turgid scratchings of a rank amateur. You need to embrace your inner monster and really cut loose in an orgy of senseless destruction. 6-10 Robber! Well, you caused a bit of havoc, but it was nuisance value more than anything else. Perhaps you will inspire some callow farmer's son to seek his fame and fortune by slaying you with a rusty blunderbuss. Your exploits are hardly the stuff of legend however, and you should try harder next time! 11-15 Marauder! Not a bad start to your rampaging career, but you still could do better. The evil warlord Malthus Fire wants you as a trusted sidekick for his dungeon lair. This is a bad thing though, because it means he doesn't consider you a threat, and that shows disrespect to your inner monster. Pull your leather breeches up and swing that weapon a bit harder! 16-20 Destroyer! A good solid beginning to a (hopefully) long life of looting and pillaging. You've done well. So well in fact, that a small band of beginning adventurers formed amidst the ruins of Boulder Ford following your rampage, with the express purpose of bringing you down! They consider you their arch-nemesis… 21-25 Obliterator! You've done very well in your rampaging, and are capable of wasting an entire town without much trouble. But your card is marked now! With your reputation being what it is, it won't be long before there is a long line of famed hireswords and sorcerous spellslingers beating the well-worn path to your lair. Be warned… 26+ Annihilator! You are the master of devastation! Your name is whispered throughout the lands of Gallansia as a despoiler without compare,by both fellow monsters and glory-seeking adventurers. Actually, that's the downside. King Yalamon has heard of your exploits and sent out the call for legendary heroes everywhere to slay you and protect the land from evil. Therein lies another tale… OPTIONAL RULES After you've played through RAMPAGE! a couple of times with the different starting characters, you might like to use any or all of the following optional rules, to keep the adventure fresh and replayable. Consider though that the aim of the game is to have fun, so if you find the rule or rules \"not fun\" then don't use them, or change them into something different. Top Ten Rampage Chart Below is a simple top ten Rampage Chart to record the details of your best RAMPAGE! characters. Bear in mind you can only do direct comparisons between characters using the same number of Time Boxes, so if you've changed this rule (see below), you'll have to use different Rampage Charts for different Time Box conditions. TOP TEN RAMPAGE CHART (Number of Time Boxes = ) 1. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 2. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 3. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 4. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 5. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 6. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 7. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 8. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 9. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) 10. Name: Race: Sex: Rampage Points: (Chaos Points: Food Points: Loot Points: ) Time and Time Boxes The limit of five Time Boxes was developed to provide a fixed length to the adventure. Smart readers, though, will have discovered that there are some sections of RAMPAGE! that are unreachable if you're playing with the five Time Boxes limit. For this reason, you might like to increase the number of Time Boxes on your Rampage Sheet to seven or even 10 Time Boxes, in order to allow you more time to reduce the town of Boulder Ford to dusty rubble. After you've ticked off seven or 10 Time Boxes, simply turn to 50 to check your Rampage Points score. Bear in mind though, that the more Time Boxes you allow, the easier it is increase your Rampage Points total. Conversely, reducing the number of Time Boxes is not a good idea as there would now be entire areas of Boulder Ford that are impossible to venture into and stay within the time limit. However, do feel free to play RAMPAGE! without any Time Boxes whatsoever, if you just want to explore the town and the adventure that takes place upon its blood-soaked streets and roads. Creating New Characters Once you've played through RAMPAGE! with the starting characters, you might like to start creating your own. This is extremely easy to do, using the following process: 1. Split 16 points among the following: a. STRENGF (anywhere from 2 to 6) b. TUFF (anywhere from 2 to 6) c. SMARTS (anywhere from 2 to 6) d. A weapon from the following (cost in points equals HURT value): i. Spiked Club (HURT 1) ii. Stone Axe (HURT 2) iii. Steel Cleaver (HURT 3) e. Any of the following extra equipment at 1 point each (and you already start with 1 Sack, at no extra cost): i. A Boulder ii. An extra Sack 2. Chose your character's Sex and give them a Name. 3. Chose your character's Race. They could be a standard Troll, Ogre, or Giant, like the starting characters. Alternatively, you could choose a new race that is similar in nature, such as a Minotaur, a Cyclops, or a Great Ape (see below in the Special Abilities section for more information about this). 4. Give your character a colorful background, and unleash them upon the world of RAMPAGE! An Example of Character Creation Warren is bored witless with the standard characters and wants to create someone with a bit more bang. This is how he does it: 1. He splits 16 points, allocating 6 each for his STRENGF and TUFF scores, and 2 for his SMARTS score. 14 points spent, two left, which he spends on a Stone Axe (HURT 2) 2. Warren decides his character is female, and her name is Brunda Bogglebum. 3. He thinks she'd make a good new race, so he writes down that Brunda is in fact a Cyclops. 4. He comes up with a quick, entertaining background: Brunda Bogglebum was originally from Skull Island, off the southern coast of Gallansia. She was washed out to sea by a freak wave while harvesting sea cucumbers, and ended up on the shores of the mainland. She settled near Boulder Ford as she'd heard of the Temple of Goff, and Goff is a deity also worshipped by Cyclops. However, the xenophobic Gnomes turned her away from the town and temple, and since that day she has sworn bloody vengeance against King Brilligan and Boulder Ford. New Races and Special Abilities As seen above, you may wish to create alternative races for your new characters that are exploring the world of RAMPAGE! One good way to take this customization a step further is to construct low-powered Special Abilities for the various races, to add some individuality to your characters. Some sample Special Abilities are given below, but feel free to edit these as you see fit, and propose new abilities for new races. Troll: Cannibal: Trolls will eat anything. Add 1 TUFF point at anytime you defeat a group of Gnomish opponents (such as a Gnomish mob) to reflect your Troll character feasting on the bodies of the dead after the battle. Ogre: Fireproof: As a race Ogres were forged in the warp furnaces of Chaos and are resistant to fire-based damage. Deduct one point from the amount of damage you have to suffer every time you are wounded by fires, explosions, and magic spells using flames, except if the damage is already one point, in which case there is no effect. Giant: Strong: Giants are immensely strong. At any time you need to roll one die and compare the result to your STRENGF score, you may deduct one from the die roll. Minotaur: Charge: Minotaurs charge into battle hoping to impale their foes on great curving horns. If you win the first Battle Turn, treat the Charge as the same as a HURT 3 weapon. Cyclops: Deadeye: Any Cyclops loves chucking stuff about, especially big rocks. At any time you roll a die and compare it to your SMARTS score in order to throw a Boulder, you may deduct one from the roll. Great Ape: Battle Howl: At the start of any battle you embark on a tirade of howling and chest thumping to unnerve your opponent. You may deduct one from their die roll in the first Battle Turn only, to represent this potential loss of courage. RAMPAGE! by Andrew Wright"
+  }
+}

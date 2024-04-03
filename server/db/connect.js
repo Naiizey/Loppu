@@ -1,4 +1,7 @@
 const pg = require("pg");
+require("dotenv").config({
+  path: "../.env",
+});
 
 // Connect to the postgres db using the connection string in the .env file
 const pool = new pg.Pool(
@@ -14,6 +17,7 @@ const pool = new pg.Pool(
         port: process.env.DB_PORT,
       }
 );
+
 pool.connect().then(() => {
   console.log("connected to the database");
 });

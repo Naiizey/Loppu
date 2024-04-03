@@ -1,14 +1,18 @@
-header {
-    position: fixed;
+header#mainHeader {
+    position: sticky;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     z-index: 1;
-    background-color: var(--dark-grey);
+    top: 0;
 }
 
-header div {
+header#mainHeader a {
+    display: block;
+}
+
+header#mainHeader div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -16,29 +20,37 @@ header div {
     width: 95%;
 }
 
-header #loppu svg {
+#loppu svg{
     height: 3em;
 }
 
-nav {
+header#mainHeader nav {
     width: 8em;
 }
 
-nav svg {
+header#mainHeader nav svg {
     width: 1.5em;
     height: 1.5em;
 }
 
-ul {
+header#mainHeader ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-svg {
+nav ul li {
+    cursor: pointer;
+}
+
+header#mainHeader svg {
     fill: var(--white-shade);
 }
 
-a {
-    display: block;
+header#mainHeader hr {
+    height: 2px;
+    width: 100%;
+    margin: 0;
+    border: none;
+    background-color: var(--grey-shade);
 }
