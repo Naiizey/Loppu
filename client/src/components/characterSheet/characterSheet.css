@@ -1,9 +1,22 @@
-#characterSheet > hr{
+#characterSheetBig{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5em;
+    padding: 1em;
+    background-color: var(--black-shade);
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--black-shade);
+    transition: all 0.3s;
+    width: 16em;
+}
+
+#characterSheetBig > hr{
     color : var(--white-shade);
     width: 100%;
 }
 
-#characterSheet button{
+#characterSheetBig button{
     padding: 1em 2em;
     background-color: var(--grey-button-sel-char);
     color: var(--black-text-on-grey-button);
@@ -13,18 +26,116 @@
     cursor: pointer;
 }
 
-#characterSheet ul{
+#characterSheetBig ul{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 16em;
 }
 
-#characterSheet ul > li{
+#characterSheetBig ul > li{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0.5em;
     width: 14em;
     text-transform: uppercase;
+}
+
+#characterSheetBig img{
+    width: 10em;
+    height: 10em;
+    border-radius: 10px;
+}
+
+/* character Sheet Small */
+
+#characterSheetSmall{
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    background-color: var(--black-shade);
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--black-shade);
+    transition: all 0.3s;
+    padding: 1em;
+    column-gap: 0.5em;
+}
+
+#characterSheetSmall > :first-child{
+    align-self: center;
+}
+
+#characterSheetSmall > section{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+}
+
+#characterSheetSmall > section > ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 16em;
+}
+
+#characterSheetSmall > section > ul > li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em;
+    width: 14em;
+    text-transform: uppercase;
+}
+
+#characterSheetSmall img{
+    width: 8em;
+    height: 8em;
+    border-radius: 10px;
+}
+
+/* Selected CharacterSmall */
+#characterSheetSmall.selected{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5em;
+    padding: 1em;
+    width: 16em;
+    transition: none;
+}
+
+.selected hr{
+    color : var(--white-shade);
+    width: 100%;
+}
+
+.selected > section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5em;
+    align-items: space-between;
+}
+
+.selected ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 16em;
+}
+
+.selected ul > li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5em;
+    width: 14em;
+    text-transform: uppercase;
+}
+
+.selected img{
+    width: 10em;
+    height: 10em;
+    border-radius: 10px;
 }
