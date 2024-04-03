@@ -1,10 +1,14 @@
 main#section {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    row-gap: 2em;
+    column-gap: 2em;
     padding: 2em 2em 0;
     color: var(--white-shade);
+}
+
+main#section > :first-child{
+    align-self: flex-start;
 }
 
 main#section section{
@@ -86,8 +90,31 @@ main#section h3{
 }
 
 main#section article{
-    height: 50vh;
+    height: 45vh;
     overflow: scroll;
     text-align: justify;
+    line-height: 1.5em;
     padding-right: 1em;
+}
+
+.choices{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    column-gap: 1em;
+    margin-top: 2em;
+
+}
+
+.choices > button{
+    margin: 0;
+    padding: 0.5em 1em;
+    font-size: 1.25em;
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    text-transform: uppercase;
+    background-color: var(--grey-button);
+    color: var(--black-text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
