@@ -7,10 +7,9 @@
       "choices": [
         {
           "text": "Try to open the gates",
-          "requires": {
+          "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -27,7 +26,10 @@
                   "failureText": "You fail to open the gate",
                   "impact": {
                     "stats": {
-                      "resistance": -1
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
                     }
                   }
                 }
@@ -74,17 +76,20 @@
       "enemy": {
         "name": "Vaed Thol the Innkeeper",
         "strength": 1,
-        "toughness": 1,
+        "resistance": 1,
         "hurt": 1
       },
       "choices": [
         {
           "text": "Throw a boulder at Vaed",
           "goto": 22,
-          "requires": {
+          "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "Boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -110,7 +115,7 @@
       "enemy": {
         "name": "Horde of Yobbos",
         "strength": 2,
-        "toughness": 8,
+        "resistance": 8,
         "hurt": 1
       },
       "alreadyVisited": "12",
@@ -118,10 +123,13 @@
         {
           "text": "Throw a boulder at the Yobbos",
           "goto": 12,
-          "requires": {
+          "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "Boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -148,7 +156,7 @@
       "enemy": {
         "name": "Stubbs the Dwarf Smith",
         "strength": 3,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 2
       },
       "choices": [
@@ -158,7 +166,10 @@
           "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "Boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -198,19 +209,14 @@
                 "operator": "+",
                 "value": 2
               },
-              "inteligence": {
+              "intelligence": {
                 "operator": "-",
                 "value": 1
               }
             }
           }
         }
-      ],
-      "impact": {
-        "stats": {
-          "smarts": -1
-        }
-      }
+      ]
     }
   },
   "7": {
@@ -236,10 +242,9 @@
       "choices": [
         {
           "text": "Roll the dice",
-          "requires": {
+          "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -277,16 +282,19 @@
       "enemy": {
         "name": "The Curer",
         "strength": 2,
-        "toughness": 2,
+        "resistance": 2,
         "hurt": 2
       },
       "choices": [
         {
           "text": "Throw a boulder at the Curer",
           "goto": 17,
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "Boulder",
+              "quantity": 1
+            }
           }
         },
         {
@@ -329,7 +337,6 @@
           "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -367,9 +374,8 @@
           "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
-              "dice_result": [
+              "diceResult": [
                 {
                   "checkType": "comparison",
                   "stat": "intelligence",
@@ -390,7 +396,7 @@
                   "checkType": "comparison",
                   "stat": "intelligence",
                   "operator": ">=",
-                  "failure_text": "You pull out a keg of beer, and then another, and then another…",
+                  "failureText": "You pull out a keg of beer, and then another, and then another…",
                   "goto": 6
                 }
               ]
@@ -427,16 +433,19 @@
       "enemy": {
         "name": "vaitharre the adventuress",
         "strength": 3,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 2
       },
       "choices": [
         {
           "text": "Throw a boulder at Vaitharre",
           "goto": 7,
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "boulder",
+              "quantity": 1
+            }
           }
         },
         {
@@ -470,16 +479,19 @@
       "enemy": {
         "name": "Status of goff",
         "strength": 5,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 3
       },
       "choices": [
         {
           "text": "Throw a boulder at the statue",
           "goto": 17,
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "boulder",
+              "quantity": 1
+            }
           }
         },
         {
@@ -521,7 +533,6 @@
           "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -576,10 +587,9 @@
       "choices": [
         {
           "text": "Try to flatten the tower",
-          "requires": {
+          "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -596,7 +606,10 @@
                   "failureText": "You fail to raze the tower",
                   "impact": {
                     "stats": {
-                      "resistance": -1
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
                     }
                   }
                 }
@@ -620,7 +633,6 @@
           "text": "Roll the dice",
           "action": {
             "type": "dice",
-            "text": "",
             "numberOfDice": 1,
             "diceResult": [
               {
@@ -646,7 +658,10 @@
                 "failureText": "You suffer burns",
                 "impact": {
                   "stats": {
-                    "resistance": -1
+                    "resistance": {
+                      "operator": "-",
+                      "value": 1
+                    }
                   }
                 }
               }
@@ -664,15 +679,18 @@
       "enemy": {
         "name": "Yadda Blackhead",
         "strength": 4,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 2
       },
       "choices": [
         {
           "text": "Throw a boulder at Yadda",
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "boulder",
+              "quantity": 1
+            }
           },
           "impact": {
             "stats": {
@@ -704,7 +722,7 @@
             }
           ],
           "stats": {
-            "inteligence": {
+            "intelligence": {
               "operator": "-",
               "value": 1
             }
@@ -834,7 +852,6 @@
           "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -892,7 +909,10 @@
                   "failureText": "You fail to smash a way into the keep",
                   "impact": {
                     "stats": {
-                      "resistance": -1
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
                     }
                   }
                 }
@@ -914,16 +934,19 @@
       "enemy": {
         "name": "Gnomish Guards",
         "strength": 2,
-        "toughness": 6,
+        "resistance": 6,
         "hurt": 1
       },
       "choices": [
         {
           "text": "Throw a boulder at the guards",
-          "requires": {
+          "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -969,7 +992,7 @@
       "enemy": {
         "name": "Gnomish Mob",
         "strength": 2,
-        "toughness": 8,
+        "resistance": 8,
         "hurt": 1
       },
       "choices": [
@@ -978,7 +1001,10 @@
           "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -1114,7 +1140,6 @@
           "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -1122,7 +1147,7 @@
                   "value": 1,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 1
                       }
@@ -1134,7 +1159,7 @@
                   "value": 2,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 2
                       }
@@ -1146,7 +1171,7 @@
                   "value": 3,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 3
                       }
@@ -1158,7 +1183,7 @@
                   "value": 4,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 4
                       }
@@ -1170,7 +1195,7 @@
                   "value": 5,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 5
                       }
@@ -1182,7 +1207,7 @@
                   "value": 6,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 6
                       }
@@ -1264,7 +1289,10 @@
                 "failureText": "some of the arrows actually pierce your tough hide and cause not inconsiderable pain",
                 "impact": {
                   "stats": {
-                    "toughness": -1
+                    "resistance": {
+                      "operator": "-",
+                      "value": 1
+                    }
                   }
                 }
               }
@@ -1303,7 +1331,7 @@
                   "value": 1,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 1
                       }
@@ -1315,7 +1343,7 @@
                   "value": 2,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 2
                       }
@@ -1327,7 +1355,7 @@
                   "value": 3,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 3
                       }
@@ -1339,7 +1367,7 @@
                   "value": 4,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 4
                       }
@@ -1351,7 +1379,7 @@
                   "value": 5,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 5
                       }
@@ -1363,7 +1391,7 @@
                   "value": 6,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "-",
                         "value": 6
                       }
@@ -1426,7 +1454,10 @@
             "failureText": "The dagger sinks painfully into the back of your calf",
             "impact": {
               "stats": {
-                "toughness": -1
+                "resistance": {
+                  "operator": "-",
+                  "value": 1
+                }
               }
             }
           }
@@ -1455,7 +1486,7 @@
                   "value": 1,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "+",
                         "value": 1
                       },
@@ -1471,7 +1502,7 @@
                   "value": 2,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "+",
                         "value": 2
                       },
@@ -1487,7 +1518,7 @@
                   "value": 3,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "+",
                         "value": 3
                       },
@@ -1503,7 +1534,7 @@
                   "value": 4,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "+",
                         "value": 4
                       },
@@ -1519,7 +1550,7 @@
                   "value": 5,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "+",
                         "value": 5
                       },
@@ -1535,7 +1566,7 @@
                   "value": 6,
                   "impact": {
                     "stats": {
-                      "toughness": {
+                      "resistance": {
                         "operator": "+",
                         "value": 6
                       },
@@ -1562,7 +1593,7 @@
       "enemy": {
         "name": "Ruffthug Half-troll",
         "strength": 4,
-        "toughness": 5,
+        "resistance": 5,
         "hurt": 2
       },
       "choices": [
@@ -1571,7 +1602,10 @@
           "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -1759,7 +1793,7 @@
       "enemy": {
         "name": "Gnomish Resistance militia",
         "strength": 2,
-        "toughness": 5,
+        "resistance": 5,
         "hurt": 1
       },
       "choices": [
@@ -1767,6 +1801,7 @@
           "text": "Throw a boulder at the Gnomish militia",
           "require": {
             "action": {
+              "type": "item",
               "item": {
                 "name": "Boulder"
               }
@@ -1804,7 +1839,7 @@
       "enemy": {
         "name": "Beech the Elf Ranger",
         "strength": 3,
-        "toughness": 3,
+        "resistance": 3,
         "hurt": 1
       },
       "choices": [
@@ -1813,7 +1848,10 @@
           "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -1838,7 +1876,7 @@
             }
           ],
           "stats": {
-            "toughness": 2
+            "resistance": 2
           }
         },
         "goto": 32
@@ -1857,7 +1895,7 @@
       "enemy": {
         "name": "Hicobemus the Alchemist",
         "strength": 2,
-        "toughness": 3,
+        "resistance": 3,
         "hurt": 4
       },
       "choices": [
@@ -1867,7 +1905,10 @@
           "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -1889,7 +1930,7 @@
       "enemy": {
         "name": "King Brilligan the Great",
         "strength": 4,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 4
       },
       "choices": [
@@ -1898,7 +1939,10 @@
           "require": {
             "action": {
               "type": "item",
-              "item": "boulder"
+              "item": {
+                "name": "boulder",
+                "quantity": 1
+              }
             }
           }
         },
@@ -1948,16 +1992,19 @@
       "enemy": {
         "name": "Feral Dog Pack",
         "strength": 2,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 1
       },
       "choices": [
         {
           "text": "Throw a boulder at the dog pack",
           "goto": 32,
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "boulder",
+              "quantity": 1
+            }
           }
         },
         {
@@ -1985,7 +2032,6 @@
           "require": {
             "action": {
               "type": "dice",
-              "text": "",
               "numberOfDice": 1,
               "diceResult": [
                 {
@@ -2017,16 +2063,19 @@
       "enemy": {
         "name": "Sournoise the guard",
         "strength": 3,
-        "toughness": 2,
+        "resistance": 2,
         "hurt": 1
       },
       "choices": [
         {
           "text": "Throw a boulder at Sournoise",
           "goto": 42,
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "boulder",
+              "quantity": 1
+            }
           }
         },
         {
@@ -2067,10 +2116,9 @@
           "text": "Roll the dice",
           "require": {
             "action": {
-              "text": " ",
               "type": "dice",
               "numberOfDice": 1,
-              "dice_result": [
+              "diceResult": [
                 {
                   "checkType": "fromTo",
                   "from": 1,
@@ -2262,16 +2310,19 @@
       "enemy": {
         "name": "Pit demon",
         "strength": 4,
-        "toughness": 4,
+        "resistance": 4,
         "hurt": 2
       },
       "choices": [
         {
           "text": "Launch Boulder",
           "goto": 22,
-          "requires": {
+          "require": {
             "type": "item",
-            "item": "boulder"
+            "item": {
+              "name": "boulder",
+              "quantity": 1
+            }
           }
         },
         {
