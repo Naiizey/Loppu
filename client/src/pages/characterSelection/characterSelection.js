@@ -9,6 +9,13 @@ const CharacterSelection = () => {
         setClickedCharacter(prev => prev === characterName ? null : characterName);
     };
 
+    /*
+
+    fichier pour montrer comment implémenter une fiche de personnage
+    ne pas inclure dans le projet final !!
+
+    */
+
     return (
         <section id="characterSelection">
             <h1>Choose your character</h1>
