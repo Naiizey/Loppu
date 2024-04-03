@@ -1,0 +1,20 @@
+#dices{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2em;
+    width: 40%;
+}
+
+#dices ul{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    cursor: none;
+    pointer-events: none;
+}
+
+#dices button{
+    height: 2em;
+}
