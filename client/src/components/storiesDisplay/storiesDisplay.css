@@ -1,0 +1,76 @@
+.storiesDisplayComponent{
+    width: 75%;
+    height: 5em;
+    border-radius: 15px;
+
+    background-color: color-mix(in srgb, var(--dark-grey) 80%, black 15%);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.storiesDisplayComponent.clicked{
+    height: 20em;
+}
+
+.storyInfos{
+    position: relative;
+    height: 100%;
+    width: 70%;
+    padding: 0 2em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.storiesDisplayComponent.clicked .storyInfos{
+    height: calc(100% / 4);
+}
+
+.storyInfos h4, .storyInfos p{
+    z-index: 1;
+}
+
+.storyInfos h4{
+    font-size: 1.5em;
+}
+
+.storyInfos img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+    opacity: 0.5;
+    border-radius: 15px;
+}
+
+.storyDetails{
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.storyDetails .storyProgressComponent{
+    width: 90%;
+}
+
+div.storyDetails button{
+    height: 2em;
+    font-size: 1.5em;
+
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+div.storyDetails button svg{
+    height: 2em;
+}
