@@ -4,8 +4,6 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import './App.css';
 
 import Header from './components/header/header'
-import Main from './Main'
-
 
 function App() {
   const [isSliderOpened, setIsSliderOpened] = useState(false);
@@ -27,11 +25,14 @@ function App() {
 
   return (
     <Router>
-      <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
-      <Main 
-        sliderType={sliderType} setSliderType={setSliderType}
-        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} 
-      />
+      <Header/>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={ <HomePage/> }
+        />
+      </Routes>
     </Router>
   );
 }
