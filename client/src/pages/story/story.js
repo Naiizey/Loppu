@@ -1,15 +1,12 @@
 import "./story.css";
-import API from "../../utils/API";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Choices from '../../components/choices/choices'
+import API from "../../utils/API";
+import { useEffect } from "react";
 
 const SectionPage = () => {
     const [title, setTitle] = useState("");
-    useEffect(() => {
-        API("stories/1").then((res) => {
-            setTitle(res[0].title);
-        });
-    }, []);
+    
 
     const [data, setData] = useState({
         id: 0,
@@ -19,14 +16,23 @@ const SectionPage = () => {
             text: "",
         },
     });
-    useEffect(() => {
-        API("sections/story/1").then((res) => {
-            setData(res[0]);
-        });
-    }, []);
+    
 
     const defaultSection = 1;
-    const [sectionId, setSectionId] = useState(sectionId ? sectionId : document.cookie.split("sectionId=")[1] || defaultSection);
+    const [sectionId, setSectionId] = useState(document.cookie.split("sectionId=")[1] || defaultSection);
+    
+    // useEffect(() => {
+    // API("sections/story/1").then((res) => {
+    //     setData(res[0]);
+    // });
+    // }, []);
+    API("sections/story/"+  sectionId).then((res)=> {
+        const section = res
+        console.log(section);
+    })
+
+    
+
     return ( 
         <main id="section">
             <section>
@@ -61,7 +67,7 @@ const SectionPage = () => {
                 </article>
             </section>
             <Choices
-                id={sectionID}
+                id={sectionId}
                 setSectionId={setSectionId}
             />
         </main >
