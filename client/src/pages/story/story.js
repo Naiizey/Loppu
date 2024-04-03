@@ -1,6 +1,7 @@
 import "./story.css";
 import { useState, useEffect } from "react";
 import Choices from "../../components/choices/choices";
+import Dices from '../../components/dices/dices';
 import API from "../../utils/API";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 
@@ -104,6 +105,7 @@ const SectionPage = () => {
         </article>
       </section>
       <Choices id={sectionId} setSectionId={setSectionId} />
+      <Dices />
     </main>
   );
 };
