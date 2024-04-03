@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "base_schema.json",
+  "type": "object",
+  "patternProperties": {
+    "^\\d+$": {
+      "$ref": "action_schema.json"
+    }
+  }
+}

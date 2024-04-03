@@ -1,6 +1,17 @@
 import React from 'react';
 import './characterSheet.css';
 
+// Pour un exemple d'ajout aller voir le fichier characterSelection.js dans les pages
+
+/*
+    const [clickedCharacter, setClickedCharacter] = useState(null);
+
+    const handleCharacterClick = (characterName) => {
+        setClickedCharacter(prev => prev === characterName ? null : characterName);
+    };
+
+    <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
+*/
 const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick}) => {
     switch(type) {
         case "big":

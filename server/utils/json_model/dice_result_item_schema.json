@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "dice_result_item_schema.json",
+  "title": "Dice Result Item Schema",
+  "description": "Schema for individual items in the dice result.",
+  "type": "object",
+  "properties": {
+    "checkType": {
+      "type": "string",
+      "enum": ["fromTo"]
+    },
+    "from": {
+      "type": "integer"
+    },
+    "to": {
+      "type": "integer"
+    },
+    "stuff": {
+      "$ref": "impact_schema.json"
+    }
+  },
+  "required": ["checkType", "from", "to", "stuff"]
+}

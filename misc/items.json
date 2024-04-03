@@ -1,0 +1,132 @@
+{
+  "1": {
+    "name": "Sword of Goth",
+    "type": "weapon",
+    "stats": {
+      "strength": 1
+    },
+    "loot_points": 1
+  },
+  "2": {
+    "name": "Keg of beer",
+    "type": "consumable",
+    "food_points": 1
+  },
+  "3": {
+    "name": "Cured ham",
+    "type": "consumable",
+    "food_points": 1
+  },
+  "4": {
+    "name": "Potion of healing",
+    "type": "consumable",
+    "healing_points": 2
+  },
+  "5": {
+    "name": "Boulder",
+    "type": "weapon",
+    "stats": {
+      "strength": 2
+    }
+  },
+  "6": {
+    "name": "Silver candelabra",
+    "type": "treasure",
+    "loot_points": 1
+  },
+  "7": {
+    "name": "Gold statue of Goff",
+    "type": "treasure",
+    "loot_points": 2
+  },
+  "8" : {
+    "name" : "legendary Sword of Goff",
+    "type" : "weapon",
+    "stats" : {
+      "strength" : 3
+    }
+  },
+  "9" : {
+    "name" : "shield",
+    "type" : "armor",
+    "stats" : {
+      "defense" : 2
+    }
+  },
+  "10" : {
+    "name" : "soultaker",
+    "type" : "treasure",
+    "loot_points" : 3
+  },
+  "11" : {
+    "name" : "Barrel of Wine",
+    "type" : "food",
+    "food_points" : 1
+  },
+  "12" : {
+    "name" : "Crate of Sweetcakes",
+    "type" : "food",
+    "food_points" : 2
+  },
+  "13" : {
+    "name" : "Brass Telescope",
+    "type" : "treasure",
+    "loot_points" : 1
+  },
+  "14" : {
+    "name" : "Ebony Staff",
+    "type" : "treasure",
+    "loot_points" : 1
+  },
+  "15" : {
+    "name":"Dwarven Strongbox",
+    "type":"treasure",
+    "loot_points":3
+  },
+  "16" : {
+    "name":"Roast Ox",
+    "type":"food",
+    "food_points":2
+  },
+  "17" : {
+    "name":"Asantian Rug",
+    "type":"treasure",
+    "loot_points":1
+  },
+  "18" : {
+    "name":"Gold Dragon Statue",
+    "type":"treasure",
+    "loot_points":2
+  },
+  "19": {
+    "name" : "Roast Hog",
+    "type" : "food",
+    "food_points" : 1
+  },
+  "20" : {
+    "name" : "Gilt-frame Portrait",
+    "type" : "treasure",
+    "loot_points" : 1
+    
+  },
+  "21" : {
+    "name" : "Roast Ox",
+    "type" : "food",
+    "food_points" : 2
+  },
+  "22" : {
+    "name" : "Mithril Tabard",
+    "type" : "treasure",
+    "loot_points" : 2
+  },
+  "23" : {
+    "name" : "cow",
+    "type" : "food",
+    "food_points" : 2
+  }, 
+  "24" : {
+    "name" : "ox",
+    "type" : "food",
+    "food_points" : 2
+  }
+}
