@@ -1,6 +1,6 @@
 import "./story.css";
 import { useState } from "react";
-import Choices from '../../components/choices/choices'
+import Choices from "../../components/choices/choices";
 import API from "../../utils/API";
 import { useEffect } from "react";
 
@@ -20,6 +20,7 @@ const SectionPage = () => {
         title: "",
         type_id: 0,
     });
+  }, [sectionId]);
 
     const story_id = localStorage.getItem("storyId");
     if (story_id == null)
@@ -80,4 +81,3 @@ const SectionPage = () => {
 };
 
 export default SectionPage;
-

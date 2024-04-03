@@ -1,41 +1,37 @@
-import React from 'react';
-import './choices.css';
-import '../button/button';
-import Button from '../button/button';
+import React from "react";
+import "./choices.css";
+import "../button/button";
+import Button from "../button/button";
 import { useEffect, useState } from "react";
 import API from "../../utils/API";
 
-
-
-
 const Choices = ({ id, setSectionId }) => {
+  // const [choice, setChoice] = useState({
+  //     id: 0,
+  //     id_book_section: 0,
+  //     content: {
+  //         action : {
+  //             text : "",
+  //         }
+  //     },
+  //     image: "",
+  //     story_id: 0,
+  //     title: "",
+  //     type_id: 0,
+  // });
+  const story_id = localStorage.getItem("storyId");
 
-    // const [choice, setChoice] = useState({
-    //     id: 0,
-    //     id_book_section: 0,
-    //     content: {
-    //         action : {
-    //             text : "",
-    //         }
-    //     },
-    //     image: "",
-    //     story_id: 0,
-    //     title: "",
-    //     type_id: 0,
-    // });
-    const story_id = localStorage.getItem("storyId");
+  useEffect(() => {
+    API("choices/" + id).then((res) => {
+      res = res[0];
+      console.log(res);
+    });
+  }, [id]);
 
-    useEffect(() => {
-        API("choices/" + id).then((res) => {
-            res = res[0];
-            console.log(res);
-        });
-    }, [id]);
-
-    return (
-        <div>
-            {/* buttons to do the differents actions */}
-            {/* {getJson.res.map((item, i) => {
+  return (
+    <div>
+      {/* buttons to do the differents actions */}
+      {/* {getJson.res.map((item, i) => {
                 if (Number(item.id_section_from) === id) {
                     return (
                         
@@ -53,8 +49,8 @@ const Choices = ({ id, setSectionId }) => {
                 }
                 return null;
             })} */}
-        </div>
-    )
+    </div>
+  );
 };
 
 export default Choices;

@@ -14,9 +14,14 @@ router.get("/choices/:storyId", (req, res) => {
 // GET choice by id
 router.get("/choices/:storyId/:idFrom", (req, res) => {
   const { idFrom, storyId } = req.params;
-  pool.query("SELECT * FROM choices WHERE id_section_from = $1 and id_story = $2", [idFrom, storyId]).then((results) => {
-    res.json(results.rows);
-  });
+  pool
+    .query(
+      "SELECT * FROM choices WHERE id_section_from = $1 and id_story = $2",
+      [idFrom, storyId]
+    )
+    .then((results) => {
+      res.json(results.rows);
+    });
 });
 
 // POST a new choice
