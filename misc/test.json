@@ -31,7 +31,7 @@
                 }
               }
             ]
-          }  
+          }
         }
       },
       {
@@ -1902,8 +1902,8 @@
     }
   },
   "42": {
-    "action" :{
-      "text" :     "You are in the market place of Boulder Ford.",
+    "action": {
+      "text": "You are in the market place of Boulder Ford.",
       "type": "story",
       "choices": [
         {
@@ -1935,7 +1935,7 @@
         "toughness": 4,
         "hurt": 1
       },
-      "choices" : [
+      "choices": [
         {
           "text": "Throw a boulder at the dog pack",
           "goto": 32,
@@ -1958,7 +1958,7 @@
         "goto": 13
       }
     }
-  }, 
+  },
   "44": {
     "action": {
       "type": "story",
@@ -1990,7 +1990,8 @@
             }
           }
         }
-      ]  
+      ]
+    }
   },
   "45": {
     "action": {
