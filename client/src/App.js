@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import './App.css';
+import Main from './Main'
 
 import Header from './components/header/header'
 
@@ -27,11 +28,11 @@ function App() {
     <Router>
       <Header/>
       <Routes>
-        <Route
-          exact
-          path="/"
-          element={ <HomePage/> }
-        />
+      <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
+      <Main 
+        sliderType={sliderType} setSliderType={setSliderType}
+        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} 
+      />
       </Routes>
     </Router>
   );
