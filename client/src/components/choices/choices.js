@@ -22,11 +22,9 @@ const Choices = ({ id, setSectionId }) => {
 
   useEffect(() => {
     API("choices/" + story_id + "/" + id).then((res) => {
-      res = res;
-      console.log(res);
       setChoices(res);
     });
-  }, [id]);
+  }, [story_id, id]);
 
   return (
     <div>
