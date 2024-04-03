@@ -18,22 +18,14 @@ router.get("/sections/:id", (req, res) => {
   });
 });
 
-// GET section stored by the column and sorting
-router.get("/sections/sort/:sortingColumn/:sorting", (req, res) => {
-  const { sortingColumn } = req.params;
-  const { sorting } = req.params;
-  if (sorting !== "asc" && sorting !== "desc") {
-    res.json({
-      message: "sorting must be either asc or desc",
-    });
-    return;
-  }
-  else 
-  {
-    pool.query(`SELECT * FROM sections ORDER BY ${sortingColumn} ${sorting}`).then((results) => {
+// GET section by story id
+router.get("/sections/story/:id", (req, res) => {
+  const { id } = req.params;
+  pool
+    .query("SELECT * FROM sections WHERE story_id = $1", [id])
+    .then((results) => {
       res.json(results.rows);
     });
-  }
 });
 
 // POST a new section

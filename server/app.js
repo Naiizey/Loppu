@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 // my dot env is in the root folder
 require("dotenv").config({
@@ -9,6 +10,8 @@ const middlewares = require("./middlewares");
 const api = require("./routes");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 

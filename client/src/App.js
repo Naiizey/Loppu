@@ -6,6 +6,8 @@ import './App.css';
 import Header from './components/header/header'
 import Main from './Main'
 
+import Main from './Main'
+
 
 function App() {
   const [isSliderOpened, setIsSliderOpened] = useState(false);
