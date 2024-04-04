@@ -15,20 +15,26 @@ main#ending > section{
     row-gap: 2em;
 }
 
-main#ending h1, main#ending h2{
+main#ending h1 {
     font-family: 'Inknut-Antiqua-Regular', sans-serif;
+    font-size: 2em;
 }
 
-main#ending h1{
-    font-size: 2em;
+main#ending h3{
+    text-align: center;
+}
+
+main#ending div{
+    text-align: center;
+    line-height: 1.2em;
 }
 
 main#ending ul{
     list-style: none;
     justify-content: center;
     display: flex;
-    flex-direction: column;
-    row-gap: 1em;
+    flex-direction: row;
+    column-gap: 1em;
     font-size: 1.2em;
 }
 
@@ -37,4 +43,6 @@ main#ending ul li{
     justify-content: center;
     align-items: center;
     row-gap: 1em;
+    font-family: 'Inknut-Antiqua-Regular', sans-serif;
+    font-size: 0.75em;
 }

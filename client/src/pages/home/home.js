@@ -2,8 +2,8 @@ import './home.css';
 import StoriesDisplay from '../../components/storiesDisplay/storiesDisplay';
 import Image from '../../assets/images/storiesDisplay.jpg'
 import { useState, useEffect } from 'react';
-import API from '../../utils/API'
-import Loader from '../../components/loader/loader';
+import API from '../../utils/API';
+import Loader from "../../components/loader/loader";
 
 const HomePage = () => {
     const [isClicked, setIsClicked] = useState(0);
@@ -19,7 +19,7 @@ const HomePage = () => {
         API("stories").then((res) => {
             setStories(res);
         })
-    }, []); 
+    }, []);
 
     if (localStorage.getItem("sectionId") === null) {
         localStorage.setItem("sectionId", 1);
@@ -32,12 +32,13 @@ const HomePage = () => {
                 <h2>My stories</h2>
             </section>
             <section className="storiesList">
-                { stories && 
+                { stories &&
                     stories.map(story => (
                         <StoriesDisplay key={story.id} storyId={story.id} Image={Image} name={story.title} isStarted={true} isClicked={isClicked} onClick={(e) => {handleClick(story.id, e)}}/>
                     ))
                 }
             </section>
+            <Loader loading={stories} />
         </main>
     )
 };
