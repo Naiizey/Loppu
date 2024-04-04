@@ -260,6 +260,29 @@ function detectDice(section, choiceNumber) {
     }
 }
 
+function interpretStory(sectionId, choiceNumber) {
+}
+
+function interpretAction(sectionId, choiceNumber) {
+
+    console.log("sectionId:" + sectionId);
+    let storyID = localStorage.getItem("storyId");
+    let section = {};
+    API("sections/"+ storyID+ "/" + sectionId).then((res) => {
+        section = res[0];
+    }
+    );
+
+    if (section.type === "story"){
+        console.log("story");
+    }
+    else if (section.type === "combat")
+    {
+        console.log("combat");
+    }
+}
+
+
 const Choices = ({ id, setSectionId, section }) => {
     const [choices, setChoices] = useState([
         {
@@ -282,9 +305,11 @@ const Choices = ({ id, setSectionId, section }) => {
     });
   }, [story_id, id]);
 
+  console.log("choices:" + JSON.stringify(choices));
   return (
     <div>
-      {choices.map((item, i) => {
+      { choices &&
+      choices.map((item, i) => {
         return (
           <Button
             key={i}
@@ -292,8 +317,9 @@ const Choices = ({ id, setSectionId, section }) => {
             type={"info"}
             text={item.content}
             onClick={() => {
-              setChoices(item.id_section_to);
-              setSectionId(item.id_section_to);
+              //setChoices(item.id_section_to);
+              //setSectionId(item.id_section_to);
+              interpretAction(item.id_section_to, 0);
             }}
           />
         );
