@@ -10,7 +10,18 @@ function autoFight() {
 
 };
 
-
+function getCharaId() {
+    if (localStorage.getItem("charaId") === undefined)
+    {
+        localStorage.setItem("charaId", 1);
+        return 1;
+    }
+    else 
+    {
+        return localStorage.getItem("charaId");
+    }
+    
+}
 
 // upatde the stats of the character
 function editStat(operator, value, stat, actualDicoStat) {
@@ -40,7 +51,7 @@ function editStat(operator, value, stat, actualDicoStat) {
     // }, [id]);
 
     let character = {};
-    API("characters/" + charaID).then((res) => {
+    API("characters/" + getCharaId()).then((res) => {
         character = res[0];
         console.log(res);
     });
@@ -49,7 +60,7 @@ function editStat(operator, value, stat, actualDicoStat) {
     character.stats = actualDicoStat;
 
     // PUT the character
-    API("/characters/" + charaID + "/stats", {
+    API("/characters/" + getCharaId() + "/stats", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -79,11 +90,11 @@ function interpretImpact(dico) {
             for (const typeStat in dico[key]) {
                 //get the current stats
                 useEffect(() => {
-                    API("/characters/" + charaId).then((res) => {
+                    API("/characters/" + getCharaId()).then((res) => {
                         res = res[0];
                         setStats(res);
                     });
-                }, [charaId]);
+                }, [getCharaId()]);
 
                 // for each key in the stats dico
                 for (const stat in stats) {
@@ -147,11 +158,11 @@ function checkStatsPrerequesites(stat, operator, value) {
     ]);
 
     useEffect(() => {
-        API("/characters/" + charaId).then((res) => {
+        API("/characters/" + getCharaId()).then((res) => {
             res = res[0];
             setStats(res);
         });
-    }, [charaId]);
+    }, [getCharaId()]);
 
     // The operator is a string containing the operator to use
     // eg : "<", ">", "<=", ">=", "=="
