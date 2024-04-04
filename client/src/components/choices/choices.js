@@ -36,20 +36,6 @@ function editStat(operator, value, stat, actualDicoStat) {
             break;
     }
 
-    // const [character, setCharacter] = useState([
-    //     {
-    //         id: 0,
-    //         stats: {},
-    //         character_model_id: 0,
-    //         stuff: {},
-    //         user_id: 0
-    //     }
-    // ]);
-    
-    // useEffect(() => {
-        
-    // }, [id]);
-
     let character = {};
     API("characters/" + getCharaId()).then((res) => {
         character = res[0];
