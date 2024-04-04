@@ -60,13 +60,7 @@ function editStat(operator, value, stat, actualDicoStat) {
 
 //function to interpret an impact (must receive an "impact" dico)
 function interpretImpact(dico) {
-    const [stats, setStats] = useState([
-        {
-            strength: 0,
-            resistance: 0,
-            intelligence: 0
-        }
-    ]);
+    let stats = {};
 
 
     // for each key in the dico
@@ -75,12 +69,11 @@ function interpretImpact(dico) {
         if (key === "stats") {
             for (const typeStat in dico[key]) {
                 //get the current stats
-                useEffect(() => {
+                
                     API("/characters/" + getCharaId()).then((res) => {
-                        res = res[0];
-                        setStats(res);
+                        stats = res[0];
                     });
-                }, [getCharaId()]);
+                
 
                 // for each key in the stats dico
                 for (const stat in stats) {
@@ -113,6 +106,10 @@ function interpretImpact(dico) {
     }
 }
 
+function setSectionIdLocalStorage (sectionId) {
+    localStorage.setItem("sectionId", sectionId);
+}
+
 //function to go to an other section /!\ She needs to break the loop or the father
 function gotoTo(sectionId, successText = null, failureText = null) {
     return (
@@ -122,11 +119,11 @@ function gotoTo(sectionId, successText = null, failureText = null) {
                 {failureText !== null ? failureText : ""}
             </p>
             <Button
-                key={i}
+                key={sectionId}
                 size={"small"}
                 type={"info"}
-                text={item.content}
-                onClick={() => { setChoices(item.id_section_to); setSectionId(item.id_section_to) }}
+                text={"Suivant"}
+                onClick={() => { setSectionIdLocalStorage(sectionId) }}
             />
         </div>
     )
@@ -135,20 +132,14 @@ function gotoTo(sectionId, successText = null, failureText = null) {
 // function to check if the stats verify a certain value
 function checkStatsPrerequesites(stat, operator, value) {
     let isfilled = false;
-    const [stats, setStats] = useState([
-        {
-            strength: 0,
-            resistance: 0,
-            intelligence: 0
-        }
-    ]);
+    let stats;
+        
 
-    useEffect(() => {
-        API("/characters/" + getCharaId()).then((res) => {
-            res = res[0];
-            setStats(res);
-        });
-    }, [getCharaId()]);
+
+    API("/characters/" + getCharaId()).then((res) => {
+        stats = res[0];
+    });
+
 
     // The operator is a string containing the operator to use
     // eg : "<", ">", "<=", ">=", "=="
@@ -189,7 +180,7 @@ function checkStatsPrerequesites(stat, operator, value) {
 function diceResultConsequances(dico) {
     let successText;
     if (dico.successText !== undefined) {
-        successText = eledicoment.successText;
+        successText = dico.successText;
     }
     let failureText;
     if (dico.failureText !== undefined) {
@@ -208,7 +199,7 @@ function diceResultConsequances(dico) {
 // function to interpret a dice operation (must receive a "action" dico)
 function interpretDiceResult(dico, diceValue) {
     for (let index = 0; index < dico.diceResult.length; index++) {
-        const element = array[index];
+        const element = dico[index];
         let checkType = element.checkType;
         switch (checkType) {
             case "comparison":
@@ -240,7 +231,7 @@ function interpretDiceResult(dico, diceValue) {
 }
 
 function detectDice(section, choiceNumber) {
-    dico = {};
+    let dico = {};
     let content = section.content.action;
     if (content.choices !== undefined && content.choices.length > 0) {
         let choice = content.choices[choiceNumber];
