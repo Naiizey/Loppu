@@ -249,6 +249,23 @@ function detectDice(section, choiceNumber) {
     }
 }
 
+function interpretStory(sectionId, choiceNumber) {}
+
+function interpretAction(sectionId, choiceNumber) {
+    console.log("sectionId:" + sectionId);
+    let storyID = localStorage.getItem("storyId");
+    let section = {};
+    API("sections/" + storyID + "/" + sectionId).then((res) => {
+        section = res[0];
+    });
+
+    if (section.type === "story") {
+        console.log("story");
+    } else if (section.type === "combat") {
+        console.log("combat");
+    }
+}
+
 const Choices = ({ id, setSectionId, section }) => {
     const [choices, setChoices] = useState([
         {
