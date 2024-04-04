@@ -105,7 +105,7 @@ pool.connect().then(async () => {
     var character = characters[i];
     var name = character.name;
     var description = character.description.text;
-    var image = "unknown.png";
+    var image = "giant";
     var base_stats = JSON.stringify({
       strength: character.strength,
       intelligence: character.intelligence,

@@ -13,6 +13,7 @@ import './characterSheet.css';
     <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
 */
 const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick}) => {
+    console.log(inventory[0])
     switch(type) {
         case "big":
             return (
@@ -63,7 +64,7 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                     <p>Inventory </p>
                     <ul>
                         {inventory.map((item, index) => {
-                            return <li key={index}>{item}</li>
+                            return <li key={index}><span>{item.split(" - ")[0]}</span><span>{item.split(" - ")[1]}</span></li>
                         })}
                     </ul>
                 </li>
@@ -99,7 +100,7 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                             <p>Inventory </p>
                             <ul>
                                 {inventory.map((item, index) => {
-                                    return <li key={index}>{item}</li>
+                                    return <li key={index}><span>{item.split(" - ")[0]}</span><span>{item.split(" - ")[1]}</span></li>
                                 })}
                             </ul>
                         </>

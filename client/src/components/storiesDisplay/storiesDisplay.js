@@ -5,6 +5,7 @@ import CharacterSheet from '../characterSheet/characterSheet'
 import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow.svg'
 import { useEffect, useState } from 'react';
 import API from '../../utils/API'
+import CharImage  from '../../assets/images/giant.jpg'
 
 const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) => {
     const [characters, setCharacters] = useState();
@@ -46,7 +47,7 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
             </div>
             <img src={Image} alt="story illustration"></img>
             { userChar && userCharModel &&
-                <CharacterSheet type="small" name={userCharModel.name} stats={userChar.stats} inventory={userChar.stuff} img="https://via.placeholder.com/150"/>
+                <CharacterSheet type="small" name={userCharModel.name} stats={userChar.stats} inventory={userChar.stuff} img={CharImage}/>
             }
             { isClicked === storyId &&
                 <div className="storyDetails">
