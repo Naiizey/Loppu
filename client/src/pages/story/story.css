@@ -19,7 +19,7 @@ main#section section{
 }
 
 main#section article{
-    height: 45vh;
+    height: 25vh;
     overflow: scroll;
     text-align: justify;
     line-height: 1.5em;
@@ -36,14 +36,15 @@ main .loader.fade-out {
 
 main#section aside{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
-    column-gap: 1em;
+    align-items: center;
+    row-gap: 1em;
     margin-top: 2em;
     padding-right: 15em;
 }
 
-main#section aside > button{
+main#section aside > Button{
     margin: 0;
     padding: 0.5em 1em;
     font-size: 1.25em;
@@ -54,4 +55,8 @@ main#section aside > button{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+main#section aside > Button:hover{
+    background-color: var(--grey-button-hover);
 }
