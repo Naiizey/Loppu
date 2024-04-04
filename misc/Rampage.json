@@ -1,7 +1,7 @@
 {
   "1": {
     "action": {
-      "text": "If there is a tick in the above box, you have Been Here Before. Turn to 14. Otherwise, read on. The gates of Boulder Ford are made of thick oak reinforced with iron bands, and set within a sturdy stone gatehouse. Still, that should pose little problem to a determined beast such as yourself. Ignoring the shouts and screams of the Gnomish guards, you proceed to wrench the gates apart. Roll one die. If it is less than your STRENGF score, tick the box above, and turn to 26. If it is equal to or greater than your STRENGF score, you fail to open the gate. Deduct one point from your TUFF score to reflect both your efforts and the Gnomish arrows bouncing off your hardened hide. If your TUFF score is now zero, turn to 13. Otherwise, try again by rolling one die and comparing it to your STRENGF score in the manner above. Keep doing this until you either open the gates, or die trying! Alternatively, you could decide the whole thing is too much hard work and wander back to your cave. If you decide to do this, turn to 50.",
+      "text": "The gates of Boulder Ford are made of thick oak reinforced with iron bands, and set within a sturdy stone gatehouse. Still, that should pose little problem to a determined beast such as yourself. Ignoring the shouts and screams of the Gnomish guards, you proceed to wrench the gates apart.",
       "type": "story",
       "alreadyVisited": "14",
       "choices": [
@@ -46,7 +46,7 @@
   },
   "2": {
     "action": {
-      "text": "You are at the forge. Otherwise, you can go: North, to Brilligan's Keep turn to 25 South, to the market turn to 45 East, to the Temple of Goff turn to 15 West, to the mansion of Bronze the Merchant turn to 35",
+      "text": "You are at the forge.",
       "type": "story",
       "choices": [
         {
@@ -70,7 +70,7 @@
   },
   "3": {
     "action": {
-      "text": "The Blue Crab Tavern looks like it has been ransacked by a mob of green-skinned Gorks. The innkeeper, a fat red-faced Gnome called Vaed Thol, sits weeping on a keg outside the ruins of his tavern. On seeing you return, he rises to his feet waving a chair leg menacingly in your direction. \"You heartless bastard!\" Vaed howls. \"I was going to sell the place and retire to a bamboo beach hut on Skull Island. I'll make you pay for this!\" Defend yourself against the irate barman. VAED THOL THE INNKEEPERSTRENGF 1 TUFF 1 HURT 1 You may throw a Boulder at Vaed if you have one. If Vaed reduces your TUFF score to zero, turn to 13. If you want to flee, turn to 22. If you reduce Vaed's TUFF score to zero, you have slain the innkeeper. Tick the box above. You may add the Keg of Beer (1 Food Point) he was sitting on, to your Sack. Turn to 22.",
+      "text": "The Blue Crab Tavern looks like it has been ransacked by a mob of green-skinned Gorks. The innkeeper, a fat red-faced Gnome called Vaed Thol, sits weeping on a keg outside the ruins of his tavern. On seeing you return, he rises to his feet waving a chair leg menacingly in your direction. \"You heartless bastard!\" Vaed howls. \"I was going to sell the place and retire to a bamboo beach hut on Skull Island. I'll make you pay for this!\"",
       "type": "combat",
       "alreadyVisited": "22",
       "enemy": {
@@ -110,7 +110,7 @@
   },
   "4": {
     "action": {
-      "text": "Gastromo wipes his free hand on the hem of his robe, and after reaching into a pocket, scatters a fistful of tiny teeth upon the ground. In a moment, the magical blue light has transformed every tooth into a short, brown-skinned Yobbo, which are highly carnivorous humanoids related to Gorks. Lacking weapons, the horde of Yobbos hurl themselves at you in a great scaly wave, biting at your calves and gnawing on your kneecaps. Fight them as one opponent. HORDE OF YOBBOS STRENGF 2 TUFF 8 HURT 1 You may throw a Boulder at the Yobbos if you have one. If the Yobbos reduce your TUFF score to zero, turn to 13. If you want to flee, turn to 12. If you reduce the horde's TUFF score to zero, you have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You can: Assault the tower turn to 18 Leave the area turn to 12",
+      "text": "Gastromo wipes his free hand on the hem of his robe, and after reaching into a pocket, scatters a fistful of tiny teeth upon the ground. In a moment, the magical blue light has transformed every tooth into a short, brown-skinned Yobbo, which are highly carnivorous humanoids related to Gorks. Lacking weapons, the horde of Yobbos hurl themselves at you in a great scaly wave, biting at your calves and gnawing on your kneecaps. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door.",
       "type": "combat",
       "enemy": {
         "name": "Horde of Yobbos",
@@ -139,7 +139,7 @@
         }
       ],
       "win": {
-        "text": "You have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You can: Assault the tower turn to 18 Leave the area",
+        "text": "You have beaten the majority of them off, and the rest fled into the streets to harass easier prey. Gastromo meanwhile, has used the diversion to waddle back into his tower and spell-lock the door. You now have to assault the tower.",
         "goto": 12
       },
       "lose": {
@@ -150,7 +150,7 @@
   },
   "5": {
     "action": {
-      "text": "The forge of Boulder Ford is a stout stone-walled building with a tall smoking chimney. Mirroring the latter is the Dwarven smith Stubbs, who stands proudly outside his workplace puffing on a pipe and leaning on a warhammer. \"Was wondering when you were going to show up,\" he says, blowing smoke rings into the sky. \"Need the practice. Haven't slain any of your kind in years.\" Enraged by the smith's words and nonchalant attitude you howl a battle-cry and attack! STUBBS THE DWARF SMITH STRENGF 3 TUFF 4 HURT 2 You may throw a Boulder at Stubbs if you have one. If Stubbs reduces your TUFF score to zero, turn to 13. If you want to flee, turn to 2. If you reduce Stubb's TUFF score to zero, you have slain the insolent Dwarf. Turn to 19.",
+      "text": "The forge of Boulder Ford is a stout stone-walled building with a tall smoking chimney. Mirroring the latter is the Dwarven smith Stubbs, who stands proudly outside his workplace puffing on a pipe and leaning on a warhammer. \"Was wondering when you were going to show up,\" he says, blowing smoke rings into the sky. \"Need the practice. Haven't slain any of your kind in years.\" Enraged by the smith's words and nonchalant attitude you howl a battle-cry and attack!.",
       "type": "combat",
       "alreadyVisited": "23",
       "enemy": {
@@ -237,7 +237,7 @@
   },
   "8": {
     "action": {
-      "text": "The Temple of Goff lies in ruins, the statue of the god now little more than a pile of rocks. \"Iconoclast! Despoiler! Destroyer! I curse you for returning to the scene of your blasphemous crimes!\" moans the ravaged head of the statue of Goff from amidst the rubble. Roll one die. If you roll under your SMARTS score, you are immune to the effects of the statue's curse. Turn to 17. If you roll equal to or over your SMARTS score, you have been cursed! Your TUFF gets subtracted by 2 and SMARTS by 1. Turn to 17.",
+      "text": "The Temple of Goff lies in ruins, the statue of the god now little more than a pile of rocks. \"Iconoclast! Despoiler! Destroyer! I curse you for returning to the scene of your blasphemous crimes!\" moans the ravaged head of the statue of Goff from amidst the rubble.",
       "type": "story",
       "choices": [
         {
@@ -276,7 +276,7 @@
   },
   "9": {
     "action": {
-      "text": "Enough with the sorcery! Now is the time to smite this old Gnomish priest and grind his bones into the dirt! Resigning himself to his fate, the Curer casts one last spell that covers him in a glittering panoply of golden sparks that enervates him somewhat, and advances slowly towards you brandishing his staff. THE CURER STRENGF 2 TUFF 2 HURT 2 You may throw a Boulder at the Curer if you have one. If the Curer reduces your TUFF score to zero, turn to 13. If you want flee, turn to 17. If you reduce the Curer's TUFF score to zero, you crush the irritating priest underfoot, and continue ransacking the Temple of Goff. By the careful act of smashing the roof-dome and reaching inside, you extract several interesting items. Add any of the following to your Rampage Sheet: a Sack, a Silver Candelabra (1 Loot Point), a Gold Statue of Goff (2 Loot Points). When you have finished here, turn to 17.",
+      "text": "Enough with the sorcery! Now is the time to smite this old Gnomish priest and grind his bones into the dirt! Resigning himself to his fate, the Curer casts one last spell that covers him in a glittering panoply of golden sparks that enervates him somewhat, and advances slowly towards you brandishing his staff.",
       "type": "combat",
       "alreadyVisited": "17",
       "enemy": {

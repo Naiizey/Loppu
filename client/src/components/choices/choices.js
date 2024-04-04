@@ -284,31 +284,30 @@ const Choices = ({ id, setSectionId, section }) => {
     const story_id = localStorage.getItem("storyId");
     console.log("section:" + JSON.stringify(section));
 
-    useEffect(() => {
-        API("choices/" + story_id + "/" + id).then((res) => {
-            res = res;
-            console.log(res);
-            setChoices(res);
-        });
-    }, [id]);
+  useEffect(() => {
+    API("choices/" + story_id + "/" + id).then((res) => {
+      setChoices(res);
+    });
+  }, [story_id, id]);
 
-    return (
-        <div>
-            {
-                choices.map((item, i) => {
-                    return (
-                        <Button
-                            key={i}
-                            size={"small"}
-                            type={"info"}
-                            text={item.content}
-                            onClick={() => { setChoices(item.id_section_to); setSectionId(item.id_section_to) }}
-                        />
-                    )
-                })
-            }
-        </div>
-    );
+  return (
+    <div>
+      {choices.map((item, i) => {
+        return (
+          <Button
+            key={i}
+            size={"small"}
+            type={"info"}
+            text={item.content}
+            onClick={() => {
+              setChoices(item.id_section_to);
+              setSectionId(item.id_section_to);
+            }}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 export default Choices;
