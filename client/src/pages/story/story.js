@@ -61,8 +61,6 @@ const SectionPage = () => {
         });
     }, [story_id]);
 
-    console.log("section: " + JSON.stringify(section));
-
     return (
         <main id="section">
             {section.id === 0 && <Loader loading={section.id === 0} />}
