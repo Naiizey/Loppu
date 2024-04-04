@@ -13,12 +13,13 @@ const stories = require("./stories");
 const tags = require("./tags");
 const type = require("./type");
 const users = require("./users");
+const stuff = require("./stuff");
 
 // GET
 router.get("/", (req, res) => {
-  res.json({
-    message: "Welcome to Loppu API! 🦄🌈✨👋🌎",
-  });
+    res.json({
+        message: "Welcome to Loppu API! 🦄🌈✨👋🌎",
+    });
 });
 
 router.use(characters_models);
@@ -31,5 +32,6 @@ router.use(stories);
 router.use(tags);
 router.use(type);
 router.use(users);
+router.use(stuff);
 
 module.exports = router;
