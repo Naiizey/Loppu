@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS sections (
     FOREIGN KEY (story_id) REFERENCES stories(id)
 );
 CREATE TABLE IF NOT EXISTS paths (
+    id SERIAL PRIMARY KEY,
     id_character SERIAL,
     id_sections SERIAL,
-    PRIMARY KEY (id_character, id_sections),
     FOREIGN KEY (id_character) REFERENCES characters(id),
     FOREIGN KEY (id_sections) REFERENCES sections(id)
 );
@@ -60,10 +60,18 @@ CREATE TABLE IF NOT EXISTS choices (
     id_section_to SERIAL,
     content TEXT NOT NULL,
     impact JSONB NOT NULL,
-    victory boolean, 
+    victory boolean,
     lose boolean,
     parent_key VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id_story, id_section_from, id_section_to, impact, victory, lose, parent_key)
+    PRIMARY KEY (
+        id_story,
+        id_section_from,
+        id_section_to,
+        impact,
+        victory,
+        lose,
+        parent_key
+    )
 );
 CREATE TABLE IF NOT EXISTS tags (
     id SERIAL PRIMARY KEY,

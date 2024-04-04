@@ -33,7 +33,6 @@ function editStat(operator, value, stat, actualDicoStat) {
     let character = {};
     API("characters/" + getCharaId()).then((res) => {
         character = res[0];
-        console.log(res);
     });
 
     // change the stats
@@ -46,8 +45,6 @@ function editStat(operator, value, stat, actualDicoStat) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(character.stats),
-    }).then((res) => {
-        console.log(res);
     });
 }
 
@@ -251,8 +248,16 @@ function detectDice(section, choiceNumber) {
 
 function interpretStory(sectionId, choiceNumber) {}
 
+function addPath(id_sections, id_character) {
+    let path = {
+        id_character,
+        id_sections,
+    };
+
+    API("paths", "POST", path);
+}
+
 function interpretAction(sectionId, choiceNumber) {
-    console.log("sectionId:" + sectionId);
     let storyID = localStorage.getItem("storyId");
     let section = {};
     API("sections/" + storyID + "/" + sectionId).then((res) => {
@@ -298,6 +303,7 @@ const Choices = ({ id, setSectionId, section }) => {
                         text={choice.content}
                         onClick={() => {
                             setSectionId(choice.id_section_to);
+                            addPath(choice.id_section_to, 1); // TODO id_character
                         }}
                     />
                 </div>

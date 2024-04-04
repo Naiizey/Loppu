@@ -3,52 +3,66 @@ const db = require("../db/connect");
 const pool = db.getPool();
 const router = express.Router();
 
+/*
+
+  Paths
+    id_character INT REFERENCES characters(id),
+    id_sections INT REFERENCES sections(id),
+
+*/
 // GET all paths
 router.get("/paths", (req, res) => {
-  pool.query("SELECT * FROM paths").then((results) => {
-    res.json(results.rows);
-  });
+    pool.query("SELECT * FROM paths").then((results) => {
+        res.json(results.rows);
+    });
 });
 
-// GET path by id
-router.get("/paths/:id", (req, res) => {
-  const { id } = req.params;
-  pool.query("SELECT * FROM paths WHERE id = $1", [id]).then((results) => {
-    res.json(results.rows);
-  });
+// GET a path by id
+router.get("/paths/:idCharacter/:idSection", (req, res) => {
+    const idCharacter = req.params.idCharacter;
+    const idSection = req.params.idSection;
+    pool.query(
+        "SELECT * FROM paths WHERE id_character = $1 AND id_sections = $2",
+        [idCharacter, idSection]
+    ).then((results) => {
+        res.json(results.rows);
+    });
 });
 
-// POST a new path
+// POST a path
 router.post("/paths", (req, res) => {
-  const { name } = req.body;
-  pool.query("INSERT INTO paths (name) VALUES ($1)", [name]).then(() => {
-    res.json({
-      message: "path added successfully!",
-    });
-  });
-});
-
-// PUT updated path
-router.put("/paths/:id", (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  pool
-    .query("UPDATE paths SET name = $1 WHERE id = $2", [name, id])
-    .then(() => {
-      res.json({
-        message: "path updated successfully!",
-      });
+    const path = req.body;
+    pool.query(
+        "INSERT INTO paths (id_character, id_sections) VALUES ($1, $2)",
+        [path.id_character, path.id_sections]
+    ).then(() => {
+        res.json(path);
     });
 });
 
-// DELETE path
-router.delete("/paths/:id", (req, res) => {
-  const { id } = req.params;
-  pool.query("DELETE FROM paths WHERE id = $1", [id]).then(() => {
-    res.json({
-      message: "path deleted successfully!",
+// PUT a path
+router.put("/paths/:idCharacter/:idSection", (req, res) => {
+    const idCharacter = req.params.idCharacter;
+    const idSection = req.params.idSection;
+    const path = req.body;
+    pool.query(
+        "UPDATE paths SET id_character = $1, id_sections = $2 WHERE id_character = $3 AND id_sections = $4",
+        [path.id_character, path.id_sections, idCharacter, idSection]
+    ).then(() => {
+        res.json(path);
     });
-  });
+});
+
+// DELETE a path
+router.delete("/paths/:idCharacter/:idSection", (req, res) => {
+    const idCharacter = req.params.idCharacter;
+    const idSection = req.params.idSection;
+    pool.query(
+        "DELETE FROM paths WHERE id_character = $1 AND id_section = $2",
+        [idCharacter, idSection]
+    ).then(() => {
+        res.json(`Path deleted with ID: ${idCharacter} and ${idSection}`);
+    });
 });
 
 module.exports = router;
