@@ -194,46 +194,36 @@ pool.connect().then(async () => {
   process.exit();
 });
 
-function findGotoKeys(
-  obj,
-  result = [],
-  parentKey = null,
-  superParentKey = null
-) {
-  for (let key in obj) {
-    if (typeof obj[key] === "object" && obj[key] !== null) {
-      if (!isNaN(key)) {
-        findGotoKeys(obj[key], result, key, parentKey);
-      } else {
-        findGotoKeys(obj[key], result, key);
-      }
-    } else if (key === "goto") {
-      if (parentKey == null) {
-        parentKey = "choices";
-      }
-      var impact;
-      // return the impact of the choice (next to the goto key)
-      if (parentKey != null && obj.impact != null) {
-        impact = obj.impact;
-      } else {
-        impact = {};
-      }
-      var text;
-      // return the text of the choice (next to the goto key)
-      if (parentKey != null) {
-        if (obj.text != null) {
-          text = obj.text;
-        } else if (obj.successText != null) {
-          text = obj.successText;
-        } else if (obj.failureText != null) {
-          text = obj.failureText;
-        } else {
-          text = "";
+function findGotoKeys(obj, result = [], parentKey = null, superParentKey = null, choiceText = null) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (typeof obj[key] === "object") {
+        if (key === "choices") {
+          superParentKey = parentKey;
+          parentKey = key;
         }
-      } else {
-        text = "";
+        let text;
+        if (parentKey !== "choices") {
+          text = obj.text || choiceText;
+        }
+
+
+        findGotoKeys(obj[key], result, key, superParentKey, text);
+      } else if (key === "goto") {
+        if (parentKey == null) {
+          parentKey = "choices";
+        }
+        var impact;
+        if (parentKey != null && obj.impact != null) {
+          impact = obj.impact;
+        } else {
+          impact = {};
+        }
+        var text =obj.text ||  choiceText || "";
+        var successText = obj.successText;
+        var failureText = obj.failureText;
+        result.push([obj[key], parentKey, superParentKey, impact,text, successText, failureText]);
       }
-      result.push([obj[key], parentKey, superParentKey, impact, text]);
     }
   }
   return result;
