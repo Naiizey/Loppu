@@ -312,29 +312,6 @@ const Choices = ({ id, setSectionId, section }) => {
         });
     }, [story_id, id]);
 
-<<<<<<< HEAD
-  console.log("choices:" + JSON.stringify(choices));
-  return (
-    <div class="container-choices">
-      { choices &&
-      choices.map((item, i) => {
-        return (
-          <Button
-            key={i}
-            size={"small"}
-            type={"info"}
-            text={item.content + item.id_section_to}
-            onClick={() => {
-            //   setChoices(item.id_section_to);
-            //   setSectionId(item.id_section_to);
-              interpretAction(item.id_section_to, 0, setSectionId);
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-=======
     console.log("choices:" + JSON.stringify(choices));
     return (
         <div class="container-choices">
@@ -361,7 +338,6 @@ const Choices = ({ id, setSectionId, section }) => {
                 })}
         </div>
     );
->>>>>>> 1003c0c2d9adedcf9151f1f8eee96d490074fd89
 };
 
 export default Choices;
