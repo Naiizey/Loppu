@@ -33,7 +33,6 @@ function editStat(operator, value, stat, actualDicoStat) {
     let character = {};
     API("characters/" + getCharaId()).then((res) => {
         character = res[0];
-        console.log(res);
     });
 
     // change the stats
@@ -46,8 +45,6 @@ function editStat(operator, value, stat, actualDicoStat) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(character.stats),
-    }).then((res) => {
-        console.log(res);
     });
 }
 
@@ -255,8 +252,7 @@ function interpretStory(story, gotoID, setSectionId) {
     if(story.alreadyVisited !== undefined && parseInt(story.alreadyVisited > 0)) {
         let alreadyVisited = parseInt(story.alreadyVisited);
         setSectionId(alreadyVisited);
-    }
-    else {
+    } else {
         let choices = story.choices;
         if (choices !== undefined && choices.length > 0) {
             for (let i = 0; i < choices.length; i++) {
@@ -269,8 +265,16 @@ function interpretStory(story, gotoID, setSectionId) {
                 }
             }
         }
-        
     }
+}
+
+function addPath(id_sections, id_character) {
+    let path = {
+        id_character,
+        id_sections,
+    };
+
+    API("paths", "POST", path);
 }
 
 function interpretAction(gotoId, choiceNumber, setSectionId) {
@@ -285,8 +289,6 @@ function interpretAction(gotoId, choiceNumber, setSectionId) {
             console.log("combat");
         }
     });
-    
-    
 }
 
 const Choices = ({ id, setSectionId, section }) => {
@@ -310,6 +312,7 @@ const Choices = ({ id, setSectionId, section }) => {
         });
     }, [story_id, id]);
 
+<<<<<<< HEAD
   console.log("choices:" + JSON.stringify(choices));
   return (
     <div class="container-choices">
@@ -331,6 +334,34 @@ const Choices = ({ id, setSectionId, section }) => {
       })}
     </div>
   );
+=======
+    console.log("choices:" + JSON.stringify(choices));
+    return (
+        <div class="container-choices">
+            {choices &&
+                choices.map((item, i) => {
+                    return (
+                        <Button
+                            key={i}
+                            size={"small"}
+                            type={"info"}
+                            text={item.content}
+                            onClick={() => {
+                                //   setChoices(item.id_section_to);
+                                //   setSectionId(item.id_section_to);
+                                interpretAction(
+                                    item.id_section_to,
+                                    0,
+                                    setSectionId
+                                );
+                                addPath(item.id_section_to, 1);
+                            }}
+                        />
+                    );
+                })}
+        </div>
+    );
+>>>>>>> 1003c0c2d9adedcf9151f1f8eee96d490074fd89
 };
 
 export default Choices;
