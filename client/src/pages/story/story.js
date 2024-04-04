@@ -86,8 +86,7 @@ const SectionPage = () => {
                 <StoryProgress section={sectionId} />
                 <article>
                     <p>
-                        {/* section.content.action.text or if section.content.action is indefined section.content.text */}
-                        {section.content.action.text || section.content.text}
+                        {section.content.action?.text || section.content.text}
                     </p>
                 </article>
                 <aside>
