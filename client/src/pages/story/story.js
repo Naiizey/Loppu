@@ -104,9 +104,12 @@ const SectionPage = () => {
                 <article>
                     <p>{section.content.action.text}</p>
                 </article>
+                <aside>
+                    {/* Mettre dans cette balise les dés, choix ou autre */}
+                    <Choices id={sectionId} setSectionId={setSectionId} />
+                    <Dices />
+                </aside>
             </section>
-            <Choices id={sectionId} setSectionId={setSectionId} />
-            <Dices />
         </main>
     );
 };
