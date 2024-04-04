@@ -13,7 +13,6 @@ import './characterSheet.css';
     <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
 */
 const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick}) => {
-    console.log(inventory[0])
     switch(type) {
         case "big":
             return (
