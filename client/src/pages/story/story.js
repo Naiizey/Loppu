@@ -90,8 +90,7 @@ const SectionPage = () => {
                     </p>
                 </article>
                 <aside>
-                    {/* Mettre dans cette balise les dés, choix ou autre */}
-                    <Dices />
+                    <Dices nbDices={2} />
                     <Choices id={sectionId} setSectionId={setSectionId} />
                 </aside>
             </section>

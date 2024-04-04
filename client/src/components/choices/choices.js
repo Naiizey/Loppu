@@ -166,7 +166,7 @@ function checkStatsPrerequesites(stat, operator, value) {
     return isfilled;
 }
 
-// function to execute the consequances of a dice result (must receive a "diceResult" dico)
+// function to execute the consequences of a dice result (must receive a "diceResult" dico)
 function diceResultConsequances(dico) {
     let successText;
     if (dico.successText !== undefined) {
@@ -315,7 +315,6 @@ const Choices = ({ id, setSectionId, section }) => {
         });
     }, [story_id, id]);
 
-    console.log("choices:" + JSON.stringify(choices));
     return (
         <div className="container-choices">
             {choices &&
