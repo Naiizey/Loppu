@@ -36,10 +36,10 @@ main .loader.fade-out {
 
 main#section aside{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    row-gap: 1em;
+    column-gap: 1em;
     margin-top: 2em;
     padding-right: 15em;
 }
