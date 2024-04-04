@@ -71,6 +71,9 @@ div.storyDetails button{
 
     flex-direction: row-reverse;
     justify-content: space-around;
+
+    background-color: var(--dark-grey);
+    color: var(--white-shade)
 }
 
 div.storyDetails button svg{

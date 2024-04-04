@@ -166,7 +166,7 @@ function checkStatsPrerequesites(stat, operator, value) {
     return isfilled;
 }
 
-// function to execute the consequances of a dice result (must receive a "diceResult" dico)
+// function to execute the consequences of a dice result (must receive a "diceResult" dico)
 function diceResultConsequances(dico) {
     let successText;
     if (dico.successText !== undefined) {
@@ -249,7 +249,10 @@ function detectDice(section, choiceNumber) {
 function interpretStory(story, gotoID, setSectionId) {
     console.log("story");
     console.log(story);
-    if(story.alreadyVisited !== undefined && parseInt(story.alreadyVisited > 0)) {
+    if (
+        story.alreadyVisited !== undefined &&
+        parseInt(story.alreadyVisited > 0)
+    ) {
         let alreadyVisited = parseInt(story.alreadyVisited);
         setSectionId(alreadyVisited);
     } else {
@@ -312,9 +315,8 @@ const Choices = ({ id, setSectionId, section }) => {
         });
     }, [story_id, id]);
 
-    console.log("choices:" + JSON.stringify(choices));
     return (
-        <div class="container-choices">
+        <div className="container-choices">
             {choices &&
                 choices.map((item, i) => {
                     return (
