@@ -7,6 +7,10 @@ import Main from "./Main";
 import Header from "./components/header/header";
 
 function App() {
+    if(!localStorage.getItem("userId")){
+        localStorage.setItem("userId", 1);
+    };
+
     const [isSliderOpened, setIsSliderOpened] = useState(false);
 
     const [sliderType, setSliderType] = useState();
