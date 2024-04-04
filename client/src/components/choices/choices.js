@@ -270,9 +270,8 @@ function interpretAction(sectionId, choiceNumber) {
     let section = {};
     API("sections/"+ storyID+ "/" + sectionId).then((res) => {
         section = res[0];
-    }
-    );
-
+    });
+    console.log("section:" + JSON.stringify(section));
     if (section.type === "story"){
         console.log("story");
     }
@@ -317,8 +316,8 @@ const Choices = ({ id, setSectionId, section }) => {
             type={"info"}
             text={item.content}
             onClick={() => {
-              //setChoices(item.id_section_to);
-              //setSectionId(item.id_section_to);
+              setChoices(item.id_section_to);
+              setSectionId(item.id_section_to);
               interpretAction(item.id_section_to, 0);
             }}
           />
