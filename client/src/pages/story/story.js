@@ -59,6 +59,7 @@ const SectionPage = () => {
 
     return (
         <main id="section">
+            {section.id === 0 && <Loader loading={section.id === 0} />}
             <nav>
                 <CharacterSheet
                     type="small"
@@ -76,10 +77,13 @@ const SectionPage = () => {
                 />
             </nav>
             <section>
-                <StoryProgress />
+                <StoryProgress section={sectionId} />
                 <article>
                     <p>{section.content.action.text}</p>
                 </article>
+                <aside>
+                    {/* Mettre dans cette balise les dés, choix ou autre */}
+                </aside>
             </section>
             <Choices id={sectionId} setSectionId={setSectionId} />
             <Dices />

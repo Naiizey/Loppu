@@ -1,6 +1,6 @@
 import './storyProgress.css';
 
-const StoryProgress = () => {
+const StoryProgress = ({section}) => {
     return (
         <div className="storyProgressComponent">
             <div>
@@ -23,7 +23,7 @@ const StoryProgress = () => {
             </div>
             <div>
                 <h2>Rampage</h2>
-                <h3>section 2 - village</h3>
+                <h3>section {section}</h3>
             </div>
         </div>
     )

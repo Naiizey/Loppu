@@ -11,9 +11,12 @@ router.get("/stuff", (req, res) => {
 });
 
 // GET stuff by id
-router.get("/stuff/:id", (req, res) => {
-    const { id } = req.params;
-    pool.query("SELECT * FROM sections WHERE id = $1", [id]).then((results) => {
+router.get("/stuff/:idStory/:idItem", (req, res) => {
+    const { idStory, idItem } = req.params;
+    pool.query("SELECT * FROM sections WHERE idStory = $1 AND idItem = $2", [
+        idStory,
+        idItem,
+    ]).then((results) => {
         res.json(results.rows);
     });
 });

@@ -20,9 +20,9 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
                 <div className="storyDetails">
                     <StoryProgress />
                     <Button size="small" Icon={ArrowIcon} text="Continue my story" type="dark" onClick={() => {
-                        let cookiesTime = new Date();
-                        cookiesTime = cookiesTime.setDate(cookiesTime.getDate() + 14);
-                        document.cookie = `storyId=${storyId}; expires=${new Date(cookiesTime).toUTCString()}`;
+                        if(!localStorage.getItem("storyId")){
+                            localStorage.setItem("storyId", 1);
+                        }
                         window.location = "/story";
                     }}/>
                 </div>
