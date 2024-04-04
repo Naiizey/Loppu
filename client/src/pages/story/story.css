@@ -96,3 +96,11 @@ main#section article{
     line-height: 1.5em;
     padding-right: 1em;
 }
+
+main .loader {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+main .loader.fade-out {
+    opacity: 0;
+}

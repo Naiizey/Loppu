@@ -1,11 +1,21 @@
-.loaderComponent{
-    flex-grow: 1;
-    width: 200%;
+.loaderComponent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    position: relative;
+    
     z-index: 100;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out visibility 2s;
+    background-color: var(--dark-grey);
+}
+
+.loaderComponent.fade-out {
+    opacity: 0;
 }
 
 .loaderComponent section{
@@ -26,7 +36,7 @@
 .loaderComponent section:nth-of-type(1){
     top: calc((1 - 1) * (100% / 6));
 
-    fill: color-mix(in srgb, var(--dark-grey) 80%, white 15%);
+    fill: color-mix(in srgb, var(--dark-grey) 50%);
 
     -webkit-animation-duration: 10s;
     animation-duration: 10s;
@@ -34,7 +44,7 @@
 .loaderComponent section:nth-of-type(2){
     top: calc((2 - 1) * (100% / 6));
 
-    fill: color-mix(in srgb, var(--dark-grey) 80%, white 15%);
+    fill: color-mix(in srgb, var(--dark-grey) 50%);
 
     -webkit-animation-duration: 7s;
     animation-duration: 7s;
@@ -42,7 +52,7 @@
 .loaderComponent section:nth-of-type(3){
     top: calc((3 - 1) * (100% / 6));
 
-    fill: color-mix(in srgb, var(--dark-grey) 80%, white 15%);
+    fill: color-mix(in srgb, var(--dark-grey) 50%);
 
     -webkit-animation-duration: 8s;
     animation-duration: 8s;
@@ -50,7 +60,7 @@
 .loaderComponent section:nth-of-type(4){
     top: calc((4 - 1) * (100% / 6));
 
-    fill: color-mix(in srgb, var(--dark-grey) 80%, white 15%);
+    fill: color-mix(in srgb, var(--dark-grey) 50%);
 
     -webkit-animation-duration: 9s;
     animation-duration: 9s;
@@ -58,7 +68,7 @@
 .loaderComponent section:nth-of-type(5){
     top: calc((5 - 1) * (100% / 6));
 
-    fill: color-mix(in srgb, var(--dark-grey) 80%, white 15%);
+    fill: color-mix(in srgb, var(--dark-grey) 50%);
 
     -webkit-animation-duration: 6s;
     animation-duration: 6s;
@@ -66,7 +76,7 @@
 .loaderComponent section:nth-of-type(6){
     top: calc((6 - 1) * (100% / 6));
 
-    fill: color-mix(in srgb, var(--dark-grey) 80%, white 15%);
+    fill: color-mix(in srgb, var(--dark-grey) 50%);
 
     -webkit-animation-duration: 8s;
     animation-duration: 8s;
