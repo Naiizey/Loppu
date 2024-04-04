@@ -15,15 +15,7 @@
 
     height: 3em;
     width: 50%;
-}
 
-button[class*=button]:hover{
-    background-color: var(--dark-grey);
-    color: var(--white-shade);
-    border: 1px solid var(--white-shade);
-}
-
-button[class*=button]{
     display: flex;
     column-gap: .5em;
     align-items: center;
@@ -36,6 +28,25 @@ button[class*=button]{
     color: var(--black-text);
     font-family: 'Inknut-Antiqua-Semi-Bold', sans-serif;
 }
+
+.smallButtonComponent:hover{
+    background-color: var(--dark-grey);
+    color: var(--white-shade);
+    border: 1px solid var(--white-shade);
+    border-radius: .5em;
+}
+
+button[class*=button]{
+    display: flex;
+    column-gap: .5em;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    border: none;
+    border-radius: .5em;
+    cursor: pointer;
+}
+
 
 [class^=largeButton] > button{
     width: 100%;
@@ -74,9 +85,17 @@ button[class*=button]{
     color: var(--white-shade);
 }
 
+[class$=button-danger]:hover{
+    background-color: #a93e3e;
+}
+
 [class$=button-info]{
     background-color: var(--blue-shade);
     color: var(--white-shade);
+}
+
+[class$=button-info]:hover{
+    background-color: #4d8fcf;
 }
 
 [class$=button-info] path{
@@ -96,8 +115,14 @@ button[class*=button]{
 }
 
 [class$=button-success]{
+    margin-top: .5em;
     background-color: var(--green-shade);
     color: var(--dark-grey);
+    overflow: hidden;
+}
+
+[class$=button-success]:hover{
+    background-color: #22bf49;
 }
 
 
