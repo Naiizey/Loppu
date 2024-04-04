@@ -1,7 +1,6 @@
 import "./story.css";
 import { useState, useEffect } from "react";
 import Choices from "../../components/choices/choices";
-import Dices from "../../components/dices/dices";
 import API from "../../utils/API";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 import Loader from "../../components/loader/loader";
@@ -121,8 +120,7 @@ const SectionPage = () => {
                     </p>
                 </article>
                 <aside>
-                    <Dices nbDices={2} />
-                    <Choices id={sectionId} setSectionId={setSectionId} />
+                    <Choices id={sectionId} setSectionId={setSectionId}/>
                 </aside>
             </section>
             <Loader loading={section.id === 0} />

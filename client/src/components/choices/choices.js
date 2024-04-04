@@ -4,8 +4,11 @@ import "../button/button";
 import Button from "../button/button";
 import { useEffect, useState } from "react";
 import API from "../../utils/API";
+import Dices from "../../components/dices/dices";
+import {rollAllDices} from "../../components/dices/dices";
 import characterSheet from "../characterSheet/characterSheet";
 
+var diceResults = [];
 // function to handle the fight
 function autoFight() { }
 
@@ -32,7 +35,7 @@ function editStat(operator, value, stat, actualDicoStat) {
             break;
     }
 
-    API("characters/" + getCharaId() + "/stats", 
+    API("characters/" + getCharaId() + "/stats",
         "PUT",
         actualDicoStat,
     );
@@ -64,7 +67,7 @@ function interpretImpact(dico) {
                 });
 
                 // for each key in the stats dico
-                
+
             }
         } else {
             // if the key is "inventory"
@@ -171,6 +174,7 @@ function interpretDiceResult(dico, diceValue) {
                 let stat = element.stat;
                 let operator = element.operator;
                 checkStatsPrerequesites(stat, operator, diceValue).then(result => {
+                    console.log("result: " + result);
                     if (result) {
                         diceResultConsequances(element);
                     }
@@ -197,15 +201,7 @@ function interpretDiceResult(dico, diceValue) {
     }
 }
 
-function launchDice(numberOfDice) {
-    //temporaru value launch numberOfDice dices
-    let diceValue = 0;
-    for (let i = 0; i < numberOfDice; i++) {
-        diceValue += Math.floor(Math.random() * 6) + 1;
-    }
-    return diceValue;
 
-}
 
 function interpretStory(story, gotoID, setSectionId) {
     // console.log("story");
@@ -231,12 +227,15 @@ function interpretStory(story, gotoID, setSectionId) {
                     let newChoice = choice.require.action;
                     switch (newChoice.type) {
                         case "dice":
-                            interpretDiceResult(newChoice, launchDice(choice.numberOfDice));
+                            //launch the dices and wait for the result
+                            launchDices(newChoice.numberOfDice).then((res) => {
+                                interpretDiceResult(newChoice, res);
+                            });
                             break;
                         case "combat":
                         //fight(choice);
                         case "story":
-                            interpretStory(newChoice.action, gotoID, setSectionId);
+                            interpretStory(newChoice.action, gotoID);
                             break;
                         default:
                             break;
@@ -245,6 +244,18 @@ function interpretStory(story, gotoID, setSectionId) {
             }
         }
     }
+}
+
+
+
+// const version of the fnction launchDices bcs she need to be waited before the return
+const launchDices = async (numberOfDice) => {
+    console.log("launch "+numberOfDice+" Dices" );
+    localStorage.setItem("numberOfDices", numberOfDice);
+    //wait 100ms to be sure that the value is set   
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const res = await rollAllDices();
+    return res;
 }
 
 function addPath(id_sections, id_character) {
@@ -270,6 +281,7 @@ function interpretAction(gotoId, choiceNumber, setSectionId) {
     });
 }
 
+
 const Choices = ({ id, setSectionId, section }) => {
     const [choices, setChoices] = useState([
         {
@@ -284,6 +296,20 @@ const Choices = ({ id, setSectionId, section }) => {
         },
     ]);
     const story_id = localStorage.getItem("storyId");
+    const [diceValue, setDiceValue] = useState(0); 
+    const handleButtonClick = (item) => {
+        interpretAction(
+            item.id_section_to,
+            0
+        );
+        // wait that "numberOfDices" of the localStorage is set
+        setTimeout(() => {
+            let value = localStorage.getItem("numberOfDices");
+            if (value !== null || value !== undefined) {
+                setDiceValue(value);
+            }
+        }, 100);
+    };
 
     useEffect(() => {
         API("choices/" + story_id + "/" + id).then((res) => {
@@ -293,6 +319,7 @@ const Choices = ({ id, setSectionId, section }) => {
 
     return (
         <div className="container-choices">
+            <Dices nbDices={diceValue} />
             {choices &&
                 choices.map((item, i) => {
                     return (
@@ -304,11 +331,7 @@ const Choices = ({ id, setSectionId, section }) => {
                             onClick={() => {
                                 //   setChoices(item.id_section_to);
                                 //   setSectionId(item.id_section_to);
-                                interpretAction(
-                                    item.id_section_to,
-                                    0,
-                                    setSectionId
-                                );
+                                handleButtonClick(item);
                                 addPath(item.id_section_to, 1);
                             }}
                         />
