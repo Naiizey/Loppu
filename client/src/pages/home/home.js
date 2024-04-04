@@ -3,6 +3,7 @@ import StoriesDisplay from '../../components/storiesDisplay/storiesDisplay';
 import Image from '../../assets/images/storiesDisplay.jpg'
 import { useState, useEffect } from 'react';
 import API from '../../utils/API'
+import Loader from '../../components/loader/loader';
 
 const HomePage = () => {
     const [isClicked, setIsClicked] = useState(0);

@@ -40,8 +40,12 @@ const SectionPage = () => {
 
     const defaultSection = 1;
     const [sectionId, setSectionId] = useState(
-        localStorage.getItem("sectionID") || defaultSection
+        localStorage.getItem("sectionId") || defaultSection
     );
+
+    if (localStorage.getItem("sectionId") === null) {
+        localStorage.setItem("sectionId", defaultSection);
+    }
 
     useEffect(() => {
         API("sections/" + story_id + "/" + sectionId).then((res) => {
@@ -56,6 +60,8 @@ const SectionPage = () => {
             setTitle(res.title);
         });
     }, [story_id]);
+
+    console.log("section: " + JSON.stringify(section));
 
     return (
         <main id="section">
@@ -79,11 +85,14 @@ const SectionPage = () => {
             <section>
                 <StoryProgress section={sectionId} />
                 <article>
-                    <p>{section.content.action.text}</p>
+                    <p>
+                        {section.content.action?.text || section.content.text}
+                    </p>
                 </article>
                 <aside>
-                    <Choices id={sectionId} setSectionId={setSectionId} />
+                    {/* Mettre dans cette balise les dés, choix ou autre */}
                     <Dices />
+                    <Choices id={sectionId} setSectionId={setSectionId} />
                 </aside>
             </section>
         </main>

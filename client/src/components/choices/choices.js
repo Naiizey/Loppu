@@ -104,7 +104,7 @@ function setSectionIdLocalStorage(sectionId) {
 //function to go to an other section /!\ She needs to break the loop or the father
 function gotoTo(sectionId, successText = null, failureText = null) {
     return (
-        <div>
+        <div class="container-choices">
             <p>
                 {successText !== null ? successText : ""}
                 {failureText !== null ? failureText : ""}
@@ -246,7 +246,27 @@ function detectDice(section, choiceNumber) {
     }
 }
 
-function interpretStory(sectionId, choiceNumber) {}
+function interpretStory(story, setSectionId) {
+    console.log("story");
+    if (
+        story.alreadyVisited !== undefined &&
+        parseInt(story.alreadyVisited > 0)
+    ) {
+        let alreadyVisited = parseInt(story.alreadyVisited);
+        setSectionId(alreadyVisited);
+    } else {
+        let choices = story.choices;
+        if (choices !== undefined && choices.length > 0) {
+            for (let i = 0; i < choices.length; i++) {
+                let choice = choices[i];
+                console.log("choice:" + JSON.stringify(choice));
+                if (choice.goto !== undefined) {
+                    setSectionId(choice.goto);
+                }
+            }
+        }
+    }
+}
 
 function addPath(id_sections, id_character) {
     let path = {
@@ -257,18 +277,18 @@ function addPath(id_sections, id_character) {
     API("paths", "POST", path);
 }
 
-function interpretAction(sectionId, choiceNumber) {
+function interpretAction(gotoId, choiceNumber, setSectionId) {
     let storyID = localStorage.getItem("storyId");
+    let currentSectionId = localStorage.getItem("sectionId");
     let section = {};
-    API("sections/" + storyID + "/" + sectionId).then((res) => {
+    API("sections/" + storyID + "/" + currentSectionId).then((res) => {
         section = res[0];
+        if (section.content.action.type === "story") {
+            interpretStory(section.content.action, setSectionId);
+        } else if (section.content.action.type === "combat") {
+            console.log("combat");
+        }
     });
-
-    if (section.type === "story") {
-        console.log("story");
-    } else if (section.type === "combat") {
-        console.log("combat");
-    }
 }
 
 const Choices = ({ id, setSectionId, section }) => {
@@ -292,22 +312,30 @@ const Choices = ({ id, setSectionId, section }) => {
         });
     }, [story_id, id]);
 
-    console.log(choices);
+    console.log("choices:" + JSON.stringify(choices));
     return (
-        <div>
-            {choices.map((choice) => (
-                <div key={choice.id}>
-                    <Button
-                        size={"small"}
-                        type={"info"}
-                        text={choice.content}
-                        onClick={() => {
-                            setSectionId(choice.id_section_to);
-                            addPath(choice.id_section_to, 1); // TODO id_character
-                        }}
-                    />
-                </div>
-            ))}
+        <div class="container-choices">
+            {choices &&
+                choices.map((item, i) => {
+                    return (
+                        <Button
+                            key={i}
+                            size={"small"}
+                            type={"info"}
+                            text={item.content}
+                            onClick={() => {
+                                //   setChoices(item.id_section_to);
+                                //   setSectionId(item.id_section_to);
+                                interpretAction(
+                                    item.id_section_to,
+                                    0,
+                                    setSectionId
+                                );
+                                addPath(item.id_section_to, 1);
+                            }}
+                        />
+                    );
+                })}
         </div>
     );
 };

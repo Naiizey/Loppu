@@ -9,10 +9,15 @@
 
 #dices ul{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 80%;
     cursor: none;
     pointer-events: none;
+}
+
+#dices ul li{
+    margin-right: 0.75em;
+    margin-left: 0.75em;
 }
 
 #dices button{

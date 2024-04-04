@@ -3,8 +3,38 @@ import Button from '../button/button';
 import StoryProgress from '../storyProgress/storyProgress'
 import CharacterSheet from '../characterSheet/characterSheet'
 import { ReactComponent as ArrowIcon } from '../../assets/icons/arrow.svg'
+import { useEffect, useState } from 'react';
+import API from '../../utils/API'
 
 const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) => {
+    const [characters, setCharacters] = useState();
+    const [charactersModels, setCharactersModels] = useState();
+
+    let userChar;
+    let userCharModel;
+
+    useEffect(() => {
+        API("characters").then((res) => {
+            setCharacters(res);
+        });
+
+        API("characters_models").then((res) => {
+            setCharactersModels(res);
+        })
+    }, []);
+
+    if(characters && charactersModels){
+        let userCharas = characters.filter((elem) => elem.user_id === parseInt(localStorage.getItem("userId")));
+        let charModel;
+        let character = userCharas.filter((char) => {
+            charModel = charactersModels.filter((charModel) => charModel.id === char.character_model_id);
+            return char.character_model_id;
+        });
+
+        userChar = character[0];
+        userCharModel = charModel[0];
+    }
+
     return(
         <div className={`storiesDisplayComponent${isClicked === storyId ? " clicked" : ""}`} onClick={onClick}>
             <input hidden id=""></input>
@@ -15,7 +45,9 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
                 }
             </div>
             <img src={Image} alt="story illustration"></img>
-            <CharacterSheet type="small" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150"/>
+            { userChar && userCharModel &&
+                <CharacterSheet type="small" name={userCharModel.name} stats={userChar.stats} inventory={userChar.stuff} img="https://via.placeholder.com/150"/>
+            }
             { isClicked === storyId &&
                 <div className="storyDetails">
                     <StoryProgress />
