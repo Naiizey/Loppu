@@ -87,7 +87,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "Boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -127,7 +127,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "Boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -167,7 +167,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "Boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -199,9 +199,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Keg of Beer",
-                "quantity": 1,
-                "type": "food"
+                "id_item" : 2,
+                "quantity": 1
+                
               }
             ],
             "stats": {
@@ -292,7 +292,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "Boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           }
@@ -308,14 +308,14 @@
         "impact": {
           "stuff": [
             {
-              "name": "Silver Candelabra",
-              "quantity": 1,
-              "type": "treasure"
+              "id_item" : 6,
+              "quantity": 1
+              
             },
             {
               "name": "Gold Statue of Goff",
-              "quantity": 1,
-              "type": "treasure"
+              "quantity": 1
+              
             }
           ]
         }
@@ -383,9 +383,9 @@
                   "impact": {
                     "stuff": [
                       {
-                        "name": "Keg of Beer",
-                        "quantity": 1,
-                        "type": "food"
+                        "id_item" : 2,
+                        "quantity": 1
+                        
                       }
                     ]
                   },
@@ -443,7 +443,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           }
@@ -459,8 +459,8 @@
           "stuff": [
             {
               "name": "Fire Sword",
-              "quantity": 1,
-              "type": "treasure"
+              "quantity": 1
+              
             }
           ]
         }
@@ -489,7 +489,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           }
@@ -510,13 +510,13 @@
           "stuff": [
             {
               "name": "Legendary Sword of Goff",
-              "quantity": 1,
-              "type": "weapon"
+              "quantity": 1
+              
             },
             {
-              "name": "Boulder",
-              "quantity": 1,
-              "type": "weapon"
+              "id_item" : 5,
+              "quantity": 1
+              
             }
           ]
         }
@@ -644,8 +644,7 @@
                   "stuff": [
                     {
                       "name": "Shield",
-                      "quantity": 1,
-                      "type": "armor"
+                      "quantity": 1
                     }
                   ]
                 },
@@ -688,7 +687,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           },
@@ -717,8 +716,8 @@
           "stuff": [
             {
               "name": "Soultaker",
-              "quantity": 1,
-              "type": "treasure"
+              "quantity": 1
+              
             }
           ],
           "stats": {
@@ -742,9 +741,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Boulder",
-                "quantity": 1,
-                "type": "weapon"
+                "id_item" : 5,
+                "quantity": 1
+                
               }
             ]
           }
@@ -755,9 +754,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Barrel of Wine",
-                "quantity": 1,
-                "type": "food"
+                "id_item" : 11,
+                "quantity": 1
+                
               }
             ]
           }
@@ -769,8 +768,8 @@
             "stuff": [
               {
                 "name": "Crate of Sweetcakes",
-                "quantity": 1,
-                "type": "food"
+                "quantity": 1
+                
               }
             ]
           }
@@ -782,8 +781,8 @@
             "stuff": [
               {
                 "name": "Brass Telescope",
-                "quantity": 1,
-                "type": "treasure"
+                "quantity": 1
+                
               }
             ]
           }
@@ -795,8 +794,8 @@
             "stuff": [
               {
                 "name": "Ebony Staff",
-                "quantity": 1,
-                "type": "treasure"
+                "quantity": 1
+                
               }
             ]
           }
@@ -832,8 +831,8 @@
             "stuff": [
               {
                 "name": "Dwarven Strongbox",
-                "quantity": 1,
-                "type": "treasure"
+                "quantity": 1
+                
               }
             ]
           },
@@ -944,7 +943,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -1002,7 +1001,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -1020,8 +1019,8 @@
           "stuff": [
             {
               "name": "Gold Dragon Statue",
-              "quantity": 1,
-              "type": "treasure"
+              "quantity": 1
+              
             }
           ]
         }
@@ -1051,9 +1050,9 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Roast Ox",
-                        "quantity": 1,
-                        "type": "food"
+                        "id_item" : 16,
+                        "quantity": 1
+                        
                       }
                     ]
                   }
@@ -1064,9 +1063,8 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Cured Ham",
-                        "quantity": 1,
-                        "type": "food"
+                        "id_story": 3,
+                        "quantity": 1
                       }
                     ]
                   }
@@ -1077,9 +1075,9 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Barrel of Wine",
-                        "quantity": 1,
-                        "type": "food"
+                        "id_item" : 11,
+                        "quantity": 1
+                        
                       }
                     ]
                   }
@@ -1090,9 +1088,9 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Asantian Rug",
-                        "quantity": 1,
-                        "type": "treasure"
+                        "id_item" : 17,
+                        "quantity": 1
+                        
                       }
                     ]
                   }
@@ -1103,9 +1101,9 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Silver Candelabra",
-                        "quantity": 1,
-                        "type": "treasure"
+                        "id_item" : 6,
+                        "quantity": 1
+                        
                       }
                     ]
                   }
@@ -1117,8 +1115,8 @@
                     "add": [
                       {
                         "name": "Gold Dragon Statue",
-                        "quantity": 1,
-                        "type": "treasure"
+                        "quantity": 1
+                        
                       }
                     ]
                   }
@@ -1235,8 +1233,8 @@
                         "stuff": [
                           {
                             "name": "Brass Telescope",
-                            "quantity": 1,
-                            "type": "treasure"
+                            "quantity": 1
+                            
                           }
                         ]
                       }
@@ -1248,8 +1246,8 @@
                         "stuff": [
                           {
                             "name": "Vat of Spirits",
-                            "quantity": 1,
-                            "type": "food"
+                            "quantity": 1
+                            
                           }
                         ]
                       }
@@ -1603,7 +1601,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -1634,9 +1632,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Barrel of Wine",
-                "quantity": 1,
-                "type": "food"
+                "id_item" : 11,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1648,8 +1646,8 @@
             "stuff": [
               {
                 "name": "Roast Hog",
-                "quantity": 1,
-                "type": "food"
+                "quantity": 1
+                
               }
             ]
           },
@@ -1660,9 +1658,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Silver Candelabra",
-                "quantity": 1,
-                "type": "treasure"
+                "id_item" : 6,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1673,9 +1671,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Gilt-frame Portrait",
-                "quantity": 1,
-                "type": "treasure"
+                "id_item" : 20,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1694,9 +1692,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Boulder",
-                "quantity": 1,
-                "type": "weapon"
+                "id_item" : 5,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1707,9 +1705,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Barrel of Wine",
-                "quantity": 1,
-                "type": "food"
+                "id_item" : 11,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1720,9 +1718,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Roast Ox",
-                "quantity": 1,
-                "type": "food"
+                "id_item" : 16,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1733,9 +1731,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Mithril Tabard",
-                "quantity": 1,
-                "type": "treasure"
+                "id_item" : 22,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1746,9 +1744,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Silver Candelabra",
-                "quantity": 1,
-                "type": "treasure"
+                "id_item" : 6,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1759,9 +1757,9 @@
           "impact": {
             "stuff": [
               {
-                "name": "Gilt-frame Portrait",
-                "quantity": 1,
-                "type": "treasure"
+                "id_item" : 20,
+                "quantity": 1
+                
               }
             ]
           },
@@ -1803,7 +1801,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "Boulder"
+                "id_item" : 5
               }
             }
           }
@@ -1823,9 +1821,9 @@
         "impact": {
           "stuff": [
             {
-              "name": "Boulder",
-              "quantity": 1,
-              "type": "weapon"
+              "id_item" : 5,
+              "quantity": 1
+              
             }
           ]
         }
@@ -1849,7 +1847,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -1865,14 +1863,14 @@
         "impact": {
           "stuff": [
             {
-              "name": "Cow",
-              "quantity": 1,
-              "type": "food"
+              "id_item" : 23,
+              "quantity": 1
+              
             },
             {
-              "name": "Ox",
-              "quantity": 1,
-              "type": "food"
+              "id_item" : 24,
+              "quantity": 1
+              
             }
           ],
           "stats": {
@@ -1906,7 +1904,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -1940,7 +1938,7 @@
             "action": {
               "type": "item",
               "item": {
-                "name": "boulder",
+                "id_item" : 5,
                 "quantity": 1
               }
             }
@@ -2002,7 +2000,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           }
@@ -2073,7 +2071,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           }
@@ -2088,14 +2086,14 @@
         "impact": {
           "stuff": [
             {
-              "name": "Barrel of Sausages",
-              "quantity": 1,
-              "type": "food"
+              "id_item" : 21,
+              "quantity": 1
+              
             },
             {
-              "name": "Asantian Rug",
-              "quantity": 1,
-              "type": "treasure"
+              "id_item" : 17,
+              "quantity": 1
+              
             }
           ]
         },
@@ -2267,7 +2265,7 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Cured Ham"
+                        "id_story": 3
                       }
                     ]
                   }
@@ -2278,7 +2276,7 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Keg of Beer"
+                        "id_item" : 2
                       }
                     ]
                   }
@@ -2289,7 +2287,8 @@
                   "stuff": {
                     "add": [
                       {
-                        "name": "Potion of Healing"
+                        "id_item" : 4,
+                        "quantity": 1
                       }
                     ]
                   }
@@ -2320,7 +2319,7 @@
           "require": {
             "type": "item",
             "item": {
-              "name": "boulder",
+              "id_item" : 5,
               "quantity": 1
             }
           }
@@ -2335,7 +2334,8 @@
         "stuff": {
           "add": [
             {
-              "name": "Demon Gem"
+              "id_item" : 25,
+              "quantity": 1
             }
           ]
         }

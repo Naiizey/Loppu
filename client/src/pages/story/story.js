@@ -82,7 +82,7 @@ const SectionPage = () => {
           <p>{section.content.action.text}</p>
         </article>
       </section>
-      <Choices id={sectionId} setSectionId={setSectionId} />
+      <Choices id={sectionId} setSectionId={setSectionId} section={section} />
     </main>
   );
 };

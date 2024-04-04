@@ -29,11 +29,11 @@ router.post("/characters", (req, res) => {
 });
 
 // PUT updated character
-router.put("/characters/:id", (req, res) => {
+router.put("/characters/:id/stats", (req, res) => {
   const { id } = req.params;
-  const { name } = req.body;
+  const stats = req.body;
   pool
-    .query("UPDATE characters SET name = $1 WHERE id = $2", [name, id])
+    .query("UPDATE characters SET stats = $1 WHERE id = $2", [stats, id])
     .then(() => {
       res.json({
         message: "Character updated successfully!",
