@@ -1,13 +1,16 @@
 import './ending.css';
+import Loader from "../../components/loader/loader";
 
 const EndingPage = () => {
     return (
         <main id="ending">
-            <section className="endingMessage">
+            <section>
                 <h1>Thank you for playing Loppu !</h1>
-                <h2>Hope you enjoyed it</h2>
+                <div>
+                    <h2>We hope you enjoyed it</h2>
+                    <h2>Created by:</h2>
+                </div>
                 <ul>
-                    <li>Created by:</li>
                     <li>Alexandre</li>
                     <li>Mathis</li>
                     <li>Florian</li>

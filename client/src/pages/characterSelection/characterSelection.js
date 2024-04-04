@@ -33,7 +33,7 @@ const CharacterSelection = () => {
 
                 <CharacterSheet type="small" name="Mage" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["staff", "spellbook"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Mage"} onClick={() => handleCharacterClick("Mage")}/>
                 <CharacterSheet type="medium" name="Rogue" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["dagger", "lockpick"]} img="https://via.placeholder.com/150"/>
- 
+
             </ul>
         </section>
     )

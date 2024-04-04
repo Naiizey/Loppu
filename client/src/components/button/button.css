@@ -15,9 +15,12 @@
 
     height: 3em;
     width: 50%;
+    background-color: var(--grey-button);
+    color: var(--black-text);
+    font-family: 'Inknut-Antiqua-Semi-Bold', sans-serif;
 }
 
-button[class*=button]:hover{
+.smallButtonComponent:hover{
     background-color: var(--dark-grey);
     color: var(--white-shade);
     border: 1px solid var(--white-shade);
@@ -32,10 +35,8 @@ button[class*=button]{
     border: none;
     border-radius: .5em;
     cursor: pointer;
-    background-color: var(--grey-button);
-    color: var(--black-text);
-    font-family: 'Inknut-Antiqua-Semi-Bold', sans-serif;
 }
+
 
 [class^=largeButton] > button{
     width: 100%;
@@ -96,10 +97,11 @@ button[class*=button]{
 }
 
 [class$=button-success]{
+    margin-top: .5em;
     background-color: var(--green-shade);
     color: var(--dark-grey);
+    overflow: hidden;
 }
-
 
 [class$=button-dark]{
     background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);

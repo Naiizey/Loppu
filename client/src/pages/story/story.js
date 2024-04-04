@@ -5,7 +5,8 @@ import API from "../../utils/API";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 import Loader from "../../components/loader/loader";
 import StoryProgress from "../../components/storyProgress/storyProgress";
-import CharImage  from '../../assets/images/giant.jpg'
+import CharImage  from '../../assets/images/giant.jpg';
+import Button from "../../components/button/button";
 
 const SectionPage = () => {
     const [clickedCharacter, setClickedCharacter] = useState(null);
@@ -120,7 +121,8 @@ const SectionPage = () => {
                     </p>
                 </article>
                 <aside>
-                    <Choices id={sectionId} setSectionId={setSectionId}/>
+                    <Choices id={sectionId} setSectionId={setSectionId} />
+                    {sectionId === 50 && <Button size="small" type="primary" text="End the story" onClick={() => window.location = '/ending'} />}
                 </aside>
             </section>
             <Loader loading={section.id === 0} />
