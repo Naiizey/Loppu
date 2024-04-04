@@ -78,7 +78,8 @@ div.storyDetails button svg{
 }
 
 .storiesDisplayComponent .characterSheetSmall{
-    padding: unset
+    padding: unset;
+    width: 100%;
 }
 
 .storiesDisplayComponent .characterSheetSmall img{

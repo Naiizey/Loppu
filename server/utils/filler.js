@@ -187,6 +187,8 @@ pool.connect().then(async () => {
   }
   console.log("database filled with the choices");
 
+  var character = await pool.query("INSERT INTO characters(id, stats, character_model_id, stuff, user_id) VALUES(1, $1, 1, $2, 1)", [base_stats, base_stuff])
+
   pool.end();
   console.log("database filled with the story: " + story_name);
   process.exit();

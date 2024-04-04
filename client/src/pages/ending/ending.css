@@ -1,0 +1,40 @@
+main#ending{
+    display: flex;
+    flex-direction: column;
+    padding: 2em 0;
+    row-gap: 2em;
+    color: var(--white-shade);
+    font-family: 'Inria-Sans-Regular', sans-serif;
+}
+
+main#ending > section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2em;
+}
+
+main#ending h1, main#ending h2{
+    font-family: 'Inknut-Antiqua-Regular', sans-serif;
+}
+
+main#ending h1{
+    font-size: 2em;
+}
+
+main#ending ul{
+    list-style: none;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+    font-size: 1.2em;
+}
+
+main#ending ul li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1em;
+}
