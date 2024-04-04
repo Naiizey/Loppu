@@ -249,7 +249,10 @@ function detectDice(section, choiceNumber) {
 function interpretStory(story, gotoID, setSectionId) {
     console.log("story");
     console.log(story);
-    if(story.alreadyVisited !== undefined && parseInt(story.alreadyVisited > 0)) {
+    if (
+        story.alreadyVisited !== undefined &&
+        parseInt(story.alreadyVisited > 0)
+    ) {
         let alreadyVisited = parseInt(story.alreadyVisited);
         setSectionId(alreadyVisited);
     } else {
@@ -314,7 +317,7 @@ const Choices = ({ id, setSectionId, section }) => {
 
     console.log("choices:" + JSON.stringify(choices));
     return (
-        <div class="container-choices">
+        <div className="container-choices">
             {choices &&
                 choices.map((item, i) => {
                     return (
