@@ -1,29 +1,19 @@
-aside.slider {
+.sliderComponent {
     position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    font-family: 'Inria-Sans-Regular', sans-serif;
-    width: 20vw;
-    padding-top: .5em;
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    justify-content: center;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20vw;
     border-left: 1px solid var(--grey-shade);
     background-color: color-mix(in srgb, var(--dark-grey) 90%, black 10%);
+    font-family: 'Inria-Sans-Regular', sans-serif;
 }
 
-aside.slider svg{
+.sliderComponent svg{
     cursor: pointer;
     fill: var(--white-shade);
-}
-
-aside.slider > svg{
-    position: absolute;
-    top: 0.5em;
-    right: 0.25em;
-
-    z-index: 1;
 }

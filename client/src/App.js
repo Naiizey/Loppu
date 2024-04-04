@@ -1,20 +1,19 @@
-import { useState } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import './App.css';
-import Main from './Main'
+import "./App.css";
+import Main from "./Main";
 
-import Header from './components/header/header'
-
+import Header from "./components/header/header";
 
 function App() {
-  const [isSliderOpened, setIsSliderOpened] = useState(false);
+    const [isSliderOpened, setIsSliderOpened] = useState(false);
 
-  const [sliderType, setSliderType] = useState();
+    const [sliderType, setSliderType] = useState();
 
-  const [darkMode, setDarkMode] = useState(true);
-  
-  /* useStates for future implementations
+    const [darkMode, setDarkMode] = useState(true);
+
+    /* useStates for future implementations
   const [displayMode, setDisplayMode] = useState("simple");
 
   const [lineSpace, setLineSpace] = useState(1);
@@ -25,16 +24,24 @@ function App() {
     lineSpace={lineSpace} setLineSpace={setLineSpace}
   */
 
-  return (
-    <Router>
-      <Header isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened} sliderType={sliderType} setSliderType={setSliderType}/>
-      <Main 
-        sliderType={sliderType} setSliderType={setSliderType}
-        isSliderOpened={isSliderOpened} setIsSliderOpened={setIsSliderOpened}
-        darkMode={darkMode} setDarkMode={setDarkMode} 
-      />
-    </Router>
-  );
+    return (
+        <Router>
+            <Header
+                isSliderOpened={isSliderOpened}
+                setIsSliderOpened={setIsSliderOpened}
+                sliderType={sliderType}
+                setSliderType={setSliderType}
+            />
+            <Main
+                sliderType={sliderType}
+                setSliderType={setSliderType}
+                isSliderOpened={isSliderOpened}
+                setIsSliderOpened={setIsSliderOpened}
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
+            />
+        </Router>
+    );
 }
 
 export default App;

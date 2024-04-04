@@ -1,5 +1,5 @@
-import './sliderButton.css'
-import Button from '../../button/button'
+import './sliderButton.css';
+import Button from '../../button/button';
 
 const SliderButton = ({type, Icon, text, onClick}) => {
     return(

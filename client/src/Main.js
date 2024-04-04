@@ -7,14 +7,16 @@ import {
 import Home from './pages/home/home'
 import Story from './pages/story/story'
 import Slider from './components/slider/slider';
+import Ending from './pages/ending/ending';
 
-const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened}) => {
+const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, darkMode, setDarkMode}) => {
     return(
         <div id="mainContainer">
             {isSliderOpened &&
                 <Slider 
                     sliderType={sliderType} setSliderType={setSliderType}
-                    setIsSliderOpened={setIsSliderOpened} 
+                    setIsSliderOpened={setIsSliderOpened}
+                    darkMode={darkMode} setDarkMode={setDarkMode}
                 />
             }
             <Routes>
@@ -32,6 +34,12 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened}) =>
                 <Route
                     path="*"
                     element={ <Navigate to="/"/>}
+                />
+
+                <Route
+                    exact
+                    path="/ending"
+                    element={ <Ending/>}
                 />
             </Routes>
         </div>
