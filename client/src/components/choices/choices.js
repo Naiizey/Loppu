@@ -10,6 +10,8 @@ function autoFight() {
 
 };
 
+
+
 // upatde the stats of the character
 function editStat(operator, value, stat, actualDicoStat) {
     switch (operator) {
@@ -22,24 +24,26 @@ function editStat(operator, value, stat, actualDicoStat) {
         default:
             break;
     }
-    // GET the character 
-    const [character, setCharacter] = useState([
-        {
-            id: 0,
-            stats: {},
-            character_model_id: 0,
-            stuff: {},
-            user_id: 0
-        }
-    ]);
 
-    useEffect(() => {
-        API("characters/" + charaID).then((res) => {
-            res = res[0];
-            console.log(res);
-            setCharacter(res);
-        });
-    }, [id]);
+    // const [character, setCharacter] = useState([
+    //     {
+    //         id: 0,
+    //         stats: {},
+    //         character_model_id: 0,
+    //         stuff: {},
+    //         user_id: 0
+    //     }
+    // ]);
+    
+    // useEffect(() => {
+        
+    // }, [id]);
+
+    let character = {};
+    API("characters/" + charaID).then((res) => {
+        character = res[0];
+        console.log(res);
+    });
 
     // change the stats
     character.stats = actualDicoStat;
