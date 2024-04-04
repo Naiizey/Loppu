@@ -1,6 +1,7 @@
 import {
     Routes,
     Route,
+    Navigate
 } from "react-router-dom";
 
 import Home from './pages/home/home'
@@ -28,6 +29,10 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, dar
                     exact
                     path="/story"
                     element={ <Story/> }
+                />
+                <Route
+                    path="*"
+                    element={ <Navigate to="/"/>}
                 />
             </Routes>
         </div>

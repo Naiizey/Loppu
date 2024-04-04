@@ -10,7 +10,11 @@
     border-radius: 10px;
 }
 
-.characterSheetBig{
+#characterSheetBig:hover, #characterSheetMedium:hover, #characterSheetSmall:hover{
+    box-shadow: 0 0 10px var(--white-shadow);
+}
+
+#characterSheetBig{
     display: flex;
     flex-direction: row;
     align-items: space-between;

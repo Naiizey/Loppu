@@ -18,15 +18,15 @@ function levenshtein(chaine1, chaine2){
     let distance = new Array(chaine1_formatted.length + 1).fill(0).map(() => new Array(chaine2_formatted.length + 1).fill(0));
     let i, j, cost;
 
-    for(let i = 0; i <= chaine1_formatted.length; i++){
+    for(i = 0; i <= chaine1_formatted.length; i++){
         distance[i][0] = i;
     }
-    for(let j = 0; j <= chaine2_formatted.length; j++){
+    for(j = 0; j <= chaine2_formatted.length; j++){
         distance[0][j] = j;
     }
 
-    for(let i = 1; i <= chaine1_formatted.length; i++){
-        for(let j = 1; j <= chaine2_formatted.length; j++){
+    for(i = 1; i <= chaine1_formatted.length; i++){
+        for(j = 1; j <= chaine2_formatted.length; j++){
             if(chaine1_formatted[i-1] === chaine2_formatted[j-1]){
                 cost = 0;
             }else{
@@ -46,27 +46,27 @@ function levenshtein(chaine1, chaine2){
     return distance[chaine1_formatted.length][chaine2_formatted.length];
 }
 
-function est_dict(phrase, dictionnaire, distance){
+function est_dict(phrase, dictionnaire, distance, couleur){
     /*
     phrase : string
     dictionnaire : array
     distance : int
+    couleur : string
 
-    return : boolean
+    return : string
 
-    Cette fonction prend en paramètre une phrase, un dictionnaire et une distance. 
-    Elle retourne true si un mot de la phrase est proche d'un mot du dictionnaire.
-    Sinon, elle retourne false.
-    La distance est le nombre de caractères de différence minimal entre un mot de 
-    la phrase et un mot du dictionnaire pour que la fonction retourne true.
+    Cette fonction prend en paramètre une phrase, un dictionnaire, une distance minimale et un code couleur hexadécimal.
+
     */
     let mots = phrase.split(" ");
     for(let i = 0; i < mots.length; i++){
-        for(let j = 0; j < dictionnairet.length; j++){
+        for(let j = 0; j < dictionnaire.length; j++){
             if(levenshtein(mots[i], dictionnaire[j]) <= distance){
-                return true;
+                mots[i] = "<span style='color:" + couleur + ";'>" + mots[i] + "</span>";
             }
         }
     }
-    return false;
+    return mots.join(" ");
 }
+
+export default est_dict;
