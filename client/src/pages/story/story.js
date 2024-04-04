@@ -55,9 +55,9 @@ const SectionPage = () => {
             setTitle(res.title);
         });
     }, [story_id]);
+
     return (
         <main id="section">
-            {section.id === 0 && <Loader loading={section.id === 0} />}
             <nav>
                 <CharacterSheet
                     type="small"

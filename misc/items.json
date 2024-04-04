@@ -110,7 +110,7 @@
     
   },
   "21" : {
-    "name" : "Roast Ox",
+    "name" : "Barrel of Sausages",
     "type" : "food",
     "food_points" : 2
   },
@@ -128,5 +128,10 @@
     "name" : "ox",
     "type" : "food",
     "food_points" : 2
+  },
+  "25" : {
+    "name" : "Demon Gem",
+    "type" : "treasure",
+    "loot_points" : 2
   }
 }
