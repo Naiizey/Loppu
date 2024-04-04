@@ -188,6 +188,10 @@ pool.connect().then(async () => {
   console.log("database filled with the choices");
 
   var character = await pool.query("INSERT INTO characters(id, stats, character_model_id, stuff, user_id) VALUES(1, $1, 1, $2, 1)", [base_stats, base_stuff])
+  
+  var path1 = await pool.query("INSERT INTO paths(id_character, id_sections) VALUES(1, 15)");
+  var path2 = await pool.query("INSERT INTO paths(id_character, id_sections) VALUES(1, 36)");
+  var path3 = await pool.query("INSERT INTO paths(id_character, id_sections) VALUES(1, 22)");
 
   pool.end();
   console.log("database filled with the story: " + story_name);

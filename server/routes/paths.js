@@ -42,11 +42,26 @@ router.get("/paths/:idCharacter/:idSection", (req, res) => {
 // POST a path
 router.post("/paths", (req, res) => {
     const path = req.body;
+
     pool.query(
-        "INSERT INTO paths (id_character, id_sections) VALUES ($1, $2)",
-        [path.id_character, path.id_sections]
-    ).then(() => {
-        res.json(path);
+        "SELECT * FROM paths WHERE id_character = $1 ORDER BY id DESC LIMIT 1",
+        [path.id_character]
+    ).then((results) => {
+        if (results.rows.length > 0) {
+            const lastPath = results.rows[0];
+
+            if (lastPath.id_sections !== path.id_sections) {
+                pool.query(
+                    "INSERT INTO paths (id_character, id_sections) VALUES ($1, $2)",
+                    [path.id_character, path.id_sections]
+                );
+            }
+        } else {
+            pool.query(
+                "INSERT INTO paths (id_character, id_sections) VALUES ($1, $2)",
+                [path.id_character, path.id_sections]
+            );
+        }
     });
 });
 

@@ -51,7 +51,7 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
             }
             { isClicked === storyId &&
                 <div className="storyDetails">
-                    <StoryProgress />
+                    <StoryProgress section={localStorage.getItem("sectionId")}/>
                     <Button size="small" Icon={ArrowIcon} text="Continue my story" type="dark" onClick={() => {
                         if(!localStorage.getItem("storyId")){
                             localStorage.setItem("storyId", 1);
