@@ -32,52 +32,39 @@ function editStat(operator, value, stat, actualDicoStat) {
             break;
     }
 
-    let character = {};
-    API("characters/" + getCharaId()).then((res) => {
-        character = res[0];
-    });
-
-    // change the stats
-    character.stats = actualDicoStat;
-
-    // PUT the character
-    API("/characters/" + getCharaId() + "/stats", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(character.stats),
-    });
+    API("characters/" + getCharaId() + "/stats", 
+        "PUT",
+        actualDicoStat,
+    );
 }
 
 //function to interpret an impact (must receive an "impact" dico)
 function interpretImpact(dico) {
     let stats = {};
-    console.log(dico);
     // for each key in the dico
     for (const key in dico) {
         // if the key is "stats"
         if (key === "stats") {
-            console.log("stats");
             for (const typeStat in dico[key]) {
                 //get the current stats
-
                 API("/characters/" + getCharaId()).then((res) => {
-                    stats = res[0];
+                    stats = res[0].stats;
+                    console.log(stats);
+                    for (const stat in stats) {
+                        // if the stat is typeStat
+                        if (stat === typeStat) {
+                            editStat(
+                                dico[key][typeStat].operator,
+                                dico[key][typeStat].value,
+                                stat,
+                                stats
+                            );
+                        }
+                    }
                 });
 
                 // for each key in the stats dico
-                for (const stat in stats) {
-                    // if the stat is typeStat
-                    if (stat === typeStat) {
-                        editStat(
-                            dico[key][typeStat].operator,
-                            dico[key][typeStat].value,
-                            stat,
-                            stats
-                        );
-                    }
-                }
+                
             }
         } else {
             // if the key is "inventory"
@@ -221,8 +208,8 @@ function launchDice(numberOfDice) {
 }
 
 function interpretStory(story, gotoID, setSectionId) {
-    console.log("story");
-    console.log(story);
+    // console.log("story");
+    // console.log(story);
     if (
         story.alreadyVisited !== undefined &&
         parseInt(story.alreadyVisited > 0)
