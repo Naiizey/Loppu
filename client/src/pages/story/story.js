@@ -5,6 +5,7 @@ import Dices from "../../components/dices/dices";
 import API from "../../utils/API";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 import Loader from "../../components/loader/loader";
+import StoryProgress from "../../components/storyProgress/storyProgress";
 
 const SectionPage = () => {
     const [clickedCharacter, setClickedCharacter] = useState(null);
@@ -75,32 +76,7 @@ const SectionPage = () => {
                 />
             </nav>
             <section>
-                <div>
-                    <div className="progress">
-                        <ol>
-                            <li>
-                                <p>1</p>
-                                <p>Genesis</p>
-                            </li>
-                            <li>
-                                <p>2</p>
-                                <p>Tavern</p>
-                            </li>
-                            <li>
-                                <p>3</p>
-                                <p>Village</p>
-                            </li>
-                            <hr />
-                            <hr />
-                        </ol>
-                        <hr />
-                        <hr />
-                    </div>
-                    <div>
-                        <h2>{title}</h2>
-                        <h3>section {section.id} - village</h3>
-                    </div>
-                </div>
+                <StoryProgress />
                 <article>
                     <p>{section.content.action.text}</p>
                 </article>

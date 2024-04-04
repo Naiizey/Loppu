@@ -10,20 +10,22 @@
     width: 75%;
 }
 
-button[class*=button]{
-    border: none;
-    border-radius: .5em;
+.smallButtonComponent{
+    align-self: center;
 
-    padding: 0 2em;
-    cursor: pointer;
-
-    display: flex;
-    column-gap: 1.5em;
-    align-items: center;
+    height: 1.5rem;
+    width: 50%;
 }
 
 button[class*=button]{
-    vertical-align: middle;
+    display: flex;
+    column-gap: .5em;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    border: none;
+    border-radius: .5em;
+    cursor: pointer;
 }
 
 [class^=largeButton] > button{
@@ -43,26 +45,29 @@ button[class*=button]{
     justify-content: center;
 }
 
-[class^=mediuButton] > button svg{
+[class^=mediumButton] > button svg{
     height: 1em;
 }
 
-[class$=button-danger]{
-    background-color: #E40000;
-
-    color: var(--dark-grey);
-    stroke: var(--dark-grey);
+[class^=smallButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: .5em;
+    justify-content: center;
 }
 
-[class$=button-danger] path{
-    fill: var(--dark-grey);
+[class^=smallButton] > button svg{
+    height: .75em;
+}
+
+[class$=button-danger]{
+    background-color: var(--red-shade);
+    color: var(--white-shade);
 }
 
 [class$=button-info]{
-    background-color: #2360FF;
-
+    background-color: var(--blue-shade);
     color: var(--white-shade);
-    stroke: var(--white-shade);
 }
 
 [class$=button-info] path{
@@ -73,7 +78,6 @@ button[class*=button]{
     background-color: black;
 
     color: var(--dark-grey);
-    stroke: var(--dark-grey);
 
     opacity: .8;
 }
@@ -83,12 +87,18 @@ button[class*=button]{
 }
 
 [class$=button-success]{
-    background-color: #24F238;
-
+    background-color: var(--green-shade);
     color: var(--dark-grey);
-    stroke: var(--dark-grey);
 }
 
-[class$=button-incoming] path{
-    fill: var(--dark-grey);
+
+[class$=button-dark]{
+    background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
+
+    color: var(--white-shade);
+}
+
+
+[class$=button-dark] path{
+    fill: var(--white-shade);
 }
