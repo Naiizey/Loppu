@@ -246,12 +246,10 @@ function detectDice(section, choiceNumber) {
     }
 }
 
-function interpretStory(story, setSectionId) {
+function interpretStory(story, gotoID, setSectionId) {
     console.log("story");
-    if (
-        story.alreadyVisited !== undefined &&
-        parseInt(story.alreadyVisited > 0)
-    ) {
+    console.log(story);
+    if(story.alreadyVisited !== undefined && parseInt(story.alreadyVisited > 0)) {
         let alreadyVisited = parseInt(story.alreadyVisited);
         setSectionId(alreadyVisited);
     } else {
@@ -261,7 +259,9 @@ function interpretStory(story, setSectionId) {
                 let choice = choices[i];
                 console.log("choice:" + JSON.stringify(choice));
                 if (choice.goto !== undefined) {
-                    setSectionId(choice.goto);
+                    if (choice.goto === gotoID) {
+                        setSectionId(choice.goto);
+                    }
                 }
             }
         }
@@ -284,7 +284,7 @@ function interpretAction(gotoId, choiceNumber, setSectionId) {
     API("sections/" + storyID + "/" + currentSectionId).then((res) => {
         section = res[0];
         if (section.content.action.type === "story") {
-            interpretStory(section.content.action, setSectionId);
+            interpretStory(section.content.action, gotoId, setSectionId);
         } else if (section.content.action.type === "combat") {
             console.log("combat");
         }
