@@ -93,7 +93,9 @@ div.storyDetails button svg{
 .storiesDisplayComponent .characterSheetSmall section{
     font-size: 0.75em;
     padding-top: 0.5em;
-    row-gap: 0.25em
+    row-gap: 0.25em;
+    
+    justify-content: space-around;
 }
 
 .storiesDisplayComponent .characterSheetSmall section h2{

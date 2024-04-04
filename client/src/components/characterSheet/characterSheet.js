@@ -10,7 +10,7 @@ import './characterSheet.css';
         setClickedCharacter(prev => prev === characterName ? null : characterName);
     };
 
-    <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
+    <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
 */
 const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick}) => {
     switch(type) {
@@ -35,10 +35,6 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                                 <li>
                                     <p>Resistance </p>
                                     <p>{stats.resistance}</p>
-                                </li>
-                                <li>
-                                    <p>Luck </p>
-                                    <p>{stats.luck}</p>
                                 </li>
                             </ul>
                         </section>
@@ -86,10 +82,6 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                             <li>
                                 <p>Resistance </p>
                                 <p>{stats.resistance}</p>
-                            </li>
-                            <li>
-                                <p>Luck </p>
-                                <p>{stats.luck}</p>
                             </li>
                         </ul>
                     </section>
