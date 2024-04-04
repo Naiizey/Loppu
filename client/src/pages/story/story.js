@@ -87,8 +87,6 @@ const SectionPage = () => {
                     <Choices id={sectionId} setSectionId={setSectionId} />
                 </aside>
             </section>
-            
-            
         </main>
     );
 };
