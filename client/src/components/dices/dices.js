@@ -11,13 +11,17 @@ function rollAllDices() {
     });
 }
 
-const Dices = () => {
+const Dices = ({nbDices}) => {
+    const diceElements = [];
+    for (let i = 0; i < nbDices; i++) {
+        diceElements.push(
+            <li><Dice size='100' onRoll={(value) => console.log('diceValue:' + value)} /></li>
+        );
+    }
     return (
         <div id="dices">
             <ul>
-                <li><Dice size='100' onRoll={(value) => console.log(value)} /></li>
-                <li><Dice size='100' onRoll={(value) => console.log(value)} /></li>
-                <li><Dice size='100' onRoll={(value) => console.log(value)} /></li>
+                {diceElements}
             </ul>
             <Button size="small" type="primary" text="Roll" onClick={rollAllDices}/>
         </div>

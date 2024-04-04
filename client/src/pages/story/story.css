@@ -19,7 +19,7 @@ main#section section{
 }
 
 main#section article{
-    height: 25vh;
+    height: 40vh;
     overflow: scroll;
     text-align: justify;
     line-height: 1.5em;
