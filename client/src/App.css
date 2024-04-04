@@ -6,14 +6,17 @@
     --dark-grey: #3b3b3b;
     --black-shade: #282828;
     --black-text: #1e1c1c;
-    
+
     --grey-shade: #747272 ;
     --black-shade: #282828;
     --grey-button-sel-char: #D9D9D9;
     --black-text-on-grey-button: #1e1c1c;
     --light-grey: #d8d8d8;
     --grey-button: #D9D9D9;
-    
+
+    --blue-shade: #50a0d9;
+    --red-shade: #D95050;
+    --green-shade: #24F257;
 }
 
 body{
@@ -32,6 +35,7 @@ div#root{
 div#mainContainer{
     flex-grow: 1;
     position: relative;
+    overflow-y: hidden;
 }
 
 @font-face{

@@ -42,7 +42,7 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                                 </li>
                             </ul>
                         </section>
-                        <div id="arrowWhite">
+                        <div className="arrowWhite">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
             )
         case "small":
             return (
-                <li id="characterSheetSmall" className={`${isClicked ? "selected" : ""}`}   onClick={onClick}>
+                <li className={`characterSheetSmall${isClicked ? " selected" : ""}`}   onClick={onClick}>
                     <img src={img} alt={name}/>
                     <section>
                         <h2>{name}</h2>

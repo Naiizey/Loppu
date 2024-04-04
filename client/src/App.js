@@ -5,6 +5,8 @@ import './App.css';
 import Main from './Main'
 
 import Header from './components/header/header'
+import Main from './Main'
+
 
 
 function App() {

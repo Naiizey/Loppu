@@ -1,4 +1,4 @@
-header#mainHeader {
+header.headerComponent {
     position: sticky;
     display: flex;
     flex-direction: column;
@@ -8,11 +8,11 @@ header#mainHeader {
     top: 0;
 }
 
-header#mainHeader a {
+header.headerComponent a {
     display: block;
 }
 
-header#mainHeader div {
+header.headerComponent div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -24,16 +24,16 @@ header#mainHeader div {
     height: 3em;
 }
 
-header#mainHeader nav {
+header.headerComponent nav {
     width: 8em;
 }
 
-header#mainHeader nav svg {
+header.headerComponent nav svg {
     width: 1.5em;
     height: 1.5em;
 }
 
-header#mainHeader ul {
+header.headerComponent ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -43,11 +43,11 @@ nav ul li {
     cursor: pointer;
 }
 
-header#mainHeader svg {
+header.headerComponent svg {
     fill: var(--white-shade);
 }
 
-header#mainHeader hr {
+header.headerComponent hr {
     height: 2px;
     width: 100%;
     margin: 0;
