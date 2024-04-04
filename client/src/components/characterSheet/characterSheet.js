@@ -1,5 +1,5 @@
-import React from 'react';
-import './characterSheet.css';
+import React from "react";
+import "./characterSheet.css";
 
 // Pour un exemple d'ajout aller voir le fichier characterSelection.js dans les pages
 
