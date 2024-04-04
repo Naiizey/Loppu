@@ -15,7 +15,7 @@ const Dices = ({nbDices}) => {
     const diceElements = [];
     for (let i = 0; i < nbDices; i++) {
         diceElements.push(
-            <li><Dice size='100' onRoll={(value) => console.log('diceValue:' + value)} /></li>
+            <li key={i}><Dice size='100' onRoll={(value) => console.log('diceValue:' + value)} /></li>
         );
     }
     return (

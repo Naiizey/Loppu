@@ -91,7 +91,6 @@ const SectionPage = () => {
         userChar = character[0];
         userCharModel = charModel[0];
 
-        
         for(let stuffName in userChar.stuff){
             for(let item in userChar.stuff[stuffName]){
                 inventory.push(`${item} - ${userChar.stuff[stuffName][item].type}`)
@@ -101,17 +100,16 @@ const SectionPage = () => {
 
     return (
         <main id="section">
-            {section.id === 0 && <Loader loading={section.id === 0} />}
             <nav>
                 { userChar && userCharModel && inventory &&
-                    <CharacterSheet 
+                    <CharacterSheet
                         type="small"
-                        name={userCharModel.name} 
-                        stats={userChar.stats} 
-                        inventory={inventory} 
+                        name={userCharModel.name}
+                        stats={userChar.stats}
+                        inventory={inventory}
                         img={CharImage}
                         isClicked={clickedCharacter === `${userCharModel.name}`}
-                        onClick={() => handleCharacterClick(`${userCharModel.name}`)} 
+                        onClick={() => handleCharacterClick(`${userCharModel.name}`)}
                     />
                 }
             </nav>
@@ -127,6 +125,7 @@ const SectionPage = () => {
                     <Choices id={sectionId} setSectionId={setSectionId} />
                 </aside>
             </section>
+            <Loader loading={section.id === 0} />
         </main>
     );
 };

@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import Main from "./Main";
-
 import Header from "./components/header/header";
 
 function App() {
@@ -23,7 +22,7 @@ function App() {
   const [lineSpace, setLineSpace] = useState(1);
 
   Add this to Main & Slider :
-    darkMode={darkMode} setDarkMode={setDarkMode} 
+    darkMode={darkMode} setDarkMode={setDarkMode}
     displayMode={displayMode} setDisplayMode={setDisplayMode}
     lineSpace={lineSpace} setLineSpace={setLineSpace}
   */
