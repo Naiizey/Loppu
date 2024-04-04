@@ -1,45 +1,8 @@
 {
-    "action": {
-        "text": "The gates of Boulder Ford are made of thick oak reinforced with iron bands, and set within a sturdy stone gatehouse. Still, that should pose little problem to a determined beast such as yourself. Ignoring the shouts and screams of the Gnomish guards, you proceed to wrench the gates apart.",
-        "type": "story",
-        "choices": [
-            {
-                "text": "Try to open the gates",
-                "require": {
-                    "action": {
-                        "type": "dice",
-                        "diceResult": [
-                            {
-                                "goto": 26,
-                                "stat": "strength",
-                                "operator": "<",
-                                "checkType": "comparison",
-                                "successText": "You have opened the gates"
-                            },
-                            {
-                                "stat": "strength",
-                                "impact": {
-                                    "stats": {
-                                        "resistance": {
-                                            "value": 1,
-                                            "operator": "-"
-                                        }
-                                    }
-                                },
-                                "operator": ">=",
-                                "checkType": "comparison",
-                                "failureText": "You fail to open the gate"
-                            }
-                        ],
-                        "numberOfDice": 1
-                    }
-                }
-            },
-            {
-                "goto": 50,
-                "text": "Go back to your cave"
-            }
-        ],
-        "alreadyVisited": "14"
+    "stats": {
+      "resistance": {
+        "value": 1,
+        "operator": "-"
+      }
     }
-}
+  }

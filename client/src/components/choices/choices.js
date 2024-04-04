@@ -4,12 +4,14 @@ import "../button/button";
 import Button from "../button/button";
 import { useEffect, useState } from "react";
 import API from "../../utils/API";
+import characterSheet from "../characterSheet/characterSheet";
 
 // function to handle the fight
-function autoFight() {}
+function autoFight() { }
 
 function getCharaId() {
-    if (localStorage.getItem("charaId") === undefined) {
+    if (localStorage.getItem("charaId") === null) {
+        ;
         localStorage.setItem("charaId", 1);
         return 1;
     } else {
@@ -51,11 +53,12 @@ function editStat(operator, value, stat, actualDicoStat) {
 //function to interpret an impact (must receive an "impact" dico)
 function interpretImpact(dico) {
     let stats = {};
-
+    console.log(dico);
     // for each key in the dico
     for (const key in dico) {
         // if the key is "stats"
         if (key === "stats") {
+            console.log("stats");
             for (const typeStat in dico[key]) {
                 //get the current stats
 
@@ -123,48 +126,32 @@ function gotoTo(sectionId, successText = null, failureText = null) {
 }
 
 // function to check if the stats verify a certain value
-function checkStatsPrerequesites(stat, operator, value) {
-    let isfilled = false;
+const checkStatsPrerequesites = (stat, operator, value) => {
     let stats;
-
-    API("/characters/" + getCharaId()).then((res) => {
-        stats = res[0];
+    let charaId = getCharaId();
+    return API("/characters/" + charaId).then((res) => {
+        stats = res[0].stats;
+        // The operator is a string containing the operator to use
+        // eg : "<", ">", "<=", ">=", "=="
+        switch (operator) {
+            case "<":
+                return stats[stat] < value;
+            case ">":
+                return stats[stat] > value;
+            case "<=":
+                return stats[stat] <= value;
+            case ">=":
+                return stats[stat] >= value;
+            case "==":
+                return stats[stat] === value;
+            default:
+                return false;
+        }
     });
+};
 
-    // The operator is a string containing the operator to use
-    // eg : "<", ">", "<=", ">=", "=="
-    switch (operator) {
-        case "<":
-            if (stats[stat] < value) {
-                isfilled = true;
-            }
-            break;
-        case ">":
-            if (stats[stat] > value) {
-                isfilled = true;
-            }
-            break;
-        case "<=":
-            if (stats[stat] <= value) {
-                isfilled = true;
-            }
-            break;
-        case ">=":
-            if (stats[stat] >= value) {
-                isfilled = true;
-            }
-            break;
-        case "==":
-            if (stats[stat] === value) {
-                isfilled = true;
-            }
-            break;
-        default:
-            break;
-    }
 
-    return isfilled;
-}
+
 
 // function to execute the consequences of a dice result (must receive a "diceResult" dico)
 function diceResultConsequances(dico) {
@@ -188,17 +175,21 @@ function diceResultConsequances(dico) {
 
 // function to interpret a dice operation (must receive a "action" dico)
 function interpretDiceResult(dico, diceValue) {
-    for (let index = 0; index < dico.diceResult.length; index++) {
-        const element = dico[index];
+    let diceResultList = dico.diceResult;
+    for (let index = 0; index < diceResultList.length; index++) {
+        let element = diceResultList[index];
         let checkType = element.checkType;
         switch (checkType) {
             case "comparison":
                 let stat = element.stat;
                 let operator = element.operator;
-                if (checkStatsPrerequesites(stat, operator, diceValue)) {
-                    diceResultConsequances(element);
-                }
+                checkStatsPrerequesites(stat, operator, diceValue).then(result => {
+                    if (result) {
+                        diceResultConsequances(element);
+                    }
+                });
                 break;
+
             case "equalsTo":
                 let value = element.value;
                 if (diceValue === value) {
@@ -219,31 +210,14 @@ function interpretDiceResult(dico, diceValue) {
     }
 }
 
-function detectDice(section, choiceNumber) {
-    let dico = {};
-    let content = section.content.action;
-    if (content.choices !== undefined && content.choices.length > 0) {
-        let choice = content.choices[choiceNumber];
-        if (choice.type === "dice") {
-            if (choice.numberOfDice !== undefined && choice.numberOfDice > 0) {
-                dico["numberOfDice"] = choice.numberOfDice;
-                dico["diceResult"] = choice.diceResult;
-                if (choice.lose !== undefined) {
-                    dico["lose"] = choice.lose;
-                }
-                if (choice.win !== undefined) {
-                    dico["win"] = choice.win;
-                }
-                return true, dico;
-            } else {
-                return false, "numberOfDice undefined";
-            }
-        } else {
-            return false;
-        }
-    } else {
-        return false;
+function launchDice(numberOfDice) {
+    //temporaru value launch numberOfDice dices
+    let diceValue = 0;
+    for (let i = 0; i < numberOfDice; i++) {
+        diceValue += Math.floor(Math.random() * 6) + 1;
     }
+    return diceValue;
+
 }
 
 function interpretStory(story, gotoID, setSectionId) {
@@ -252,6 +226,7 @@ function interpretStory(story, gotoID, setSectionId) {
     if (
         story.alreadyVisited !== undefined &&
         parseInt(story.alreadyVisited > 0)
+        // TODO: check if already visited
     ) {
         let alreadyVisited = parseInt(story.alreadyVisited);
         setSectionId(alreadyVisited);
@@ -260,10 +235,24 @@ function interpretStory(story, gotoID, setSectionId) {
         if (choices !== undefined && choices.length > 0) {
             for (let i = 0; i < choices.length; i++) {
                 let choice = choices[i];
-                console.log("choice:" + JSON.stringify(choice));
+                //console.log("choice:" + JSON.stringify(choice));
                 if (choice.goto !== undefined) {
                     if (choice.goto === gotoID) {
                         setSectionId(choice.goto);
+                    }
+                } else {
+                    let newChoice = choice.require.action;
+                    switch (newChoice.type) {
+                        case "dice":
+                            interpretDiceResult(newChoice, launchDice(choice.numberOfDice));
+                            break;
+                        case "combat":
+                        //fight(choice);
+                        case "story":
+                            interpretStory(newChoice.action, gotoID, setSectionId);
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
