@@ -133,5 +133,17 @@
     "name" : "Demon Gem",
     "type" : "treasure",
     "loot_points" : 2
+  },
+  "26" : {
+    "name" : "Fire Sword",
+    "type" : "weapon",
+    "stats" : {
+      "strength" : 2
+    }
+  },
+  "27" : {
+    "name": "Vat of Spirits",
+    "type" : "treasure",
+    "loot_points" : 1
   }
 }

@@ -5,7 +5,7 @@ import Button from "../button/button";
 import { useEffect, useState } from "react";
 import API from "../../utils/API";
 import Dices from "../../components/dices/dices";
-import {rollAllDices} from "../../components/dices/dices";
+import { rollAllDices } from "../../components/dices/dices";
 import characterSheet from "../characterSheet/characterSheet";
 
 var diceResults = [];
@@ -72,19 +72,21 @@ function interpretImpact(dico) {
         } else {
             // if the key is "inventory"
             if (key === "stuff") {
-                // for each key in the inventory dico
-                for (const item in dico[key]) {
-                    // if the key is "add"
-                    if (item === "add") {
-                        // add the item to the inventory
-                        // API to update the inventory
-                    }
-                    // if the key is "remove"
-                    if (item === "remove") {
-                        // remove the item from the inventory
-                        // API to update the inventory
-                    }
+                if (dico.stuff === "delete_all") {
+                    API("characters/" + getCharaId() + "/inventory", "DELETE");
                 }
+                else {
+                    //get the stuff object from the character wich is a jsonb object
+                    API("/characters/" + getCharaId() + "/stuff").then((res) => {
+                        let stuff = res[0];
+                        // for each key in the inventory dico
+                        for (const item in dico[key]) {
+                            // TODO : adding items to the inventory
+                            
+                        }
+                    });
+                }
+                
             }
         }
     }
@@ -94,25 +96,25 @@ function setSectionIdLocalStorage(sectionId) {
     localStorage.setItem("sectionId", sectionId);
 }
 
+function gotoSection(sectionId, setSectionId) {
+    console.log("gotoSection" + sectionId);
+    setSectionIdLocalStorage(sectionId);
+    localStorage.setItem("sectionId", sectionId);
+    setSectionId(sectionId);
+    let charaId = getCharaId();
+    addPath(sectionId, charaId);
+}
+
 //function to go to an other section /!\ She needs to break the loop or the father
-function gotoTo(sectionId, successText = null, failureText = null) {
-    return (
-        <div class="container-choices">
-            <p>
-                {successText !== null ? successText : ""}
-                {failureText !== null ? failureText : ""}
-            </p>
-            <Button
-                key={sectionId}
-                size={"small"}
-                type={"info"}
-                text={"Suivant"}
-                onClick={() => {
-                    setSectionIdLocalStorage(sectionId);
-                }}
-            />
-        </div>
-    );
+function gotoSectionButton(sectionId, setGotoSectionId, successText, failureText) {
+    setSectionIdLocalStorage(sectionId);
+    setGotoSectionId(sectionId);
+    if (successText !== undefined) {
+        localStorage.setItem("successText", successText);
+    }
+    if (failureText !== undefined) {
+        localStorage.setItem("failureText", failureText);
+    }
 }
 
 // function to check if the stats verify a certain value
@@ -144,7 +146,7 @@ const checkStatsPrerequesites = (stat, operator, value) => {
 
 
 // function to execute the consequences of a dice result (must receive a "diceResult" dico)
-function diceResultConsequances(dico) {
+function diceResultConsequances(dico, setGotoSectionId) {
     let successText;
     if (dico.successText !== undefined) {
         successText = dico.successText;
@@ -159,12 +161,13 @@ function diceResultConsequances(dico) {
     }
     if (dico.goto !== undefined) {
         let goto = dico.goto;
-        gotoTo(goto, successText, failureText);
+        gotoSectionButton(goto,setGotoSectionId, successText, failureText);
     }
 }
 
 // function to interpret a dice operation (must receive a "action" dico)
-function interpretDiceResult(dico, diceValue) {
+function interpretDiceResult(dico, diceValue, setGotoSectionId) {
+    console.log("interpretDiceResult");
     let diceResultList = dico.diceResult;
     for (let index = 0; index < diceResultList.length; index++) {
         let element = diceResultList[index];
@@ -176,7 +179,7 @@ function interpretDiceResult(dico, diceValue) {
                 checkStatsPrerequesites(stat, operator, diceValue).then(result => {
                     console.log("result: " + result);
                     if (result) {
-                        diceResultConsequances(element);
+                        diceResultConsequances(element, setGotoSectionId);
                     }
                 });
                 break;
@@ -184,14 +187,14 @@ function interpretDiceResult(dico, diceValue) {
             case "equalsTo":
                 let value = element.value;
                 if (diceValue === value) {
-                    diceResultConsequances(element);
+                    diceResultConsequances(element, setGotoSectionId);
                 }
                 break;
             case "fromTo":
                 let from = element.from;
                 let to = element.to;
                 if (diceValue >= from && diceValue <= to) {
-                    diceResultConsequances(element);
+                    diceResultConsequances(element, setGotoSectionId);
                 }
                 break;
             default:
@@ -201,56 +204,84 @@ function interpretDiceResult(dico, diceValue) {
     }
 }
 
+function checkIfDead() {
+    let stats;
+    let charaId = getCharaId();
+    let dead = false;
+    API("/characters/" + charaId).then((res) => {
+        stats = res[0].stats;
+        if (stats.resistance <= 0) {
+            deadButton();
+            dead = true;
+        }
+    });
+    return dead;
+}
 
-
-function interpretStory(story, gotoID, setSectionId) {
-    // console.log("story");
+function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId) {
+    console.log("story");
     // console.log(story);
-    if (
-        story.alreadyVisited !== undefined &&
-        parseInt(story.alreadyVisited > 0)
+    if (story.alreadyVisited !== undefined && parseInt(story.alreadyVisited > 0)
         // TODO: check if already visited
     ) {
         let alreadyVisited = parseInt(story.alreadyVisited);
-        setSectionId(alreadyVisited);
+        gotoSection(alreadyVisited, setSectionId);
     } else {
         let choices = story.choices;
+
+
+
         if (choices !== undefined && choices.length > 0) {
-            for (let i = 0; i < choices.length; i++) {
-                let choice = choices[i];
-                //console.log("choice:" + JSON.stringify(choice));
-                if (choice.goto !== undefined) {
-                    if (choice.goto === gotoID) {
-                        setSectionId(choice.goto);
+            let choice = choices[choiceNumber];
+            if (choice.goto !== undefined) {
+                if (choice.goto === gotoID && choice.require === undefined) {
+                    if (choice.require === undefined) {
+                        if (choice.impact !== undefined) {
+                            interpretImpact(choice.impact);
+                        }
                     }
-                } else {
-                    let newChoice = choice.require.action;
-                    switch (newChoice.type) {
-                        case "dice":
-                            //launch the dices and wait for the result
-                            launchDices(newChoice.numberOfDice).then((res) => {
-                                interpretDiceResult(newChoice, res);
-                            });
-                            break;
-                        case "combat":
-                        //fight(choice);
-                        case "story":
-                            interpretStory(newChoice.action, gotoID);
-                            break;
-                        default:
-                            break;
+                    else 
+                    {
+
                     }
+                    gotoSection(choice.goto, setSectionId);
+                }
+            } else {
+                let newChoice = choice.require.action;
+                switch (newChoice.type) {
+                    case "dice":
+                        //launch the dices and wait for the result
+                        launchDices(newChoice.numberOfDice).then((res) => {
+                            interpretDiceResult(newChoice, res, setGotoSectionId);
+                        });
+                        break;
+                    case "combat":
+                    //fight(choice);
+                    case "story":
+                        interpretStory(newChoice.action, gotoID);
+                        break;
+                    default:
+                        break;
                 }
             }
+            // }
         }
     }
 }
 
+function deadButton() {
+    let sectionId = localStorage.getItem("sectionId");
+    if (sectionId !== null && sectionId !== undefined && sectionId !== 13) {
+        if (localStorage.getItem("dead") === null) {
+            localStorage.setItem("dead", 1);
+        }
+    }
 
+}
 
 // const version of the fnction launchDices bcs she need to be waited before the return
 const launchDices = async (numberOfDice) => {
-    console.log("launch "+numberOfDice+" Dices" );
+    console.log("launch " + numberOfDice + " Dices");
     localStorage.setItem("numberOfDices", numberOfDice);
     //wait 100ms to be sure that the value is set   
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -267,18 +298,21 @@ function addPath(id_sections, id_character) {
     API("paths", "POST", path);
 }
 
-function interpretAction(gotoId, choiceNumber, setSectionId) {
-    let storyID = localStorage.getItem("storyId");
-    let currentSectionId = localStorage.getItem("sectionId");
-    let section = {};
-    API("sections/" + storyID + "/" + currentSectionId).then((res) => {
-        section = res[0];
-        if (section.content.action.type === "story") {
-            interpretStory(section.content.action, gotoId, setSectionId);
-        } else if (section.content.action.type === "combat") {
-            console.log("combat");
-        }
-    });
+function interpretAction(gotoId, choiceNumber, setSectionId, setGotoSectionId) {
+    if (!checkIfDead()) {
+        let storyID = localStorage.getItem("storyId");
+        let currentSectionId = localStorage.getItem("sectionId");
+        let section = {};
+        API("sections/" + storyID + "/" + currentSectionId).then((res) => {
+            section = res[0];
+            if (section.content.action.type === "story") {
+                interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId);
+            } else if (section.content.action.type === "combat") {
+                console.log("combat");
+            }
+        });
+    }
+
 }
 
 
@@ -296,20 +330,35 @@ const Choices = ({ id, setSectionId, section }) => {
         },
     ]);
     const story_id = localStorage.getItem("storyId");
-    const [diceValue, setDiceValue] = useState(0); 
-    const handleButtonClick = (item) => {
+    const [diceValue, setDiceValue] = useState(0);
+    const [dead, setDead] = useState(0);
+    const [gotoSectionId, setGotoSectionId] = useState(0);
+    const handleButtonClick = (item, i) => {
         interpretAction(
             item.id_section_to,
-            0
+            i,
+            setSectionId,
+            setGotoSectionId
         );
         // wait that "numberOfDices" of the localStorage is set
         setTimeout(() => {
-            let value = localStorage.getItem("numberOfDices");
-            if (value !== null || value !== undefined) {
-                setDiceValue(value);
+            let numberOfDices = localStorage.getItem("numberOfDices");
+            if (numberOfDices !== null || numberOfDices !== undefined) {
+                setDiceValue(numberOfDices);
+                localStorage.removeItem("numberOfDices");
+            }
+
+            let dead = localStorage.getItem("dead");
+            if (dead !== null || dead !== undefined) {
+                setDead(dead);
+                localStorage.removeItem("dead");
             }
         }, 100);
     };
+
+
+
+
 
     useEffect(() => {
         API("choices/" + story_id + "/" + id).then((res) => {
@@ -320,7 +369,24 @@ const Choices = ({ id, setSectionId, section }) => {
     return (
         <div className="container-choices">
             <Dices nbDices={diceValue} />
-            {choices &&
+            {dead == 1 ? (
+                <Button
+                    size={"small"}
+                    text={"Next"}
+                    onClick={() => {
+                        gotoSection(13, setSectionId);
+                    }}
+                />
+            ) : gotoSectionId !== 0 ? (
+                <Button
+                size={"small"}
+                    text={localStorage.getItem("successText") || localStorage.getItem("failureText") || "Continuez"}
+                    onClick={() => {
+                        gotoSection(gotoSectionId, setSectionId);
+                    }}
+                />
+            ) : (
+                choices &&
                 choices.map((item, i) => {
                     return (
                         <Button
@@ -330,12 +396,13 @@ const Choices = ({ id, setSectionId, section }) => {
                             onClick={() => {
                                 //   setChoices(item.id_section_to);
                                 //   setSectionId(item.id_section_to);
-                                handleButtonClick(item);
-                                addPath(item.id_section_to, 1);
+                                handleButtonClick(item, i);
+                                //addPath(item.id_section_to, 1);
                             }}
                         />
                     );
-                })}
+                })
+            )}
         </div>
     );
 };

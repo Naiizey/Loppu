@@ -18,6 +18,14 @@ router.get("/characters/:id", (req, res) => {
   });
 });
 
+// GET character stuff by id
+router.get("/characters/:id/stuff", (req, res) => {
+  const { id } = req.params;
+  pool.query("SELECT stuff FROM characters WHERE id = $1", [id]).then((results) => {
+    res.json(results.rows);
+  });
+});
+
 // POST a new character
 router.post("/characters", (req, res) => {
   const { name } = req.body;
@@ -48,6 +56,29 @@ router.delete("/characters/:id", (req, res) => {
     res.json({
       message: "Character deleted successfully!",
     });
+  });
+});
+
+// DELETE whole inventory
+router.delete("/characters/:id/inventory", (req, res) => {
+  const { id } = req.params;
+  //get the stuff object from the character wich is a jsonb object
+  pool.query("SELECT stuff FROM characters WHERE id = $1", [id]).then((results) => {
+    let stuff = results.rows[0].stuff;
+    //iterate over the stuff object and delete each item
+    for (let key in stuff) {
+      if (key === "inventory") {
+        stuff[key] = {};
+      }
+    }
+    //update the stuff object in the database
+    pool
+      .query("UPDATE characters SET stuff = $1 WHERE id = $2", [stuff, id])
+      .then(() => {
+        res.json({
+          message: "Inventory deleted successfully!",
+        });
+      });
   });
 });
 

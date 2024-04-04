@@ -1,8 +1,17 @@
 {
-    "stats": {
-      "resistance": {
-        "value": 1,
-        "operator": "-"
-      }
+    "stuff": {
+        "Silver knife": {
+            "type": "attack",
+            "efficacity": 3
+        }
+    },
+    "inventory": {
+        "sack": {
+            "type": "utility",
+            "capacity": ""
+        },
+        "boulder": {
+            "type": "other"
+        }
     }
-  }
+}
