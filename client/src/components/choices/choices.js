@@ -6,21 +6,15 @@ import { useEffect, useState } from "react";
 import API from "../../utils/API";
 
 // function to handle the fight
-function autoFight() {
-
-};
+function autoFight() {}
 
 function getCharaId() {
-    if (localStorage.getItem("charaId") === undefined)
-    {
+    if (localStorage.getItem("charaId") === undefined) {
         localStorage.setItem("charaId", 1);
         return 1;
-    }
-    else 
-    {
+    } else {
         return localStorage.getItem("charaId");
     }
-    
 }
 
 // upatde the stats of the character
@@ -55,13 +49,11 @@ function editStat(operator, value, stat, actualDicoStat) {
     }).then((res) => {
         console.log(res);
     });
-
 }
 
 //function to interpret an impact (must receive an "impact" dico)
 function interpretImpact(dico) {
     let stats = {};
-
 
     // for each key in the dico
     for (const key in dico) {
@@ -69,23 +61,25 @@ function interpretImpact(dico) {
         if (key === "stats") {
             for (const typeStat in dico[key]) {
                 //get the current stats
-                
-                    API("/characters/" + getCharaId()).then((res) => {
-                        stats = res[0];
-                    });
-                
+
+                API("/characters/" + getCharaId()).then((res) => {
+                    stats = res[0];
+                });
 
                 // for each key in the stats dico
                 for (const stat in stats) {
                     // if the stat is typeStat
                     if (stat === typeStat) {
-                        editStat(dico[key][typeStat].operator, dico[key][typeStat].value, stat, stats);
+                        editStat(
+                            dico[key][typeStat].operator,
+                            dico[key][typeStat].value,
+                            stat,
+                            stats
+                        );
                     }
-
                 }
             }
-        }
-        else {
+        } else {
             // if the key is "inventory"
             if (key === "stuff") {
                 // for each key in the inventory dico
@@ -106,7 +100,7 @@ function interpretImpact(dico) {
     }
 }
 
-function setSectionIdLocalStorage (sectionId) {
+function setSectionIdLocalStorage(sectionId) {
     localStorage.setItem("sectionId", sectionId);
 }
 
@@ -123,23 +117,22 @@ function gotoTo(sectionId, successText = null, failureText = null) {
                 size={"small"}
                 type={"info"}
                 text={"Suivant"}
-                onClick={() => { setSectionIdLocalStorage(sectionId) }}
+                onClick={() => {
+                    setSectionIdLocalStorage(sectionId);
+                }}
             />
         </div>
-    )
+    );
 }
 
 // function to check if the stats verify a certain value
 function checkStatsPrerequesites(stat, operator, value) {
     let isfilled = false;
     let stats;
-        
-
 
     API("/characters/" + getCharaId()).then((res) => {
         stats = res[0];
     });
-
 
     // The operator is a string containing the operator to use
     // eg : "<", ">", "<=", ">=", "=="
@@ -187,7 +180,7 @@ function diceResultConsequances(dico) {
         failureText = dico.failureText;
     }
     if (dico.impact !== undefined) {
-        let impact = dico.impact
+        let impact = dico.impact;
         interpretImpact(impact);
     }
     if (dico.goto !== undefined) {
@@ -226,7 +219,6 @@ function interpretDiceResult(dico, diceValue) {
                 return false;
                 break;
         }
-
     }
 }
 
@@ -246,16 +238,13 @@ function detectDice(section, choiceNumber) {
                     dico["win"] = choice.win;
                 }
                 return true, dico;
-            }
-            else {
+            } else {
                 return false, "numberOfDice undefined";
             }
-        }
-        else {
+        } else {
             return false;
         }
-    }
-    else {
+    } else {
         return false;
     }
 }
@@ -271,35 +260,33 @@ const Choices = ({ id, setSectionId, section }) => {
             lose: false,
             parent_key: "",
             victory: false,
-        }
+        },
     ]);
     const story_id = localStorage.getItem("storyId");
-    console.log("section:" + JSON.stringify(section));
 
-  useEffect(() => {
-    API("choices/" + story_id + "/" + id).then((res) => {
-      setChoices(res);
-    });
-  }, [story_id, id]);
+    useEffect(() => {
+        API("choices/" + story_id + "/" + id).then((res) => {
+            setChoices(res);
+        });
+    }, [story_id, id]);
 
-  return (
-    <div>
-      {choices.map((item, i) => {
-        return (
-          <Button
-            key={i}
-            size={"small"}
-            type={"info"}
-            text={item.content}
-            onClick={() => {
-              setChoices(item.id_section_to);
-              setSectionId(item.id_section_to);
-            }}
-          />
-        );
-      })}
-    </div>
-  );
+    console.log(choices);
+    return (
+        <div>
+            {choices.map((choice) => (
+                <div key={choice.id}>
+                    <Button
+                        size={"small"}
+                        type={"info"}
+                        text={choice.content}
+                        onClick={() => {
+                            setSectionId(choice.id_section_to);
+                        }}
+                    />
+                </div>
+            ))}
+        </div>
+    );
 };
 
 export default Choices;
