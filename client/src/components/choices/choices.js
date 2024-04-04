@@ -32,7 +32,7 @@ function editStat(operator, value, stat, actualDicoStat) {
             break;
     }
 
-    API("characters/" + getCharaId() + "/stats", 
+    API("characters/" + getCharaId() + "/stats",
         "PUT",
         actualDicoStat,
     );
@@ -64,7 +64,7 @@ function interpretImpact(dico) {
                 });
 
                 // for each key in the stats dico
-                
+
             }
         } else {
             // if the key is "inventory"
@@ -299,7 +299,6 @@ const Choices = ({ id, setSectionId, section }) => {
                         <Button
                             key={i}
                             size={"small"}
-                            type={"info"}
                             text={item.content}
                             onClick={() => {
                                 //   setChoices(item.id_section_to);
