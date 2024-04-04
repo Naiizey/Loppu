@@ -13,8 +13,14 @@
 .smallButtonComponent{
     align-self: center;
 
-    height: 1.5rem;
+    height: 3em;
     width: 50%;
+}
+
+button[class*=button]:hover{
+    background-color: var(--dark-grey);
+    color: var(--white-shade);
+    border: 1px solid var(--white-shade);
 }
 
 button[class*=button]{
@@ -26,6 +32,9 @@ button[class*=button]{
     border: none;
     border-radius: .5em;
     cursor: pointer;
+    background-color: var(--grey-button);
+    color: var(--black-text);
+    font-family: 'Inknut-Antiqua-Semi-Bold', sans-serif;
 }
 
 [class^=largeButton] > button{

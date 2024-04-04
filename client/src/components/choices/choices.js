@@ -107,7 +107,7 @@ function setSectionIdLocalStorage(sectionId) {
 //function to go to an other section /!\ She needs to break the loop or the father
 function gotoTo(sectionId, successText = null, failureText = null) {
     return (
-        <div>
+        <div class="container-choices">
             <p>
                 {successText !== null ? successText : ""}
                 {failureText !== null ? failureText : ""}
@@ -309,7 +309,7 @@ const Choices = ({ id, setSectionId, section }) => {
 
   console.log("choices:" + JSON.stringify(choices));
   return (
-    <div>
+    <div class="container-choices">
       { choices &&
       choices.map((item, i) => {
         return (
