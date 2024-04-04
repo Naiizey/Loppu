@@ -17,6 +17,16 @@ router.get("/paths", (req, res) => {
     });
 });
 
+// Get paths by single idCharacter
+router.get("/paths/:idCharacter", (req, res) => {
+    const idCharacter = req.params.idCharacter;
+    pool.query("SELECT * FROM paths WHERE id_character = $1", [
+        idCharacter,
+    ]).then((results) => {
+        res.json(results.rows);
+    });
+});
+
 // GET a path by id
 router.get("/paths/:idCharacter/:idSection", (req, res) => {
     const idCharacter = req.params.idCharacter;

@@ -5,7 +5,8 @@ import API from "../../utils/API";
 const StoryProgress = ({ section: sectionId }) => {
     const [lastSections, setLastSections] = useState([]);
     useEffect(() => {
-        API("paths/" + 1 + "/" + sectionId).then((res) => {
+        if (!sectionId) return;
+        API("paths/" + 1).then((res) => {
             // We retrieve the three last sections
             console.log(res);
             setLastSections(res.slice(-3));
