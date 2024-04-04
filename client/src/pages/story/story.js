@@ -44,7 +44,7 @@ const SectionPage = () => {
     );
 
     useEffect(() => {
-        API("sections/" + sectionId).then((res) => {
+        API("sections/" + story_id + "/" + sectionId).then((res) => {
             res = res[0];
             setSection(res);
         });
