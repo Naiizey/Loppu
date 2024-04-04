@@ -3,17 +3,20 @@ import "./loader.css";
 
 const Loader = ({ loading }) => {
     const [isFading, setIsFading] = useState(false);
-
+    const [hasFaded, setHasFaded] = useState(false);
     useEffect(() => {
         if (!loading) {
             setIsFading(true);
+            setTimeout(() => {
+                setHasFaded(true);
+            }, 500);
         }
     }, [loading]);
 
     return (
         <div
             className={`loaderComponent ${isFading ? "fade-out" : ""}`}
-            style={{ display: isFading ? "none" : "flex" }}
+            style={{ display: hasFaded ? "none" : "flex" }}
         >
             <section></section>
             <section></section>
