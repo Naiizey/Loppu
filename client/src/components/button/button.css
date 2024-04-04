@@ -15,15 +15,6 @@
 
     height: 3em;
     width: 50%;
-
-    display: flex;
-    column-gap: .5em;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1em;
-    border: none;
-    border-radius: .5em;
-    cursor: pointer;
     background-color: var(--grey-button);
     color: var(--black-text);
     font-family: 'Inknut-Antiqua-Semi-Bold', sans-serif;
@@ -33,7 +24,6 @@
     background-color: var(--dark-grey);
     color: var(--white-shade);
     border: 1px solid var(--white-shade);
-    border-radius: .5em;
 }
 
 button[class*=button]{
@@ -85,17 +75,9 @@ button[class*=button]{
     color: var(--white-shade);
 }
 
-[class$=button-danger]:hover{
-    background-color: #a93e3e;
-}
-
 [class$=button-info]{
     background-color: var(--blue-shade);
     color: var(--white-shade);
-}
-
-[class$=button-info]:hover{
-    background-color: #4d8fcf;
 }
 
 [class$=button-info] path{
@@ -120,11 +102,6 @@ button[class*=button]{
     color: var(--dark-grey);
     overflow: hidden;
 }
-
-[class$=button-success]:hover{
-    background-color: #22bf49;
-}
-
 
 [class$=button-dark]{
     background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
