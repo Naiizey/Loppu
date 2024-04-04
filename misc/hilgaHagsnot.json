@@ -14,7 +14,7 @@
 
     "stuff": {
         "Stone Axe": {
-            "type": "attaque",
+            "type": "attack",
             "efficacity": 2
         }
     },

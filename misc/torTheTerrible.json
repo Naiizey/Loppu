@@ -9,14 +9,14 @@
 
     "stuff": {
         "Silver knife": {
-            "type": "attaque",
+            "type": "attack",
             "efficacity": 3
         }
     },
 
     "inventory": {
         "sack": {
-            "type": "utilitaire",
+            "type": "utility",
             "capacity": ""
         },
         "boulder": {
