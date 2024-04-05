@@ -1,0 +1,62 @@
+.loaderComponent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    background-color: var(--dark-grey);
+}
+
+.loaderComponent.fade-out {
+    opacity: 0;
+}
+
+.loaderComponent section{
+    background-image: url('../../assets/images/loppu.svg');
+    background-size: calc((140% / 2) / 6);
+    width: 100%;
+    height: calc(100% / 6);
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    animation: linear infinite;
+    animation-name: run;
+}
+
+.loaderComponent section:nth-of-type(1){
+    top: calc((1 - 1) * (100% / 6));
+    animation-duration: 10s;
+}
+.loaderComponent section:nth-of-type(2){
+    top: calc((2 - 1) * (100% / 6));
+    animation-duration: 7s;
+}
+.loaderComponent section:nth-of-type(3){
+    top: calc((3 - 1) * (100% / 6));
+    animation-duration: 8s;
+}
+.loaderComponent section:nth-of-type(4){
+    top: calc((4 - 1) * (100% / 6));
+    animation-duration: 9s;
+}
+.loaderComponent section:nth-of-type(5){
+    top: calc((5 - 1) * (100% / 6));
+    animation-duration: 6s;
+}
+.loaderComponent section:nth-of-type(6){
+    top: calc((6 - 1) * (100% / 6));
+    animation-duration: 8s;
+}
+
+.loaderComponent section svg{
+    width: 100%;
+}
+
+@keyframes run {
+    100% {
+        background-position: 50% 0;
+    }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "action_schema.json",
+  "title": "Action Schema",
+  "description": "Schema for the 'action' property.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["combat", "story", "dice", "enemy", "item"]
+    },
+    "alreadyVisited": {
+      "type": "string"
+    },
+    "enemy": {
+      "$ref": "enemy_schema.json"
+    },
+    "choices": {
+      "$ref": "choices_schema.json"
+    },
+    "win": {
+      "$ref": "win_schema.json"
+    },
+    "loose": {
+      "$ref": "loose_schema.json"
+    },
+    "require": {
+      "$ref": "require_schema.json"
+    },
+    "impact": {
+      "$ref": "impact_schema.json"
+    },
+    "numberOfDice": {
+      "type": "integer"
+    },
+    "diceResult": {
+      "$ref": "dice_result_schema.json"
+    }
+  },
+  "required": ["type", "text"]
+}

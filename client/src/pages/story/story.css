@@ -1,0 +1,69 @@
+main#section {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    column-gap: 2em;
+    padding: 2em 2em 0;
+    color: var(--white-shade);
+}
+
+main#section > :first-child{
+    align-self: flex-start;
+}
+
+main#section > :last-child{
+    align-self:flex-end;
+}
+
+main#section section{
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+    width: 100%;
+}
+
+main#section article{
+    min-height: 10vh !important;
+    height: fit-content !important;
+    max-height: 20vh !important;
+    
+    overflow: scroll;
+    text-align: justify;
+    line-height: 1.5em;
+    padding-right: 1em;
+}
+
+main .loader {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+main .loader.fade-out {
+    opacity: 0;
+}
+
+main#section aside{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 1em;
+    margin-top: 2em;
+    padding-right: 15em;
+}
+
+main#section aside > Button{
+    margin: 0;
+    padding: 0.5em 1em;
+    font-size: 1.25em;
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    text-transform: uppercase;
+    background-color: var(--grey-button);
+    color: var(--black-text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main#section aside > Button:hover{
+    background-color: var(--grey-button-hover);
+}

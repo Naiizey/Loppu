@@ -1,0 +1,43 @@
+services:
+  webapp:
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: ./containers/webapp/Dockerfile
+    ports:
+      - "${WEB_PORT}:80"
+    depends_on:
+      - api
+    links:
+      - api
+    environment:
+      REACT_APP_API_URL: "http://localhost:${API_PORT}"
+  db:
+    image: postgres:latest
+    ports:
+      - "${DATABASE_PORT}:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./containers/db/0-init.sql:/docker-entrypoint-initdb.d/0-init.sql
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+  api:
+    restart: on-failure
+    build:
+      context: ./server
+      dockerfile: ../containers/api/Dockerfile
+    ports:
+      - "${API_PORT}:5000"
+    depends_on:
+      - db
+    expose:
+      - "5000"
+    links:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_NAME}"
+
+volumes:
+  db-data:

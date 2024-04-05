@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "loose_schema.json",
+  "title": "Loose Schema",
+  "description": "Schema for the 'loose' property.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "goto": {
+      "type": "string"
+    }
+  },
+  "required": ["text"]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "choice_schema.json",
+  "title": "Choice Schema",
+  "description": "Schema for individual choice options.",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "goto": {
+      "type": "string"
+    },
+    "require": {
+      "$ref": "require_schema.json"
+    }
+  },
+  "required": ["text"]
+}

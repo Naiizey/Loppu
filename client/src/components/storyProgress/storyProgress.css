@@ -1,0 +1,75 @@
+.storyProgressComponent{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    column-gap: 2em;
+    width: 100%;
+}
+
+.storyProgressComponent div:first-of-type{
+    flex-grow: 1;
+}
+
+.storyProgressComponent ol{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 60%;
+    text-align: center;
+}
+
+.storyProgressComponent li{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.25em;
+    text-transform: uppercase;
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    font-size: 1.25em;
+}
+
+.storyProgressComponent li::after{
+    content: '';
+    height: 10px;
+    width: 5px;
+    border-radius: 5px;
+    background-color: var(--white-shade);
+}
+
+.storyProgressComponent li p:first-of-type{
+    line-height: 0.5;
+}
+
+.storyProgressComponent hr{
+    height: 5px;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--grey-shade);
+}
+
+.storyProgressComponent ol hr{
+    position: absolute;
+    height: 9px;
+    width: 100%;
+    bottom: -7px;
+    background-color: var(--white-shade);
+}
+
+.storyProgressComponent + div{
+    text-align: right;
+}
+
+.storyProgressComponent h2{
+    font-size: 2em;
+    font-family: 'Inknut-Antiqua-Regular', serif;
+    line-height: 1.5;
+}
+
+.storyProgressComponent h3{
+    font-size: 1.5em;
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    color: var(--light-grey);
+}

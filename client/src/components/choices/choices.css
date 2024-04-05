@@ -1,0 +1,7 @@
+.container-choices {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 1.5em;
+}

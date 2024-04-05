@@ -1,0 +1,19 @@
+.sliderComponent {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 20vw;
+    border-left: 1px solid var(--grey-shade);
+    background-color: color-mix(in srgb, var(--dark-grey) 90%, black 10%);
+    font-family: 'Inria-Sans-Regular', sans-serif;
+}
+
+.sliderComponent svg{
+    cursor: pointer;
+    fill: var(--white-shade);
+}
