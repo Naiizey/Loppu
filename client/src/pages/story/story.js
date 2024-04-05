@@ -98,6 +98,13 @@ const SectionPage = () => {
         }
     }
 
+    const dict_combat = ["killing","slaughter","fightin","battlers","attack","defend","defeat","slainers","injure","wounded","smashing","crusher","smiting","sheathing"];
+
+    let text_levenshtein = section.content.action?.text || section.content.text;
+    if(typeof text_levenshtein !== "undefined" && section.content.action.type === "combat"){
+        text_levenshtein = Levenshtein(text_levenshtein, dict_combat, 2, "#FF0000")
+    }
+
     return (
         <main id="section">
             <nav>
@@ -116,9 +123,7 @@ const SectionPage = () => {
             <section>
                 <StoryProgress section={sectionId} />
                 <article>
-                    <p>
-                        {section.content.action?.text || section.content.text}
-                    </p>
+                    <p dangerouslySetInnerHTML={{ __html:text_levenshtein }}></p>
                 </article>
                 <aside>
                     <Choices id={sectionId} setSectionId={setSectionId} />
