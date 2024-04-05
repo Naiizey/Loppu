@@ -1,7 +1,7 @@
 main#section {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     column-gap: 2em;
     padding: 2em 2em 0;
     color: var(--white-shade);
@@ -9,6 +9,10 @@ main#section {
 
 main#section > :first-child{
     align-self: flex-start;
+}
+
+main#section > :last-child{
+    align-self:flex-end;
 }
 
 main#section section{
