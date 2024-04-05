@@ -3,6 +3,15 @@ import Button from '../button/button';
 import Dice from 'react-dice-roll';
 import { useState } from 'react';
 
+
+/**
+ * 
+ * @function rollAllDices
+ * 
+ * @returns {number} The total value of all dices rolled. 
+ * 
+ * @description This function simulates the rolling of all dices on the page.
+ */
 async function rollAllDices() {
     let buttons = document.querySelectorAll("#dices ul button");
 
@@ -28,6 +37,16 @@ async function rollAllDices() {
     return total;
 }
 
+
+/**
+ * 
+ * @function updateDiceValues
+ * 
+ * @param {number} diceValue
+ * @param {boolean} push
+ * 
+ * @description This function updates the dice values stored in local storage.
+ */
 function updateDiceValues(diceValue, push = false) {
 
     let storedDiceValues = localStorage.getItem("diceValues");
@@ -43,6 +62,16 @@ function updateDiceValues(diceValue, push = false) {
 }
 // use stat for dice value
 
+/**
+ * 
+ * @function Dices
+ * 
+ * @param {number} nbDices
+ * 
+ * @returns {React.JSX.Element}
+ * 
+ * @description This function creates a list of dice elements.
+ */
 const Dices = ({nbDices }) => {
     localStorage.setItem("diceValues", [0]);
     
