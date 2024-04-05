@@ -62,7 +62,7 @@ function est_dict(phrase, dictionnaire, distance, couleur){
     for(let i = 0; i < mots.length; i++){
         for(let j = 0; j < dictionnaire.length; j++){
             if(levenshtein(mots[i], dictionnaire[j]) <= distance){
-                mots[i] = "<span style='color:" + couleur + ";'>" + mots[i] + "</span>";
+                mots[i] = "<span style='color:" + couleur + " !important;'>" + mots[i] + "</span>";
             }
         }
     }
