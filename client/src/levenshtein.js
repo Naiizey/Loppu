@@ -2,19 +2,20 @@ function minimum(nb1, nb2, nb3){
     return Math.min(nb1, nb2, nb3);
 }
 
+/**
+ * @function levenshtein
+ * 
+ * @param {string} chaine1
+ * @param {string} chaine2
+ * 
+ * @returns {number}
+ * 
+ * @description This function takes two strings as parameters and returns the distance between these two strings.
+ */
 function levenshtein(chaine1, chaine2){
-    /*
-    chaine1 : string
-    chaine2 : string
-
-    return : int
-
-    Cette fonction prend en paramètre deux chaînes de caractères 
-    et retourne la distance entre ces deux chaînes.
-    */
-
     let chaine1_formatted = chaine1.toLowerCase();
     let chaine2_formatted = chaine2.toLowerCase();
+
     let distance = new Array(chaine1_formatted.length + 1).fill(0).map(() => new Array(chaine2_formatted.length + 1).fill(0));
     let i, j, cost;
 
@@ -46,23 +47,24 @@ function levenshtein(chaine1, chaine2){
     return distance[chaine1_formatted.length][chaine2_formatted.length];
 }
 
-function est_dict(phrase, dictionnaire, distance, couleur){
-    /*
-    phrase : string
-    dictionnaire : array
-    distance : int
-    couleur : string
-
-    return : string
-
-    Cette fonction prend en paramètre une phrase, un dictionnaire, une distance minimale et un code couleur hexadécimal.
-
-    */
+/**
+ * @function est_dict
+ * 
+ * @param {string} phrase
+ * @param {array} dictionnaire
+ * @param {number} distance
+ * @param {string} couleur
+ * 
+ * @returns {string}
+ * 
+ * @description This function takes a phrase, a dictionary, a minimum distance, and a hexadecimal color code as parameters.
+ */
+function est_dict(phrase, dictionnary, distance, color){
     let mots = phrase.split(" ");
     for(let i = 0; i < mots.length; i++){
-        for(let j = 0; j < dictionnaire.length; j++){
-            if(levenshtein(mots[i], dictionnaire[j]) <= distance){
-                mots[i] = "<span style='color:" + couleur + " !important;'>" + mots[i] + "</span>";
+        for(let j = 0; j < dictionnary.length; j++){
+            if(levenshtein(mots[i], dictionnary[j]) <= distance){
+                mots[i] = "<span style='color:" + color + " !important;'>" + mots[i] + "</span>";
             }
         }
     }
