@@ -411,7 +411,7 @@ const Choices = ({ id, setSectionId, section }) => {
                         <Button
                             key={i}
                             size={"small"}
-                            text={item.content
+                            text={item.content}
                             type={"story"}
                             onClick={() => {
                                 //   setChoices(item.id_section_to);
