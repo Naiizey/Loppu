@@ -65,9 +65,6 @@ function interpretImpact(dico) {
                         }
                     }
                 });
-
-                // for each key in the stats dico
-
             }
         } else {
             // if the key is "inventory"
@@ -83,18 +80,24 @@ function interpretImpact(dico) {
                         console.log(stuff);
                         // for each key in the inventory dico
                         for (const index in dico[key]) {
-                            
-                            console.log(dico[key][index]);
+
+
                             let item = dico[key][index];
+                            console.log(item);
                             let operator = item.operator;
-                            if (operator !== undefined) 
-                            {
+                            if (operator !== undefined) {
+                                let charaId = getCharaId();
+                                let itemId = item.id_item;
                                 switch (operator) {
                                     case "+":
-                                        //stuff[item.type][item.name] = item;
+                                        API("characters/" + charaId + "/inventory/" + itemId, "PUT").then((res) => {
+                                            console.log(res);
+                                        });
                                         break;
                                     case "-":
-                                        //delete stuff[item.type][item.name];
+                                        API("characters/" + charaId + "/inventory/" + itemId, "DELETE").then((res) => {
+                                            console.log(res);
+                                        });
                                         break;
                                     default:
                                         break;
@@ -103,7 +106,7 @@ function interpretImpact(dico) {
                         }
                     });
                 }
-                
+
             }
         }
     }
@@ -115,11 +118,11 @@ function setSectionIdLocalStorage(sectionId) {
 
 function gotoSection(sectionId, setSectionId) {
     console.log("gotoSection" + sectionId);
-    // setSectionIdLocalStorage(sectionId);
-    // localStorage.setItem("sectionId", sectionId);
-    // setSectionId(sectionId);
-    // let charaId = getCharaId();
-    // addPath(sectionId, charaId);
+    setSectionIdLocalStorage(sectionId);
+    localStorage.setItem("sectionId", sectionId);
+    setSectionId(sectionId);
+    let charaId = getCharaId();
+    addPath(sectionId, charaId);
 }
 
 //function to go to an other section /!\ She needs to break the loop or the father
@@ -178,7 +181,7 @@ function diceResultConsequances(dico, setGotoSectionId) {
     }
     if (dico.goto !== undefined) {
         let goto = dico.goto;
-        gotoSectionButton(goto,setGotoSectionId, successText, failureText);
+        gotoSectionButton(goto, setGotoSectionId, successText, failureText);
     }
 }
 
@@ -235,6 +238,71 @@ function checkIfDead() {
     return dead;
 }
 
+// function to handle the require section (need to have a "require" dico in parameters) 
+function interpretRequire(dico, setGotoSectionId, choiceNumber, gotoId) {
+    return new Promise((resolve, reject) => {
+        if (dico.action !== undefined) {
+            switch (dico.type) {
+                case "dice":
+                    launchDices(dico.numberOfDice).then((res) => {
+                        interpretDiceResult(dico, res, setGotoSectionId);
+                        resolve();
+                    });
+                    break;
+                case "combat":
+                    // TODO : integrate the fight
+                    break;
+                case "story":
+                    interpretStory(dico, gotoId, choiceNumber, setGotoSectionId);
+                    resolve();
+                    break;
+                default:
+                    reject(new Error("unknown require type"));
+                    break;
+            }
+        }
+        else if (dico.type === "items") {
+            if (dico.item !== undefined) {
+                let item = dico.item;
+                let id_item = item.id_item;
+                let quantity = item.quantity;
+                let charaId = getCharaId();
+                // get character stuff
+                API("/characters/" + charaId + "/stuff").then((res) => {
+                    let stuff = res[0].stuff;
+                    let inventory = res[0].inventory;
+                    // [{"5": "weapon"}, ...]
+                    inventory.forEach(element => {
+                        if (element[id_item] !== undefined) {
+                            resolve(true);
+                        }
+                    });
+                    resolve(false);
+                });
+            }
+            else {
+                reject(new Error("Missing item in require dico"))
+            }
+        }
+        else if (dico.type === "stats") {
+            if (dico.stats !== undefined) {
+                let stats = dico.stats;
+                let charaId = getCharaId();
+                let operator = stats.operator;
+                let stat = stats.stat;
+                let value = stats.value;
+                checkStatsPrerequesites(stat, operator, value).then(result => {
+                    resolve(result);
+                });
+            }
+        }
+        else {
+            reject(new Error("unknown require type"))
+        }
+    });
+}
+
+// function to interpret a story (must receive a "story" dico)
 function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId) {
     console.log("story");
     // console.log(story);
@@ -257,34 +325,46 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
                             interpretImpact(choice.impact);
                         }
                     }
-                    else 
-                    {
-
+                    else {
+                        // wait for the interpretation of the require
+                        interpretRequire(choice.require, setGotoSectionId, choiceNumber, gotoID).then((result) => {
+                            if (result) {
+                                if (choice.impact !== undefined) {
+                                    interpretImpact(choice.impact);
+                                }
+                                gotoSection(choice.goto, setSectionId);
+                            }
+                        });
                     }
                     gotoSection(choice.goto, setSectionId);
                 }
-            } else {
-                let newChoice = choice.require.action;
-                switch (newChoice.type) {
-                    case "dice":
-                        //launch the dices and wait for the result
-                        launchDices(newChoice.numberOfDice).then((res) => {
-                            interpretDiceResult(newChoice, res, setGotoSectionId);
-                        });
-                        break;
-                    case "combat":
-                    //fight(choice);
-                    case "story":
-                        interpretStory(newChoice.action, gotoID);
-                        break;
-                    default:
-                        break;
-                }
+
             }
-            // }
+            else {
+                if (choice.require === undefined) {
+                    if (choice.impact !== undefined) {
+                        interpretImpact(choice.impact);
+                    }
+                }
+                else {
+                    // wait for the interpretation of the require
+                    interpretRequire(choice.require, setGotoSectionId, choiceNumber).then((result) => {
+                        if (result) {
+                            if (choice.impact !== undefined) {
+                                interpretImpact(choice.impact);
+                            }
+                        }
+                    });
+                }            
+            }
         }
+        else {
+            throw new Error("No choices in the story dico");
+        }
+        // }
     }
 }
+
 
 function deadButton() {
     let sectionId = localStorage.getItem("sectionId");
@@ -330,6 +410,22 @@ function interpretAction(gotoId, choiceNumber, setSectionId, setGotoSectionId) {
         });
     }
 
+}
+
+function getChoices(id) {
+    console.log("getChoices");
+    console.log(id);
+    let story_id = localStorage.getItem("storyId");
+    console.log("story_id");
+    console.log(story_id);
+    return new Promise ((resolve, reject) => {
+        API("choices/" + story_id + "/" + id).then((res) => {
+            resolve(res);
+        }).catch((error) => {
+            console.error('Une erreur est survenue:', error);
+            resolve([]);
+        });
+    });
 }
 
 
@@ -378,7 +474,8 @@ const Choices = ({ id, setSectionId, section }) => {
 
 
     useEffect(() => {
-        API("choices/" + story_id + "/" + id).then((res) => {
+        getChoices(id).then((res) => {
+            console.log(res);
             setChoices(res);
         });
     }, [story_id, id]);
@@ -396,7 +493,7 @@ const Choices = ({ id, setSectionId, section }) => {
                 />
             ) : gotoSectionId !== 0 ? (
                 <Button
-                size={"small"}
+                    size={"small"}
                     text={localStorage.getItem("successText") || localStorage.getItem("failureText") || "Continuez"}
                     onClick={() => {
                         gotoSection(gotoSectionId, setSectionId);

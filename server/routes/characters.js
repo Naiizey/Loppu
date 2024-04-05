@@ -82,4 +82,61 @@ router.delete("/characters/:id/inventory", (req, res) => {
   });
 });
 
+// PUT an item to inventory
+router.put("/characters/:id/inventory/:itemId", (req, res) => {
+  const { id, itemId } = req.params;
+  let resItem;
+  pool.query("SELECT stuff FROM characters WHERE id = $1", [id]).then((results) => {
+
+    let stuff = results.rows[0].stuff; // Get the stuff object directly
+    pool.query("SELECT item_type FROM stuff WHERE id = $1", [itemId]).then((results) => {
+
+      let type = results.rows[0];
+      let item = {};
+      item[itemId] = type.item_type; // Create the item object
+      resItem = item;
+      if (!stuff.inventory) {
+        stuff.inventory = []; // Initialize inventory if it doesn't exist
+      }
+
+      stuff.inventory.push(item); // Add the item to the inventory
+      stuff = JSON.stringify(stuff)
+      pool
+        .query("UPDATE characters SET stuff = $1 WHERE id = $2", [stuff, id])
+        .then(() => {
+          res.json({
+            message: "Item added to inventory successfully!",
+          });
+        });
+    });
+  });
+});
+
+// DELETE an item from inventory
+router.delete("/characters/:id/inventory/:itemId", (req, res) => {
+  const { id, itemId } = req.params;
+  //get the stuff object from the character wich is a jsonb object
+  pool.query("SELECT stuff FROM characters WHERE id = $1", [id]).then((results) => {
+    let stuff = results.rows[0];
+    //iterate over the stuff object and delete the item from the inventory
+    for (let key in stuff) {
+      if (key === "inventory") {
+        stuff[key].forEach((item, index) => {
+          if (item.itemID === itemId) {
+            stuff[key].splice(index, 1);
+          }
+        });
+      }
+    }
+    //update the stuff object in the database
+    pool
+      .query("UPDATE characters SET stuff = $1 WHERE id = $2", [stuff, id])
+      .then(() => {
+        res.json({
+          message: "Item deleted from inventory successfully!",
+        });
+      });
+  });
+});
+
 module.exports = router;
