@@ -59,7 +59,7 @@ const Dices = ({nbDices }) => {
             <ul>
                 {diceElements}
             </ul>
-            {/* <Button size="small" type="primary" text="Roll" onClick={rollAllDices}/> */}
+            {/* <Button size="small" type="story" text="Roll" onClick={rollAllDices}/> */}
         </div>
     )
 };
