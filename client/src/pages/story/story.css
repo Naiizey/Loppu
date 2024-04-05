@@ -1,7 +1,7 @@
 main#section {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: baseline;
     column-gap: 2em;
     padding: 2em 2em 0;
     color: var(--white-shade);
@@ -9,6 +9,10 @@ main#section {
 
 main#section > :first-child{
     align-self: flex-start;
+}
+
+main#section > :last-child{
+    align-self:flex-end;
 }
 
 main#section section{
@@ -19,7 +23,10 @@ main#section section{
 }
 
 main#section article{
-    height: 40vh;
+    min-height: 10vh !important;
+    height: fit-content !important;
+    max-height: 20vh !important;
+    
     overflow: scroll;
     text-align: justify;
     line-height: 1.5em;

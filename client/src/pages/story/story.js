@@ -7,6 +7,7 @@ import Loader from "../../components/loader/loader";
 import StoryProgress from "../../components/storyProgress/storyProgress";
 import CharImage  from '../../assets/images/giant.jpg';
 import Button from "../../components/button/button";
+import Levenshtein from "../../levenshtein";
 
 const SectionPage = () => {
     const [clickedCharacter, setClickedCharacter] = useState(null);
@@ -98,6 +99,13 @@ const SectionPage = () => {
         }
     }
 
+    const dict_combat = ["killing","slaughter","fightin","battlers","attack","defend","defeat","slainers","injure","wounded","smashing","crusher","smiting","sheathing"];
+
+    let text_levenshtein = section.content.action?.text || section.content.text;
+    if(typeof text_levenshtein !== "undefined" && section.content.action.type === "combat"){
+        text_levenshtein = Levenshtein(text_levenshtein, dict_combat, 2, "#FF0000")
+    }
+
     return (
         <main id="section">
             <nav>
@@ -116,13 +124,11 @@ const SectionPage = () => {
             <section>
                 <StoryProgress section={sectionId} />
                 <article>
-                    <p>
-                        {section.content.action?.text || section.content.text}
-                    </p>
+                    <p dangerouslySetInnerHTML={{ __html:text_levenshtein }}></p>
                 </article>
                 <aside>
                     <Choices id={sectionId} setSectionId={setSectionId} />
-                    {sectionId === 50 && <Button size="small" type="primary" text="End the story" onClick={() => window.location = '/ending'} />}
+                    {sectionId === 50 && <Button size="small" type="story" text="End the story" onClick={() => window.location = '/ending'} />}
                 </aside>
             </section>
             <Loader loading={section.id === 0} />
