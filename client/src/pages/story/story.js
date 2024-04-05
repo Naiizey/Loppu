@@ -122,7 +122,7 @@ const SectionPage = () => {
                 </article>
                 <aside>
                     <Choices id={sectionId} setSectionId={setSectionId} />
-                    {sectionId === 50 && <Button size="small" type="primary" text="End the story" onClick={() => window.location = '/ending'} />}
+                    {sectionId === 50 && <Button size="small" type="story" text="End the story" onClick={() => window.location = '/ending'} />}
                 </aside>
             </section>
             <Loader loading={section.id === 0} />
