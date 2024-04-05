@@ -7,22 +7,13 @@
     "resistance": 5,
     "intelligence": 3,
 
-    "stuff": {
-        "Silver knife": {
-            "type": "attack",
-            "efficacity": 3
-        }
-    },
+    "stuff": [
+        {"5": "weapon"}
+    ],
 
-    "inventory": {
-        "sack": {
-            "type": "utility",
-            "capacity": ""
-        },
-        "boulder": {
-            "type": "other"
-        }
-    },
+    "inventory": [
+        {"29": "treasure"}
+    ],
 
     "description": {
         "text": "Tor est un Ogre qui s'est échappé des catacombes sous le Smokeypeak Mountain pour errer sur le monde au-dessus de terre avec merveille et étonnement. Cependant, il a été battu et harcelé par les légionnaires de Roi Yalamon, et il a juré une vengeance sanglante contre tous supposés Bonnes gens en raison de cela. Heureusement malheureusement, Boulder Ford est la première ville sur son chemin suivant sa récente humeur sombre..."

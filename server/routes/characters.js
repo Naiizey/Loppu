@@ -68,7 +68,7 @@ router.delete("/characters/:id/inventory", (req, res) => {
     //iterate over the stuff object and delete each item
     for (let key in stuff) {
       if (key === "inventory") {
-        stuff[key] = {};
+        stuff[key] = [];
       }
     }
     //update the stuff object in the database

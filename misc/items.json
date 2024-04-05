@@ -145,5 +145,31 @@
     "name": "Vat of Spirits",
     "type" : "treasure",
     "loot_points" : 1
+  },
+  "28" : {
+    "name" : "Silver knife",
+    "type" : "weapon",
+    "stats" : {
+      "strength" : 3
+    }
+  },
+  "29" : {
+    "name" : "Sack",
+    "type" : "treasure",
+    "loot_points" : 1
+  },
+  "30" : {
+    "name" : "stone axe",
+    "type" : "weapon",
+    "stats" : {
+      "strength" : 2
+    }
+  },
+  "31" : {
+    "name" : "Spiked club",
+    "type" : "weapon",
+    "stats" : {
+      "strength" : 2
+    }
   }
 }

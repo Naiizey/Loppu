@@ -52,7 +52,7 @@ function interpretImpact(dico) {
                 //get the current stats
                 API("/characters/" + getCharaId()).then((res) => {
                     stats = res[0].stats;
-                    console.log(stats);
+                    //console.log(stats);
                     for (const stat in stats) {
                         // if the stat is typeStat
                         if (stat === typeStat) {
@@ -78,11 +78,28 @@ function interpretImpact(dico) {
                 else {
                     //get the stuff object from the character wich is a jsonb object
                     API("/characters/" + getCharaId() + "/stuff").then((res) => {
-                        let stuff = res[0];
+                        // console.log(res);
+                        let stuff = res[0].stuff.inventory;
+                        console.log(stuff);
                         // for each key in the inventory dico
-                        for (const item in dico[key]) {
-                            // TODO : adding items to the inventory
+                        for (const index in dico[key]) {
                             
+                            console.log(dico[key][index]);
+                            let item = dico[key][index];
+                            let operator = item.operator;
+                            if (operator !== undefined) 
+                            {
+                                switch (operator) {
+                                    case "+":
+                                        //stuff[item.type][item.name] = item;
+                                        break;
+                                    case "-":
+                                        //delete stuff[item.type][item.name];
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
                         }
                     });
                 }
@@ -98,11 +115,11 @@ function setSectionIdLocalStorage(sectionId) {
 
 function gotoSection(sectionId, setSectionId) {
     console.log("gotoSection" + sectionId);
-    setSectionIdLocalStorage(sectionId);
-    localStorage.setItem("sectionId", sectionId);
-    setSectionId(sectionId);
-    let charaId = getCharaId();
-    addPath(sectionId, charaId);
+    // setSectionIdLocalStorage(sectionId);
+    // localStorage.setItem("sectionId", sectionId);
+    // setSectionId(sectionId);
+    // let charaId = getCharaId();
+    // addPath(sectionId, charaId);
 }
 
 //function to go to an other section /!\ She needs to break the loop or the father

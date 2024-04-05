@@ -1,17 +1,20 @@
+characher's stat
 {
     "stuff": {
+      "stuff": {
         "Silver knife": {
-            "type": "attack",
-            "efficacity": 3
+          "type": "attack",
+          "efficacity": 3
         }
-    },
-    "inventory": {
+      },
+      "inventory": {
         "sack": {
-            "type": "utility",
-            "capacity": ""
+          "type": "utility",
+          "capacity": ""
         },
         "boulder": {
-            "type": "other"
+          "type": "other"
         }
+      }
     }
-}
+  }
