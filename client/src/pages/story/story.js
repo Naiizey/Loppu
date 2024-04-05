@@ -7,6 +7,7 @@ import Loader from "../../components/loader/loader";
 import StoryProgress from "../../components/storyProgress/storyProgress";
 import CharImage  from '../../assets/images/giant.jpg';
 import Button from "../../components/button/button";
+import Levenshtein from "../../levenshtein";
 
 const SectionPage = () => {
     const [clickedCharacter, setClickedCharacter] = useState(null);
