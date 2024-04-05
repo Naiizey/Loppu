@@ -390,6 +390,7 @@ const Choices = ({ id, setSectionId, section }) => {
                 <Button
                     size={"small"}
                     text={"Next"}
+                    type={"story"}
                     onClick={() => {
                         gotoSection(13, setSectionId);
                     }}
@@ -398,6 +399,7 @@ const Choices = ({ id, setSectionId, section }) => {
                 <Button
                 size={"small"}
                     text={localStorage.getItem("successText") || localStorage.getItem("failureText") || "Continuez"}
+                    type={"story"}
                     onClick={() => {
                         gotoSection(gotoSectionId, setSectionId);
                     }}
@@ -409,7 +411,8 @@ const Choices = ({ id, setSectionId, section }) => {
                         <Button
                             key={i}
                             size={"small"}
-                            text={item.content}
+                            text={item.content
+                            type={"story"}
                             onClick={() => {
                                 //   setChoices(item.id_section_to);
                                 //   setSectionId(item.id_section_to);
