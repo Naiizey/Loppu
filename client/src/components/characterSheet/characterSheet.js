@@ -12,6 +12,23 @@ import "./characterSheet.css";
 
     <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
 */
+
+/**
+ * @function characterSheet
+ * 
+ * @param {object} props
+ * @param {string} props.type
+ * @param {string} props.img
+ * @param {string} props.name
+ * @param {object} props.stats
+ * @param {array} props.inventory
+ * @param {boolean} props.isClicked
+ * @param {function} props.onClick
+ * 
+ * @returns {React.JSX.Element}
+ * 
+ * @description This function takes props as parameters and returns a JSX element.
+ */
 const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick}) => {
     switch(type) {
         case "big":
