@@ -8,9 +8,10 @@ import Dices from "../../components/dices/dices";
 import { rollAllDices } from "../../components/dices/dices";
 import characterSheet from "../characterSheet/characterSheet";
 
-// function to handle the fight
-function autoFight() {}
-
+/**
+ * 
+ * @returns the id of the character
+ */
 function getCharaId() {
   if (localStorage.getItem("charaId") === null) {
     localStorage.setItem("charaId", 1);
@@ -20,16 +21,13 @@ function getCharaId() {
   }
 }
 
-function getSectionId() {
-  if (localStorage.getItem("sectionId") === undefined) {
-    localStorage.setItem("sectionId", 1);
-    return 1;
-  } else {
-    return parseInt(localStorage.getItem("sectionId"));
-  }
-}
-
-// upatde the stats of the character
+/**
+ * Edit the stat of the character from the dico and  update them in the database
+ * @param {*} operator The oprator to use
+ * @param {*} value The value to add or substract
+ * @param {*} stat The stat to edit
+ * @param {*} actualDicoStat The dictionary of the stats
+ */
 function editStat(operator, value, stat, actualDicoStat) {
   switch (operator) {
     case "+":
@@ -41,18 +39,19 @@ function editStat(operator, value, stat, actualDicoStat) {
     default:
       break;
   }
-
   API("characters/" + getCharaId() + "/stats", "PUT", actualDicoStat);
 }
 
-//function to interpret an impact (must receive an "impact" dico)
-function interpretImpact(dico) {
-  let stats = {};
-  // for each key in the dico
-  for (const key in dico) {
-    // if the key is "stats"
-    if (key === "stats") {
-      for (const typeStat in dico[key]) {
+/**
+ * 
+ * @param {*} key The key of the dico
+ * @param {*} dico The dico of the stats
+ * @param {*} stats The stats of the character
+ * @returns The dico of the stats.
+ */
+function impactStats(key, dico, stats)
+{
+    for (const typeStat in dico[key]) {
         //get the current stats
         API("/characters/" + getCharaId()).then((res) => {
           stats = res[0].stats;
@@ -69,41 +68,58 @@ function interpretImpact(dico) {
           }
         });
       }
+    return stats;
+}
+
+/**
+ * Function to edit the inventory of the character based on the story impact dico
+ * @param {*} key  The key of the dico
+ * @param {*} dico The impact dico
+ */
+function impactInventory(key, dico) {
+  //get the stuff object from the character wich is a jsonb object
+  API("/characters/" + getCharaId() + "/stuff").then((res) => {
+    let stuff = res[0].stuff.inventory;
+    // for each key in the inventory dico
+    for (const index in dico[key]) {
+      let item = dico[key][index];
+      let operator = item.operator;
+      if (operator !== undefined) {
+        let charaId = getCharaId();
+        let itemId = item.id_item;
+        switch (operator) {
+          case "+":
+            API(
+              "characters/" + charaId + "/inventory/" + itemId,
+              "PUT"
+            ).then((res) => {});
+            break;
+          case "-":
+            API(
+              "characters/" + charaId + "/inventory/" + itemId,
+              "DELETE"
+            ).then((res) => {});
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  });
+}
+
+//function to interpret an impact (must receive an "impact" dico)
+function interpretImpact(dico) {
+  let stats = {};
+  for (const key in dico) {
+    if (key === "stats") {
+        impactStats(key, dico, stats);
     } else {
-      // if the key is "inventory"
       if (key === "stuff") {
         if (dico.stuff === "delete_all") {
           API("characters/" + getCharaId() + "/inventory", "DELETE");
         } else {
-          //get the stuff object from the character wich is a jsonb object
-          API("/characters/" + getCharaId() + "/stuff").then((res) => {
-            let stuff = res[0].stuff.inventory;
-            // for each key in the inventory dico
-            for (const index in dico[key]) {
-              let item = dico[key][index];
-              let operator = item.operator;
-              if (operator !== undefined) {
-                let charaId = getCharaId();
-                let itemId = item.id_item;
-                switch (operator) {
-                  case "+":
-                    API(
-                      "characters/" + charaId + "/inventory/" + itemId,
-                      "PUT"
-                    ).then((res) => {});
-                    break;
-                  case "-":
-                    API(
-                      "characters/" + charaId + "/inventory/" + itemId,
-                      "DELETE"
-                    ).then((res) => {});
-                    break;
-                  default:
-                    break;
-                }
-              }
-            }
-          });
+          impactInventory(key, dico);
         }
       }
     }
