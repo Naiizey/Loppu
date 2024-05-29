@@ -241,3 +241,23 @@
     width: 10em;
     height: 10em;
 }
+
+.characterSheetSmall.shake{
+    animation: linear;
+    animation-name: shake;
+    animation-duration: 500ms;
+}
+
+@keyframes shake {
+0%{
+    transform: scale(1.05);
+    border: 1px solid red;
+}
+50%{
+    border: 3px solid red;
+}
+100%{
+    transform: scale(1);
+    border: 1px solid red;
+}
+}
