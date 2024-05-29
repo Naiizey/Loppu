@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "stats": {
+      "type": "object",
+      "properties": {
+        "resistance": {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "type": "string",
+              "enum": ["+", "-"]
+            },
+            "value": {
+              "type": "number"
+            }
+          }
+        },
+        "strength": {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "type": "string",
+              "enum": ["+", "-"]
+            },
+            "value": {
+              "type": "number"
+            }
+          }
+        },
+        "intelligence": {
+          "type": "object",
+          "properties": {
+            "operator": {
+              "type": "string",
+              "enum": ["+", "-"]
+            },
+            "value": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "stuff": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "$comment": "May be replaced with an id in db"
+          },
+          "quantity": {
+            "type": "number"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["weapon", "armor", "potion"]
+          },
+          "stats": {
+            "type": "object",
+            "properties": {
+              "resistance": {
+                "type": "object",
+                "properties": {
+                  "operator": {
+                    "type": "string",
+                    "enum": ["+", "-"]
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              },
+              "strength": {
+                "type": "object",
+                "properties": {
+                  "operator": {
+                    "type": "string",
+                    "enum": ["+", "-"]
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              },
+              "intelligence": {
+                "type": "object",
+                "properties": {
+                  "operator": {
+                    "type": "string",
+                    "enum": ["+", "-"]
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

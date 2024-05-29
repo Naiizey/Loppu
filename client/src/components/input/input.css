@@ -1,0 +1,31 @@
+.inputComponent{
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
+}
+
+.inputComponent h4{
+    width: fit-content;
+}
+
+.inputComponent > .inputContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inputContainer input{
+    color: var(--dark-grey);
+
+    height: 2em;
+    flex-grow: 1;
+
+    border:none;
+    border-radius: .5em;
+    padding: 0 .5em;
+}
+
+.inputContainer svg{
+    height: 2em;
+}

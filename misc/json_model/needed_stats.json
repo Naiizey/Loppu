@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "properties": {
+    "resistance": {
+      "type": "number"
+    },
+    "intelligence": {
+      "type": "number"
+    },
+    "strength": {
+      "type": "number"
+    }
+  }
+}

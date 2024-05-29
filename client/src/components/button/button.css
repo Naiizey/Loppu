@@ -1,0 +1,167 @@
+.largeButtonComponent{
+    height: 2.5rem;
+    width: 100%;
+}
+
+.mediumButtonComponent{
+    align-self: center;
+
+    height: 2rem;
+    width: 75%;
+}
+
+.smallButtonComponent{
+    align-self: center;
+
+    height: 1.5rem;
+    width: 50%;
+}
+
+
+
+
+button[class*=button]{
+    display: flex;
+    column-gap: .5em;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    border: none;
+    border-radius: .5em;
+    cursor: pointer;
+    transition: background-color .75s, color .75s;
+}
+
+
+[class^=largeButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+}
+
+[class^=largeButton] > button svg{
+    height: 1.5em;
+}
+
+[class^=mediumButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: .75em;
+    justify-content: center;
+}
+
+[class^=mediumButton] > button svg{
+    height: 1em;
+}
+
+[class^=smallButton] > button{
+    width: 100%;
+    height: 100%;
+    font-size: .5em;
+    justify-content: center;
+}
+
+[class^=smallButton] > button svg{
+    height: .75em;
+}
+
+[class$=button-danger]{
+    background-color: var(--red-shade);
+    color: var(--white-shade);
+}
+
+[class$=button-danger]:hover{
+    background-color: var(--white-shade);
+    color: var(--red-shade);
+    border: 1px solid var(--red-shade) !important;
+}
+
+[class$=button-danger]:hover svg{
+    fill: var(--red-shade) !important;
+}
+
+[class$=button-info]{
+    background-color: var(--blue-shade);
+    color: var(--white-shade);
+}
+
+[class$=button-info] path{
+    fill: var(--white-shade);
+}
+
+[class$=button-info]:hover{
+    background-color: var(--white-shade);
+    color: var(--blue-shade);
+    border: 1px solid var(--blue-shade) !important;
+}
+
+[class$=button-info]:hover svg{
+    fill: var(--blue-shade) !important;
+}
+
+[class$=button-incoming]{
+    background-color: black;
+
+    color: var(--dark-grey);
+
+    opacity: .8;
+}
+
+[class$=button-incoming] path{
+    fill: var(--dark-grey);
+}
+
+[class$=button-success]{
+    margin-top: .5em;
+    background-color: var(--green-shade);
+    color: var(--dark-grey);
+    overflow: hidden;
+}
+
+[class$=button-success]:hover{
+    background-color: var(--dark-grey);
+    color: var(--green-shade);
+    border: 1px solid var(--green-shade) !important;
+}
+
+[class$=button-dark]{
+    background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
+    border: 1px solid var(--white-shade) !important;
+    color: var(--white-shade);
+}
+
+
+[class$=button-dark] path{
+    fill: var(--white-shade);
+}
+
+[class$=button-dark]:hover{
+    background-color: var(--white-shade);
+    color: var(--dark-grey) !important;
+}
+
+[class$=button-story]{
+    background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
+    color: var(--white-shade);
+    border: 1px solid var(--white-shade) !important;
+    display: inline-block !important;
+
+    min-height: 10em !important;
+    height: fit-content !important;
+    max-height: 20em !important;
+    min-width: 10em !important;
+    width: fit-content !important;
+
+    text-overflow: ellipsis;
+}
+
+[class$=button-story]:hover{
+    background-color: var(--white-shade);
+    color: var(--dark-grey) !important;
+}
+
+
+[class$=button-story], [class$=button-dark]{
+    font-family: 'Inknut-Antiqua-Semi-Bold', sans-serif;
+    font-size: 0.75em !important;
+}

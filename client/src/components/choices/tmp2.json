@@ -1,0 +1,14 @@
+[
+    {
+        "text": "North, to Gastromo's Tower",
+        "goto": 10
+    },
+    {
+        "text": "South, to the Blue Crab Tavern",
+        "goto": 20
+    },
+    {
+        "text": "East, to the forge turn",
+        "goto": 5
+    }
+]

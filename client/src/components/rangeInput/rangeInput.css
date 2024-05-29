@@ -1,0 +1,8 @@
+.rangeInputComponent, .rangeInputComponent input{
+    width: 100%;
+}
+
+.rangeInputComponent h4{
+    display: flex;
+    justify-content: space-between;
+}

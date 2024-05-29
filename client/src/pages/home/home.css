@@ -1,0 +1,28 @@
+/*
+    TODO ADD Scroll possibility to section containing the displayed stories
+*/
+
+
+main#home{
+    display: flex;
+    flex-direction: column;
+    padding: 2em 0;
+    row-gap: 2em;
+    color: var(--white-shade);
+}
+
+main#home > section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 2em;
+}
+
+main#home h1, main#home h2{
+    font-family: 'Inria-Sans-Regular', sans-serif;
+}
+
+main#home h1{
+    font-size: 2em;
+}
