@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import API from "../../utils/API";
 import Dices from "../../components/dices/dices";
 import { rollAllDices } from "../../components/dices/dices";
-import characterSheet from "../characterSheet/characterSheet";
 
 /**
- * 
+ * Function to get the id of the character from the local storage
  * @returns the id of the character
  */
 function getCharaId() {
@@ -43,32 +42,29 @@ function editStat(operator, value, stat, actualDicoStat) {
 }
 
 /**
- * 
+ * Function to impact the stats of the character based on the story impact dico
  * @param {*} key The key of the dico
  * @param {*} dico The dico of the stats
  * @param {*} stats The stats of the character
  * @returns The dico of the stats.
  */
-function impactStats(key, dico, stats)
-{
+function impactStats(key, dico, stats) {
+  API("/characters/" + getCharaId()).then((res) => {
+    stats = res[0].stats;
     for (const typeStat in dico[key]) {
-        //get the current stats
-        API("/characters/" + getCharaId()).then((res) => {
-          stats = res[0].stats;
-          for (const stat in stats) {
-            // if the stat is typeStat
-            if (stat === typeStat) {
-              editStat(
-                dico[key][typeStat].operator,
-                dico[key][typeStat].value,
-                stat,
-                stats
-              );
-            }
-          }
-        });
+      for (const stat in stats) {
+        if (stat === typeStat) {
+          editStat(
+            dico[key][typeStat].operator,
+            dico[key][typeStat].value,
+            stat,
+            stats
+          );
+        }
       }
-    return stats;
+    }
+  });
+  return stats;
 }
 
 /**
@@ -77,38 +73,36 @@ function impactStats(key, dico, stats)
  * @param {*} dico The impact dico
  */
 function impactInventory(key, dico) {
-  //get the stuff object from the character wich is a jsonb object
-  API("/characters/" + getCharaId() + "/stuff").then((res) => {
-    let stuff = res[0].stuff.inventory;
-    // for each key in the inventory dico
-    for (const index in dico[key]) {
-      let item = dico[key][index];
-      let operator = item.operator;
-      if (operator !== undefined) {
-        let charaId = getCharaId();
-        let itemId = item.id_item;
-        switch (operator) {
-          case "+":
-            API(
-              "characters/" + charaId + "/inventory/" + itemId,
-              "PUT"
-            ).then((res) => {});
-            break;
-          case "-":
-            API(
-              "characters/" + charaId + "/inventory/" + itemId,
-              "DELETE"
-            ).then((res) => {});
-            break;
-          default:
-            break;
-        }
+  for (const index in dico[key]) {
+    let item = dico[key][index];
+    let operator = item.operator;
+    if (operator !== undefined) {
+      let charaId = getCharaId();
+      let itemId = item.id_item;
+      switch (operator) {
+        case "+":
+          API(
+            "characters/" + charaId + "/inventory/" + itemId,
+            "PUT"
+          ).then(() => {});
+          break;
+        case "-":
+          API(
+            "characters/" + charaId + "/inventory/" + itemId,
+            "DELETE"
+          ).then(() => {});
+          break;
+        default:
+          break;
       }
     }
-  });
+  }
 }
 
-//function to interpret an impact (must receive an "impact" dico)
+/**
+ * function to interpret an impact
+ * @param {*} dico the dimpact dico
+ */
 function interpretImpact(dico) {
   let stats = {};
   for (const key in dico) {
@@ -126,29 +120,34 @@ function interpretImpact(dico) {
   }
 }
 
+/**
+ * Function to set the section id in the local storage
+ * @param {*} sectionId The id of the section
+ */
 function setSectionIdLocalStorage(sectionId) {
   localStorage.setItem("sectionId", sectionId);
 }
 
+/**
+ * Function to go to a section
+ * @param {*} sectionId  The id of the section
+ * @param {*} setSectionId The function to set the section id
+ * @param {*} setDiceValue The function to set the dice value
+ */
 function gotoSection(sectionId, setSectionId, setDiceValue) {
   console.log("gotoSection");
-  console.log(sectionId);
   setDiceValue(0);
   setSectionIdLocalStorage(sectionId);
   localStorage.setItem("sectionId", sectionId);
   setSectionId(sectionId);
   let charaId = getCharaId();
   addPath(sectionId, charaId);
-  console.log(sectionId);
 }
 
 //function to go to an other section /!\ She needs to break the loop or the father
-function gotoSectionButton(
-  sectionId,
-  setGotoSectionId,
-  successText,
-  failureText
-) {
+function gotoSectionButton(sectionId, setGotoSectionId, successText, failureText) 
+{
+  console.log("gotoSectionButton");
   setSectionIdLocalStorage(sectionId);
   setGotoSectionId(sectionId);
   if (successText !== undefined) {
@@ -159,14 +158,18 @@ function gotoSectionButton(
   }
 }
 
-// function to check if the stats verify a certain value
+/**
+ * Function to check the prerequesites of the stats
+ * @param {*} stat The stat name to check
+ * @param {*} operator The operator to use
+ * @param {*} value The value to check
+ * @returns 
+ */
 const checkStatsPrerequesites = (stat, operator, value) => {
   let stats;
   let charaId = getCharaId();
   return API("/characters/" + charaId).then((res) => {
     stats = res[0].stats;
-    // The operator is a string containing the operator to use
-    // eg : "<", ">", "<=", ">=", "=="
     switch (operator) {
       case "<":
         return stats[stat] < value;
@@ -184,7 +187,11 @@ const checkStatsPrerequesites = (stat, operator, value) => {
   });
 };
 
-// function to execute the consequences of a dice result (must receive a "diceResult" dico)
+/**
+ * Function to interpret the impact of the dice result
+ * @param {*} dico The dico of the dice result consequences
+ * @param {*} setGotoSectionId The function to set the goto section id
+ */
 function diceResultConsequances(dico, setGotoSectionId) {
   let successText;
   if (dico.successText !== undefined) {
@@ -204,7 +211,13 @@ function diceResultConsequances(dico, setGotoSectionId) {
   }
 }
 
-// function to interpret a dice operation (must receive a "action" dico)
+/**
+ * Function to interpret the dice result
+ * @param {*} dico The action dictionary
+ * @param {*} diceValue The value of the dice
+ * @param {*} setGotoSectionId The function to set the goto section id
+ * @returns a boolean
+ */
 function interpretDiceResult(dico, diceValue, setGotoSectionId) {
   let diceResultList = dico.diceResult;
   for (let index = 0; index < diceResultList.length; index++) {
@@ -220,7 +233,6 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId) {
           }
         });
         break;
-
       case "equalsTo":
         let value = element.value;
         if (diceValue === value) {
@@ -236,11 +248,14 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId) {
         break;
       default:
         return false;
-        break;
     }
   }
 }
 
+/**
+ * Function to check if the character is dead
+ * @returns a boolean
+ */
 function checkIfDead() {
   let stats;
   let charaId = getCharaId();
@@ -255,122 +270,147 @@ function checkIfDead() {
   return dead;
 }
 
+/**
+ * The function to interpret the require section if the character is not dead
+ * @param {*} dico The whole section dico
+ * @param {*} setGotoSectionId The function to set the goto section id
+ */
+function notDeadRequireProcess(dico, setGotoSectionId)
+{
+  if (!checkIfDead()) {
+    if (dico.action.win.goto !== undefined) {
+      let text = null;
+      if (dico.action.win.text !== undefined) {
+        text = dico.action.win.text;
+      }
+      if (dico.action.win.impact !== undefined) {
+        interpretImpact(dico.action.win.impact);
+      }
+      gotoSectionButton(
+        dico.action.win.goto,
+        setGotoSectionId,
+        text
+      );
+    } else {
+      if (dico.action.win.impact !== undefined) {
+        interpretImpact(dico.action.win.impact);
+      }
+    }
+  }
+}
+
+/**
+ * The function to interpret the require section if the character is dead
+ * @param {*} dico The whole section dico
+ * @param {*} setGotoSectionId The function to set the goto section id
+ */
+function deadRequireProcess(dico, setGotoSectionId) {
+  if (checkIfDead()) {
+    if (dico.action.lose.goto !== undefined) {
+      let text = null;
+      if (dico.action.lose.text !== undefined) {
+        text = dico.action.lose.text;
+      }
+      if (dico.action.lose.impact !== undefined) {
+        interpretImpact(dico.action.lose.impact);
+      }
+      gotoSectionButton(
+        dico.action.lose.goto,
+        setGotoSectionId,
+        null,
+        text
+      );
+    } else {
+      if (dico.action.lose.impact !== undefined) {
+        interpretImpact(dico.action.lose.impact);
+      }
+    }
+  }
+}
+
+/**
+ * Function process the undefined action section
+ * @param {*} dico The whole section dico
+ * @param {*} setGotoSectionId The function to set the goto section id
+ * @param {*} choiceNumber The number of the choice
+ * @param {*} gotoId The id of the goto section
+ * @param {*} setSectionId The function to set the section id
+ * @param {*} setDiceValue The function to set the dice value
+ * @param {*} resolve The resolve function of the promise
+ * @param {*} reject The reject function of the promise
+ */
+function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject)
+{
+  switch (dico.action.type) {
+    case "dice":
+      launchDices(dico.action.numberOfDice).then((res) => {
+        interpretDiceResult(dico.action, res, setGotoSectionId);
+        if (dico.action.win !== undefined) {
+          notDeadRequireProcess(dico, setGotoSectionId);
+        }
+        if (dico.action.lose !== undefined) {
+          deadRequireProcess(dico, setGotoSectionId);
+        }
+        resolve();
+      });
+      break;
+    case "story":
+      interpretStory(dico, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue);
+      resolve();
+      break;
+    default:
+      reject(new Error("unknown require type"));
+      break;
+  }
+}
+
+/**
+ * Function to process the item action
+ * @param {*} dico The whole section dico
+ * @param {*} resolve The resolve function of the promise
+ * @param {*} reject The reject function of the promise
+ */
+function itemActionProcess(dico, resolve, reject) {
+  if (dico.item !== undefined) {
+    let item = dico.item;
+    let id_item = item.id_item;
+    let charaId = getCharaId();
+    API("/characters/" + charaId + "/stuff").then((res) => {
+      let inventory = res[0].inventory;
+      inventory.forEach((element) => {
+        if (element[id_item] !== undefined) {
+          resolve(true);
+        }
+      });
+      resolve(false);
+    });
+  } else {
+    reject(new Error("Missing item in require dico"));
+  }
+}
+
+function statActionProcess(dico, resolve) {
+  if (dico.stats !== undefined) {
+    let stats = dico.stats;
+    let operator = stats.operator;
+    let stat = stats.stat;
+    let value = stats.value;
+    checkStatsPrerequesites(stat, operator, value).then((result) => {
+      resolve(result);
+    });
+  }
+}
+
 // function to handle the require section (need to have a "require" dico in parameters)
-function interpretRequire(
-  dico,
-  setGotoSectionId,
-  choiceNumber,
-  gotoId,
-  setSectionId,
-  setDiceValue
-) {
+function interpretRequire(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue) 
+{
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
-      switch (dico.action.type) {
-        case "dice":
-          launchDices(dico.action.numberOfDice).then((res) => {
-            interpretDiceResult(dico.action, res, setGotoSectionId);
-            if (dico.action.win !== undefined) {
-              //if not dead
-              if (!checkIfDead()) {
-                if (dico.action.win.goto !== undefined) {
-                  let text = null;
-                  if (dico.action.win.text !== undefined) {
-                    text = dico.action.win.text;
-                  }
-                  if (dico.action.win.impact !== undefined) {
-                    interpretImpact(dico.action.win.impact);
-                  }
-                  gotoSectionButton(
-                    dico.action.win.goto,
-                    setGotoSectionId,
-                    text
-                  );
-                } else {
-                  if (dico.action.win.impact !== undefined) {
-                    interpretImpact(dico.action.win.impact);
-                  }
-                }
-              }
-            }
-            if (dico.action.lose !== undefined) {
-              // if dead
-              if (checkIfDead()) {
-                if (dico.action.lose.goto !== undefined) {
-                  let text = null;
-                  if (dico.action.lose.text !== undefined) {
-                    text = dico.action.lose.text;
-                  }
-                  if (dico.action.lose.impact !== undefined) {
-                    interpretImpact(dico.action.lose.impact);
-                  }
-                  gotoSectionButton(
-                    dico.action.lose.goto,
-                    setGotoSectionId,
-                    null,
-                    text
-                  );
-                } else {
-                  if (dico.action.lose.impact !== undefined) {
-                    interpretImpact(dico.action.lose.impact);
-                  }
-                }
-              }
-            }
-            resolve();
-          });
-          break;
-        // case "combat":
-        //     // TODO : integrate the fight
-        //     interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId);
-        //     break;
-        case "story":
-          interpretStory(
-            dico,
-            gotoId,
-            setSectionId,
-            choiceNumber,
-            setGotoSectionId,
-            setDiceValue
-          );
-          resolve();
-          break;
-        default:
-          reject(new Error("unknown require type"));
-          break;
-      }
+      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject);
     } else if (dico.type === "items") {
-      if (dico.item !== undefined) {
-        let item = dico.item;
-        let id_item = item.id_item;
-        let quantity = item.quantity;
-        let charaId = getCharaId();
-        // get character stuff
-        API("/characters/" + charaId + "/stuff").then((res) => {
-          let stuff = res[0].stuff;
-          let inventory = res[0].inventory;
-          // [{"5": "weapon"}, ...]
-          inventory.forEach((element) => {
-            if (element[id_item] !== undefined) {
-              resolve(true);
-            }
-          });
-          resolve(false);
-        });
-      } else {
-        reject(new Error("Missing item in require dico"));
-      }
+      itemActionProcess(dico, resolve, reject);
     } else if (dico.type === "stats") {
-      if (dico.stats !== undefined) {
-        let stats = dico.stats;
-        let charaId = getCharaId();
-        let operator = stats.operator;
-        let stat = stats.stat;
-        let value = stats.value;
-        checkStatsPrerequesites(stat, operator, value).then((result) => {
-          resolve(result);
-        });
-      }
+      statActionProcess(dico, resolve);
     } else {
       reject(new Error("unknown require type"));
     }
