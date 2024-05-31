@@ -9,6 +9,7 @@ import StoryProgress from "../../components/storyProgress/storyProgress";
 import CharImage from "../../assets/images/giant.jpg";
 import Button from "../../components/button/button";
 import Levenshtein from "../../levenshtein";
+import Image from "../../assets/images/storiesDisplay.jpg";
 
 const SectionPage = () => {
   const [clickedCharacter, setClickedCharacter] = useState(null);
@@ -253,6 +254,9 @@ const SectionPage = () => {
           )}
         </aside>
       </section>
+      <div className="backgroundImage">
+        <img src={Image} alt="background" />
+      </div>
       <Loader loading={section.id === 0} />
     </main>
   );
