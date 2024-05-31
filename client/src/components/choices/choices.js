@@ -389,6 +389,11 @@ function itemActionProcess(dico, resolve, reject) {
   }
 }
 
+/**
+ * Function to process the stat action
+ * @param {*} dico The whole section dico
+ * @param {*} resolve The resolve function of the promise
+ */
 function statActionProcess(dico, resolve) {
   if (dico.stats !== undefined) {
     let stats = dico.stats;
@@ -401,8 +406,17 @@ function statActionProcess(dico, resolve) {
   }
 }
 
-// function to handle the require section (need to have a "require" dico in parameters)
-function interpretRequire(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue) 
+/**
+ * Function to interpret the require section
+ * @param {*} dico The whole section dico
+ * @param {*} setGotoSectionId The function to set the goto section id
+ * @param {*} choiceNumber The number of the choice
+ * @param {*} gotoId The id of the goto section
+ * @param {*} setSectionId The function to set the section id
+ * @param {*} setDiceValue The function to set the dice value
+ * @returns A promise
+ */
+function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue) 
 {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
@@ -418,15 +432,17 @@ function interpretRequire(dico, setGotoSectionId, choiceNumber, gotoId, setSecti
 }
 
 // function to interpret a story (must receive a "story" dico)
-// function to interpret a story (must receive a "story" dico)
-function interpretStory(
-  story,
-  gotoID,
-  setSectionId,
-  choiceNumber,
-  setGotoSectionId,
-  setDiceValue
-) {
+/**
+ * Function to interpret a story
+ * @param {*} story The story dico
+ * @param {*} gotoID The id of the goto section
+ * @param {*} setSectionId The function to set the section id
+ * @param {*} choiceNumber The number of the choice
+ * @param {*} setGotoSectionId The function to set the goto section id
+ * @param {*} setDiceValue The function to set the dice value
+ */
+function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue) 
+{
   let choices = story.choices;
   if (choices !== undefined && choices.length > 0) {
     let choice = choices[choiceNumber];
@@ -437,15 +453,7 @@ function interpretStory(
             interpretImpact(choice.impact);
           }
         } else {
-          // wait for the interpretation of the require
-          interpretRequire(
-            choice.require,
-            setGotoSectionId,
-            choiceNumber,
-            gotoID,
-            setSectionId,
-            setDiceValue
-          ).then((result) => {
+          interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue).then((result) => {
             if (result) {
               if (choice.impact !== undefined) {
                 interpretImpact(choice.impact);
@@ -462,14 +470,7 @@ function interpretStory(
           interpretImpact(choice.impact);
         }
       } else {
-        // wait for the interpretation of the require
-        interpretRequire(
-          choice.require,
-          setGotoSectionId,
-          choiceNumber,
-          setSectionId,
-          setDiceValue
-        ).then((result) => {
+        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, setSectionId, setDiceValue).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
               interpretImpact(choice.impact);
@@ -481,9 +482,11 @@ function interpretStory(
   } else {
     throw new Error("No choices in the story dico");
   }
-  // }
 }
 
+/**
+ * Function to check if the character is dead
+ */
 function deadButton() {
   let sectionId = localStorage.getItem("sectionId");
   if (sectionId !== null && sectionId !== undefined && sectionId !== 13) {
@@ -493,111 +496,146 @@ function deadButton() {
   }
 }
 
-// const version of the fnction launchDices bcs she need to be waited before the return
+/**
+ * Const async version of the function launchDices
+ * @param {*} numberOfDice The number of dice to launch
+ * @returns The result of the dices
+ */
 const launchDices = async (numberOfDice) => {
   localStorage.setItem("numberOfDices", numberOfDice);
-  //wait 100ms to be sure that the value is set
+  //wait to be sure that the value is set
   await new Promise((resolve) => setTimeout(resolve, 300));
   const res = await rollAllDices();
   return res;
 };
 
-function interpretFight(
-  action,
-  setCombatInfo,
-  choiceNumber,
-  setSectionId,
-  setDiceValue
-) {
-  //gérer ennemi
-  //Choix = bouton choix
-  if (action.choices[choiceNumber].text.toLowerCase().includes("flee")) {
-    gotoSection(action.choices[choiceNumber].goto, setSectionId, setDiceValue);
+/**
+ * Function to interpret the require section of a fight
+ * @param {*} action The action dico
+ * @param {*} choiceNumber The number of the choice
+ * @param {*} char The character dico
+ * @param {*} enemyRes The resistance of the enemy
+ * @param {*} setCombatInfo The function to set the combat info
+ */
+function interpretRequireFight(action, choiceNumber, char, enemyRes, setCombatInfo)
+{
+  let item_type, item;
+  if (action.choices[choiceNumber].require.action) {
+    item_type = action.choices[choiceNumber].require.action.type;
+    item =
+      action.choices[choiceNumber].require.action[item_type][
+        `id_${item_type}`
+      ];
   } else {
-    if (!localStorage.getItem("enemyRes")) {
-      localStorage.setItem("enemyRes", action.enemy.resistance);
-    }
-
-    let enemyRes = localStorage.getItem("enemyRes");
-    API("characters/" + getCharaId()).then((char) => {
-      char = char[0];
-      if (action.choices[choiceNumber].require) {
-        let item_type, item;
-        if (action.choices[choiceNumber].require.action) {
-          item_type = action.choices[choiceNumber].require.action.type;
-          item =
-            action.choices[choiceNumber].require.action[item_type][
-              `id_${item_type}`
-            ];
-        } else {
-          item_type = action.choices[choiceNumber].require.type;
-          item =
-            action.choices[choiceNumber].require[item_type][`id_${item_type}`];
-        }
-        let charItems = Object.keys(char.stuff.stuff[0]);
-        if (charItems.includes(item.toString())) {
-          let storyId = localStorage.getItem("storyId");
-          API("stuff/" + storyId + "/" + item).then((itemResp) => {
-            item = itemResp[0];
-            if (enemyRes < char.stats.strength + item.stats.strength) {
-              localStorage.removeItem("enemyRes");
-              setCombatInfo("win");
-            } else {
-              char.stats.resistance -= action.enemy.strength;
-              action.enemy.resistance -= char.stats.strength;
-              API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
-              if (char.stats.resistance > 0) {
-                setCombatInfo("during");
-                localStorage.setItem("enemyRes", action.enemy.resistance);
-              } else {
-                localStorage.removeItem("enemyRes");
-                checkIfDead();
-                setCombatInfo("lose");
-              }
-            }
-          });
-        }
+    item_type = action.choices[choiceNumber].require.type;
+    item =
+      action.choices[choiceNumber].require[item_type][`id_${item_type}`];
+  }
+  let charItems = Object.keys(char.stuff.stuff[0]);
+  if (charItems.includes(item.toString())) {
+    let storyId = localStorage.getItem("storyId");
+    API("stuff/" + storyId + "/" + item).then((itemResp) => {
+      item = itemResp[0];
+      if (enemyRes < char.stats.strength + item.stats.strength) {
+        localStorage.removeItem("enemyRes");
+        setCombatInfo("win");
       } else {
-        if (enemyRes < char.stats.strength) {
-          localStorage.removeItem("enemyRes");
-          setCombatInfo("win");
+        char.stats.resistance -= action.enemy.strength;
+        action.enemy.resistance -= char.stats.strength;
+        API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+        if (char.stats.resistance > 0) {
+          setCombatInfo("during");
+          localStorage.setItem("enemyRes", action.enemy.resistance);
         } else {
-          char.stats.resistance -= action.enemy.strength;
-          action.enemy.resistance -= char.stats.strength;
-          API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
-          if (char.stats.resistance > 0) {
-            setCombatInfo("during");
-            localStorage.setItem("enemyRes", action.enemy.resistance);
-          } else {
-            localStorage.removeItem("enemyRes");
-            checkIfDead();
-            setCombatInfo("lose");
-          }
+          localStorage.removeItem("enemyRes");
+          checkIfDead();
+          setCombatInfo("lose");
         }
       }
     });
   }
 }
 
+/**
+ * Function to interpret the fight if no require section in the fight
+ * @param {*} action The action dico
+ * @param {*} char The character dico
+ * @param {*} enemyRes The resistance of the enemy
+ * @param {*} setCombatInfo The function to set the combat info
+ */
+function interpretNoRequireFight(action, char, enemyRes, setCombatInfo)
+{
+  if (enemyRes < char.stats.strength) {
+    localStorage.removeItem("enemyRes");
+    setCombatInfo("win");
+  } else {
+    char.stats.resistance -= action.enemy.strength;
+    action.enemy.resistance -= char.stats.strength;
+    API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+    if (char.stats.resistance > 0) {
+      setCombatInfo("during");
+      localStorage.setItem("enemyRes", action.enemy.resistance);
+    } else {
+      localStorage.removeItem("enemyRes");
+      checkIfDead();
+      setCombatInfo("lose");
+    }
+  }
+}
+
+/**
+ * The function to interpret the fight
+ * @param {*} action The action dico
+ * @param {*} setCombatInfo The function to set the combat info
+ * @param {*} choiceNumber The number of the choice
+ * @param {*} setSectionId The function to set the section id
+ * @param {*} setDiceValue The function to set the dice value
+ */
+function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDiceValue)
+{
+  if (action.choices[choiceNumber].text.toLowerCase().includes("flee")) {
+    gotoSection(action.choices[choiceNumber].goto, setSectionId, setDiceValue);
+  }
+  else {
+    if (!localStorage.getItem("enemyRes")) {
+      localStorage.setItem("enemyRes", action.enemy.resistance);
+    }
+    let enemyRes = localStorage.getItem("enemyRes");
+    API("characters/" + getCharaId()).then((char) => {
+      char = char[0];
+      if (action.choices[choiceNumber].require) {
+        interpretRequireFight(action, choiceNumber, char, enemyRes, setCombatInfo);
+      } else {
+        interpretNoRequireFight(action, char, enemyRes, setCombatInfo);
+      }
+    });
+  }
+}
+
+/**
+ * Function to add a path in the database
+ * @param {*} id_sections The id of the section
+ * @param {*} id_character The id of the character
+ */
 function addPath(id_sections, id_character) {
   let path = {
     id_character,
     id_sections,
   };
-
   API("paths", "POST", path);
 }
 
-// function to onterpret the action from the click of the button
-function interpretAction(
-  gotoId,
-  choiceNumber,
-  setSectionId,
-  setCombatInfo,
-  setGotoSectionId,
-  sectionChoice,
-  setDiceValue
-) {
+/**
+ * Function to interpret the action from the click of the button
+ * @param {*} gotoId The id of the goto section
+ * @param {*} choiceNumber The number of the choice
+ * @param {*} setSectionId THhe function to set the section id
+ * @param {*} setCombatInfo The function to set the combat info
+ * @param {*} setGotoSectionId THhe function to set the goto section id
+ * @param {*} sectionChoice The choice of the section
+ * @param {*} setDiceValue THhe function to set the dice value
+ */
+function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setGotoSectionId, sectionChoice, setDiceValue) {
   if (!checkIfDead()) {
     let storyID = localStorage.getItem("storyId");
     let currentSectionId = localStorage.getItem("sectionId");
@@ -606,22 +644,9 @@ function interpretAction(
       section = res[0];
       if (gotoId !== null) {
         if (section.content.action.type === "story") {
-          interpretStory(
-            section.content.action,
-            gotoId,
-            setSectionId,
-            choiceNumber,
-            setGotoSectionId,
-            setDiceValue
-          );
+          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue);
         } else if (section.content.action.type === "combat") {
-          interpretFight(
-            section.content.action,
-            setCombatInfo,
-            choiceNumber,
-            setSectionId,
-            setDiceValue
-          );
+          interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue);
         }
       } else {
         if (sectionChoice.goto !== undefined) {
@@ -629,33 +654,23 @@ function interpretAction(
         }
 
         if (section.content.action.type === "story") {
-          interpretStory(
-            section.content.action,
-            gotoId,
-            setSectionId,
-            choiceNumber,
-            setGotoSectionId,
-            setDiceValue
-          );
+          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue);
         } else if (section.content.action.type === "combat") {
-          interpretFight(
-            section.content.action,
-            setCombatInfo,
-            choiceNumber,
-            setSectionId,
-            setDiceValue
-          );
+          interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue);
         }
       }
     });
   }
 }
 
+/**
+ * Function to get the choices of a section
+ * @param {*} id The id of the section
+ * @returns A promise
+ */
 function getChoices(id) {
   let story_id = localStorage.getItem("storyId");
   return new Promise((resolve, reject) => {
-    //wait 1s
-
     API("sections/" + story_id + "/" + id).then((storyRes) => {
       if (storyRes[0].id === 50) {
         resolve([]);
