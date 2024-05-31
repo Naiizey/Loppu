@@ -673,7 +673,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
     <div className="container-choices-dices">
       <Dices nbDices={diceValue} />
       <div className="container-choices">
-        {dead == 1 ? (
+        {dead == 1 && getSectionId() != 13 ? (
           <Button
             size={"small"}
             text={"Next"}
