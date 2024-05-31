@@ -160,10 +160,12 @@
     background-color: var(--black-shade);
     border-radius: 10px;
     box-shadow: 0 0 10px var(--black-shade);
-    transition: all 0.3s;
     padding: 1em;
     column-gap: 0.5em;
     width: 24em;
+    min-height: 8em;
+
+    transition: min-height 0.4s;
 }
 
 .characterSheetSmall > :first-child{
@@ -174,6 +176,10 @@
     display: flex;
     flex-direction: column;
     row-gap: 0.5em;
+}
+
+.characterSheetSmall > p, .characterSheetSmall > ul, .characterSheetSmall > hr{
+    display: none;
 }
 
 .characterSheetSmall > section > ul{
@@ -205,7 +211,13 @@
     row-gap: 0.5em;
     padding: 1em;
     width: 24em;
+    min-height: 43em;
+
     transition: all 0.3s;
+}
+
+.characterSheetSmall.selected > p, .characterSheetSmall.selected > ul, .characterSheetSmall.selected > hr{
+    display: block;
 }
 
 .selected hr{
