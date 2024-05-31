@@ -668,7 +668,6 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setChoices(res);
     });
   }, [story_id, id]);
-  //story_id
 
   return (
     <div className="container-choices-dices">
@@ -682,6 +681,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
             onClick={() => {
               gotoSection(13, setSectionId, setDiceValue);
             }}
+            targetIdSection="13"
           />
         ) : gotoSectionId !== 0 ? (
           <Button
@@ -693,11 +693,33 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
             }}
+            targetIdSection="13"
+          />
+        ) : id == 50 ? (
+          <Button
+            type="story"
+            size="small"
+            text="End the story"
+            onClick={() => (window.location = "/ending")}
           />
         ) : (
           choices &&
           choices.map((item, i) => {
             if (!item.victory && !item.lose) {
+              let targetIdSections = [];
+              let diceResult = item?.require?.action?.diceResult;
+              if (item.goto) {
+                targetIdSections.push(item.goto);
+              } else if (diceResult) {
+                for (let j = 0; j < diceResult.length; j++) {
+                  if (diceResult[j].goto) {
+                    targetIdSections.push(diceResult[j].goto);
+                  }
+                }
+              }
+              if (targetIdSections.length != 0 && targetIdSections.length != 1) {
+                throw new Error("");
+              }
               return (
                 <Button
                   key={i}
@@ -710,6 +732,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
                     handleButtonClick(item, i);
                     //addPath(item.id_section_to, 1);
                   }}
+                  targetIdSection={targetIdSections[0]}
                 />
               );
             }

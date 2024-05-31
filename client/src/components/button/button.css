@@ -10,13 +10,6 @@
     width: 75%;
 }
 
-.smallButtonComponent{
-    width: 50%;
-}
-
-
-
-
 button[class*=button]{
     display: flex;
     column-gap: .5em;
@@ -138,9 +131,18 @@ button[class*=button]{
 }
 
 [class$=button-story]{
+    display: flex;
+    flex-direction: column;
     background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
     color: var(--white-shade);
     border: 1px solid var(--white-shade) !important;
+}
+
+[class$=button-story] span{
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    opacity: .65;
+    padding-bottom: 0.3em;
+    font-size: 1.2em;
 }
 
 [class$=button-story]:hover{

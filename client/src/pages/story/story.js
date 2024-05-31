@@ -202,7 +202,6 @@ const SectionPage = () => {
           </article>
         </div>
         <aside>
-          {/* <Dices nbDices={2} /> */}
           {!combatInfo && (
             <Choices
               id={sectionId}
@@ -247,14 +246,6 @@ const SectionPage = () => {
                 setCombatInfo={setCombatInfo}
               />
             </div>
-          )}
-          {sectionId === 50 && (
-            <Button
-              type="story"
-              size="small"
-              text="End the story"
-              onClick={() => (window.location = "/ending")}
-            />
           )}
         </aside>
       </section>
