@@ -668,52 +668,77 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setChoices(res);
     });
   }, [story_id, id]);
-  //story_id
 
   return (
-    <div className="container-choices">
+    <div className="container-choices-dices">
       <Dices nbDices={diceValue} />
-      {dead == 1 && getSectionId() != 13 ? (
-        <Button
-          size={"small"}
-          text={"Next"}
-          type={"story"}
-          onClick={() => {
-            gotoSection(13, setSectionId, setDiceValue);
-          }}
-        />
-      ) : gotoSectionId !== 0 ? (
-        <Button
-          size={"small"}
-          text={"Continuez"}
-          // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
-          type={"story"}
-          onClick={() => {
-            gotoSection(gotoSectionId, setSectionId, setDiceValue);
-            setGotoSectionId(0);
-          }}
-        />
-      ) : (
-        choices &&
-        choices.map((item, i) => {
-          if (!item.victory && !item.lose) {
-            return (
-              <Button
-                key={i}
-                size={"small"}
-                type={"story"}
-                text={item.content || item.text}
-                onClick={() => {
-                  //   setChoices(item.id_section_to);
-                  //   setSectionId(item.id_section_to);
-                  handleButtonClick(item, i);
-                  //addPath(item.id_section_to, 1);
-                }}
-              />
-            );
-          }
-        })
-      )}
+      <div className="container-choices">
+        {dead == 1 && getSectionId() != 13 ? (
+          <Button
+            size={"small"}
+            text={"Next"}
+            type={"story"}
+            onClick={() => {
+              gotoSection(13, setSectionId, setDiceValue);
+            }}
+            targetIdSection="13"
+          />
+        ) : gotoSectionId !== 0 ? (
+          <Button
+            size={"small"}
+            text={"Next"}
+            // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
+            type={"story"}
+            onClick={() => {
+              gotoSection(gotoSectionId, setSectionId, setDiceValue);
+              setGotoSectionId(0);
+            }}
+            targetIdSection="13"
+          />
+        ) : id == 50 ? (
+          <Button
+            type="story"
+            size="small"
+            text="End the story"
+            onClick={() => (window.location = "/ending")}
+          />
+        ) : (
+          choices &&
+          choices.map((item, i) => {
+            if (!item.victory && !item.lose) {
+              let targetIdSections = [];
+              let diceResult = item?.require?.action?.diceResult;
+              if (item.goto) {
+                targetIdSections.push(item.goto);
+              } else if (diceResult) {
+                for (let j = 0; j < diceResult.length; j++) {
+                  if (diceResult[j].goto) {
+                    targetIdSections.push(diceResult[j].goto);
+                  }
+                }
+              }
+              if (targetIdSections.length != 0 && targetIdSections.length != 1) {
+                throw new Error("");
+              }
+              return (
+                <Button
+                  key={i}
+                  size={"small"}
+                  type={"story"}
+                  text={item.content || item.text}
+                  onClick={() => {
+                    //   setChoices(item.id_section_to);
+                    //   setSectionId(item.id_section_to);
+                    handleButtonClick(item, i);
+                    //addPath(item.id_section_to, 1);
+                  }}
+                  targetIdSection={targetIdSections[0]}
+                />
+              );
+            }
+          })
+        )}
+      </div>
     </div>
   );
 };

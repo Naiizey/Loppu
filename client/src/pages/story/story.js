@@ -195,12 +195,13 @@ const SectionPage = () => {
         )}
       </nav>
       <section>
-        <StoryProgress section={sectionId} />
-        <article>
-          <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
-        </article>
+        <div>
+          <StoryProgress section={sectionId} />
+          <article>
+            <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
+          </article>
+        </div>
         <aside>
-          {/* <Dices nbDices={2} /> */}
           {!combatInfo && (
             <Choices
               id={sectionId}
@@ -210,6 +211,7 @@ const SectionPage = () => {
           )}
           {combatInfo === "win" && (
             <Button
+              type="story"
               size="small"
               text={section.content.action.win.text}
               onClick={() => {
@@ -223,6 +225,7 @@ const SectionPage = () => {
           )}
           {combatInfo === "lose" && (
             <Button
+              type="story"
               size="small"
               text={section.content.action.lose.text}
               onClick={() => {
@@ -243,13 +246,6 @@ const SectionPage = () => {
                 setCombatInfo={setCombatInfo}
               />
             </div>
-          )}
-          {sectionId === 50 && (
-            <Button
-              size="small"
-              text="End the story"
-              onClick={() => (window.location = "/ending")}
-            />
           )}
         </aside>
       </section>
