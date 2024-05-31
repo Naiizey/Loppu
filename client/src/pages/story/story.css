@@ -1,9 +1,11 @@
 main#section {
+    flex-grow: 1;
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: stretch;
     column-gap: 2em;
-    padding: 2em 2em 0;
+    padding: 2em;
+    padding-bottom: 5em;
     color: var(--white-shade);
 }
 
@@ -18,16 +20,17 @@ main#section > :last-child{
 main#section section{
     display: flex;
     flex-direction: column;
-    row-gap: 2em;
+    justify-content: space-between;
     width: 100%;
 }
 
+main#section section > div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2em;
+}
+
 main#section article{
-    min-height: 10vh !important;
-    height: fit-content !important;
-    max-height: 20vh !important;
-    
-    overflow: scroll;
     text-align: justify;
     line-height: 1.5em;
     padding-right: 1em;
@@ -47,8 +50,6 @@ main#section aside{
     justify-content: space-around;
     align-items: center;
     column-gap: 1em;
-    margin-top: 2em;
-    padding-right: 15em;
 }
 
 main#section aside > Button{

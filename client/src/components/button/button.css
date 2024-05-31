@@ -11,9 +11,6 @@
 }
 
 .smallButtonComponent{
-    align-self: center;
-
-    height: 1.5rem;
     width: 50%;
 }
 
@@ -144,15 +141,6 @@ button[class*=button]{
     background-color: color-mix(in srgb, var(--dark-grey) 80%, black 25%);
     color: var(--white-shade);
     border: 1px solid var(--white-shade) !important;
-    display: inline-block !important;
-
-    min-height: 10em !important;
-    height: fit-content !important;
-    max-height: 20em !important;
-    min-width: 10em !important;
-    width: fit-content !important;
-
-    text-overflow: ellipsis;
 }
 
 [class$=button-story]:hover{

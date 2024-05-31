@@ -671,49 +671,51 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
   //story_id
 
   return (
-    <div className="container-choices">
+    <div className="container-choices-dices">
       <Dices nbDices={diceValue} />
-      {dead == 1 ? (
-        <Button
-          size={"small"}
-          text={"Next"}
-          type={"story"}
-          onClick={() => {
-            gotoSection(13, setSectionId, setDiceValue);
-          }}
-        />
-      ) : gotoSectionId !== 0 ? (
-        <Button
-          size={"small"}
-          text={"Continuez"}
-          // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
-          type={"story"}
-          onClick={() => {
-            gotoSection(gotoSectionId, setSectionId, setDiceValue);
-            setGotoSectionId(0);
-          }}
-        />
-      ) : (
-        choices &&
-        choices.map((item, i) => {
-          if (!item.victory && !item.lose) {
-            return (
-              <Button
-                key={i}
-                size={"small"}
-                type={"story"}
-                text={item.content || item.text}
-                onClick={() => {
-                  //   setChoices(item.id_section_to);
-                  //   setSectionId(item.id_section_to);
-                  handleButtonClick(item, i);
-                  //addPath(item.id_section_to, 1);
-                }}
-              />
-            );
-          }
-        })
-      )}
+      <div className="container-choices">
+        {dead == 1 ? (
+          <Button
+            size={"small"}
+            text={"Next"}
+            type={"story"}
+            onClick={() => {
+              gotoSection(13, setSectionId, setDiceValue);
+            }}
+          />
+        ) : gotoSectionId !== 0 ? (
+          <Button
+            size={"small"}
+            text={"Next"}
+            // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
+            type={"story"}
+            onClick={() => {
+              gotoSection(gotoSectionId, setSectionId, setDiceValue);
+              setGotoSectionId(0);
+            }}
+          />
+        ) : (
+          choices &&
+          choices.map((item, i) => {
+            if (!item.victory && !item.lose) {
+              return (
+                <Button
+                  key={i}
+                  size={"small"}
+                  type={"story"}
+                  text={item.content || item.text}
+                  onClick={() => {
+                    //   setChoices(item.id_section_to);
+                    //   setSectionId(item.id_section_to);
+                    handleButtonClick(item, i);
+                    //addPath(item.id_section_to, 1);
+                  }}
+                />
+              );
+            }
+          })
+        )}
+      </div>
     </div>
   );
 };
