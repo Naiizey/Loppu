@@ -135,7 +135,6 @@ function setSectionIdLocalStorage(sectionId) {
  * @param {*} setDiceValue The function to set the dice value
  */
 function gotoSection(sectionId, setSectionId, setDiceValue) {
-  console.log("gotoSection");
   setDiceValue(0);
   setSectionIdLocalStorage(sectionId);
   localStorage.setItem("sectionId", sectionId);
@@ -343,7 +342,7 @@ function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, se
 {
   switch (dico.action.type) {
     case "dice":
-      launchDices(dico.action.numberOfDice).then((res) => {
+      launchDices(dico.action.numberOfDice, setDiceValue).then((res) => {
         interpretDiceResult(dico.action, res, setGotoSectionId);
         if (dico.action.win !== undefined) {
           notDeadRequireProcess(dico, setGotoSectionId);
@@ -470,7 +469,7 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
           interpretImpact(choice.impact);
         }
       } else {
-        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, setSectionId, setDiceValue).then((result) => {
+        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
               interpretImpact(choice.impact);
@@ -501,8 +500,9 @@ function deadButton() {
  * @param {*} numberOfDice The number of dice to launch
  * @returns The result of the dices
  */
-const launchDices = async (numberOfDice) => {
-  localStorage.setItem("numberOfDices", numberOfDice);
+const launchDices = async (numberOfDice, setDiceValue) => {
+  //localStorage.setItem("numberOfDices", numberOfDice);
+  setDiceValue(numberOfDice);
   //wait to be sure that the value is set
   await new Promise((resolve) => setTimeout(resolve, 300));
   const res = await rollAllDices();
@@ -691,6 +691,35 @@ function getChoices(id) {
   });
 }
 
+/**
+ * Function to set the dice value and the dead value
+ * @param {*} setDiceValue The function to set the dice value
+ * @param {*} setDead The function to set the dead value
+ * @returns A promise
+ */
+function setDiceAndDead(setDiceValue, setDead) 
+{
+  return new Promise((resolve) => {
+    let numberOfDices = localStorage.getItem("numberOfDices");
+    if (numberOfDices !== null || numberOfDices !== undefined) {
+      setDiceValue(numberOfDices);
+      localStorage.removeItem("numberOfDices");
+    }
+
+    let dead = localStorage.getItem("dead");
+    if (dead !== null || dead !== undefined) {
+      setDead(dead);
+      localStorage.removeItem("dead");
+    }
+    resolve();
+  });
+}
+
+/**
+ * Main function to interpret the choices of a section
+ * @param {*} param0 The props of the component
+ * @returns A JSX element
+ */
 const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
   const [choices, setChoices] = useState([
     {
@@ -704,34 +733,15 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       victory: false,
     },
   ]);
+
   const story_id = localStorage.getItem("storyId");
   const [diceValue, setDiceValue] = useState(0);
   const [dead, setDead] = useState(0);
   const [gotoSectionId, setGotoSectionId] = useState(0);
-  const handleButtonClick = (item, i) => {
-    interpretAction(
-      item.id_section_to || null,
-      i,
-      setSectionId,
-      setCombatInfo,
-      setGotoSectionId,
-      item,
-      setDiceValue
-    );
-    // wait that "numberOfDices" of the localStorage is set
-    setTimeout(() => {
-      let numberOfDices = localStorage.getItem("numberOfDices");
-      if (numberOfDices !== null || numberOfDices !== undefined) {
-        setDiceValue(numberOfDices);
-        localStorage.removeItem("numberOfDices");
-      }
-
-      let dead = localStorage.getItem("dead");
-      if (dead !== null || dead !== undefined) {
-        setDead(dead);
-        localStorage.removeItem("dead");
-      }
-    }, 100);
+  const handleButtonClick = async (item, i) => {
+    interpretAction(item.id_section_to || null, i, setSectionId, setCombatInfo, setGotoSectionId, item, setDiceValue);
+    // wait that "numberOfDices" of the localStorage and dead in localStorage is set
+    await setDiceAndDead(setDiceValue, setDead);
   };
 
   useEffect(() => {
@@ -739,12 +749,11 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setChoices(res);
     });
   }, [story_id, id]);
-  //story_id
 
   return (
     <div className="container-choices">
       <Dices nbDices={diceValue} />
-      {dead == 1 ? (
+      {dead === 1 ? (
         <Button
           size={"small"}
           text={"Next"}
@@ -757,7 +766,6 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
         <Button
           size={"small"}
           text={"Continuez"}
-          // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
           type={"story"}
           onClick={() => {
             gotoSection(gotoSectionId, setSectionId, setDiceValue);
@@ -775,14 +783,12 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
                 type={"story"}
                 text={item.content || item.text}
                 onClick={() => {
-                  //   setChoices(item.id_section_to);
-                  //   setSectionId(item.id_section_to);
                   handleButtonClick(item, i);
-                  //addPath(item.id_section_to, 1);
                 }}
               />
             );
           }
+          return null;
         })
       )}
     </div>
