@@ -1,7 +1,7 @@
 import './dices.css';
 import Button from '../button/button';
 import Dice from 'react-dice-roll';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 /**
@@ -47,7 +47,7 @@ async function rollAllDices() {
  * 
  * @description This function updates the dice values stored in local storage.
  */
-function updateDiceValues(diceValue, push = false) {
+function updateDiceValues(diceValue, push = false, onDiceThrow) {
 
     let storedDiceValues = localStorage.getItem("diceValues");
     if (storedDiceValues === null) {
@@ -60,8 +60,6 @@ function updateDiceValues(diceValue, push = false) {
     localStorage.setItem("diceValues", storedDiceValues)
     
 }
-// use stat for dice value
-
 /**
  * 
  * @function Dices
@@ -72,9 +70,11 @@ function updateDiceValues(diceValue, push = false) {
  * 
  * @description This function creates a list of dice elements.
  */
-const Dices = ({nbDices }) => {
+const Dices = ({nbDices, onDiceThrow }) => {
+    console.log("diceValues: " + localStorage.getItem("diceValues"));
     localStorage.setItem("diceValues", [0]);
-    
+    console.log("nbDices: " + nbDices);
+
     const diceElements = [];
     let check = 0;
     for (let i = 0; i < nbDices; i++) {
