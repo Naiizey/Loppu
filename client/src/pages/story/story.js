@@ -9,7 +9,6 @@ import StoryProgress from "../../components/storyProgress/storyProgress";
 import CharImage from "../../assets/images/giant.jpg";
 import Button from "../../components/button/button";
 import Levenshtein from "../../levenshtein";
-import Image from "../../assets/images/storiesDisplay.jpg";
 
 const SectionPage = () => {
   const [clickedCharacter, setClickedCharacter] = useState(null);
@@ -196,12 +195,13 @@ const SectionPage = () => {
         )}
       </nav>
       <section>
-        <StoryProgress section={sectionId} />
-        <article>
-          <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
-        </article>
+        <div>
+          <StoryProgress section={sectionId} />
+          <article>
+            <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
+          </article>
+        </div>
         <aside>
-          {/* <Dices nbDices={2} /> */}
           {!combatInfo && (
             <Choices
               id={sectionId}
@@ -211,6 +211,7 @@ const SectionPage = () => {
           )}
           {combatInfo === "win" && (
             <Button
+              type="story"
               size="small"
               text={section.content.action.win.text}
               onClick={() => {
@@ -224,6 +225,7 @@ const SectionPage = () => {
           )}
           {combatInfo === "lose" && (
             <Button
+              type="story"
               size="small"
               text={section.content.action.lose.text}
               onClick={() => {
@@ -245,18 +247,8 @@ const SectionPage = () => {
               />
             </div>
           )}
-          {sectionId === 50 && (
-            <Button
-              size="small"
-              text="End the story"
-              onClick={() => (window.location = "/ending")}
-            />
-          )}
         </aside>
       </section>
-      <div className="backgroundImage">
-        <img src={Image} alt="background" />
-      </div>
       <Loader loading={section.id === 0} />
     </main>
   );

@@ -30,9 +30,11 @@ div#root{
 }
 
 div#mainContainer{
+    display: flex;
     flex-grow: 1;
     position: relative;
     overflow-y: hidden;
+    justify-content: center;
 }
 
 @font-face{

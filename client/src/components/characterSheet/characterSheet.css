@@ -160,6 +160,7 @@
     background-color: var(--black-shade);
     border-radius: 10px;
     box-shadow: 0 0 10px var(--black-shade);
+    transition: all 0.3s;
     padding: 1em;
     column-gap: 0.5em;
     width: 24em;

@@ -423,7 +423,9 @@
     }
   },
   "13": {
-    "text": "You are dead!"
+    "action": {
+      "text": "You are dead! ☠"
+    }
   },
   "14": {
     "action": {
@@ -1436,37 +1438,45 @@
     "action": {
       "type": "story",
       "text": "The market is erily silent, and strewn with the wreckage of broken stalls and shattered pottery. Suddenly, a scrawny Gnome in brown leather waving a dagger, leaps out behind you and attempts to stab you in the leg, screaming \"Ferret the Rogue strikes back!\".",
-      "action": {
-        "type": "dice",
-        "numberOfDice": 1,
-        "diceResult": [
-          {
-            "checkType": "comparison",
-            "stat": "intelligence",
-            "operator": "<",
-            "successText": "You dodge the blow,  Regardless, Ferret the Rogue runs away before you can catch him and grind him into pulp",
-            "goto": 42
-          },
-          {
-            "checkType": "comparison",
-            "stat": "intelligence",
-            "operator": ">=",
-            "failureText": "The dagger sinks painfully into the back of your calf",
-            "impact": {
-              "stats": {
-                "resistance": {
-                  "operator": "-",
-                  "value": 1
+      "choices" : [
+        {
+          "text" : "Roll the dice",
+          "require" : {
+            "action": {
+              "type": "dice",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": "<",
+                  "successText": "You dodge the blow,  Regardless, Ferret the Rogue runs away before you can catch him and grind him into pulp",
+                  "goto": 42
+                },
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": ">=",
+                  "failureText": "The dagger sinks painfully into the back of your calf",
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
+                    }
+                  }
                 }
+              ],
+              "lose": {
+                "text": "The dagger reduces your TUFF score to zero",
+                "goto": 13
               }
             }
           }
-        ],
-        "lose": {
-          "text": "The dagger reduces your TUFF score to zero",
-          "goto": 13
+
         }
-      }
+      ]
     }
   },
   "34": {
