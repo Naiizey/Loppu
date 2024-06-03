@@ -102,6 +102,7 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                             </li>
                         </ul>
                     </section>
+                    {
                     <>
                         <hr/>
                         <p>Inventory </p>
@@ -111,6 +112,7 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                             })}
                         </ul>
                     </>
+                    }
                 </li>
             )
         default:
