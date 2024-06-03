@@ -6,7 +6,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "splitStory": "node utils/sectionSplitter.js",
-    "fillDb": "node utils/filler.js"
+    "fillDb": "node utils/filler.js",
+    "resetDb": "node utils/reset.js"
   },
   "dependencies": {
     "ajv": "^8.12.0",
