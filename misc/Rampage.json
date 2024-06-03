@@ -423,7 +423,9 @@
     }
   },
   "13": {
-    "text": "You are dead!"
+    "action": {
+      "text": "You are dead! ☠"
+    }
   },
   "14": {
     "action": {
