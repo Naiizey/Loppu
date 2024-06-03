@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import API from "../../utils/API";
 import Dices from "../../components/dices/dices";
 import { rollAllDices } from "../../components/dices/dices";
-import characterSheet from "../characterSheet/characterSheet";
 
 // function to handle the fight
 function autoFight() {}
@@ -30,7 +29,7 @@ function getSectionId() {
 }
 
 // upatde the stats of the character
-function editStat(operator, value, stat, actualDicoStat) {
+function editStat(operator, value, stat, actualDicoStat, setUserChar, userChar) {
   switch (operator) {
     case "+":
       actualDicoStat[stat] += value;
@@ -42,11 +41,26 @@ function editStat(operator, value, stat, actualDicoStat) {
       break;
   }
 
+  const characterSheetClasslist = document.querySelector('.characterSheetSmall').classList;
+
+  characterSheetClasslist.add('shake');
+
+  setTimeout(() => {
+    characterSheetClasslist.remove('shake');
+  }, 1000)
+
   API("characters/" + getCharaId() + "/stats", "PUT", actualDicoStat);
+
+  const tmpChar = userChar;
+  tmpChar.stats = actualDicoStat;
+
+  console.log(tmpChar, userChar);
+
+  setUserChar(tmpChar);
 }
 
 //function to interpret an impact (must receive an "impact" dico)
-function interpretImpact(dico) {
+function interpretImpact(dico, setUserChar, userChar) {
   let stats = {};
   // for each key in the dico
   for (const key in dico) {
@@ -63,7 +77,9 @@ function interpretImpact(dico) {
                 dico[key][typeStat].operator,
                 dico[key][typeStat].value,
                 stat,
-                stats
+                stats,
+                setUserChar,
+                userChar
               );
             }
           }
@@ -169,7 +185,7 @@ const checkStatsPrerequesites = (stat, operator, value) => {
 };
 
 // function to execute the consequences of a dice result (must receive a "diceResult" dico)
-function diceResultConsequances(dico, setGotoSectionId) {
+function diceResultConsequances(dico, setGotoSectionId, setUserChar, userChar) {
   let successText;
   if (dico.successText !== undefined) {
     successText = dico.successText;
@@ -180,7 +196,7 @@ function diceResultConsequances(dico, setGotoSectionId) {
   }
   if (dico.impact !== undefined) {
     let impact = dico.impact;
-    interpretImpact(impact);
+    interpretImpact(impact, setUserChar, userChar);
   }
   if (dico.goto !== undefined) {
     let goto = dico.goto;
@@ -189,7 +205,7 @@ function diceResultConsequances(dico, setGotoSectionId) {
 }
 
 // function to interpret a dice operation (must receive a "action" dico)
-function interpretDiceResult(dico, diceValue, setGotoSectionId) {
+function interpretDiceResult(dico, diceValue, setGotoSectionId, setUserChar, userChar) {
   let diceResultList = dico.diceResult;
   for (let index = 0; index < diceResultList.length; index++) {
     let element = diceResultList[index];
@@ -200,7 +216,7 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId) {
         let operator = element.operator;
         checkStatsPrerequesites(stat, operator, diceValue).then((result) => {
           if (result) {
-            diceResultConsequances(element, setGotoSectionId);
+            diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
           }
         });
         break;
@@ -208,14 +224,14 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId) {
       case "equalsTo":
         let value = element.value;
         if (diceValue === value) {
-          diceResultConsequances(element, setGotoSectionId);
+          diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
         }
         break;
       case "fromTo":
         let from = element.from;
         let to = element.to;
         if (diceValue >= from && diceValue <= to) {
-          diceResultConsequances(element, setGotoSectionId);
+          diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
         }
         break;
       default:
@@ -246,14 +262,16 @@ function interpretRequire(
   choiceNumber,
   gotoId,
   setSectionId,
-  setDiceValue
+  setDiceValue,
+  setUserChar,
+  userChar
 ) {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
       switch (dico.action.type) {
         case "dice":
           launchDices(dico.action.numberOfDice).then((res) => {
-            interpretDiceResult(dico.action, res, setGotoSectionId);
+            interpretDiceResult(dico.action, res, setGotoSectionId, setUserChar, userChar);
             if (dico.action.win !== undefined) {
               //if not dead
               if (!checkIfDead()) {
@@ -263,7 +281,7 @@ function interpretRequire(
                     text = dico.action.win.text;
                   }
                   if (dico.action.win.impact !== undefined) {
-                    interpretImpact(dico.action.win.impact);
+                    interpretImpact(dico.action.win.impact, setUserChar, userChar);
                   }
                   gotoSectionButton(
                     dico.action.win.goto,
@@ -272,7 +290,7 @@ function interpretRequire(
                   );
                 } else {
                   if (dico.action.win.impact !== undefined) {
-                    interpretImpact(dico.action.win.impact);
+                    interpretImpact(dico.action.win.impact, setUserChar, userChar);
                   }
                 }
               }
@@ -286,7 +304,7 @@ function interpretRequire(
                     text = dico.action.lose.text;
                   }
                   if (dico.action.lose.impact !== undefined) {
-                    interpretImpact(dico.action.lose.impact);
+                    interpretImpact(dico.action.lose.impact, setUserChar, userChar);
                   }
                   gotoSectionButton(
                     dico.action.lose.goto,
@@ -296,7 +314,7 @@ function interpretRequire(
                   );
                 } else {
                   if (dico.action.lose.impact !== undefined) {
-                    interpretImpact(dico.action.lose.impact);
+                    interpretImpact(dico.action.lose.impact, setUserChar, userChar);
                   }
                 }
               }
@@ -315,7 +333,9 @@ function interpretRequire(
             setSectionId,
             choiceNumber,
             setGotoSectionId,
-            setDiceValue
+            setDiceValue,
+            setUserChar,
+            userChar
           );
           resolve();
           break;
@@ -369,7 +389,9 @@ function interpretStory(
   setSectionId,
   choiceNumber,
   setGotoSectionId,
-  setDiceValue
+  setDiceValue,
+  setUserChar,
+  userChar
 ) {
   let choices = story.choices;
   if (choices !== undefined && choices.length > 0) {
@@ -378,7 +400,7 @@ function interpretStory(
       if (choice.goto === gotoID && choice.require === undefined) {
         if (choice.require === undefined) {
           if (choice.impact !== undefined) {
-            interpretImpact(choice.impact);
+            interpretImpact(choice.impact, setUserChar, userChar);
           }
         } else {
           // wait for the interpretation of the require
@@ -388,11 +410,13 @@ function interpretStory(
             choiceNumber,
             gotoID,
             setSectionId,
-            setDiceValue
+            setDiceValue,
+            setUserChar,
+            userChar
           ).then((result) => {
             if (result) {
               if (choice.impact !== undefined) {
-                interpretImpact(choice.impact);
+                interpretImpact(choice.impact, setUserChar, userChar);
               }
               gotoSection(choice.goto, setSectionId, setDiceValue);
             }
@@ -403,7 +427,7 @@ function interpretStory(
     } else {
       if (choice.require === undefined) {
         if (choice.impact !== undefined) {
-          interpretImpact(choice.impact);
+          interpretImpact(choice.impact, setUserChar, userChar);
         }
       } else {
         // wait for the interpretation of the require
@@ -411,12 +435,15 @@ function interpretStory(
           choice.require,
           setGotoSectionId,
           choiceNumber,
+          gotoID,
           setSectionId,
-          setDiceValue
+          setDiceValue,
+          setUserChar,
+          userChar
         ).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
-              interpretImpact(choice.impact);
+              interpretImpact(choice.impact, setUserChar, userChar);
             }
           }
         });
@@ -451,7 +478,9 @@ function interpretFight(
   setCombatInfo,
   choiceNumber,
   setSectionId,
-  setDiceValue
+  setDiceValue,
+  setUserChar,
+  userChar
 ) {
   //gérer ennemi
   //Choix = bouton choix
@@ -487,9 +516,9 @@ function interpretFight(
               localStorage.removeItem("enemyRes");
               setCombatInfo("win");
             } else {
-              char.stats.resistance -= action.enemy.strength;
               action.enemy.resistance -= char.stats.strength;
-              API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+              editStat("-", action.enemy.strength, 'resistance', char.stats, setUserChar, userChar)
+
               if (char.stats.resistance > 0) {
                 setCombatInfo("during");
                 localStorage.setItem("enemyRes", action.enemy.resistance);
@@ -506,9 +535,9 @@ function interpretFight(
           localStorage.removeItem("enemyRes");
           setCombatInfo("win");
         } else {
-          char.stats.resistance -= action.enemy.strength;
           action.enemy.resistance -= char.stats.strength;
-          API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+          editStat("-", action.enemy.strength, 'resistance', char.stats, setUserChar, userChar);
+
           if (char.stats.resistance > 0) {
             setCombatInfo("during");
             localStorage.setItem("enemyRes", action.enemy.resistance);
@@ -540,7 +569,9 @@ function interpretAction(
   setCombatInfo,
   setGotoSectionId,
   sectionChoice,
-  setDiceValue
+  setDiceValue,
+  setUserChar,
+  userChar
 ) {
   if (!checkIfDead()) {
     let storyID = localStorage.getItem("storyId");
@@ -556,7 +587,9 @@ function interpretAction(
             setSectionId,
             choiceNumber,
             setGotoSectionId,
-            setDiceValue
+            setDiceValue,
+            setUserChar,
+            userChar
           );
         } else if (section.content.action.type === "combat") {
           interpretFight(
@@ -564,7 +597,9 @@ function interpretAction(
             setCombatInfo,
             choiceNumber,
             setSectionId,
-            setDiceValue
+            setDiceValue,
+            setUserChar,
+            userChar
           );
         }
       } else {
@@ -579,7 +614,9 @@ function interpretAction(
             setSectionId,
             choiceNumber,
             setGotoSectionId,
-            setDiceValue
+            setDiceValue,
+            setUserChar,
+            userChar
           );
         } else if (section.content.action.type === "combat") {
           interpretFight(
@@ -587,7 +624,9 @@ function interpretAction(
             setCombatInfo,
             choiceNumber,
             setSectionId,
-            setDiceValue
+            setDiceValue,
+            setUserChar,
+            userChar
           );
         }
       }
@@ -620,7 +659,8 @@ function getChoices(id) {
   });
 }
 
-const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
+const Choices = ({ id, setSectionId, section, setCombatInfo, setUserChar, userChar}) => {
+  console.log('choice', userChar)
   const [choices, setChoices] = useState([
     {
       content: "",
@@ -645,7 +685,9 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setCombatInfo,
       setGotoSectionId,
       item,
-      setDiceValue
+      setDiceValue,
+      setUserChar,
+      userChar
     );
     // wait that "numberOfDices" of the localStorage is set
     setTimeout(() => {
@@ -668,6 +710,11 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setChoices(res);
     });
   }, [story_id, id]);
+  //story_id
+
+  useEffect(() => {
+    console.log(userChar);
+  }, [userChar])
 
   return (
     <div className="container-choices-dices">

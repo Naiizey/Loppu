@@ -1,7 +1,6 @@
 import "./story.css";
 import { useState, useEffect } from "react";
 import Choices from "../../components/choices/choices";
-import Dices from "../../components/dices/dices";
 import API from "../../utils/API";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 import Loader from "../../components/loader/loader";
@@ -186,7 +185,7 @@ const SectionPage = () => {
           <CharacterSheet
             type="small"
             name={userCharModel.name}
-            stats={userChar.stats}
+            character={userChar}
             inventory={inventory}
             img={CharImage}
             isClicked={clickedCharacter === `${userCharModel.name}`}
@@ -207,6 +206,8 @@ const SectionPage = () => {
               id={sectionId}
               setSectionId={setSectionId}
               setCombatInfo={setCombatInfo}
+              setUserChar={setUserChar}
+              userChar={userChar}
             />
           )}
           {combatInfo === "win" && (
@@ -244,6 +245,8 @@ const SectionPage = () => {
                 id={sectionId}
                 setSectionId={setSectionId}
                 setCombatInfo={setCombatInfo}
+                setUserChar={setUserChar}
+                userChar={userChar}
               />
             </div>
           )}
