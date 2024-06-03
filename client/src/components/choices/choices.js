@@ -795,7 +795,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
           storyButtonChoice(() => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
-          })
+          }, "Next", gotoSectionId)
         ) : id === 50 ? (
           storyButtonChoice(() => window.location = "/ending", "End the story")
         ) : (
