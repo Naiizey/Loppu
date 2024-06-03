@@ -180,6 +180,9 @@ const SectionPage = () => {
     setCombatInfo("");
   }, [sectionId]);
 
+  const [currEnemyHealth, setCurrEnemyHealth] = useState(null);
+  const [maxEnemyHealth, setMaxEnemyHealth] = useState(null);
+
   return (
     <main id="section">
       <nav>
@@ -208,6 +211,10 @@ const SectionPage = () => {
               id={sectionId}
               setSectionId={setSectionId}
               setCombatInfo={setCombatInfo}
+              currEnemyHealth={currEnemyHealth}
+              setCurrEnemyHealth={setCurrEnemyHealth}
+              maxEnemyHealth={maxEnemyHealth}
+              setMaxEnemyHealth={setMaxEnemyHealth}
             />
           )}
           {combatInfo === "win" && (
@@ -240,11 +247,21 @@ const SectionPage = () => {
           )}
           {combatInfo === "during" && (
             <div className="inProgress">
-              <p>Fight still in progress !</p>
+              <div className="hpBar">
+                {
+                  Array.from({length: maxEnemyHealth}).map((hp, index) => (
+                    <div ref={hp} className={`${index <= currEnemyHealth ? 'hitpoint currHealth' : 'hitpoint'}`}></div>
+                  ))
+                }
+              </div>
               <Choices
                 id={sectionId}
                 setSectionId={setSectionId}
                 setCombatInfo={setCombatInfo}
+                currEnemyHealth={currEnemyHealth}
+                setCurrEnemyHealth={setCurrEnemyHealth}
+                maxEnemyHealth={maxEnemyHealth}
+                setMaxEnemyHealth={setMaxEnemyHealth}
               />
             </div>
           )}

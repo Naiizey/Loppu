@@ -88,3 +88,47 @@ main#section .backgroundImage img {
     overflow: hidden;
     object-fit: cover;
 }
+
+main#section .inProgress{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main#section .inProgress .hpBar{
+    width: 100%;
+    min-height: 3vh;
+
+    border: 1px solid var(--grey-button);
+    border-radius: 1vw;
+
+    display: flex;
+    overflow: hidden;
+}
+
+main#section .inProgress .hpBar .hitpoint{
+    min-height: 100%;
+    flex-grow: 1;
+
+    transform: skewX(-15deg);
+
+    background-color: var(--black-text);
+
+    position: relative;
+}
+
+main#section .inProgress .hpBar .hitpoint.currHealth{
+    background-color: green;
+}
+
+main#section .inProgress .hpBar .hitpoint:not(:last-of-type)::after{
+    content: "";
+    background: lightgrey;
+
+    position: absolute;
+    right: -1.5px;
+
+    height: 100%;
+    width: 3px;
+}
