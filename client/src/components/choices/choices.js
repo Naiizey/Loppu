@@ -144,7 +144,7 @@ function gotoSection(sectionId, setSectionId, setDiceValue) {
 }
 
 //function to go to an other section /!\ She needs to break the loop or the father
-function gotoSectionButton(sectionId, setGotoSectionId, successText, failureText) 
+function gotoSectionButton(sectionId, setGotoSectionId, successText, failureText)
 {
   console.log("gotoSectionButton");
   setSectionIdLocalStorage(sectionId);
@@ -162,7 +162,7 @@ function gotoSectionButton(sectionId, setGotoSectionId, successText, failureText
  * @param {*} stat The stat name to check
  * @param {*} operator The operator to use
  * @param {*} value The value to check
- * @returns 
+ * @returns
  */
 const checkStatsPrerequesites = (stat, operator, value) => {
   let stats;
@@ -415,7 +415,7 @@ function statActionProcess(dico, resolve) {
  * @param {*} setDiceValue The function to set the dice value
  * @returns A promise
  */
-function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue) 
+function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue)
 {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
@@ -440,7 +440,7 @@ function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, set
  * @param {*} setGotoSectionId The function to set the goto section id
  * @param {*} setDiceValue The function to set the dice value
  */
-function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue) 
+function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue)
 {
   let choices = story.choices;
   if (choices !== undefined && choices.length > 0) {
@@ -697,7 +697,7 @@ function getChoices(id) {
  * @param {*} setDead The function to set the dead value
  * @returns A promise
  */
-function setDiceAndDead(setDiceValue, setDead) 
+function setDiceAndDead(setDiceValue, setDead)
 {
   return new Promise((resolve) => {
     let numberOfDices = localStorage.getItem("numberOfDices");
@@ -713,6 +713,18 @@ function setDiceAndDead(setDiceValue, setDead)
     }
     resolve();
   });
+}
+
+function storyButtonChoice(adaptedOnClick, adaptedText="Next", targetIdSection="13") {
+  return (
+    <Button
+      size={"small"}
+      text={adaptedText}
+      type={"story"}
+      onClick={adaptedOnClick}
+      targetIdSection={targetIdSection}
+    />
+  )
 }
 
 /**
@@ -755,37 +767,16 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       <Dices nbDices={diceValue} />
       <div className="container-choices">
         {dead === 1 && gotoSectionId !== 13 ? (
-          <Button
-            size={"small"}
-            text={"Next"}
-            type={"story"}
-            onClick={() => {
-              gotoSection(13, setSectionId, setDiceValue);
-            }}
-            targetIdSection="13"
-          />
+          storyButtonChoice(() => gotoSection(13, setSectionId, setDiceValue))
         ) : gotoSectionId !== 0 ? (
-          <Button
-            size={"small"}
-            text={"Next"}
-            // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
-            type={"story"}
-            onClick={() => {
+          storyButtonChoice(() => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
-            }}
-            targetIdSection="13"
-          />
+          })
         ) : id === 50 ? (
-          <Button
-            type="story"
-            size="small"
-            text="End the story"
-            onClick={() => (window.location = "/ending")}
-          />
+          storyButtonChoice(() => window.location = "/ending", "End the story")
         ) : (
-          choices &&
-          choices.map((item, i) => {
+          choices && choices.map((item, i) => {
             if (!item.victory && !item.lose) {
               let targetIdSections = [];
               let diceResult = item?.require?.action?.diceResult;
@@ -798,24 +789,11 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
                   }
                 }
               }
-              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) {
-                throw new Error("");
-              }
-              return (
-                <Button
-                  key={i}
-                  size={"small"}
-                  type={"story"}
-                  text={item.content || item.text}
-                  onClick={() => {
-                    //   setChoices(item.id_section_to);
-                    //   setSectionId(item.id_section_to);
-                    handleButtonClick(item, i);
-                    //addPath(item.id_section_to, 1);
-                  }}
-                  targetIdSection={targetIdSections[0]}
-                />
-              );
+              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) throw new Error("");
+
+              return storyButtonChoice(() => {
+                handleButtonClick(item, i);
+              }, item.content || item.text, targetIdSections[0]);
             }
             return null;
           }
