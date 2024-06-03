@@ -220,7 +220,6 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId) {
         break;
       default:
         return false;
-        break;
     }
   }
 }
@@ -451,75 +450,81 @@ function interpretFight(
   setCombatInfo,
   choiceNumber,
   setSectionId,
-  setDiceValue
+  setDiceValue,
+  currEnemyHealth,
+  setCurrEnemyHealth,
+  maxEnemyHealth,
+  setMaxEnemyHealth
 ) {
   //gérer ennemi
   //Choix = bouton choix
   if (action.choices[choiceNumber].text.toLowerCase().includes("flee")) {
     gotoSection(action.choices[choiceNumber].goto, setSectionId, setDiceValue);
   } else {
-    if (!localStorage.getItem("enemyRes")) {
-      localStorage.setItem("enemyRes", action.enemy.resistance);
+    console.log(currEnemyHealth, action.enemy.resistance);
+    if (!maxEnemyHealth) {
+      setMaxEnemyHealth(action.enemy.resistance);
     }
-
-    let enemyRes = localStorage.getItem("enemyRes");
-    API("characters/" + getCharaId()).then((char) => {
-      char = char[0];
-      if (action.choices[choiceNumber].require) {
-        let item_type, item;
-        if (action.choices[choiceNumber].require.action) {
-          item_type = action.choices[choiceNumber].require.action.type;
-          item =
-            action.choices[choiceNumber].require.action[item_type][
-              `id_${item_type}`
-            ];
-        } else {
-          item_type = action.choices[choiceNumber].require.type;
-          item =
-            action.choices[choiceNumber].require[item_type][`id_${item_type}`];
-        }
-        let charItems = Object.keys(char.stuff.stuff[0]);
-        if (charItems.includes(item.toString())) {
-          let storyId = localStorage.getItem("storyId");
-          API("stuff/" + storyId + "/" + item).then((itemResp) => {
-            item = itemResp[0];
-            if (enemyRes < char.stats.strength + item.stats.strength) {
-              localStorage.removeItem("enemyRes");
-              setCombatInfo("win");
-            } else {
-              char.stats.resistance -= action.enemy.strength;
-              action.enemy.resistance -= char.stats.strength;
-              API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
-              if (char.stats.resistance > 0) {
-                setCombatInfo("during");
-                localStorage.setItem("enemyRes", action.enemy.resistance);
-              } else {
-                localStorage.removeItem("enemyRes");
-                checkIfDead();
-                setCombatInfo("lose");
-              }
-            }
-          });
-        }
-      } else {
-        if (enemyRes < char.stats.strength) {
-          localStorage.removeItem("enemyRes");
-          setCombatInfo("win");
-        } else {
-          char.stats.resistance -= action.enemy.strength;
-          action.enemy.resistance -= char.stats.strength;
-          API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
-          if (char.stats.resistance > 0) {
-            setCombatInfo("during");
-            localStorage.setItem("enemyRes", action.enemy.resistance);
+    else{
+      API("characters/" + getCharaId()).then((char) => {
+        char = char[0];
+        if (action.choices[choiceNumber].require) {
+          let item_type, item;
+          if (action.choices[choiceNumber].require.action) {
+            item_type = action.choices[choiceNumber].require.action.type;
+            item =
+              action.choices[choiceNumber].require.action[item_type][
+                `id_${item_type}`
+              ];
           } else {
-            localStorage.removeItem("enemyRes");
-            checkIfDead();
-            setCombatInfo("lose");
+            item_type = action.choices[choiceNumber].require.type;
+            item =
+              action.choices[choiceNumber].require[item_type][`id_${item_type}`];
+          }
+          let charItems = Object.keys(char.stuff.stuff[0]);
+          if (charItems.includes(item.toString())) {
+            let storyId = localStorage.getItem("storyId");
+            API("stuff/" + storyId + "/" + item).then((itemResp) => {
+              item = itemResp[0];
+              if (currEnemyHealth < char.stats.strength + item.stats.strength) {
+                setCombatInfo("win");
+                setMaxEnemyHealth(null);
+              } else {
+                char.stats.resistance -= action.enemy.strength;
+                action.enemy.resistance -= char.stats.strength;
+
+                API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+                if (char.stats.resistance > 0) {
+                  setCombatInfo("during");
+                  setCurrEnemyHealth(action.enemy.resistance);
+                } else {
+                  checkIfDead();
+                  setCombatInfo("lose");
+                  setMaxEnemyHealth(null);
+                }
+              }
+            });
+          }
+        } else {
+          if (currEnemyHealth < char.stats.strength) {
+            setCombatInfo("win");
+            setMaxEnemyHealth(null);
+          } else {
+            char.stats.resistance -= action.enemy.strength;
+            action.enemy.resistance -= char.stats.strength;
+            API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+            if (char.stats.resistance > 0) {
+              setCombatInfo("during");
+              setCurrEnemyHealth(action.enemy.resistance);
+            } else {
+              checkIfDead();
+              setCombatInfo("lose");
+              setMaxEnemyHealth(null);
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 }
 
@@ -540,13 +545,17 @@ function interpretAction(
   setCombatInfo,
   setGotoSectionId,
   sectionChoice,
-  setDiceValue
+  setDiceValue,
+  currEnemyHealth,
+  setCurrEnemyHealth,
+  maxEnemyHealth,
+  setMaxEnemyHealth
 ) {
   if (!checkIfDead()) {
     let storyID = localStorage.getItem("storyId");
     let currentSectionId = localStorage.getItem("sectionId");
     let section = {};
-    API("sections/" + storyID + "/" + currentSectionId).then((res) => {
+    API("sections/" + storyID + "/" + currentSectionId).then(async (res) => {
       section = res[0];
       if (gotoId !== null) {
         if (section.content.action.type === "story") {
@@ -564,7 +573,11 @@ function interpretAction(
             setCombatInfo,
             choiceNumber,
             setSectionId,
-            setDiceValue
+            setDiceValue,
+            currEnemyHealth,
+            setCurrEnemyHealth,
+            maxEnemyHealth,
+            setMaxEnemyHealth
           );
         }
       } else {
@@ -587,7 +600,11 @@ function interpretAction(
             setCombatInfo,
             choiceNumber,
             setSectionId,
-            setDiceValue
+            setDiceValue,
+            currEnemyHealth,
+            setCurrEnemyHealth,
+            maxEnemyHealth,
+            setMaxEnemyHealth
           );
         }
       }
@@ -620,7 +637,7 @@ function getChoices(id) {
   });
 }
 
-const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
+const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth }) => {
   const [choices, setChoices] = useState([
     {
       content: "",
@@ -637,7 +654,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
   const [diceValue, setDiceValue] = useState(0);
   const [dead, setDead] = useState(0);
   const [gotoSectionId, setGotoSectionId] = useState(0);
-  const handleButtonClick = (item, i) => {
+  const handleButtonClick = async (item, i) => {
     interpretAction(
       item.id_section_to || null,
       i,
@@ -645,7 +662,11 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setCombatInfo,
       setGotoSectionId,
       item,
-      setDiceValue
+      setDiceValue,
+      currEnemyHealth,
+      setCurrEnemyHealth,
+      maxEnemyHealth,
+      setMaxEnemyHealth
     );
     // wait that "numberOfDices" of the localStorage is set
     setTimeout(() => {
@@ -668,6 +689,14 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
       setChoices(res);
     });
   }, [story_id, id]);
+
+  useEffect(() => {
+    setCurrEnemyHealth(maxEnemyHealth);
+
+    if(maxEnemyHealth){
+      setCombatInfo('during');
+    }
+  }, [maxEnemyHealth])
 
   return (
     <div className="container-choices-dices">
