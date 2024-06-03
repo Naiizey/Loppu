@@ -102,15 +102,19 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                             </li>
                         </ul>
                     </section>
+                    { isClicked &&
                     <>
                         <hr/>
                         <p>Inventory </p>
                         <ul>
-                            {inventory.map((item, index) => {
+                            {
+                            inventory.map((item, index) => {
                                 return <li key={index}><span>{item.split(" - ")[0]}</span><span>{item.split(" - ")[1]}</span></li>
-                            })}
+                            })
+                            }
                         </ul>
                     </>
+                    }
                 </li>
             )
         default:

@@ -163,7 +163,7 @@
     padding: 1em;
     column-gap: 0.5em;
     width: 24em;
-    min-height: 8em;
+    min-height: 6em;
 
     transition: min-height 0.4s;
 }
@@ -211,7 +211,7 @@
     row-gap: 0.5em;
     padding: 1em;
     width: 24em;
-    min-height: 43em;
+    min-height: 80vh;
 
     transition: all 0.3s;
 }

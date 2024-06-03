@@ -71,9 +71,8 @@ main#section aside > Button:hover{
 main#section .backgroundImage {
     z-index: -1;
     display: block;
-    /* put it on the left at the bottom with a padding of 2em */
     position: absolute;
-    bottom: 0;
+    bottom: 2.5em;
     left: 0;
     padding-left: 3em;
     padding-bottom: 2em;
@@ -81,7 +80,7 @@ main#section .backgroundImage {
 
 main#section .backgroundImage img {
     width: 24em;
-    height: 32em;
+    height: 22em;
     border-radius: 10px;
     box-shadow: 0 0 10px var(--black-shade);
     transition: all 0.3s;
