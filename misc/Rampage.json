@@ -205,7 +205,7 @@
               }
             ],
             "stats": {
-              "résistance": {
+              "resistance": {
                 "operator": "+",
                 "value": 2
               },
@@ -1657,7 +1657,7 @@
           "impact": {
             "stuff": [
               {
-                "id_story": 19,
+                "id_item": 19,
                 "operator" : "+",
                 "quantity": 1
               }
@@ -2067,7 +2067,7 @@
   },
   "45": {
     "action": {
-      "type": "enemy",
+      "type": "combat",
       "alreadyVisited": "33",
       "text": "The market is in an uproar owing to your intrusion. Stall-holders are frantically shutting up shop, people are rushing all over the place, pack-animals are milling around in confusion, and Gnomish guards are everywhere trying to maintain order. You leisurely contemplate the rich pickings on offer, but one lone figure stands in your way.",
       "enemy": {
