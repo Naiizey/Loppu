@@ -35,7 +35,7 @@ const SectionPage = () => {
     type_id: 0,
   });
 
-  const story_id = localStorage.getItem("storyId");
+  var story_id = localStorage.getItem("storyId");
   if (story_id == null) {
     localStorage.setItem("storyId", 1);
     story_id = 1;
