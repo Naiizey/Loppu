@@ -246,6 +246,7 @@ const SectionPage = () => {
           )}
           {combatInfo === "during" && (
             <div className="inProgress">
+              <p>{section.content.action.enemy.name}'s health :</p>
               <div className="hpBar">
                 {
                   Array.from({length: maxEnemyHealth}).map((hp, index) => (
