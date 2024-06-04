@@ -47,7 +47,13 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
             </div>
             <img src={Image} alt="story illustration"></img>
             { userChar && userCharModel &&
-                <CharacterSheet type="small" name={userCharModel.name} stats={userChar.stats} inventory={userChar.stuff} img={CharImage}/>
+                <CharacterSheet
+                    type="small"
+                    name={userCharModel.name}
+                    character={userChar}
+                    inventory={userChar.stuff}
+                    img={CharImage}
+                />
             }
             { isClicked === storyId &&
                 <div className="storyDetails">
