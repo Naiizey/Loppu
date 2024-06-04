@@ -15,7 +15,7 @@ import "./characterSheet.css";
 
 /**
  * @function characterSheet
- * 
+ *
  * @param {object} props
  * @param {string} props.type
  * @param {string} props.img
@@ -24,12 +24,12 @@ import "./characterSheet.css";
  * @param {array} props.inventory
  * @param {boolean} props.isClicked
  * @param {function} props.onClick
- * 
+ *
  * @returns {React.JSX.Element}
- * 
+ *
  * @description This function takes props as parameters and returns a JSX element.
  */
-const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick}) => {
+const characterSheet = ({type, img, name, character, inventory, isClicked, onClick}) => {
     switch(type) {
         case "big":
             return (
@@ -43,15 +43,15 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                                 </li>
                                 <li>
                                     <p>Strength </p>
-                                    <p>{stats.strength}</p>
+                                    <p>{character.stats.strength}</p>
                                 </li>
                                 <li>
                                     <p>Intelligence </p>
-                                    <p>{stats.intelligence}</p>
+                                    <p>{character.stats.intelligence}</p>
                                 </li>
                                 <li>
                                     <p>Resistance </p>
-                                    <p>{stats.resistance}</p>
+                                    <p>{character.stats.resistance}</p>
                                 </li>
                             </ul>
                         </section>
@@ -90,28 +90,30 @@ const characterSheet = ({type, img, name, stats, inventory, isClicked, onClick})
                         <ul>
                             <li>
                                 <p>Strength </p>
-                                <p>{stats.strength}</p>
+                                <p>{character.stats.strength}</p>
                             </li>
                             <li>
                                 <p>Intelligence </p>
-                                <p>{stats.intelligence}</p>
+                                <p>{character.stats.intelligence}</p>
                             </li>
                             <li>
                                 <p>Resistance </p>
-                                <p>{stats.resistance}</p>
+                                <p>{character.stats.resistance}</p>
                             </li>
                         </ul>
                     </section>
                     { isClicked &&
-                        <>
-                            <hr/>
-                            <p>Inventory </p>
-                            <ul>
-                                {inventory.map((item, index) => {
-                                    return <li key={index}><span>{item.split(" - ")[0]}</span><span>{item.split(" - ")[1]}</span></li>
-                                })}
-                            </ul>
-                        </>
+                    <>
+                        <hr/>
+                        <p>Inventory </p>
+                        <ul>
+                            {
+                            inventory.map((item, index) => {
+                                return <li key={index}><span>{item.split(" - ")[0]}</span><span>{item.split(" - ")[1]}</span></li>
+                            })
+                            }
+                        </ul>
+                    </>
                     }
                 </li>
             )

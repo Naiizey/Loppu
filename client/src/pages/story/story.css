@@ -69,6 +69,26 @@ main#section aside > Button:hover{
     background-color: var(--grey-button-hover);
 }
 
+main#section .backgroundImage {
+    z-index: -1;
+    display: block;
+    position: absolute;
+    bottom: 2.5em;
+    left: 0;
+    padding-left: 3em;
+    padding-bottom: 2em;
+}
+
+main#section .backgroundImage img {
+    width: 24em;
+    height: 22em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--black-shade);
+    transition: all 0.3s;
+    overflow: hidden;
+    object-fit: cover;
+}
+
 main#section .inProgress{
     display: flex;
     flex-direction: column;

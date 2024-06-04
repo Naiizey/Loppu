@@ -1,7 +1,6 @@
 import "./story.css";
 import { useState, useEffect } from "react";
 import Choices from "../../components/choices/choices";
-import Dices from "../../components/dices/dices";
 import API from "../../utils/API";
 import CharacterSheet from "../../components/characterSheet/characterSheet";
 import Loader from "../../components/loader/loader";
@@ -9,6 +8,7 @@ import StoryProgress from "../../components/storyProgress/storyProgress";
 import CharImage from "../../assets/images/giant.jpg";
 import Button from "../../components/button/button";
 import Levenshtein from "../../levenshtein";
+import Image from "../../assets/images/storiesDisplay.jpg";
 
 const SectionPage = () => {
   const [clickedCharacter, setClickedCharacter] = useState(null);
@@ -189,7 +189,7 @@ const SectionPage = () => {
           <CharacterSheet
             type="small"
             name={userCharModel.name}
-            stats={userChar.stats}
+            character={userChar}
             inventory={inventory}
             img={CharImage}
             isClicked={clickedCharacter === `${userCharModel.name}`}
@@ -214,6 +214,8 @@ const SectionPage = () => {
               setCurrEnemyHealth={setCurrEnemyHealth}
               maxEnemyHealth={maxEnemyHealth}
               setMaxEnemyHealth={setMaxEnemyHealth}
+              setUserChar={setUserChar}
+              userChar={userChar}
             />
           )}
           {combatInfo === "win" && (
@@ -262,11 +264,16 @@ const SectionPage = () => {
                 setCurrEnemyHealth={setCurrEnemyHealth}
                 maxEnemyHealth={maxEnemyHealth}
                 setMaxEnemyHealth={setMaxEnemyHealth}
+                setUserChar={setUserChar}
+                userChar={userChar}
               />
             </div>
           )}
         </aside>
       </section>
+      <div className="backgroundImage">
+        <img src={Image} alt="background" />
+      </div>
       <Loader loading={section.id === 0} />
     </main>
   );

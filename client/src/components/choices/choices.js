@@ -22,12 +22,14 @@ function getCharaId() {
 
 /**
  * Edit the stat of the character from the dico and  update them in the database
- * @param {*} operator The oprator to use
- * @param {*} value The value to add or substract
- * @param {*} stat The stat to edit
- * @param {*} actualDicoStat The dictionary of the stats
+ * @param { String } operator The oprator to use
+ * @param { Integer } value The value to add or substract
+ * @param { Object } stat The stat to edit
+ * @param { Object } actualDicoStat The dictionary of the stats
+ * @param { Object } userChar The character informations
+ * @param { Object } setUserChar The function to set the character informations
  */
-function editStat(operator, value, stat, actualDicoStat) {
+function editStat(operator, value, stat, actualDicoStat, userChar, setUserChar) {
   switch (operator) {
     case "+":
       actualDicoStat[stat] += value;
@@ -38,17 +40,34 @@ function editStat(operator, value, stat, actualDicoStat) {
     default:
       break;
   }
+
+  const characterSheetClasslist = document.querySelector('.characterSheetSmall').classList;
+
+  characterSheetClasslist.add('shake');
+
+  setTimeout(() => {
+    characterSheetClasslist.remove('shake');
+  }, 1000)
+
   API("characters/" + getCharaId() + "/stats", "PUT", actualDicoStat);
+
+  const tmpChar = userChar;
+  tmpChar.stats = actualDicoStat;
+
+  setUserChar(tmpChar);
 }
 
 /**
  * Function to impact the stats of the character based on the story impact dico
- * @param {*} key The key of the dico
- * @param {*} dico The dico of the stats
- * @param {*} stats The stats of the character
+ * @param { * } key The key of the dico
+ * @param { Object } dico The dico of the stats
+ * @param { Object } stats The stats of the character
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
+ *
  * @returns The dico of the stats.
  */
-function impactStats(key, dico, stats) {
+function impactStats(key, dico, stats, userChar, setUserChar) {
   API("/characters/" + getCharaId()).then((res) => {
     stats = res[0].stats;
     for (const typeStat in dico[key]) {
@@ -58,7 +77,9 @@ function impactStats(key, dico, stats) {
             dico[key][typeStat].operator,
             dico[key][typeStat].value,
             stat,
-            stats
+            stats,
+            userChar,
+            setUserChar
           );
         }
       }
@@ -101,13 +122,15 @@ function impactInventory(key, dico) {
 
 /**
  * function to interpret an impact
- * @param {*} dico the dimpact dico
+ * @param { Object } dico the impact dico
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function interpretImpact(dico) {
+function interpretImpact(dico, userChar, setUserChar) {
   let stats = {};
   for (const key in dico) {
     if (key === "stats") {
-        impactStats(key, dico, stats);
+        impactStats(key, dico, stats, userChar, setUserChar);
     } else {
       if (key === "stuff") {
         if (dico.stuff === "delete_all") {
@@ -188,10 +211,12 @@ const checkStatsPrerequesites = (stat, operator, value) => {
 
 /**
  * Function to interpret the impact of the dice result
- * @param {*} dico The dico of the dice result consequences
- * @param {*} setGotoSectionId The function to set the goto section id
+ * @param { Object } dico The dico of the dice result consequences
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set character informations
  */
-function diceResultConsequances(dico, setGotoSectionId) {
+function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
   let successText;
   if (dico.successText !== undefined) {
     successText = dico.successText;
@@ -202,7 +227,7 @@ function diceResultConsequances(dico, setGotoSectionId) {
   }
   if (dico.impact !== undefined) {
     let impact = dico.impact;
-    interpretImpact(impact);
+    interpretImpact(impact, setUserChar, userChar);
   }
   if (dico.goto !== undefined) {
     let goto = dico.goto;
@@ -212,12 +237,15 @@ function diceResultConsequances(dico, setGotoSectionId) {
 
 /**
  * Function to interpret the dice result
- * @param {*} dico The action dictionary
- * @param {*} diceValue The value of the dice
- * @param {*} setGotoSectionId The function to set the goto section id
+ * @param { Object } dico The action dictionary
+ * @param { Integer } diceValue The value of the dice
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
+ *
  * @returns a boolean
  */
-function interpretDiceResult(dico, diceValue, setGotoSectionId) {
+function interpretDiceResult(dico, diceValue, setGotoSectionId, userChar, setUserChar) {
   let diceResultList = dico.diceResult;
   for (let index = 0; index < diceResultList.length; index++) {
     let element = diceResultList[index];
@@ -228,21 +256,21 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId) {
         let operator = element.operator;
         checkStatsPrerequesites(stat, operator, diceValue).then((result) => {
           if (result) {
-            diceResultConsequances(element, setGotoSectionId);
+            diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
           }
         });
         break;
       case "equalsTo":
         let value = element.value;
         if (diceValue === value) {
-          diceResultConsequances(element, setGotoSectionId);
+          diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
         }
         break;
       case "fromTo":
         let from = element.from;
         let to = element.to;
         if (diceValue >= from && diceValue <= to) {
-          diceResultConsequances(element, setGotoSectionId);
+          diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
         }
         break;
       default:
@@ -271,10 +299,12 @@ function checkIfDead() {
 
 /**
  * The function to interpret the require section if the character is not dead
- * @param {*} dico The whole section dico
- * @param {*} setGotoSectionId The function to set the goto section id
+ * @param { Object } dico The whole section dico
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function notDeadRequireProcess(dico, setGotoSectionId)
+function notDeadRequireProcess(dico, setGotoSectionId, userChar, setUserChar)
 {
   if (!checkIfDead()) {
     if (dico.action.win.goto !== undefined) {
@@ -283,7 +313,7 @@ function notDeadRequireProcess(dico, setGotoSectionId)
         text = dico.action.win.text;
       }
       if (dico.action.win.impact !== undefined) {
-        interpretImpact(dico.action.win.impact);
+        interpretImpact(dico.action.win.impact, userChar, setUserChar);
       }
       gotoSectionButton(
         dico.action.win.goto,
@@ -292,7 +322,7 @@ function notDeadRequireProcess(dico, setGotoSectionId)
       );
     } else {
       if (dico.action.win.impact !== undefined) {
-        interpretImpact(dico.action.win.impact);
+        interpretImpact(dico.action.win.impact, userChar, setUserChar);
       }
     }
   }
@@ -300,10 +330,12 @@ function notDeadRequireProcess(dico, setGotoSectionId)
 
 /**
  * The function to interpret the require section if the character is dead
- * @param {*} dico The whole section dico
- * @param {*} setGotoSectionId The function to set the goto section id
+ * @param { Object } dico The whole section dico
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function deadRequireProcess(dico, setGotoSectionId) {
+function deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar) {
   if (checkIfDead()) {
     if (dico.action.lose.goto !== undefined) {
       let text = null;
@@ -311,7 +343,7 @@ function deadRequireProcess(dico, setGotoSectionId) {
         text = dico.action.lose.text;
       }
       if (dico.action.lose.impact !== undefined) {
-        interpretImpact(dico.action.lose.impact);
+        interpretImpact(dico.action.lose.impact, userChar, setUserChar);
       }
       gotoSectionButton(
         dico.action.lose.goto,
@@ -321,7 +353,7 @@ function deadRequireProcess(dico, setGotoSectionId) {
       );
     } else {
       if (dico.action.lose.impact !== undefined) {
-        interpretImpact(dico.action.lose.impact);
+        interpretImpact(dico.action.lose.impact, userChar, setUserChar);
       }
     }
   }
@@ -329,32 +361,34 @@ function deadRequireProcess(dico, setGotoSectionId) {
 
 /**
  * Function process the undefined action section
- * @param {*} dico The whole section dico
- * @param {*} setGotoSectionId The function to set the goto section id
- * @param {*} choiceNumber The number of the choice
- * @param {*} gotoId The id of the goto section
- * @param {*} setSectionId The function to set the section id
- * @param {*} setDiceValue The function to set the dice value
- * @param {*} resolve The resolve function of the promise
- * @param {*} reject The reject function of the promise
+ * @param { Object } dico The whole section dico
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Integer } choiceNumber The number of the choice
+ * @param { Integer } gotoId The id of the goto section
+ * @param { Function } setSectionId The function to set the section id
+ * @param { Function } setDiceValue The function to set the dice value
+ * @param { * } resolve The resolve function of the promise
+ * @param { * } reject The reject function of the promise
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject)
+function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar)
 {
   switch (dico.action.type) {
     case "dice":
       launchDices(dico.action.numberOfDice, setDiceValue).then((res) => {
-        interpretDiceResult(dico.action, res, setGotoSectionId);
+        interpretDiceResult(dico.action, res, setGotoSectionId, userChar, setUserChar);
         if (dico.action.win !== undefined) {
-          notDeadRequireProcess(dico, setGotoSectionId);
+          notDeadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
         }
         if (dico.action.lose !== undefined) {
-          deadRequireProcess(dico, setGotoSectionId);
+          deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
         }
         resolve();
       });
       break;
     case "story":
-      interpretStory(dico, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue);
+      interpretStory(dico, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
       resolve();
       break;
     default:
@@ -365,9 +399,9 @@ function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, se
 
 /**
  * Function to process the item action
- * @param {*} dico The whole section dico
- * @param {*} resolve The resolve function of the promise
- * @param {*} reject The reject function of the promise
+ * @param { Object } dico The whole section dico
+ * @param { * } resolve The resolve function of the promise
+ * @param { * } reject The reject function of the promise
  */
 function itemActionProcess(dico, resolve, reject) {
   if (dico.item !== undefined) {
@@ -407,19 +441,21 @@ function statActionProcess(dico, resolve) {
 
 /**
  * Function to interpret the require section
- * @param {*} dico The whole section dico
- * @param {*} setGotoSectionId The function to set the goto section id
- * @param {*} choiceNumber The number of the choice
- * @param {*} gotoId The id of the goto section
- * @param {*} setSectionId The function to set the section id
- * @param {*} setDiceValue The function to set the dice value
+ * @param { Object } dico The whole section dico
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Integer } choiceNumber The number of the choice
+ * @param { Integer } gotoId The id of the goto section
+ * @param { Function } setSectionId The function to set the section id
+ * @param { Function } setDiceValue The function to set the dice value
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  * @returns A promise
  */
-function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue)
+function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, userChar, setUserChar)
 {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
-      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject);
+      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar);
     } else if (dico.type === "items") {
       itemActionProcess(dico, resolve, reject);
     } else if (dico.type === "stats") {
@@ -433,14 +469,16 @@ function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, set
 // function to interpret a story (must receive a "story" dico)
 /**
  * Function to interpret a story
- * @param {*} story The story dico
- * @param {*} gotoID The id of the goto section
- * @param {*} setSectionId The function to set the section id
- * @param {*} choiceNumber The number of the choice
- * @param {*} setGotoSectionId The function to set the goto section id
- * @param {*} setDiceValue The function to set the dice value
+ * @param { Object } story The story dico
+ * @param { Integer } gotoID The id of the goto section
+ * @param { Function } setSectionId The function to set the section id
+ * @param { Integer } choiceNumber The number of the choice
+ * @param { Function } setGotoSectionId The function to set the goto section id
+ * @param { Function } setDiceValue The function to set the dice value
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue)
+function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar)
 {
   let choices = story.choices;
   if (choices !== undefined && choices.length > 0) {
@@ -449,13 +487,13 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
       if (choice.goto === gotoID && choice.require === undefined) {
         if (choice.require === undefined) {
           if (choice.impact !== undefined) {
-            interpretImpact(choice.impact);
+            interpretImpact(choice.impact, setUserChar, userChar);
           }
         } else {
-          interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue).then((result) => {
+          interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar).then((result) => {
             if (result) {
               if (choice.impact !== undefined) {
-                interpretImpact(choice.impact);
+                interpretImpact(choice.impact, setUserChar, userChar);
               }
               gotoSection(choice.goto, setSectionId, setDiceValue);
             }
@@ -466,13 +504,13 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
     } else {
       if (choice.require === undefined) {
         if (choice.impact !== undefined) {
-          interpretImpact(choice.impact);
+          interpretImpact(choice.impact, setUserChar, userChar);
         }
       } else {
-        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue).then((result) => {
+        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
-              interpretImpact(choice.impact);
+              interpretImpact(choice.impact, setUserChar, userChar);
             }
           }
         });
@@ -518,8 +556,10 @@ const launchDices = async (numberOfDice, setDiceValue) => {
  * @param { Function } setCurrEnemyHealth The function to set the enemy current health
  * @param { Function } setCombatInfo The function to set the combat info
  * @param { Function } setMaxEnemyHealth The function to set the enemy max health
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth)
+function interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth, userChar, setUserChar)
 {
   let item_type, item;
   if (action.choices[choiceNumber].require.action) {
@@ -542,9 +582,8 @@ function interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setC
         setCombatInfo("win");
         setMaxEnemyHealth(null);
       } else {
-        char.stats.resistance -= action.enemy.strength;
         action.enemy.resistance -= char.stats.strength;
-        API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+        editStat("-", action.enemy.strength, 'resistance', char.stats, userChar, setUserChar)
         if (char.stats.resistance > 0) {
           setCombatInfo("during");
           setCurrEnemyHealth(action.enemy.resistance);
@@ -566,16 +605,17 @@ function interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setC
  * @param { Function } setCurrEnemyHealth The function to set the current enemy health
  * @param { Function } setCombatInfo The function to set the combat info
  * @param { Function } setMaxEnemyHealth The function to set the enemy max health
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function interpretNoRequireFight(action, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth)
+function interpretNoRequireFight(action, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth, userChar, setUserChar)
 {
   if (currEnemyHealth < char.stats.strength) {
     setCombatInfo("win");
     setMaxEnemyHealth(null);
   } else {
-    char.stats.resistance -= action.enemy.strength;
     action.enemy.resistance -= char.stats.strength;
-    API("characters/" + getCharaId() + "/stats", "PUT", char.stats);
+    editStat("-", action.enemy.strength, 'resistance', char.stats, userChar, setUserChar);
     if (char.stats.resistance > 0) {
       setCombatInfo("during");
       setCurrEnemyHealth(action.enemy.resistance);
@@ -598,8 +638,10 @@ function interpretNoRequireFight(action, char, currEnemyHealth, setCurrEnemyHeal
  * @param { Function } setCurrEnemyHealth The function to set the enemy health
  * @param { Integer } maxEnemyHealth The enemy's max health
  * @param { Function } setMaxEnemyHealth The function to set the enemy max health
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth)
+function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar)
 {
   if (action.choices[choiceNumber].text.toLowerCase().includes("flee")) {
     gotoSection(action.choices[choiceNumber].goto, setSectionId, setDiceValue);
@@ -612,9 +654,9 @@ function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDi
       API("characters/" + getCharaId()).then((char) => {
         char = char[0];
         if (action.choices[choiceNumber].require) {
-          interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth);
+          interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth, userChar, setUserChar);
         } else {
-          interpretNoRequireFight(action, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth);
+          interpretNoRequireFight(action, char, currEnemyHealth, setCurrEnemyHealth, setCombatInfo, setMaxEnemyHealth, userChar, setUserChar);
         }
       });
     }
@@ -647,8 +689,10 @@ function addPath(id_sections, id_character) {
  * @param { Function } setCurrEnemyHealth The function to set enemy's current health
  * @param { Integer } maxEnemyHealth The enemy's max health
  * @param { Function } setMaxEnemyHealth The function to set the enemy's max health
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setGotoSectionId, sectionChoice, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth) {
+function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setGotoSectionId, sectionChoice, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar) {
   if (!checkIfDead()) {
     let storyID = localStorage.getItem("storyId");
     let currentSectionId = localStorage.getItem("sectionId");
@@ -657,10 +701,9 @@ function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setG
       section = res[0];
       if (gotoId !== null) {
         if (section.content.action.type === "story") {
-          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue);
+          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
         } else if (section.content.action.type === "combat") {
-          interpretFight( section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth
-          );
+          interpretFight( section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar );
         }
       } else {
         if (sectionChoice.goto !== undefined) {
@@ -668,10 +711,9 @@ function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setG
         }
 
         if (section.content.action.type === "story") {
-          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue);
+          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
         } else if (section.content.action.type === "combat") {
-          interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth
-          );
+          interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar);
         }
       }
     });
@@ -730,12 +772,24 @@ function setDiceAndDead(setDiceValue, setDead)
   });
 }
 
+function storyButtonChoice(adaptedOnClick, adaptedText="Next", targetIdSection="13") {
+  return (
+    <Button
+      size={"small"}
+      text={adaptedText}
+      type={"story"}
+      onClick={adaptedOnClick}
+      targetIdSection={targetIdSection}
+    />
+  )
+}
+
 /**
  * Main function to interpret the choices of a section
  * @param {*} param0 The props of the component
  * @returns A JSX element
  */
-const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth }) => {
+const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar }) => {
   const [choices, setChoices] = useState([
     {
       content: "",
@@ -754,7 +808,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
   const [dead, setDead] = useState(0);
   const [gotoSectionId, setGotoSectionId] = useState(0);
   const handleButtonClick = async (item, i) => {
-    interpretAction(item.id_section_to || null, i, setSectionId, setCombatInfo, setGotoSectionId, item, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth);
+    interpretAction(item.id_section_to || null, i, setSectionId, setCombatInfo, setGotoSectionId, item, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar);
     // wait that "numberOfDices" of the localStorage and dead in localStorage is set
     await setDiceAndDead(setDiceValue, setDead);
   };
@@ -778,37 +832,16 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
       <Dices nbDices={diceValue} />
       <div className="container-choices">
         {dead === 1 && gotoSectionId !== 13 ? (
-          <Button
-            size={"small"}
-            text={"Next"}
-            type={"story"}
-            onClick={() => {
-              gotoSection(13, setSectionId, setDiceValue);
-            }}
-            targetIdSection="13"
-          />
+          storyButtonChoice(() => gotoSection(13, setSectionId, setDiceValue))
         ) : gotoSectionId !== 0 ? (
-          <Button
-            size={"small"}
-            text={"Next"}
-            // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
-            type={"story"}
-            onClick={() => {
+          storyButtonChoice(() => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
-            }}
-            targetIdSection="13"
-          />
+          }, "Next", gotoSectionId)
         ) : id === 50 ? (
-          <Button
-            type="story"
-            size="small"
-            text="End the story"
-            onClick={() => (window.location = "/ending")}
-          />
+          storyButtonChoice(() => window.location = "/ending", "End the story")
         ) : (
-          choices &&
-          choices.map((item, i) => {
+          choices && choices.map((item, i) => {
             if (!item.victory && !item.lose) {
               let targetIdSections = [];
               let diceResult = item?.require?.action?.diceResult;
@@ -821,24 +854,11 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
                   }
                 }
               }
-              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) {
-                throw new Error("");
-              }
-              return (
-                <Button
-                  key={i}
-                  size={"small"}
-                  type={"story"}
-                  text={item.content || item.text}
-                  onClick={() => {
-                    //   setChoices(item.id_section_to);
-                    //   setSectionId(item.id_section_to);
-                    handleButtonClick(item, i);
-                    //addPath(item.id_section_to, 1);
-                  }}
-                  targetIdSection={targetIdSections[0]}
-                />
-              );
+              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) throw new Error("");
+
+              return storyButtonChoice(() => {
+                handleButtonClick(item, i);
+              }, item.content || item.text, targetIdSections[0]);
             }
             return null;
           }
