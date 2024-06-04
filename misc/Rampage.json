@@ -441,7 +441,6 @@
       "choices": [
         {
           "text": "Throw a boulder at Vaitharre",
-          "goto": 7,
           "require": {
             "type": "item",
             "item": {
@@ -457,6 +456,7 @@
       ],
       "win": {
         "text": "you have slain the adventuress",
+        "goto": 7,
         "impact": {
           "stuff": [
             {
