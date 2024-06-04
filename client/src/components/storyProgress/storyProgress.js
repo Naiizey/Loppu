@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./storyProgress.css";
 import API from "../../utils/API";
 
-const StoryProgress = ({ section: sectionId }) => {
+const StoryProgress = ({ storyTitle, sectionId, sectionTitle }) => {
     const [lastSections, setLastSections] = useState([]);
     useEffect(() => {
         API("paths/" + 1).then((res) => {
@@ -27,8 +27,9 @@ const StoryProgress = ({ section: sectionId }) => {
                 <hr />
             </div>
             <div>
-                <h2>Rampage</h2>
-                <h3>section {sectionId}</h3>
+                <h2>{storyTitle}</h2>
+                <h3>{sectionTitle}</h3>
+                <h4>Section {sectionId}</h4>
             </div>
         </div>
     );

@@ -825,7 +825,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
     if(maxEnemyHealth){
       setCombatInfo('during');
     }
-  }, [maxEnemyHealth])
+  }, [maxEnemyHealth, setCurrEnemyHealth, setCombatInfo])
 
   return (
     <div className="container-choices-dices">

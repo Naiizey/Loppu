@@ -19,7 +19,8 @@ const SectionPage = () => {
     );
   };
 
-  const [title, setTitle] = useState("");
+  const [storyTitle, setStoryTitle] = useState("");
+  const [sectionTitle, setSectionTitle] = useState("");
 
   const [section, setSection] = useState({
     id: 0,
@@ -57,6 +58,7 @@ const SectionPage = () => {
   useEffect(() => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
+      setSectionTitle(res.title);
       API("paths/" + parseInt(localStorage.getItem("charaId"))).then(
         (pathRes) => {
           let boolean = false;
@@ -88,12 +90,12 @@ const SectionPage = () => {
         }
       );
     });
-  }, [sectionId]);
+  }, [sectionId, story_id]);
 
   useEffect(() => {
     API("stories/" + story_id).then((res) => {
       res = res[0];
-      setTitle(res.title);
+      setStoryTitle(res.title);
     });
   }, [story_id]);
 
@@ -199,7 +201,7 @@ const SectionPage = () => {
       </nav>
       <section>
         <div>
-          <StoryProgress section={sectionId} />
+          <StoryProgress storyTitle={storyTitle} sectionId={sectionId} sectionTitle={sectionTitle}/>
           <article>
             <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
           </article>
