@@ -30,6 +30,7 @@ function getCharaId() {
  * @param { Object } setUserChar The function to set the character informations
  */
 function editStat(operator, value, stat, actualDicoStat, userChar, setUserChar) {
+  console.log('editstats', setUserChar)
   switch (operator) {
     case "+":
       actualDicoStat[stat] += value;
@@ -68,6 +69,7 @@ function editStat(operator, value, stat, actualDicoStat, userChar, setUserChar) 
  * @returns The dico of the stats.
  */
 function impactStats(key, dico, stats, userChar, setUserChar) {
+  console.log('impactstats', setUserChar)
   API("/characters/" + getCharaId()).then((res) => {
     stats = res[0].stats;
     for (const typeStat in dico[key]) {
@@ -90,32 +92,77 @@ function impactStats(key, dico, stats, userChar, setUserChar) {
 
 /**
  * Function to edit the inventory of the character based on the story impact dico
- * @param {*} key  The key of the dico
- * @param {*} dico The impact dico
+ * @param { Integer } key  The key of the dico
+ * @param { Object } dico The impact dico
+ * @param { Object } userChar The character informations
+ * @param { Function } setUserChar The function to set the character informations
  */
-function impactInventory(key, dico) {
+async function impactInventory(key, dico, userChar, setUserChar) {
   for (const index in dico[key]) {
     let item = dico[key][index];
     let operator = item.operator;
+
+    const itemIdType = await API(
+      "stuff/" + localStorage.getItem("storyId") + "/" + item.id_item, "GET"
+    ).then((item) => {
+      return {
+        "item_type": item[0].item_type,
+        "id_item": item[0].id_item
+      }
+    });
+
     if (operator !== undefined) {
       let charaId = getCharaId();
       let itemId = item.id_item;
       switch (operator) {
         case "+":
-          API(
+          await API(
             "characters/" + charaId + "/inventory/" + itemId,
             "PUT"
           ).then(() => {});
+
+          console.log(itemIdType);
           break;
         case "-":
-          API(
+          await API(
             "characters/" + charaId + "/inventory/" + itemId,
             "DELETE"
           ).then(() => {});
+
+          console.log(itemIdType);
           break;
         default:
           break;
       }
+    }
+
+    const haveItem = Object.values(userChar.stuff).map(inventory => {
+      const isInStuff = inventory.map(mappedItem => {
+        return parseInt(Object.keys(mappedItem)[0]) === item.id_item
+      }).filter(isItem => isItem)
+
+      return isInStuff
+    }).map(inventory => inventory.length !== 0);
+
+    if(!haveItem.includes(true) && item.operator === "-"){
+      console.error("Tentative de retrait d'un item que vous ne possédez pas");
+    }
+    else{
+      const userCharCopy = {...userChar};
+
+      const toAddItem = {}
+      toAddItem[itemIdType.id_item] = itemIdType.item_type;
+
+      if(itemIdType.item_type === "weapon"){
+        userCharCopy.stuff.stuff.push(toAddItem);
+      }
+      else{
+        userCharCopy.stuff.inventory.push(toAddItem);
+      }
+
+      console.log(userChar.stuff, userCharCopy.stuff)
+
+      setUserChar(userCharCopy);
     }
   }
 }
@@ -136,7 +183,7 @@ function interpretImpact(dico, userChar, setUserChar) {
         if (dico.stuff === "delete_all") {
           API("characters/" + getCharaId() + "/inventory", "DELETE");
         } else {
-          impactInventory(key, dico);
+          impactInventory(key, dico, userChar, setUserChar);
         }
       }
     }
@@ -217,6 +264,7 @@ const checkStatsPrerequesites = (stat, operator, value) => {
  * @param { Function } setUserChar The function to set character informations
  */
 function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
+  console.log('diceResultConsequances :', setUserChar)
   let successText;
   if (dico.successText !== undefined) {
     successText = dico.successText;
@@ -227,7 +275,7 @@ function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
   }
   if (dico.impact !== undefined) {
     let impact = dico.impact;
-    interpretImpact(impact, setUserChar, userChar);
+    interpretImpact(impact, userChar, setUserChar);
   }
   if (dico.goto !== undefined) {
     let goto = dico.goto;
@@ -256,21 +304,21 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId, userChar, setUse
         let operator = element.operator;
         checkStatsPrerequesites(stat, operator, diceValue).then((result) => {
           if (result) {
-            diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
+            diceResultConsequances(element, setGotoSectionId, userChar, setUserChar);
           }
         });
         break;
       case "equalsTo":
         let value = element.value;
         if (diceValue === value) {
-          diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
+          diceResultConsequances(element, setGotoSectionId, userChar, setUserChar);
         }
         break;
       case "fromTo":
         let from = element.from;
         let to = element.to;
         if (diceValue >= from && diceValue <= to) {
-          diceResultConsequances(element, setGotoSectionId, setUserChar, userChar);
+          diceResultConsequances(element, setGotoSectionId, userChar, setUserChar);
         }
         break;
       default:
@@ -487,13 +535,13 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
       if (choice.goto === gotoID && choice.require === undefined) {
         if (choice.require === undefined) {
           if (choice.impact !== undefined) {
-            interpretImpact(choice.impact, setUserChar, userChar);
+            interpretImpact(choice.impact, userChar, setUserChar);
           }
         } else {
           interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar).then((result) => {
             if (result) {
               if (choice.impact !== undefined) {
-                interpretImpact(choice.impact, setUserChar, userChar);
+                interpretImpact(choice.impact, userChar, setUserChar);
               }
               gotoSection(choice.goto, setSectionId, setDiceValue);
             }
@@ -504,13 +552,13 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
     } else {
       if (choice.require === undefined) {
         if (choice.impact !== undefined) {
-          interpretImpact(choice.impact, setUserChar, userChar);
+          interpretImpact(choice.impact, userChar, setUserChar);
         }
       } else {
         interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
-              interpretImpact(choice.impact, setUserChar, userChar);
+              interpretImpact(choice.impact, userChar, setUserChar);
             }
           }
         });
@@ -814,6 +862,10 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
       setCombatInfo('during');
     }
   }, [maxEnemyHealth])
+
+  useEffect(() => {
+    console.log(userChar)
+  }, [userChar])
 
   return (
     <div className="container-choices-dices">

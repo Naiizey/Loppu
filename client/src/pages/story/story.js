@@ -138,6 +138,8 @@ const SectionPage = () => {
             setInventory(temp_inventory);
           });
         }
+      }
+      for (let stuffName in userCharas[0].stuff.inventory) {
         for (let item in userCharas[0].stuff.inventory[stuffName]) {
           API("stuff/" + story_id + "/" + item).then((res) => {
             temp_inventory.push(`${res[0].item_name} - ${res[0].item_type}`);
@@ -147,6 +149,28 @@ const SectionPage = () => {
       }
     }
   }, [characters, charactersModels, story_id]);
+
+  useEffect(() => {
+    if(userChar){
+      let temp_inventory = []
+      for (let stuffName in userChar.stuff.stuff) {
+        for (let item in userChar.stuff.stuff[stuffName]) {
+          API("stuff/" + story_id + "/" + item).then((res) => {
+            temp_inventory.push(`${res[0].item_name} - ${res[0].item_type}`);
+            setInventory(temp_inventory);
+          });
+        }
+      }
+      for (let stuffName in userChar.stuff.inventory) {
+        for (let item in userChar.stuff.inventory[stuffName]) {
+          API("stuff/" + story_id + "/" + item).then((res) => {
+            temp_inventory.push(`${res[0].item_name} - ${res[0].item_type}`);
+            setInventory(temp_inventory);
+          });
+        }
+      }
+    }
+  }, [userChar])
 
   const dict_combat = [
     "killing",
