@@ -1,15 +1,13 @@
 import './dices.css';
-import Button from '../button/button';
 import Dice from 'react-dice-roll';
-import { useEffect, useState } from 'react';
 
 
 /**
- * 
+ *
  * @function rollAllDices
- * 
- * @returns {number} The total value of all dices rolled. 
- * 
+ *
+ * @returns {number} The total value of all dices rolled.
+ *
  * @description This function simulates the rolling of all dices on the page.
  */
 async function rollAllDices() {
@@ -29,7 +27,7 @@ async function rollAllDices() {
     await Promise.all(buttonClickPromises);
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    
+
     let diceValues = localStorage.getItem("diceValues");
     localStorage.removeItem("diceValues");
     diceValues = diceValues.split(",");
@@ -39,54 +37,52 @@ async function rollAllDices() {
 
 
 /**
- * 
+ *
  * @function updateDiceValues
- * 
+ *
  * @param {number} diceValue
  * @param {boolean} push
- * 
+ *
  * @description This function updates the dice values stored in local storage.
  */
-function updateDiceValues(diceValue, push = false, onDiceThrow) {
-
+function updateDiceValues(diceValue) {
     let storedDiceValues = localStorage.getItem("diceValues");
     if (storedDiceValues === null) {
         storedDiceValues = [diceValue];
-    }
-    else {
+    } else {
         storedDiceValues = storedDiceValues.split(",");
         storedDiceValues.push(diceValue);
     }
     localStorage.setItem("diceValues", storedDiceValues)
-    
 }
 /**
- * 
+ *
  * @function Dices
- * 
+ *
  * @param {number} nbDices
- * 
+ *
  * @returns {React.JSX.Element}
- * 
+ *
  * @description This function creates a list of dice elements.
  */
 const Dices = ({nbDices, onDiceThrow }) => {
     localStorage.setItem("diceValues", [0]);
 
     const diceElements = [];
-    let check = 0;
     for (let i = 0; i < nbDices; i++) {
         diceElements.push(
-            <li key={i}><Dice size='100' onRoll={(value) => {console.log('diceValue:' + value); check = i + 1; updateDiceValues(value, check = nbDices)}} /></li>
+            <li key={i}><Dice size='100' onRoll={(value) => {
+                console.log('diceValue:' + value);
+                updateDiceValues(value)
+            }} /></li>
         );
     }
-    
+
     return (
         <div id="dices">
             <ul>
                 {diceElements}
             </ul>
-            {/* <Button size="small" type="story" text="Roll" onClick={rollAllDices}/> */}
         </div>
     )
 };

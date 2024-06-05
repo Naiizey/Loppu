@@ -68,3 +68,68 @@ main#section aside > Button{
 main#section aside > Button:hover{
     background-color: var(--grey-button-hover);
 }
+
+main#section .backgroundImage {
+    z-index: -1;
+    display: block;
+    position: absolute;
+    bottom: 2.5em;
+    left: 0;
+    padding-left: 3em;
+    padding-bottom: 2em;
+}
+
+main#section .backgroundImage img {
+    width: 24em;
+    height: 22em;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--black-shade);
+    transition: all 0.3s;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+main#section .inProgress{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    row-gap: 1vh;
+}
+
+main#section .inProgress .hpBar{
+    width: 100%;
+    min-height: 3vh;
+
+    border: 1px solid var(--grey-button);
+    border-radius: 1vw;
+
+    display: flex;
+    overflow: hidden;
+}
+
+main#section .inProgress .hpBar .hitpoint{
+    min-height: 100%;
+    flex-grow: 1;
+
+    transform: skewX(-15deg);
+
+    background-color: var(--black-text);
+
+    position: relative;
+}
+
+main#section .inProgress .hpBar .hitpoint.currHealth{
+    background-color: green;
+}
+
+main#section .inProgress .hpBar .hitpoint:not(:last-of-type)::after{
+    content: "";
+    background: lightgrey;
+
+    position: absolute;
+    right: -1.5px;
+
+    height: 100%;
+    width: 3px;
+}
