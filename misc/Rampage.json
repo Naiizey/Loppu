@@ -468,7 +468,7 @@
         }
       ],
       "win": {
-        "text": "you have slain the adventuress",
+        "text": "You have slain the adventuress",
         "goto": 7,
         "impact": {
           "stuff": [
