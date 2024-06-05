@@ -20,7 +20,7 @@ import "./characterSheet.css";
  * @param {string} props.type
  * @param {string} props.img
  * @param {string} props.name
- * @param {object} props.stats
+ * @param {object} props.character
  * @param {array} props.inventory
  * @param {boolean} props.isClicked
  * @param {function} props.onClick
@@ -62,7 +62,7 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                     { isClicked &&
                         <article>
                             <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.
                             </p>
                             <button onClick={(e) => e.stopPropagation()}>Sélectionner</button>
                         </article>

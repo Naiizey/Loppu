@@ -8,6 +8,7 @@ import Home from './pages/home/home'
 import Story from './pages/story/story'
 import Slider from './components/slider/slider';
 import Ending from './pages/ending/ending';
+import CharacterSelection from './pages/characterSelection/characterSelection';
 
 const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, darkMode, setDarkMode}) => {
     return(
@@ -40,6 +41,12 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, dar
                     exact
                     path="/ending"
                     element={ <Ending/>}
+                />
+
+                <Route 
+                    exact
+                    path="/test"
+                    element={ <CharacterSelection />}
                 />
             </Routes>
         </div>
