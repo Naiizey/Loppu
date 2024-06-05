@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import API from "../../utils/API";
 import Dices from "../../components/dices/dices";
 import { rollAllDices } from "../../components/dices/dices";
+// import { get } from "../../../../server/routes/paths";
 
 /**
  * Function to get the id of the character from the local storage
@@ -146,7 +147,6 @@ function gotoSection(sectionId, setSectionId, setDiceValue) {
 //function to go to an other section /!\ She needs to break the loop or the father
 function gotoSectionButton(sectionId, setGotoSectionId, successText, failureText) 
 {
-  console.log("gotoSectionButton");
   setSectionIdLocalStorage(sectionId);
   setGotoSectionId(sectionId);
   if (successText !== undefined) {
@@ -501,7 +501,6 @@ function deadButton() {
  * @returns The result of the dices
  */
 const launchDices = async (numberOfDice, setDiceValue) => {
-  //localStorage.setItem("numberOfDices", numberOfDice);
   setDiceValue(numberOfDice);
   //wait to be sure that the value is set
   await new Promise((resolve) => setTimeout(resolve, 300));
@@ -633,7 +632,7 @@ function addPath(id_sections, id_character) {
  * @param {*} setCombatInfo The function to set the combat info
  * @param {*} setGotoSectionId THhe function to set the goto section id
  * @param {*} sectionChoice The choice of the section
- * @param {*} setDiceValue THhe function to set the dice value
+ * @param {*} setDiceValue The function to set the dice value
  */
 function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setGotoSectionId, sectionChoice, setDiceValue) {
   if (!checkIfDead()) {
@@ -672,21 +671,28 @@ function getChoices(id) {
   let story_id = localStorage.getItem("storyId");
   return new Promise((resolve, reject) => {
     API("sections/" + story_id + "/" + id).then((storyRes) => {
-      if (storyRes[0].id === 50) {
-        resolve([]);
-      } else {
-        if (storyRes[0].content.action !== undefined) {
-          if (storyRes[0].content.action.choices) {
-            resolve(storyRes[0].content.action.choices);
-          } else {
-            API("choices/" + story_id + "/" + id).then((choicesRes) => {
-              resolve(choicesRes);
-            });
-          }
-        } else {
+      if (storyRes.length === 0) {
+        reject(new Error("Section "+ id + " not found in dataBase"));
+      }
+      else
+      {
+        if (storyRes[0].id === 50) {
           resolve([]);
+        } else {
+          if (storyRes[0].content.action !== undefined) {
+            if (storyRes[0].content.action.choices) {
+              resolve(storyRes[0].content.action.choices);
+            } else {
+              API("choices/" + story_id + "/" + id).then((choicesRes) => {
+                resolve(choicesRes);
+              });
+            }
+          } else {
+            resolve([]);
+          }
         }
       }
+      
     });
   });
 }
@@ -716,11 +722,217 @@ function setDiceAndDead(setDiceValue, setDead)
 }
 
 /**
+ * Function to check if a section is already visited
+ * @param {int} sectionId The id of the section
+ * @param {list} lstPathsVisited The list of the paths visited
+ * @returns A boolean
+ */
+async function checkAlreadyVisited(sectionId, lstPathsVisited) {
+  if (lstPathsVisited.includes(sectionId)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Function to get the real goto section id recursively
+ * @param {int} gotoId The goto section id
+ * @param {list} lstPathsVisited The list of the paths visited
+ * @returns The real goto section id
+ */
+async function getRealGotoSectionIdRecurs(gotoId, lstPathsVisited) {
+  if (gotoId === undefined || gotoId === null) {
+    return gotoId;
+  }
+  let storyId = localStorage.getItem("storyId");
+  let section = {};
+  let res = await API("sections/" + storyId + "/" + gotoId)
+  section = res[0].content;
+  if (section.action !== undefined && section.action.alreadyVisited !== undefined) {
+    if (lstPathsVisited !== undefined && lstPathsVisited !== null) {
+      let isVisited = await checkAlreadyVisited(gotoId, lstPathsVisited);
+      if (isVisited) {
+        gotoId = section.action.alreadyVisited;
+        return await getRealGotoSectionIdRecurs(gotoId, lstPathsVisited);
+      }
+    }
+    else {
+      console.log("lstPathsVisited is null");
+    }
+  }
+  return gotoId;
+}
+
+/**
+ * Function to get the paths visited by the character
+ * @returns The list of the paths visited
+ */
+async function getPathsVisited() {
+  let charaId = getCharaId();
+  let lstVisited = [];
+  const res = await API("paths/" + charaId);
+  res.forEach((element) => {
+    lstVisited.push(element.id_sections);
+  });
+  return lstVisited;
+}
+
+/**
+ * Function to get the real goto section id
+ * @param {int} gotoId The goto section id
+ * @returns The real goto section id
+ */
+async function  getRealGotoSectionId(gotoId)
+{
+  const sectionsVisited = await getPathsVisited();  
+  const realId = await getRealGotoSectionIdRecurs(gotoId, sectionsVisited);
+  return realId;
+}
+
+/**
+ * Function to get the goto section id from a choice
+ * @param {object} choice 
+ * @returns The goto section id
+ */
+function getGotoFromItem(choice)
+{
+  let targetIdSections = [];
+  if (choice.goto !== undefined) {
+    targetIdSections.push(choice.goto);
+  }
+  let diceResult = choice?.require?.action?.diceResult;
+  if (diceResult) {
+    for (let i = 0; i < diceResult.length; i++) {
+      if (diceResult[i].goto) {
+        targetIdSections.push(diceResult[i].goto);
+      }
+    }
+  }
+  return targetIdSections;
+}
+
+/**
+ * Function to concatenate a list of elements to a string
+ * @param {*} lst The list of elements
+ * @returns The concatenated string
+ */
+function concat_to_string(lst)
+{
+  let str = "";
+  lst.forEach((element) => {
+    str += element + "|";
+  });
+  if (str.length > 0) {
+    str = str.slice(0, -1);
+  }
+  return str;
+}
+
+/**
+ * Function to get the win or lose section ids
+ * @returns The concatenated string of the win or lose section ids
+ */
+async function getWinOrLoseSectionIds()
+{
+  let sectionID = localStorage.getItem("sectionId");
+  let section = await API("sections/" + localStorage.getItem("storyId") + "/" + sectionID);
+  let winSectionId = section[0]?.content?.action?.win?.goto;
+  let loseSectionId = section[0]?.content?.action?.lose?.goto;
+  let lst = [];
+  if (winSectionId !== undefined && winSectionId !== null) {
+    lst.push(winSectionId);
+  }
+  if (loseSectionId !== undefined && loseSectionId !== null) {
+    lst.push(loseSectionId);
+  }
+  return concat_to_string(lst);
+}
+
+/**
+ * Temporary setter for the target id sections
+ * @param {Function} setTargetIdSections The function to set the target id sections
+ * @param {object} element The element to set
+ * @param {String} strSections The string of the sections
+ */
+function saveTargetIdSectionsTemporarySetter(setTargetIdSections, element, strSections)
+{
+  setTargetIdSections((prev) => {
+    const index = prev.findIndex((tuple) => tuple[0] === element);
+    if (index !== -1) {
+      // Key exists, replace value
+      return [
+        ...prev.slice(0, index),
+        [element, strSections],
+        ...prev.slice(index + 1),
+      ];
+    } else {
+      // Key doesn't exist, add new key-value pair
+      return [...prev, [element, strSections]];
+    }
+  });
+}
+
+/**
+ * Function to look for a "goto" property in a choice (recursive)
+ * @param {object} choice The choice to look for
+ * @returns A boolean
+ */
+function lookForGoto(choice) {
+  // Base case: if the choice is an object and has a "goto" property,
+  if (typeof choice === 'object' && choice !== null && 'goto' in choice) {
+    return true;
+  }
+
+  // Recursive case: if the choice is an object, look for "goto" in its properties
+  if (typeof choice === 'object' && choice !== null) {
+    for (let key in choice) {
+      const result = lookForGoto(choice[key]);
+      if (result !== undefined && result === true) {
+        return result;
+      }
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Function to get the expected section ids
+ * @param {object} choices The list of choices
+ * @param {Function} setTargetIdSections The function to set the target id sections
+ */
+async function getExpectedSectionIds(choices, setTargetIdSections)
+{
+  choices.forEach(async (item, i) => {
+    if ((item.id_section_from === 0 && item.id_section_to === 0 && item.id_story === 0) || (lookForGoto(item) === false)) // 
+    {
+      let strSections = await getWinOrLoseSectionIds();
+      let element = undefined;
+      saveTargetIdSectionsTemporarySetter(setTargetIdSections, element, strSections);
+      return;
+    }
+    else 
+    {
+      let targetIdSections = getGotoFromItem(item);
+      targetIdSections.forEach(async (element) => {
+        let realSectionId = await getRealGotoSectionId(element)
+        if (realSectionId !== undefined && realSectionId !== null) {
+          saveTargetIdSectionsTemporarySetter(setTargetIdSections, element, realSectionId);
+        }
+      });
+    }
+        
+  });
+}
+
+/**
  * Main function to interpret the choices of a section
  * @param {*} param0 The props of the component
  * @returns A JSX element
  */
 const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
+  
   const [choices, setChoices] = useState([
     {
       content: "",
@@ -744,10 +956,20 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
     await setDiceAndDead(setDiceValue, setDead);
   };
 
+  const [targetIdSections, setTargetIdSections] = useState([]);
+
+  useEffect(() => {
+    if (choices) {
+      getExpectedSectionIds(choices, setTargetIdSections)
+    }
+  }, [choices]);
+
+
   useEffect(() => {
     getChoices(id).then((res) => {
       setChoices(res);
     });
+    
   }, [story_id, id]);
 
   return (
@@ -762,7 +984,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
             onClick={() => {
               gotoSection(13, setSectionId, setDiceValue);
             }}
-            targetIdSection="13"
+            targetIdSection={gotoSectionId}
           />
         ) : gotoSectionId !== 0 ? (
           <Button
@@ -774,7 +996,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
             }}
-            targetIdSection="13"
+            targetIdSection={gotoSectionId}
           />
         ) : id === 50 ? (
           <Button
@@ -786,21 +1008,13 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
         ) : (
           choices &&
           choices.map((item, i) => {
-            if (!item.victory && !item.lose) {
-              let targetIdSections = [];
-              let diceResult = item?.require?.action?.diceResult;
-              if (item.goto) {
-                targetIdSections.push(item.goto);
-              } else if (diceResult) {
-                for (let j = 0; j < diceResult.length; j++) {
-                  if (diceResult[j].goto) {
-                    targetIdSections.push(diceResult[j].goto);
-                  }
-                }
-              }
-              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) {
-                throw new Error("");
-              }
+            let gotoFrom = getGotoFromItem(item)[0];
+            // console.log("gotoFrom ", gotoFrom);
+            // console.log("targetIdSections ", targetIdSections);
+            const targetIdTuple = targetIdSections.find(
+              (tuple) => tuple[0] === gotoFrom
+            );
+            if (!item.victory && !item.lose && targetIdTuple) {
               return (
                 <Button
                   key={i}
@@ -808,12 +1022,23 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
                   type={"story"}
                   text={item.content || item.text}
                   onClick={() => {
-                    //   setChoices(item.id_section_to);
-                    //   setSectionId(item.id_section_to);
                     handleButtonClick(item, i);
-                    //addPath(item.id_section_to, 1);
                   }}
-                  targetIdSection={targetIdSections[0]}
+                  targetIdSection={targetIdTuple[1]}
+                />
+              );
+            }
+            else if (!item.victory && !item.lose)
+            {
+              return (
+                <Button
+                  key={i}
+                  size={"small"}
+                  type={"story"}
+                  text={item.content || item.text}
+                  onClick={() => {
+                    handleButtonClick(item, i);
+                  }}
                 />
               );
             }

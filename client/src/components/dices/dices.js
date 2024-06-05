@@ -71,9 +71,7 @@ function updateDiceValues(diceValue, push = false, onDiceThrow) {
  * @description This function creates a list of dice elements.
  */
 const Dices = ({nbDices, onDiceThrow }) => {
-    console.log("diceValues: " + localStorage.getItem("diceValues"));
     localStorage.setItem("diceValues", [0]);
-    console.log("nbDices: " + nbDices);
 
     const diceElements = [];
     let check = 0;

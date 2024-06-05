@@ -227,10 +227,6 @@
         {
           "text": "Go North, to the market",
           "goto": 45
-        },
-        {
-          "text": "Go South, to your cave",
-          "goto": 50
         }
       ]
     }
@@ -633,42 +629,45 @@
       "choices": [
         {
           "text": "Roll the dice",
-          "action": {
-            "type": "dice",
-            "numberOfDice": 1,
-            "diceResult": [
-              {
-                "checkType": "comparison",
-                "stat": "intelligence",
-                "operator": "<",
-                "successText": "You manage to avoid the flames",
-                "impact": {
-                  "stuff": [
-                    {
-                      "id_item": 9,
-                      "operator": "+",
-                      "quantity": 1
-                    }
-                  ]
+          "require" :{
+            "action": {
+              "type": "dice",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": "<",
+                  "successText": "You manage to avoid the flames",
+                  "impact": {
+                    "stuff": [
+                      {
+                        "id_item": 9,
+                        "operator": "+",
+                        "quantity": 1
+                      }
+                    ]
+                  },
+                  "goto": 2
                 },
-                "goto": 2
-              },
-              {
-                "checkType": "comparison",
-                "stat": "intelligence",
-                "operator": ">=",
-                "failureText": "You suffer burns",
-                "impact": {
-                  "stats": {
-                    "resistance": {
-                      "operator": "-",
-                      "value": 1
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": ">=",
+                  "failureText": "You suffer burns",
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
                     }
                   }
                 }
-              }
-            ]
+              ]
+            }
           }
+
         }
       ]
     }
@@ -1981,10 +1980,6 @@
           "goto": 5
         },
         {
-          "text": "South, to the gate",
-          "goto": 1
-        },
-        {
           "text": "East, to the livestock pens",
           "goto": 30
         },
@@ -2067,7 +2062,7 @@
   },
   "45": {
     "action": {
-      "type": "enemy",
+      "type": "combat",
       "alreadyVisited": "33",
       "text": "The market is in an uproar owing to your intrusion. Stall-holders are frantically shutting up shop, people are rushing all over the place, pack-animals are milling around in confusion, and Gnomish guards are everywhere trying to maintain order. You leisurely contemplate the rich pickings on offer, but one lone figure stands in your way.",
       "enemy": {

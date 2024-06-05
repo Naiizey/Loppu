@@ -10,6 +10,49 @@ import CharImage from "../../assets/images/giant.jpg";
 import Button from "../../components/button/button";
 import Levenshtein from "../../levenshtein";
 
+/**
+ * Function to check if the section has already been visited
+ * @param {object} res The response from the API (section)
+ * @param {int} story_id The id of the story
+ * @returns A promise with the response from the API (section)
+ */
+async function checkAlreadyVisited(res, story_id) {
+  return new Promise((resolve, reject) => {
+    console.log(res);
+    if (res.content.action !== undefined) {
+      if (res.content.action.alreadyVisited !== undefined) {
+        let caraId = parseInt(localStorage.getItem("charaId"));
+        API(
+          "paths/" +
+            caraId +
+            "/" +
+            res.content.action.alreadyVisited
+        ).then((pathRes) => {
+          if (pathRes.length === 0) {
+            resolve(res);
+          }
+          else
+          {
+            let id = pathRes[0];
+            if (id !== undefined && id !== null)
+            {
+              console.log("Already visited section " + id + " ! -> must go to section " + res.content.action.alreadyVisited);
+              localStorage.setItem("sectionId", id);
+              API("sections/" + story_id + "/" + id).then((secRes) => {
+                resolve(secRes);
+              });
+            } else {
+              resolve(res);
+            }
+          }
+        });
+      } else {
+        resolve(res);
+      }
+    }
+  });
+}
+
 const SectionPage = () => {
   const [clickedCharacter, setClickedCharacter] = useState(null);
 
@@ -57,37 +100,11 @@ const SectionPage = () => {
   useEffect(() => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
-      API("paths/" + parseInt(localStorage.getItem("charaId"))).then(
-        (pathRes) => {
-          let boolean = false;
-          pathRes.forEach((path) => {
-            if (parseInt(path["id_sections"]) === res.id) {
-              boolean = true;
-            }
-          });
-          if (res.content.action !== undefined) {
-            if (res.content.action.alreadyVisited !== undefined) {
-              if (boolean && res.content.action.alreadyVisited) {
-                API(
-                  "sections/" +
-                    story_id +
-                    "/" +
-                    res.content.action.alreadyVisited
-                ).then((secRes) => {
-                  secRes = secRes[0];
-                  localStorage.setItem("sectionId", secRes.id);
-                  setSection(secRes);
-                });
-              } else {
-                setSection(res);
-              }
-            } else {
-              setSection(res);
-            }
-          }
-        }
-      );
+      checkAlreadyVisited(res, story_id).then((res) => {
+        setSection(res);
+      });
     });
+    
   }, [sectionId]);
 
   useEffect(() => {
@@ -221,6 +238,7 @@ const SectionPage = () => {
                 );
                 setSectionId(section.content.action.win.goto);
               }}
+              targetIdSection = {section.content.action.win.goto}
             />
           )}
           {combatInfo === "lose" && (
@@ -235,6 +253,7 @@ const SectionPage = () => {
                 );
                 setSectionId(section.content.action.lose.goto);
               }}
+              targetIdSection = {section.content.action.lose.goto}
             />
           )}
           {combatInfo === "during" && (
