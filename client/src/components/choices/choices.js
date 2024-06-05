@@ -820,6 +820,18 @@ function setDiceAndDead(setDiceValue, setDead)
   });
 }
 
+function storyButtonChoice(adaptedOnClick, adaptedText="Next", targetIdSection="13") {
+  return (
+    <Button
+      size={"small"}
+      text={adaptedText}
+      type={"story"}
+      onClick={adaptedOnClick}
+      targetIdSection={targetIdSection}
+    />
+  )
+}
+
 /**
  * Main function to interpret the choices of a section
  * @param {*} param0 The props of the component
@@ -861,7 +873,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
     if(maxEnemyHealth){
       setCombatInfo('during');
     }
-  }, [maxEnemyHealth])
+  }, [maxEnemyHealth, setCurrEnemyHealth, setCombatInfo])
 
   useEffect(() => {
     console.log(userChar)
@@ -872,37 +884,16 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
       <Dices nbDices={diceValue} />
       <div className="container-choices">
         {dead === 1 && gotoSectionId !== 13 ? (
-          <Button
-            size={"small"}
-            text={"Next"}
-            type={"story"}
-            onClick={() => {
-              gotoSection(13, setSectionId, setDiceValue);
-            }}
-            targetIdSection="13"
-          />
+          storyButtonChoice(() => gotoSection(13, setSectionId, setDiceValue))
         ) : gotoSectionId !== 0 ? (
-          <Button
-            size={"small"}
-            text={"Next"}
-            // localStorage.getItem("successText") || localStorage.getItem("failureText") ||
-            type={"story"}
-            onClick={() => {
+          storyButtonChoice(() => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
-            }}
-            targetIdSection="13"
-          />
+          }, "Next", gotoSectionId)
         ) : id === 50 ? (
-          <Button
-            type="story"
-            size="small"
-            text="End the story"
-            onClick={() => (window.location = "/ending")}
-          />
+          storyButtonChoice(() => window.location = "/ending", "End the story")
         ) : (
-          choices &&
-          choices.map((item, i) => {
+          choices && choices.map((item, i) => {
             if (!item.victory && !item.lose) {
               let targetIdSections = [];
               let diceResult = item?.require?.action?.diceResult;
@@ -915,24 +906,11 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
                   }
                 }
               }
-              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) {
-                throw new Error("");
-              }
-              return (
-                <Button
-                  key={i}
-                  size={"small"}
-                  type={"story"}
-                  text={item.content || item.text}
-                  onClick={() => {
-                    //   setChoices(item.id_section_to);
-                    //   setSectionId(item.id_section_to);
-                    handleButtonClick(item, i);
-                    //addPath(item.id_section_to, 1);
-                  }}
-                  targetIdSection={targetIdSections[0]}
-                />
-              );
+              if (targetIdSections.length !== 0 && targetIdSections.length !== 1) throw new Error("");
+
+              return storyButtonChoice(() => {
+                handleButtonClick(item, i);
+              }, item.content || item.text, targetIdSections[0]);
             }
             return null;
           }

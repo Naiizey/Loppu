@@ -19,7 +19,8 @@ const SectionPage = () => {
     );
   };
 
-  const [title, setTitle] = useState("");
+  const [storyTitle, setStoryTitle] = useState("");
+  const [sectionTitle, setSectionTitle] = useState("");
 
   const [section, setSection] = useState({
     id: 0,
@@ -35,7 +36,7 @@ const SectionPage = () => {
     type_id: 0,
   });
 
-  const story_id = localStorage.getItem("storyId");
+  var story_id = localStorage.getItem("storyId");
   if (story_id == null) {
     localStorage.setItem("storyId", 1);
     story_id = 1;
@@ -57,7 +58,8 @@ const SectionPage = () => {
   useEffect(() => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
-      API("paths/" + parseInt(localStorage.getItem("charaId"))).then(
+      setSectionTitle(res.title);
+      API("paths/" + localStorage.getItem("charaId")).then(
         (pathRes) => {
           let boolean = false;
           pathRes.forEach((path) => {
@@ -88,12 +90,11 @@ const SectionPage = () => {
         }
       );
     });
-  }, [sectionId]);
+  }, [sectionId, story_id]);
 
   useEffect(() => {
     API("stories/" + story_id).then((res) => {
-      res = res[0];
-      setTitle(res.title);
+      setStoryTitle(res[0].title);
     });
   }, [story_id]);
 
@@ -223,7 +224,7 @@ const SectionPage = () => {
       </nav>
       <section>
         <div>
-          <StoryProgress section={sectionId} />
+          <StoryProgress storyId={story_id} storyTitle={storyTitle} sectionId={sectionId} sectionTitle={sectionTitle}/>
           <article>
             <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
           </article>
@@ -272,10 +273,11 @@ const SectionPage = () => {
           )}
           {combatInfo === "during" && (
             <div className="inProgress">
+              <p>{section.content.action.enemy.name}'s health :</p>
               <div className="hpBar">
                 {
                   Array.from({length: maxEnemyHealth}).map((hp, index) => (
-                    <div ref={hp} className={`${index <= currEnemyHealth ? 'hitpoint currHealth' : 'hitpoint'}`}></div>
+                    <div ref={hp} className={`${index + 1 <= currEnemyHealth ? 'hitpoint currHealth' : 'hitpoint'}`}></div>
                   ))
                 }
               </div>

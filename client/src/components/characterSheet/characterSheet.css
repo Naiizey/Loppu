@@ -260,15 +260,15 @@
 }
 
 @keyframes shake {
-0%{
-    transform: scale(1.05);
-    border: 1px solid red;
-}
-50%{
-    border: 3px solid red;
-}
-100%{
-    transform: scale(1);
-    border: 1px solid red;
-}
+    0%{
+        transform: scale(1.05);
+        box-shadow: inset 1px 1px red, inset -1px -1px red;
+    }
+    50%{
+        box-shadow: inset 3px 3px red, inset -3px -3px red;
+    }
+    100%{
+        transform: scale(1);
+        box-shadow: inset 1px 1px red, inset -1px -1px red;
+    }
 }
