@@ -59,7 +59,7 @@ const SectionPage = () => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
       setSectionTitle(res.title);
-      API("paths/" + parseInt(localStorage.getItem("charaId"))).then(
+      API("paths/" + localStorage.getItem("charaId")).then(
         (pathRes) => {
           let boolean = false;
           pathRes.forEach((path) => {
@@ -94,8 +94,7 @@ const SectionPage = () => {
 
   useEffect(() => {
     API("stories/" + story_id).then((res) => {
-      res = res[0];
-      setStoryTitle(res.title);
+      setStoryTitle(res[0].title);
     });
   }, [story_id]);
 
@@ -201,7 +200,7 @@ const SectionPage = () => {
       </nav>
       <section>
         <div>
-          <StoryProgress storyTitle={storyTitle} sectionId={sectionId} sectionTitle={sectionTitle}/>
+          <StoryProgress storyId={story_id} storyTitle={storyTitle} sectionId={sectionId} sectionTitle={sectionTitle}/>
           <article>
             <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
           </article>

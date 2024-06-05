@@ -2,22 +2,32 @@ import { useEffect, useState } from "react";
 import "./storyProgress.css";
 import API from "../../utils/API";
 
-const StoryProgress = ({ storyTitle, sectionId, sectionTitle }) => {
+const StoryProgress = ({ storyId, storyTitle, sectionId, sectionTitle }) => {
     const [lastSections, setLastSections] = useState([]);
+    const [lastSectionsTitles, setLastSectionsTitles] = useState([]);
     useEffect(() => {
-        API("paths/" + 1).then((res) => {
+        API("paths/" + localStorage.getItem("charaId")).then((res) => {
             // We retrieve the three last sections
             if (res.length > 3) res = res.slice(-3);
             setLastSections(res);
+
+            let tempSectionsTitles = [];
+            for (let i = 0; i < res.length; i++) {
+                API("sections/" + storyId + "/" + res[i].id_sections).then((sectionRes) => {
+                    tempSectionsTitles.push(sectionRes[0].title);
+                });
+            }
+            setLastSectionsTitles(tempSectionsTitles);
         });
-    }, [sectionId]);
+    }, [sectionId, storyId]);
+    
     return (
         <div className="storyProgressComponent">
             <div>
                 <ol>
-                    {lastSections.map((section) => {
+                    {lastSections.map((section, index) => {
                         return (
-                            <li key={section.id}>
+                            <li key={section.id} title={lastSectionsTitles[index]}>
                                 <h3>{section.id_sections}</h3>
                             </li>
                         );
