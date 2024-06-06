@@ -17,7 +17,6 @@ import Image from "../../assets/images/storiesDisplay.jpg";
  * @returns A promise with the response from the API (section)
  */
 async function checkAlreadyVisited(res, story_id) {
-  let stringifyedRes = JSON.stringify(res);
   return new Promise((resolve, reject) => {
     if (res.content.action !== undefined) {
       if (res.content.action.alreadyVisited !== undefined) {
