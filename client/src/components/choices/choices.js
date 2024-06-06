@@ -715,13 +715,14 @@ function setDiceAndDead(setDiceValue, setDead)
   });
 }
 
-function storyButtonChoice(adaptedOnClick, adaptedText="Next", targetIdSection="13") {
+function storyButtonChoice(adaptedOnClick, adaptedText="Next", targetIdSection="13", diceStats=null) {
   return (
     <Button
       size={"small"}
       text={adaptedText}
       type={"story"}
       onClick={adaptedOnClick}
+      diceStats={diceStats}
       targetIdSection={targetIdSection}
     />
   )
@@ -779,7 +780,15 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
           choices && choices.map((item, i) => {
             if (!item.victory && !item.lose) {
               let targetIdSections = [];
+              let statsDices = []
               let diceResult = item?.require?.action?.diceResult;
+              diceResult?.forEach((elem) => { 
+                let text = elem.stat;
+                if (!statsDices.includes(text)) {
+                  statsDices.push(text);
+                }
+              });
+              console.log(statsDices)
               if (item.goto) {
                 targetIdSections.push(item.goto);
               } else if (diceResult) {
@@ -793,7 +802,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo }) => {
 
               return storyButtonChoice(() => {
                 handleButtonClick(item, i);
-              }, item.content || item.text, targetIdSections[0]);
+              }, item.content || item.text, targetIdSections[0], statsDices);
             }
             return null;
           }
