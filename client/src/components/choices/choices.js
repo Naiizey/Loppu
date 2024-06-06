@@ -431,7 +431,9 @@ function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, se
           deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
         }
         if (ret) {
-          setDisplayButtonIdGoto(dico.action.goto);
+          if (dico.action.goto !== undefined) {
+            setDisplayButtonIdGoto(dico.action.goto);
+          }
         }
       });
       break;
