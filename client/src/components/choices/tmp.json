@@ -1,36 +1,50 @@
 {
-  "text": "you snarl and charge the Elf woman, who responds by firing yet more arrows at you",
   "action": {
-    "win": {
-      "goto": 39,
-      "text": "You attack the Elven ranger"
-    },
-    "lose": {
-      "goto": 13,
-      "text": "The arrows reduce your TUFF score to zero"
-    },
+    "goto": 37,
+    "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
     "type": "dice",
     "diceResult": [
       {
-        "goto": 39,
-        "stat": "intelligence",
-        "operator": "<",
-        "checkType": "comparison",
-        "successText": "you shrug the arrows off and attack Beech"
+        "to": 2,
+        "from": 1,
+        "impact": {
+          "stuff": [
+            {
+              "id_item": 3,
+              "operator": "+",
+              "quantity": 1
+            }
+          ]
+        },
+        "checkType": "fromTo"
       },
       {
-        "stat": "intelligence",
+        "to": 4,
+        "from": 3,
         "impact": {
-          "stats": {
-            "resistance": {
-              "value": 1,
-              "operator": "-"
+          "stuff": [
+            {
+              "id_item": 2,
+              "operator": "+",
+              "quantity": 1
             }
-          }
+          ]
         },
-        "operator": ">=",
-        "checkType": "comparison",
-        "failureText": "some of the arrows actually pierce your tough hide and cause not inconsiderable pain"
+        "checkType": "fromTo"
+      },
+      {
+        "to": 6,
+        "from": 5,
+        "impact": {
+          "stuff": [
+            {
+              "id_item": 4,
+              "operator": "+",
+              "quantity": 1
+            }
+          ]
+        },
+        "checkType": "fromTo"
       }
     ],
     "numberOfDice": 1

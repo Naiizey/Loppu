@@ -2326,6 +2326,7 @@
                   }
                 },
                 {
+                  "checkType": "fromTo",
                   "from": 3,
                   "to": 4,
                   "impact": {
@@ -2339,6 +2340,7 @@
                   }
                 },
                 {
+                  "checkType": "fromTo",
                   "from": 5,
                   "to": 6,
                   "impact": {

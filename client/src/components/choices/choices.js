@@ -258,6 +258,7 @@ const checkStatsPrerequesites = (stat, operator, value) => {
  * @param { Function } setUserChar The function to set character informations
  */
 function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
+  console.log("diceResultConsequances");
   let successText;
   if (dico.successText !== undefined) {
     successText = dico.successText;
@@ -268,9 +269,11 @@ function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
   }
   if (dico.impact !== undefined) {
     let impact = dico.impact;
+    console.log("impact");
     interpretImpact(impact, userChar, setUserChar);
   }
   if (dico.goto !== undefined) {
+    console.log("goto");
     let goto = dico.goto;
     gotoSectionButton(goto, setGotoSectionId, successText, failureText);
   }
@@ -308,6 +311,7 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId, userChar, setUse
         }
         break;
       case "fromTo":
+        console.log("fromTo");
         let from = element.from;
         let to = element.to;
         if (diceValue >= from && diceValue <= to) {
@@ -315,9 +319,10 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId, userChar, setUse
         }
         break;
       default:
-        return false;
+        break;
     }
   }
+  return true;
 }
 
 /**
@@ -413,22 +418,25 @@ function deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar) {
  * @param { Object } userChar The character informations
  * @param { Function } setUserChar The function to set the character informations
  */
-function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar)
+function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar, setDisplayButtonIdGoto)
 {
   switch (dico.action.type) {
     case "dice":
       launchDices(dico.action.numberOfDice, setDiceValue).then((res) => {
-        interpretDiceResult(dico.action, res, setGotoSectionId, userChar, setUserChar);
+        let ret = interpretDiceResult(dico.action, res, setGotoSectionId, userChar, setUserChar);
         if (dico.action.win !== undefined) {
           notDeadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
         }
         if (dico.action.lose !== undefined) {
           deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
         }
+        if (ret) {
+          setDisplayButtonIdGoto(dico.action.goto);
+        }
       });
       break;
     case "story":
-      interpretStory(dico, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
+      interpretStory(dico, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto);
       break;
     default:
       reject(new Error("unknown require type"));
@@ -490,11 +498,11 @@ function statActionProcess(dico, resolve) {
  * @param { Function } setUserChar The function to set the character informations
  * @returns A promise
  */
-function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, userChar, setUserChar)
+function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto)
 {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
-      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar);
+      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar, setDisplayButtonIdGoto);
     } else if (dico.type === "items") {
       itemActionProcess(dico, resolve, reject);
     } else if (dico.type === "stats") {
@@ -517,7 +525,7 @@ function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, set
  * @param { Object } userChar The character informations
  * @param { Function } setUserChar The function to set the character informations
  */
-function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar)
+function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto)
 {
   let choices = story.choices;
   if (choices !== undefined && choices.length > 0) {
@@ -529,7 +537,7 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
             interpretImpact(choice.impact, userChar, setUserChar);
           }
         } else {
-          interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar).then((result) => {
+          interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto).then((result) => {
             if (result) {
               if (choice.impact !== undefined) {
                 interpretImpact(choice.impact, userChar, setUserChar);
@@ -546,7 +554,7 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
           interpretImpact(choice.impact, userChar, setUserChar);
         }
       } else {
-        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar).then((result) => {
+        interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
               interpretImpact(choice.impact, userChar, setUserChar);
@@ -679,7 +687,7 @@ function interpretNoRequireFight(action, char, currEnemyHealth, setCurrEnemyHeal
  * @param { Object } userChar The character informations
  * @param { Function } setUserChar The function to set the character informations
  */
-function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar)
+function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar, setDisplayButtonIdGoto)
 {
   if (action.choices[choiceNumber].text.toLowerCase().includes("flee")) {
     gotoSection(action.choices[choiceNumber].goto, setSectionId, setDiceValue);
@@ -692,7 +700,7 @@ function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDi
       }
       else
       {
-        undefinedActionProcess(action.choices[choiceNumber], setSectionId, choiceNumber, action.choices[choiceNumber].goto, setSectionId, setDiceValue, userChar, setUserChar);
+        undefinedActionProcess(action.choices[choiceNumber], setSectionId, choiceNumber, action.choices[choiceNumber].goto, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto);
       }
     }
     else{
@@ -737,7 +745,7 @@ function addPath(id_sections, id_character) {
  * @param { Object } userChar The character informations
  * @param { Function } setUserChar The function to set the character informations
  */
-function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setGotoSectionId, sectionChoice, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar) {
+function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setGotoSectionId, sectionChoice, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar, setDisplayButtonIdGoto) {
   if (!checkIfDead()) {
     let storyID = localStorage.getItem("storyId");
     let currentSectionId = localStorage.getItem("sectionId");
@@ -746,9 +754,9 @@ function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setG
       section = res[0];
       if (gotoId !== null) {
         if (section.content.action.type === "story") {
-          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
+          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto);
         } else if (section.content.action.type === "combat") {
-          interpretFight( section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar );
+          interpretFight( section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar, setDisplayButtonIdGoto );
         }
       } else {
         if (sectionChoice.goto !== undefined) {
@@ -756,9 +764,9 @@ function interpretAction(gotoId, choiceNumber, setSectionId, setCombatInfo, setG
         }
 
         if (section.content.action.type === "story") {
-          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
+          interpretStory(section.content.action, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto);
         } else if (section.content.action.type === "combat") {
-          interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar);
+          interpretFight(section.content.action, setCombatInfo, choiceNumber, setSectionId, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar, setDisplayButtonIdGoto);
         }
       }
     });
@@ -1065,12 +1073,14 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
   const [dead, setDead] = useState(0);
   const [gotoSectionId, setGotoSectionId] = useState(0);
   const handleButtonClick = async (item, i) => {
-    interpretAction(item.id_section_to || null, i, setSectionId, setCombatInfo, setGotoSectionId, item, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar);
+    interpretAction(item.id_section_to || null, i, setSectionId, setCombatInfo, setGotoSectionId, item, setDiceValue, currEnemyHealth, setCurrEnemyHealth, maxEnemyHealth, setMaxEnemyHealth, userChar, setUserChar, setDisplayButtonIdGoto);
     // wait that "numberOfDices" of the localStorage and dead in localStorage is set
     await setDiceAndDead(setDiceValue, setDead);
   };
 
   const [targetIdSections, setTargetIdSections] = useState([]);
+
+  const [displayButtonIdGoto, setDisplayButtonIdGoto] = useState(0);
 
   useEffect(() => {
     if (choices) {
@@ -1107,7 +1117,13 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
           }, "Next", gotoSectionId)
         ) : id === 50 ? (
           storyButtonChoice(() => window.location = "/ending", "End the story")
-        ) : (
+        ) : displayButtonIdGoto !== 0 ? (
+          storyButtonChoice(() => {
+            gotoSection(displayButtonIdGoto, setSectionId, setDiceValue);
+            setDisplayButtonIdGoto(0);
+          }, "Next", displayButtonIdGoto)
+        ) :
+        (
           choices &&
           choices.map((item, i) => {
             let gotoFrom = getGotoFromItem(item)[0];
