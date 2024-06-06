@@ -14,7 +14,7 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, dar
     return(
         <div id="mainContainer">
             {isSliderOpened &&
-                <Slider 
+                <Slider
                     sliderType={sliderType} setSliderType={setSliderType}
                     setIsSliderOpened={setIsSliderOpened}
                     darkMode={darkMode} setDarkMode={setDarkMode}
@@ -27,11 +27,14 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, dar
                     element={ <Home/> }
                 />
 
-                <Route
-                    exact
-                    path="/story"
-                    element={ <Story/> }
-                />
+                { localStorage.getItem('userId') && (
+                    <Route
+                        exact
+                        path="/story"
+                        element={ <Story/> }
+                    />
+                )}
+
                 <Route
                     path="*"
                     element={ <Navigate to="/"/>}
@@ -43,11 +46,14 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, dar
                     element={ <Ending/>}
                 />
 
-                <Route 
-                    exact
-                    path="/test"
-                    element={ <CharacterSelection />}
-                />
+                { localStorage.getItem('fromStoriesDisplay') && (
+                        <Route
+                            exact
+                            path="/createChar"
+                            element={ <CharacterSelection storyId={localStorage.getItem('tmpStoryId')}/>}
+                        />
+                    )
+                }
             </Routes>
         </div>
     )

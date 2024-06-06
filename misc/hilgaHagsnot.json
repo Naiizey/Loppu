@@ -3,7 +3,7 @@
     "race": "troll",
     "gender": "female",
 
-    "force": 5,
+    "strength": 5,
     "resistance": 6,
     "intelligence": 2,
 
@@ -18,7 +18,7 @@
     "inventory": [
         {"29" : "treasure"}
     ],
-        
+
 
     "notes": {
 

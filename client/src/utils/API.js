@@ -1,12 +1,12 @@
 /**
  * @function API
- * 
+ *
  * @param {string} content
  * @param {string} method
  * @param {object} json
- * 
+ *
  * @returns {Promise}
- * 
+ *
  * @description This function takes a string content, a string method, and an object json as parameters and makes an API call to get or set data from the database.
  */
 const API = (content, method = "GET", json = {}) => {
@@ -22,7 +22,7 @@ const API = (content, method = "GET", json = {}) => {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(json),
-    }).then((res) => res.json());
+    }).then((res) => res.json())
   }
 };
 

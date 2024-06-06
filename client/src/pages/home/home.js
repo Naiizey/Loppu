@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import Loader from "../../components/loader/loader";
 
 const HomePage = () => {
+    localStorage.removeItem('fromStoriesDisplay');
     const [isClicked, setIsClicked] = useState(0);
     const [stories, setStories] = useState();
 
@@ -38,7 +39,7 @@ const HomePage = () => {
             <section className="storiesList">
                 { stories &&
                     stories.map(story => (
-                        <StoriesDisplay key={story.id} storyId={story.id} Image={Image} name={story.title} isStarted={true} isClicked={isClicked} onClick={(e) => {handleClick(story.id, e)}}/>
+                        <StoriesDisplay key={story.id} storyId={story.id} Image={Image} name={story.title} isStarted={localStorage.getItem("storyId") ? true : false} isClicked={isClicked} onClick={(e) => {handleClick(story.id, e)}}/>
                     ))
                 }
             </section>

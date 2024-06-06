@@ -1,14 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import "./App.css";
 import Main from "./Main";
 import Header from "./components/header/header";
+import API from './utils/API'
 
 function App() {
-    if(!localStorage.getItem("userId")){
-        localStorage.setItem("userId", 1);
-    };
+    useEffect(() => {
+
+        const fetchUser = async () => {
+            if(!localStorage.getItem('userId')){
+                const resp = await API('users', 'POST', {
+                    username: 'unknown',
+                    password: 'unknown',
+                    email: 'unknown'
+                });
+                if(resp.data.id){
+                    localStorage.setItem('userId', resp.data.id);
+                }
+            }
+        }
+
+        fetchUser();
+    }, []);
 
     const [isSliderOpened, setIsSliderOpened] = useState(false);
 
