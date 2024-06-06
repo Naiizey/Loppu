@@ -692,7 +692,6 @@ function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDi
       }
       else
       {
-        console.log(action.choices[choiceNumber]);
         undefinedActionProcess(action.choices[choiceNumber], setSectionId, choiceNumber, action.choices[choiceNumber].goto, setSectionId, setDiceValue, userChar, setUserChar);
       }
     }
