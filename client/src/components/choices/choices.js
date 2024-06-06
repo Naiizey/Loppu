@@ -795,7 +795,7 @@ function getChoices(id) {
           }
         }
       }
-      
+
     });
   });
 }
@@ -824,9 +824,10 @@ function setDiceAndDead(setDiceValue, setDead)
   });
 }
 
-function storyButtonChoice(adaptedOnClick, adaptedText="Next", targetIdSection="13") {
+function storyButtonChoice(key, adaptedOnClick, adaptedText="Next", targetIdSection="13") {
   return (
     <Button
+      key={key}
       size={"small"}
       text={adaptedText}
       type={"story"}
@@ -900,14 +901,14 @@ async function getPathsVisited() {
  */
 async function  getRealGotoSectionId(gotoId)
 {
-  const sectionsVisited = await getPathsVisited();  
+  const sectionsVisited = await getPathsVisited();
   const realId = await getRealGotoSectionIdRecurs(gotoId, sectionsVisited);
   return realId;
 }
 
 /**
  * Function to get the goto section id from a choice
- * @param {object} choice 
+ * @param {object} choice
  * @returns The goto section id
  */
 function getGotoFromItem(choice)
@@ -1020,14 +1021,14 @@ function lookForGoto(choice) {
 async function getExpectedSectionIds(choices, setTargetIdSections)
 {
   choices.forEach(async (item, i) => {
-    if ((item.id_section_from === 0 && item.id_section_to === 0 && item.id_story === 0) || (lookForGoto(item) === false)) // 
+    if ((item.id_section_from === 0 && item.id_section_to === 0 && item.id_story === 0) || (lookForGoto(item) === false)) //
     {
       let strSections = await getWinOrLoseSectionIds();
       let element = undefined;
       saveTargetIdSectionsTemporarySetter(setTargetIdSections, element, strSections);
       return;
     }
-    else 
+    else
     {
       let targetIdSections = getGotoFromItem(item);
       targetIdSections.forEach(async (element) => {
@@ -1037,7 +1038,7 @@ async function getExpectedSectionIds(choices, setTargetIdSections)
         }
       });
     }
-        
+
   });
 }
 
@@ -1071,19 +1072,16 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
   };
 
   const [targetIdSections, setTargetIdSections] = useState([]);
-
   useEffect(() => {
     if (choices) {
       getExpectedSectionIds(choices, setTargetIdSections)
     }
   }, [choices]);
 
-
   useEffect(() => {
     getChoices(id).then((res) => {
       setChoices(res);
     });
-    
   }, [story_id, id]);
 
   useEffect(() => {
@@ -1098,15 +1096,15 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
     <div className="container-choices-dices">
       <Dices nbDices={diceValue} />
       <div className="container-choices">
-        {dead === 1 && gotoSectionId !== 13 ? ( 
-          storyButtonChoice(() => gotoSection(13, setSectionId, setDiceValue), "Next", gotoSectionId)
+        {dead === 1 && gotoSectionId !== 13 ? (
+          storyButtonChoice(113, () => gotoSection(13, setSectionId, setDiceValue), "Next", gotoSectionId)
         ) : gotoSectionId !== 0 ? (
-          storyButtonChoice(() => {
+          storyButtonChoice(gotoSectionId, () => {
               gotoSection(gotoSectionId, setSectionId, setDiceValue);
               setGotoSectionId(0);
           }, "Next", gotoSectionId)
         ) : id === 50 ? (
-          storyButtonChoice(() => window.location = "/ending", "End the story")
+          storyButtonChoice(50, () => window.location = "/ending", "End the story")
         ) : (
           choices &&
           choices.map((item, i) => {
@@ -1115,19 +1113,18 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
               (tuple) => tuple[0] === gotoFrom
             );
             if (!item.victory && !item.lose && targetIdTuple) {
-              return storyButtonChoice(() => {
+              return storyButtonChoice(i, () => {
                 handleButtonClick(item, i);
               }, item.content || item.text, targetIdTuple[0]);
             }
             else if (!item.victory && !item.lose)
             {
-              return storyButtonChoice(() => {
+              return storyButtonChoice(i, () => {
                 handleButtonClick(item, i);
               }, item.content || item.text);
             }
             return null;
-          }
-        )
+          })
         )}
       </div>
     </div>

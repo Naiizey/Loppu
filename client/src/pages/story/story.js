@@ -306,7 +306,7 @@ const SectionPage = () => {
               <div className="hpBar">
                 {
                   Array.from({length: maxEnemyHealth}).map((hp, index) => (
-                    <div ref={hp} className={`${index + 1 <= currEnemyHealth ? 'hitpoint currHealth' : 'hitpoint'}`}></div>
+                    <div key={index} ref={hp} className={`${index + 1 <= currEnemyHealth ? 'hitpoint currHealth' : 'hitpoint'}`}></div>
                   ))
                 }
               </div>
