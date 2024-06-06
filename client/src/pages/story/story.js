@@ -17,6 +17,7 @@ import Image from "../../assets/images/storiesDisplay.jpg";
  * @returns A promise with the response from the API (section)
  */
 async function checkAlreadyVisited(res, story_id) {
+  let stringifyedRes = JSON.stringify(res);
   return new Promise((resolve, reject) => {
     if (res.content.action !== undefined) {
       if (res.content.action.alreadyVisited !== undefined) {
@@ -32,13 +33,13 @@ async function checkAlreadyVisited(res, story_id) {
           }
           else
           {
-            let id = pathRes[0];
+            let id = res.content.action.alreadyVisited;
             if (id !== undefined && id !== null)
             {
-              console.log("Already visited section " + id + " ! -> must go to section " + res.content.action.alreadyVisited);
+              console.log("Already visited section " + id + " ! -> must go to section " + id);
               localStorage.setItem("sectionId", id);
               API("sections/" + story_id + "/" + id).then((secRes) => {
-                resolve(secRes);
+                resolve(secRes[0]);
               });
             } else {
               resolve(res);

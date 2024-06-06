@@ -946,6 +946,7 @@ function concat_to_string(lst)
 async function getWinOrLoseSectionIds()
 {
   let sectionID = localStorage.getItem("sectionId");
+  console.log("sections/" + localStorage.getItem("storyId") + "/" + sectionID);
   let section = await API("sections/" + localStorage.getItem("storyId") + "/" + sectionID);
   let winSectionId = section[0]?.content?.action?.win?.goto;
   let loseSectionId = section[0]?.content?.action?.lose?.goto;
@@ -1106,8 +1107,6 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
           choices &&
           choices.map((item, i) => {
             let gotoFrom = getGotoFromItem(item)[0];
-            // console.log("gotoFrom ", gotoFrom);
-            // console.log("targetIdSections ", targetIdSections);
             const targetIdTuple = targetIdSections.find(
               (tuple) => tuple[0] === gotoFrom
             );
