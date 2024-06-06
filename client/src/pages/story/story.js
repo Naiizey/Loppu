@@ -17,6 +17,7 @@ import Image from "../../assets/images/storiesDisplay.jpg";
  * @returns A promise with the response from the API (section)
  */
 async function checkAlreadyVisited(res, story_id) {
+  let stringifyedRes = JSON.stringify(res);
   return new Promise((resolve, reject) => {
     if (res.content.action !== undefined) {
       if (res.content.action.alreadyVisited !== undefined) {
@@ -32,23 +33,13 @@ async function checkAlreadyVisited(res, story_id) {
           }
           else
           {
-            let stringifyPathRes = JSON.stringify(pathRes);
-            console.log("stringifyPathRes : " + stringifyPathRes);
-            let id = pathRes[0];
+            let id = res.content.action.alreadyVisited;
             if (id !== undefined && id !== null)
             {
-              if(typeof id !== "number")
-              {
-                console.log("id is not a number");
-                console.log("id : " + id);
-                console.log("parseInt(id) : " + parseInt(id));
-                let stringifiedId = JSON.stringify(id);
-                console.log("stringifiedId : " + stringifiedId);
-                id = parseInt(id);
-              }
+              console.log("Already visited section " + id + " ! -> must go to section " + id);
               localStorage.setItem("sectionId", id);
               API("sections/" + story_id + "/" + id).then((secRes) => {
-                resolve(secRes);
+                resolve(secRes[0]);
               });
             } else {
               resolve(res);
@@ -100,8 +91,6 @@ const SectionPage = () => {
   );
 
   if (localStorage.getItem("sectionId") === null) {
-    console.log("sectionId is null");
-    console.log("Setting sectionId to " + defaultSection);
     localStorage.setItem("sectionId", defaultSection);
   }
 
@@ -288,7 +277,6 @@ const SectionPage = () => {
               size="small"
               text={section.content.action.win.text}
               onClick={() => {
-                console.log("section.content.action.win.goto : " + section.content.action.win.goto);
                 localStorage.setItem(
                   "sectionId",
                   section.content.action.win.goto
@@ -304,7 +292,6 @@ const SectionPage = () => {
               size="small"
               text={section.content.action.lose.text}
               onClick={() => {
-                console.log("section.content.action.lose.goto : " + section.content.action.lose.goto);
                 localStorage.setItem(
                   "sectionId",
                   section.content.action.lose.goto
