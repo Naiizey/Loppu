@@ -104,6 +104,7 @@ const SectionPage = () => {
   useEffect(() => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
+      setSectionTitle(res.title);
       let intSectionId = parseInt(sectionId);
       if (intSectionId !== 50)
       {
@@ -114,10 +115,8 @@ const SectionPage = () => {
       else{
         setSection(res);
       }
-
     });
-    
-  }, [sectionId]);
+  }, [story_id, sectionId]);
 
   useEffect(() => {
     API("stories/" + story_id).then((res) => {
@@ -198,7 +197,7 @@ const SectionPage = () => {
         }
       }
     }
-  }, [userChar])
+  }, [story_id, userChar])
 
   const dict_combat = [
     "killing",
@@ -222,7 +221,7 @@ const SectionPage = () => {
     typeof text_levenshtein !== "undefined" &&
     section.content.action !== undefined &&
     section.content.action.type === "combat"
-    
+
   ) {
     text_levenshtein = Levenshtein(text_levenshtein, dict_combat, 2, "#FF0000");
   }
