@@ -32,10 +32,20 @@ async function checkAlreadyVisited(res, story_id) {
           }
           else
           {
+            let stringifyPathRes = JSON.stringify(pathRes);
+            console.log("stringifyPathRes : " + stringifyPathRes);
             let id = pathRes[0];
             if (id !== undefined && id !== null)
             {
-              console.log("Already visited section " + id + " ! -> must go to section " + res.content.action.alreadyVisited);
+              if(typeof id !== "number")
+              {
+                console.log("id is not a number");
+                console.log("id : " + id);
+                console.log("parseInt(id) : " + parseInt(id));
+                let stringifiedId = JSON.stringify(id);
+                console.log("stringifiedId : " + stringifiedId);
+                id = parseInt(id);
+              }
               localStorage.setItem("sectionId", id);
               API("sections/" + story_id + "/" + id).then((secRes) => {
                 resolve(secRes);
@@ -90,6 +100,8 @@ const SectionPage = () => {
   );
 
   if (localStorage.getItem("sectionId") === null) {
+    console.log("sectionId is null");
+    console.log("Setting sectionId to " + defaultSection);
     localStorage.setItem("sectionId", defaultSection);
   }
 
@@ -276,6 +288,7 @@ const SectionPage = () => {
               size="small"
               text={section.content.action.win.text}
               onClick={() => {
+                console.log("section.content.action.win.goto : " + section.content.action.win.goto);
                 localStorage.setItem(
                   "sectionId",
                   section.content.action.win.goto
@@ -291,6 +304,7 @@ const SectionPage = () => {
               size="small"
               text={section.content.action.lose.text}
               onClick={() => {
+                console.log("section.content.action.lose.goto : " + section.content.action.lose.goto);
                 localStorage.setItem(
                   "sectionId",
                   section.content.action.lose.goto
