@@ -31,7 +31,6 @@ function getCharaId() {
  * @param { Object } setUserChar The function to set the character informations
  */
 function editStat(operator, value, stat, actualDicoStat, userChar, setUserChar) {
-  console.log('editstats', setUserChar)
   switch (operator) {
     case "+":
       actualDicoStat[stat] += value;
@@ -70,7 +69,6 @@ function editStat(operator, value, stat, actualDicoStat, userChar, setUserChar) 
  * @returns The dico of the stats.
  */
 function impactStats(key, dico, stats, userChar, setUserChar) {
-  console.log('impactstats', setUserChar)
   API("/characters/" + getCharaId()).then((res) => {
     stats = res[0].stats;
     for (const typeStat in dico[key]) {
@@ -122,7 +120,6 @@ async function impactInventory(key, dico, userChar, setUserChar) {
             "PUT"
           ).then(() => {});
 
-          console.log(itemIdType);
           break;
         case "-":
           await API(
@@ -130,7 +127,6 @@ async function impactInventory(key, dico, userChar, setUserChar) {
             "DELETE"
           ).then(() => {});
 
-          console.log(itemIdType);
           break;
         default:
           break;
@@ -160,8 +156,6 @@ async function impactInventory(key, dico, userChar, setUserChar) {
       else{
         userCharCopy.stuff.inventory.push(toAddItem);
       }
-
-      console.log(userChar.stuff, userCharCopy.stuff)
 
       setUserChar(userCharCopy);
     }
@@ -264,7 +258,6 @@ const checkStatsPrerequesites = (stat, operator, value) => {
  * @param { Function } setUserChar The function to set character informations
  */
 function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
-  console.log('diceResultConsequances :', setUserChar)
   let successText;
   if (dico.successText !== undefined) {
     successText = dico.successText;
@@ -1115,11 +1108,9 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
             let gotoFrom = getGotoFromItem(item)[0];
             // console.log("gotoFrom ", gotoFrom);
             // console.log("targetIdSections ", targetIdSections);
-            console.log("targetIdSections ", targetIdSections);
             const targetIdTuple = targetIdSections.find(
               (tuple) => tuple[0] === gotoFrom
             );
-            console.log("targetIdTuple ", targetIdTuple);
             if (!item.victory && !item.lose && targetIdTuple) {
               return storyButtonChoice(() => {
                 handleButtonClick(item, i);

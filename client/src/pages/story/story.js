@@ -94,15 +94,27 @@ const SectionPage = () => {
   }
 
   useEffect(() => {
-    setSectionId(localStorage.getItem("sectionId"));
+    let tmpSectionId = localStorage.getItem("sectionId");
+    if (typeof tmpSectionId !== "number") {
+      tmpSectionId = parseInt(tmpSectionId);
+    }
+    setSectionId(tmpSectionId);
   }, [section]);
 
   useEffect(() => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
-      checkAlreadyVisited(res, story_id).then((res) => {
+      let intSectionId = parseInt(sectionId);
+      if (intSectionId !== 50)
+      {
+        checkAlreadyVisited(res, story_id).then((res) => {
+          setSection(res);
+        });
+      }
+      else{
         setSection(res);
-      });
+      }
+
     });
     
   }, [sectionId]);
@@ -208,11 +220,12 @@ const SectionPage = () => {
   let text_levenshtein = section.content.action?.text || section.content.text;
   if (
     typeof text_levenshtein !== "undefined" &&
+    section.content.action !== undefined &&
     section.content.action.type === "combat"
+    
   ) {
     text_levenshtein = Levenshtein(text_levenshtein, dict_combat, 2, "#FF0000");
   }
-
   const [combatInfo, setCombatInfo] = useState("");
 
   useEffect(() => {
@@ -221,7 +234,6 @@ const SectionPage = () => {
 
   const [currEnemyHealth, setCurrEnemyHealth] = useState(null);
   const [maxEnemyHealth, setMaxEnemyHealth] = useState(null);
-
   return (
     <main id="section">
       <nav>
