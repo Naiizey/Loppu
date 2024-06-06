@@ -258,7 +258,6 @@ const checkStatsPrerequesites = (stat, operator, value) => {
  * @param { Function } setUserChar The function to set character informations
  */
 function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
-  console.log("diceResultConsequances");
   let successText;
   if (dico.successText !== undefined) {
     successText = dico.successText;
@@ -269,11 +268,9 @@ function diceResultConsequances(dico, setGotoSectionId, userChar, setUserChar) {
   }
   if (dico.impact !== undefined) {
     let impact = dico.impact;
-    console.log("impact");
     interpretImpact(impact, userChar, setUserChar);
   }
   if (dico.goto !== undefined) {
-    console.log("goto");
     let goto = dico.goto;
     gotoSectionButton(goto, setGotoSectionId, successText, failureText);
   }
@@ -311,7 +308,6 @@ function interpretDiceResult(dico, diceValue, setGotoSectionId, userChar, setUse
         }
         break;
       case "fromTo":
-        console.log("fromTo");
         let from = element.from;
         let to = element.to;
         if (diceValue >= from && diceValue <= to) {
@@ -1117,9 +1113,10 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
               setGotoSectionId(0);
           }, "Next", gotoSectionId)
         ) : id === 50 ? (
-          storyButtonChoice(() => window.location = "/ending", "End the story")
-        ) : displayButtonIdGoto !== 0 ? (
-          storyButtonChoice(() => {
+          storyButtonChoice(50, () => window.location = "/ending", "End the story")
+        ) : 
+        displayButtonIdGoto !== 0 ? (
+          storyButtonChoice(displayButtonIdGoto,() => {
             gotoSection(displayButtonIdGoto, setSectionId, setDiceValue);
             setDisplayButtonIdGoto(0);
           }, "Next", displayButtonIdGoto)
