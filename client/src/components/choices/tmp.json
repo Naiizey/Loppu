@@ -1,6 +1,38 @@
 {
-    "characters":
-    [
-      {"id": "1", "stats": "{"strength": 4, "resistance": 5, "intelligence": 2}", "character_model_id": "1", "stuff": "{"stuff": {"stuff": [{"5": "weapon"}], "inventory": [{"29": "treasure"}]}}", "user_id": "1"}
-    ]
+  "text": "you snarl and charge the Elf woman, who responds by firing yet more arrows at you",
+  "action": {
+    "win": {
+      "goto": 39,
+      "text": "You attack the Elven ranger"
+    },
+    "lose": {
+      "goto": 13,
+      "text": "The arrows reduce your TUFF score to zero"
+    },
+    "type": "dice",
+    "diceResult": [
+      {
+        "goto": 39,
+        "stat": "intelligence",
+        "operator": "<",
+        "checkType": "comparison",
+        "successText": "you shrug the arrows off and attack Beech"
+      },
+      {
+        "stat": "intelligence",
+        "impact": {
+          "stats": {
+            "resistance": {
+              "value": 1,
+              "operator": "-"
+            }
+          }
+        },
+        "operator": ">=",
+        "checkType": "comparison",
+        "failureText": "some of the arrows actually pierce your tough hide and cause not inconsiderable pain"
+      }
+    ],
+    "numberOfDice": 1
   }
+}

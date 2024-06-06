@@ -425,12 +425,10 @@ function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, se
         if (dico.action.lose !== undefined) {
           deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
         }
-        resolve();
       });
       break;
     case "story":
       interpretStory(dico, gotoId, setSectionId, choiceNumber, setGotoSectionId, setDiceValue, userChar, setUserChar);
-      resolve();
       break;
     default:
       reject(new Error("unknown require type"));
@@ -688,7 +686,15 @@ function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDi
   }
   else {
     if(!maxEnemyHealth) {
-      setMaxEnemyHealth(action.enemy.resistance);
+      if (action.enemy !== undefined) 
+      {
+        setMaxEnemyHealth(action.enemy.resistance);
+      }
+      else
+      {
+        console.log(action.choices[choiceNumber]);
+        undefinedActionProcess(action.choices[choiceNumber], setSectionId, choiceNumber, action.choices[choiceNumber].goto, setSectionId, setDiceValue, userChar, setUserChar);
+      }
     }
     else{
       API("characters/" + getCharaId()).then((char) => {
@@ -946,7 +952,6 @@ function concat_to_string(lst)
 async function getWinOrLoseSectionIds()
 {
   let sectionID = localStorage.getItem("sectionId");
-  console.log("sections/" + localStorage.getItem("storyId") + "/" + sectionID);
   let section = await API("sections/" + localStorage.getItem("storyId") + "/" + sectionID);
   let winSectionId = section[0]?.content?.action?.win?.goto;
   let loseSectionId = section[0]?.content?.action?.lose?.goto;
