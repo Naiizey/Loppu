@@ -79,10 +79,6 @@ const SectionPage = () => {
   });
 
   var story_id = localStorage.getItem("storyId");
-  if (story_id == null) {
-    localStorage.setItem("storyId", 1);
-    story_id = 1;
-  }
 
   const defaultSection = 1;
   const [sectionId, setSectionId] = useState(
@@ -242,7 +238,7 @@ const SectionPage = () => {
             name={userCharModel.name}
             character={userChar}
             inventory={inventory}
-            img={CharImage}
+            img={`${userCharModel.name.split(" ").join("").toLowerCase()}.jpg`}
             isClicked={clickedCharacter === `${userCharModel.name}`}
             onClick={() => handleCharacterClick(`${userCharModel.name}`)}
           />

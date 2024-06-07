@@ -21,15 +21,13 @@ router.get("/users/:id", (req, res) => {
 
 // POST a new user
 router.post("/users", (req, res) => {
-  console.log(req.body);
   const { username, password, email } = req.body;
-  pool
-    .query(
-      "INSERT INTO users (username, password, email) VALUES ($1, $2, $3)",
+  pool.query(
+      "INSERT INTO users (username, password, email) VALUES ($1, $2, $3) RETURNING id, username, password, email",
       [username, password, email]
     )
-    .then(() => {
-      res.json({ message: "User created" });
+    .then((result) => {
+      res.json({ message: "User created", data: result.rows[0]});
     });
 });
 

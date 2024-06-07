@@ -10,9 +10,16 @@ import CharImage  from '../../assets/images/giant.jpg'
 const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) => {
     const [characters, setCharacters] = useState();
     const [charactersModels, setCharactersModels] = useState();
+    const [stateStory, setStateStoryId] = useState();
 
     let userChar;
     let userCharModel;
+
+    useEffect(() => {
+        if(parseInt(localStorage.getItem('storyId')) === storyId){
+            setStateStoryId(storyId);
+        }
+    }, [])
 
     useEffect(() => {
         API("characters").then((res) => {
@@ -22,9 +29,9 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
         API("characters_models").then((res) => {
             setCharactersModels(res);
         })
-    }, []);
+    }, [stateStory]);
 
-    if(characters && charactersModels){
+    if(characters && charactersModels && stateStory){
         let userCharas = characters.filter((elem) => elem.user_id === parseInt(localStorage.getItem("userId")));
         let charModel;
         let character = userCharas.filter((char) => {
@@ -37,7 +44,7 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
     }
 
     return(
-        <div className={`storiesDisplayComponent${isClicked === storyId ? " clicked" : ""}`} onClick={onClick}>
+        <div className={`storiesDisplayComponent${isClicked === storyId ? " clicked" : ""} ${!stateStory ? 'alone' : ''}`} onClick={onClick}>
             <input hidden id=""></input>
             <div className="storyInfos">
                 <h4>{name}</h4>
@@ -46,25 +53,29 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
                 }
             </div>
             <img src={Image} alt="story illustration"></img>
-            { userChar && userCharModel &&
+            { userChar && userCharModel && stateStory &&
                 <CharacterSheet
                     type="small"
                     name={userCharModel.name}
                     character={userChar}
                     inventory={userChar.stuff}
-                    img={CharImage}
+                    img={`${userCharModel.name.split(" ").join("").toLowerCase()}.jpg`}
                 />
             }
-            { isClicked === storyId &&
+            { isClicked === storyId && stateStory &&
                 <div className="storyDetails">
                     <StoryProgress storyId={storyId} storyTitle={name} sectionId={localStorage.getItem("sectionId")}/>
                     <Button size="small" Icon={ArrowIcon} text="Continue my story" type="dark" onClick={() => {
-                        if(!localStorage.getItem("storyId")){
-                            localStorage.setItem("storyId", 1);
-                        }
                         window.location = "/story";
                     }}/>
                 </div>
+            }
+            { isClicked === storyId && !stateStory &&
+                <Button size="medium" Icon={ArrowIcon} text="Start this story" type="dark" onClick={() => {
+                    localStorage.setItem('tmpStoryId', storyId);
+                    localStorage.setItem('fromStoriesDisplay', true);
+                    window.location = "/createChar";
+                }}/>
             }
         </div>
     )

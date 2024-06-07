@@ -1,40 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './characterSelection.css';
 import CharacterSheet from '../../components/characterSheet/characterSheet';
-import levenshtein from '../../levenshtein';
+import Image from "../../assets/images/storiesDisplay.jpg";
+import API from "../../utils/API"
 
-    /*
-
-    fichier pour montrer comment implémenter une fiche de personnage et l'algo de levenshtein
-    ne pas inclure dans le projet final !!
-
-    */
-
-const CharacterSelection = () => {
+const CharacterSelection = ({storyId}) => {
     const [clickedCharacter, setClickedCharacter] = useState(null);
 
     const handleCharacterClick = (characterName) => {
         setClickedCharacter(prev => prev === characterName ? null : characterName);
     };
 
-    let texte = `The tower of Gastromo the Wizard is now little more than a heap of white rubble, from which emanates wisps of sulphurous yellow smoke. You scrabble about in the debris looking for valuables, but succeed only in freeing a demon that must have previously been bound in Gastromo's cellar! It shoots up into the sky, hanging in the air above you, and taking the form of a bulky bat-winged ape with red skin and goat-like horns. "Haha! Free at last!" it howls with demonic glee, before spotting you. "Yes, you'll do! I need to harvest souls for the Dark Master!" Waving a rusty barbed trident in your direction, the Pit Demon swoops down on black wings to attack.`;
+    const [storyInfos, setStoryInfos] = useState();
+    const [characters, setCharacters] = useState();
 
-    let dictionnaire_combat = ["killing","slaughter","fightin","battlers","attack","defend","defeat","slainers","injure","wounded","smashing","crusher","smiting","sheathing"];
+    useEffect(() => {
+        API("stories/" + storyId).then((res) => {
+            setStoryInfos(res[0]);
+        });
 
-    let texte_used = levenshtein(texte, dictionnaire_combat, 2, "#FF0000");
+        API("characters_models/story/" + storyId).then((res) => {
+            setCharacters(res);
+        })
+    }, []);
 
+    console.log(characters)
 
     return (
         <section id="characterSelection">
-            <p dangerouslySetInnerHTML={{ __html: texte_used }}>
-            </p>
-            <ul>
-                <CharacterSheet type="big" name="Warrior" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["sword", "shield"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Warrior"} onClick={() => handleCharacterClick("Warrior")}/>
-
-                <CharacterSheet type="small" name="Mage" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["staff", "spellbook"]} img="https://via.placeholder.com/150" isClicked={clickedCharacter === "Mage"} onClick={() => handleCharacterClick("Mage")}/>
-                <CharacterSheet type="medium" name="Rogue" stats={{strength:"10", intelligence:"5", resistance:"8", luck:"3"}} inventory={["dagger", "lockpick"]} img="https://via.placeholder.com/150"/>
-
-            </ul>
+            { storyInfos &&
+                <div id="descriptionSide">
+                    <div className="imageContainer">
+                        <img src={Image} alt="background"/>
+                        <div className="title">{storyInfos.title}</div>
+                    </div>
+                    <p>{storyInfos.description}</p>
+                </div>
+            }
+            <div id="characterSide">
+                <ul>
+                    { characters &&
+                        characters.map(character => (
+                            <CharacterSheet
+                                type="big"
+                                img={`${character.name.split(" ").join("").toLowerCase()}.jpg`}
+                                name={character?.name}
+                                character={character}
+                                inventory={character.stuff}
+                                isClicked={clickedCharacter === character.name}
+                                onClick={() => handleCharacterClick(character.name)}
+                                key={character.name}
+                            />
+                        ))
+                    }
+                </ul>
+            </div>
         </section>
     )
 };

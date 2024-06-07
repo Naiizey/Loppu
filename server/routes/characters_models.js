@@ -13,9 +13,7 @@ router.get("/characters_models", (req, res) => {
 // GET character model by id
 router.get("/characters_models/:id", (req, res) => {
   const { id } = req.params;
-  pool
-    .query("SELECT * FROM characters_models WHERE id = $1", [id])
-    .then((results) => {
+  pool.query("SELECT * FROM characters_models WHERE id = $1", [id]).then((results) => {
       res.json(results.rows);
     });
 });
@@ -54,5 +52,13 @@ router.delete("/characters_models/:id", (req, res) => {
     });
   });
 });
+
+// GET character model by story id
+router.get("/characters_models/story/:id", (req, res) => {
+  const { id } = req.params;
+  pool.query("SELECT * FROM characters_models WHERE story_id = $1", [id]).then((results) => {
+      res.json(results.rows)
+  })
+})
 
 module.exports = router;

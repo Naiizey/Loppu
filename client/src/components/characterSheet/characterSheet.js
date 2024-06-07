@@ -1,5 +1,6 @@
 import React from "react";
 import "./characterSheet.css";
+import API from '../../utils/API'
 
 // Pour un exemple d'ajout aller voir le fichier characterSelection.js dans les pages
 
@@ -20,7 +21,7 @@ import "./characterSheet.css";
  * @param {string} props.type
  * @param {string} props.img
  * @param {string} props.name
- * @param {object} props.stats
+ * @param {object} props.character
  * @param {array} props.inventory
  * @param {boolean} props.isClicked
  * @param {function} props.onClick
@@ -43,15 +44,15 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                                 </li>
                                 <li>
                                     <p>Strength </p>
-                                    <p>{character.stats.strength}</p>
+                                    <p>{character.stats?.strength || character.base_stats.strength}</p>
                                 </li>
                                 <li>
                                     <p>Intelligence </p>
-                                    <p>{character.stats.intelligence}</p>
+                                    <p>{character.stats?.intelligence || character.base_stats.intelligence}</p>
                                 </li>
                                 <li>
                                     <p>Resistance </p>
-                                    <p>{character.stats.resistance}</p>
+                                    <p>{character.stats?.resistance || character.base_stats.resistance}</p>
                                 </li>
                             </ul>
                         </section>
@@ -59,12 +60,27 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                         </div>
                     </div>
-                    { isClicked &&
+                    { isClicked && character &&
                         <article>
                             <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo
+                                { character.description }
                             </p>
-                            <button onClick={(e) => e.stopPropagation()}>Sélectionner</button>
+                            <button onClick={async () => {
+                                const newCharacter = await API("characters", "POST", {
+                                    "stats": JSON.stringify(character.base_stats),
+                                    "character_model_id": character.id,
+                                    "stuff": JSON.stringify(character.base_stuff),
+                                    "user_id": localStorage.getItem('userId')
+                                }).then(resp => resp.result)
+
+                                localStorage.setItem('storyId', localStorage.getItem('tmpStoryId'));
+                                localStorage.setItem('sectionId', 1);
+                                localStorage.removeItem('tmpStoryId');
+
+                                localStorage.setItem('charaId', newCharacter.id);
+                                localStorage.removeItem('fromStoriesDisplay');
+                                window.location = "/story";
+                            }}>Select</button>
                         </article>
                     }
                 </li>
@@ -90,15 +106,15 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                         <ul>
                             <li>
                                 <p>Strength </p>
-                                <p>{character.stats.strength}</p>
+                                <p>{character.stats?.strength || character.base_stats.strength}</p>
                             </li>
                             <li>
                                 <p>Intelligence </p>
-                                <p>{character.stats.intelligence}</p>
+                                <p>{character.stats?.intelligence || character.base_stats.intelligence}</p>
                             </li>
                             <li>
                                 <p>Resistance </p>
-                                <p>{character.stats.resistance}</p>
+                                <p>{character.stats?.resistance || character.base_stats.resistance}</p>
                             </li>
                         </ul>
                     </section>
