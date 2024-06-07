@@ -172,6 +172,7 @@ function interpretImpact(dico, userChar, setUserChar) {
   let stats = {};
   for (const key in dico) {
     if (key === "stats") {
+      
         impactStats(key, dico, stats, userChar, setUserChar);
     } else {
       if (key === "stuff") {
@@ -414,7 +415,7 @@ function deadRequireProcess(dico, setGotoSectionId, userChar, setUserChar) {
  * @param { Object } userChar The character informations
  * @param { Function } setUserChar The function to set the character informations
  */
-function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar, setDisplayButtonIdGoto)
+function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, reject, userChar, setUserChar, setDisplayButtonIdGoto)
 {
   switch (dico.action.type) {
     case "dice":
@@ -500,7 +501,7 @@ function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, set
 {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
-      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, resolve, reject, userChar, setUserChar, setDisplayButtonIdGoto);
+      undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, reject, userChar, setUserChar, setDisplayButtonIdGoto);
     } else if (dico.type === "items") {
       itemActionProcess(dico, resolve, reject);
     } else if (dico.type === "stats") {
@@ -698,7 +699,7 @@ function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDi
       }
       else
       {
-        undefinedActionProcess(action.choices[choiceNumber], setSectionId, choiceNumber, action.choices[choiceNumber].goto, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto);
+        undefinedActionProcess(action.choices[choiceNumber], setSectionId, choiceNumber, action.choices[choiceNumber].goto, setSectionId, setDiceValue, undefined, userChar, setUserChar, setDisplayButtonIdGoto);
       }
     }
     else{
@@ -1066,7 +1067,6 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
       victory: false,
     },
   ]);
-
   const story_id = localStorage.getItem("storyId");
   const [diceValue, setDiceValue] = useState(0);
   const [dead, setDead] = useState(0);
