@@ -419,7 +419,9 @@ function undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, se
 {
   switch (dico.action.type) {
     case "dice":
+      console.log("launchDices 1");
       launchDices(dico.action.numberOfDice, setDiceValue).then((res) => {
+        console.log("interpretDiceResult 1");
         let ret = interpretDiceResult(dico.action, res, setGotoSectionId, userChar, setUserChar);
         if (dico.action.win !== undefined) {
           notDeadRequireProcess(dico, setGotoSectionId, userChar, setUserChar);
@@ -501,10 +503,13 @@ function interpretRequireStory(dico, setGotoSectionId, choiceNumber, gotoId, set
 {
   return new Promise((resolve, reject) => {
     if (dico.action !== undefined) {
+      console.log("undefinedActionProcess 1");
       undefinedActionProcess(dico, setGotoSectionId, choiceNumber, gotoId, setSectionId, setDiceValue, reject, userChar, setUserChar, setDisplayButtonIdGoto);
     } else if (dico.type === "items") {
+      console.log("itemActionProcess 1");
       itemActionProcess(dico, resolve, reject);
     } else if (dico.type === "stats") {
+      console.log("statActionProcess 1");
       statActionProcess(dico, resolve);
     } else {
       reject(new Error("unknown require type"));
@@ -533,12 +538,15 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
       if (choice.goto === gotoID && choice.require === undefined) {
         if (choice.require === undefined) {
           if (choice.impact !== undefined) {
+            console.log("interpretImpact 1");
             interpretImpact(choice.impact, userChar, setUserChar);
           }
         } else {
+          console.log("interpretRequireStory 1");
           interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto).then((result) => {
             if (result) {
               if (choice.impact !== undefined) {
+                console.log("interpretImpact 2");
                 interpretImpact(choice.impact, userChar, setUserChar);
               }
               gotoSection(choice.goto, setSectionId, setDiceValue);
@@ -550,12 +558,15 @@ function interpretStory(story, gotoID, setSectionId, choiceNumber, setGotoSectio
     } else {
       if (choice.require === undefined) {
         if (choice.impact !== undefined) {
+          console.log("interpretImpact 3");
           interpretImpact(choice.impact, userChar, setUserChar);
         }
       } else {
+        console.log("interpretRequireStory 2");
         interpretRequireStory(choice.require, setGotoSectionId, choiceNumber, gotoID, setSectionId, setDiceValue, userChar, setUserChar, setDisplayButtonIdGoto).then((result) => {
           if (result) {
             if (choice.impact !== undefined) {
+              console.log("interpretImpact 4");
               interpretImpact(choice.impact, userChar, setUserChar);
             }
           }
@@ -585,6 +596,9 @@ function deadButton() {
  * @returns The result of the dices
  */
 const launchDices = async (numberOfDice, setDiceValue) => {
+  console.log("setDiceValue 1");
+  let isFunct = typeof setDiceValue;
+  console.log(isFunct);
   setDiceValue(numberOfDice);
   //wait to be sure that the value is set
   await new Promise((resolve) => setTimeout(resolve, 300));
