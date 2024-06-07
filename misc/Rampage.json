@@ -1157,7 +1157,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Disaster at the Alchemist's Workshop (pt. 2)"
   },
   "29": {
     "action": {
@@ -1725,7 +1726,8 @@
           "goto": 47
         }
       ]
-    }
+    },
+    "title": "Loot at Brilligan's Keep (pt. 2)"
   },
   "36": {
     "action": {
