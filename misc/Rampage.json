@@ -101,7 +101,7 @@
         }
       ],
       "win": {
-        "text": "You have slain the innkeeper. Tick the box above. You may add the Keg of Beer (1 Food Point) he was sitting on, to your Sack.",
+        "text": "You have slain the innkeeper. Tick the box above. You may add the Keg of Beer he was sitting on, to your Sack.",
         "goto": 22
       },
       "lose": {
@@ -1157,7 +1157,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Disaster at the Alchemist's Workshop (pt. 2)"
   },
   "29": {
     "action": {
@@ -1725,7 +1726,8 @@
           "goto": 47
         }
       ]
-    }
+    },
+    "title": "Loot at Brilligan's Keep (pt. 2)"
   },
   "36": {
     "action": {
@@ -2132,7 +2134,7 @@
         }
       ],
       "win": {
-        "text": "You stand triumphant amidst the ruins of the market place. You strip the market of a few choice items, add a Barrel of Sausages (1 Food Point) and an Asantian Rug (1 Loot Point) to your Sack.",
+        "text": "You stand triumphant amidst the ruins of the market place. You strip the market of a few choice items, add a Barrel of Sausages and an Asantian Rug to your Sack.",
         "impact": {
           "stuff": [
             {

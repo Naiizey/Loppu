@@ -14,7 +14,7 @@ router.get("/sections/:idStory", (req, res) => {
 // GET section by id
 router.get("/sections/:idStory/:id", (req, res) => {
   const { id, idStory } = req.params;
-  pool.query("SELECT * FROM sections WHERE id = $1 and story_id = $2", [id, idStory]).then((results) => {
+  pool.query("SELECT * FROM sections WHERE id_book_section = $1 and story_id = $2", [id, idStory]).then((results) => {
     res.json(results.rows);
   });
 });
@@ -44,7 +44,7 @@ router.put("/sections/:id", (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
   pool
-    .query("UPDATE sections SET name = $1 WHERE id = $2", [name, id])
+    .query("UPDATE sections SET name = $1 WHERE id_book_section = $2", [name, id])
     .then(() => {
       res.json({
         message: "section updated successfully!",
@@ -55,7 +55,7 @@ router.put("/sections/:id", (req, res) => {
 // DELETE section
 router.delete("/sections/:id", (req, res) => {
   const { id } = req.params;
-  pool.query("DELETE FROM sections WHERE id = $1", [id]).then(() => {
+  pool.query("DELETE FROM sections WHERE id_book_section = $1", [id]).then(() => {
     res.json({
       message: "section deleted successfully!",
     });
