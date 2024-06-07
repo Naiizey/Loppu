@@ -43,7 +43,7 @@ const CharacterSelection = ({storyId}) => {
                         characters.map(character => (
                             <CharacterSheet
                                 type="big"
-                                img={"giant.jpg"}
+                                img={`${character.name.split(" ").join("").toLowerCase()}.jpg`}
                                 name={character?.name}
                                 character={character}
                                 inventory={character.stuff}

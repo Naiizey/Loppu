@@ -22,10 +22,6 @@ const HomePage = () => {
         })
     }, []);
 
-    if (localStorage.getItem("sectionId") === null) {
-        localStorage.setItem("sectionId", 1);
-    }
-
     return (
         <main id="home">
             <section className="welcomeMessage">
