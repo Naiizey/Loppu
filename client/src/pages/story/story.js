@@ -55,7 +55,7 @@ const SectionPage = () => {
     API("sections/" + story_id + "/" + sectionId).then((res) => {
       res = res[0];
       setSectionTitle(res.title);
-      API("paths/" + parseInt(localStorage.getItem("charaId"))).then(
+      API("paths/" + localStorage.getItem("charaId")).then(
         (pathRes) => {
           let boolean = false;
           pathRes.forEach((path) => {
@@ -90,8 +90,7 @@ const SectionPage = () => {
 
   useEffect(() => {
     API("stories/" + story_id).then((res) => {
-      res = res[0];
-      setStoryTitle(res.title);
+      setStoryTitle(res[0].title);
     });
   }, [story_id]);
 
@@ -136,6 +135,8 @@ const SectionPage = () => {
             setInventory(temp_inventory);
           });
         }
+      }
+      for (let stuffName in userCharas[0].stuff.inventory) {
         for (let item in userCharas[0].stuff.inventory[stuffName]) {
           API("stuff/" + story_id + "/" + item).then((res) => {
             temp_inventory.push(`${res[0].item_name} - ${res[0].item_type}`);
@@ -145,6 +146,28 @@ const SectionPage = () => {
       }
     }
   }, [characters, charactersModels, story_id]);
+
+  useEffect(() => {
+    if(userChar){
+      let temp_inventory = []
+      for (let stuffName in userChar.stuff.stuff) {
+        for (let item in userChar.stuff.stuff[stuffName]) {
+          API("stuff/" + story_id + "/" + item).then((res) => {
+            temp_inventory.push(`${res[0].item_name} - ${res[0].item_type}`);
+            setInventory(temp_inventory);
+          });
+        }
+      }
+      for (let stuffName in userChar.stuff.inventory) {
+        for (let item in userChar.stuff.inventory[stuffName]) {
+          API("stuff/" + story_id + "/" + item).then((res) => {
+            temp_inventory.push(`${res[0].item_name} - ${res[0].item_type}`);
+            setInventory(temp_inventory);
+          });
+        }
+      }
+    }
+  }, [userChar])
 
   const dict_combat = [
     "killing",
@@ -197,7 +220,7 @@ const SectionPage = () => {
       </nav>
       <section>
         <div>
-          <StoryProgress storyTitle={storyTitle} sectionId={sectionId} sectionTitle={sectionTitle}/>
+          <StoryProgress storyId={story_id} storyTitle={storyTitle} sectionId={sectionId} sectionTitle={sectionTitle}/>
           <article>
             <p dangerouslySetInnerHTML={{ __html: text_levenshtein }}></p>
           </article>

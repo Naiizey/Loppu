@@ -64,7 +64,7 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
             }
             { isClicked === storyId && stateStory &&
                 <div className="storyDetails">
-                    <StoryProgress section={localStorage.getItem("sectionId")}/>
+                    <StoryProgress storyId={storyId} storyTitle={name} sectionId={localStorage.getItem("sectionId")}/>
                     <Button size="small" Icon={ArrowIcon} text="Continue my story" type="dark" onClick={() => {
                         window.location = "/story";
                     }}/>
