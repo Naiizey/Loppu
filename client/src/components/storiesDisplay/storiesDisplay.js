@@ -59,7 +59,7 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
                     name={userCharModel.name}
                     character={userChar}
                     inventory={userChar.stuff}
-                    img={CharImage}
+                    img={`${userCharModel.name.split(" ").join("").toLowerCase()}.jpg`}
                 />
             }
             { isClicked === storyId && stateStory &&

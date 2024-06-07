@@ -66,16 +66,12 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                                 { character.description }
                             </p>
                             <button onClick={async () => {
-                                console.log(character.name);
-
                                 const newCharacter = await API("characters", "POST", {
                                     "stats": JSON.stringify(character.base_stats),
                                     "character_model_id": character.id,
                                     "stuff": JSON.stringify(character.base_stuff),
                                     "user_id": localStorage.getItem('userId')
                                 }).then(resp => resp.result)
-
-                                console.log(newCharacter)
 
                                 localStorage.setItem('storyId', localStorage.getItem('tmpStoryId'));
                                 localStorage.setItem('sectionId', 1);

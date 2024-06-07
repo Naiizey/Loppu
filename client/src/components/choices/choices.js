@@ -167,7 +167,7 @@ function interpretImpact(dico, userChar, setUserChar) {
   let stats = {};
   for (const key in dico) {
     if (key === "stats") {
-      
+
         impactStats(key, dico, stats, userChar, setUserChar);
     } else {
       if (key === "stuff") {
@@ -231,15 +231,15 @@ const checkStatsPrerequesites = (stat, operator, value) => {
     stats = res[0].stats;
     switch (operator) {
       case "<":
-        return stats[stat] < value;
+        return value < stats[stat];
       case ">":
-        return stats[stat] > value;
+        return value > stats[stat];
       case "<=":
-        return stats[stat] <= value;
+        return value <= stats[stat];
       case ">=":
-        return stats[stat] >= value;
+        return value >= stats[stat];
       case "==":
-        return stats[stat] === value;
+        return value === stats[stat];
       default:
         return false;
     }
@@ -613,7 +613,9 @@ function interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setC
     item =
       action.choices[choiceNumber].require[item_type][`id_${item_type}`];
   }
-  let charItems = Object.keys(char.stuff.stuff[0]);
+  let charItems = char.stuff.stuff.map(elem => {
+    return Object.keys(elem)[0]
+  });
   if (charItems.includes(item.toString())) {
     let storyId = localStorage.getItem("storyId");
     API("stuff/" + storyId + "/" + item).then((itemResp) => {
@@ -688,7 +690,7 @@ function interpretFight(action, setCombatInfo, choiceNumber, setSectionId, setDi
   }
   else {
     if(!maxEnemyHealth) {
-      if (action.enemy !== undefined) 
+      if (action.enemy !== undefined)
       {
         setMaxEnemyHealth(action.enemy.resistance);
       }
@@ -1109,7 +1111,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
           }, "Next", gotoSectionId)
         ) : id === 50 ? (
           storyButtonChoice(50, () => window.location = "/ending", "End the story")
-        ) : 
+        ) :
         displayButtonIdGoto !== 0 ? (
           storyButtonChoice(displayButtonIdGoto,() => {
             gotoSection(displayButtonIdGoto, setSectionId, setDiceValue);
