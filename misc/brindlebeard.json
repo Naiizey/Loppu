@@ -4,11 +4,11 @@
     "gender" : "female",
 
     "strength": 6,
-    "resistance": 4, 
+    "resistance": 4,
     "intelligence": 4,
 
     "description": {
-        "text" : "Brindlebeard est un géant élevé des collines Sanglantes, et plus précisément, des mines indépendantes d'orfèvre de Pass de Bloodstone. Il a exploité ces colonies pendant des années et a finalement épuis la plupart des approvisionnements en bétail desquelles il a été contraint de chercher de nouvelles terres dans la recherche de nourriture et de butin. Brindlebeard avait longtemps entendu parler des terres riches autour de Boulder Ford et s'est dirigé vers cette direction pour vérifier si cela était réellement le cas…"
+        "text" : "Brindlebeard is a giant bred in the Bloody Hills, and more specifically, in the independent Pass gold mines of Bloodstone. He mined these settlements for years and eventually exhausted most of the livestock supplies from which he was forced to seek out new lands in search of food and booty. Brindlebeard had long heard of the rich lands around Boulder Ford and headed in that direction to see if this was really the case..."
     },
 
     "stuff": [

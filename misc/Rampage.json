@@ -42,7 +42,8 @@
           "goto": 50
         }
       ]
-    }
+    },
+    "title": "Crossroads at the Forge"
   },
   "2": {
     "action": {
@@ -66,7 +67,8 @@
           "goto": 35
         }
       ]
-    }
+    },
+    "title": "The Fall of Vaed Thol"
   },
   "3": {
     "action": {
@@ -106,7 +108,8 @@
         "text": "Vaed reduces your TUFF score to zero.",
         "goto": 13
       }
-    }
+    },
+    "title": "The Horde of Yobbos"
   },
   "4": {
     "action": {
@@ -146,7 +149,8 @@
         "text": "The Yobbos reduce your TUFF score to zero.",
         "goto": 13
       }
-    }
+    },
+    "title": "Duel at the Forge"
   },
   "5": {
     "action": {
@@ -186,7 +190,8 @@
         "text": "Stubbs reduces your TUFF score to zero",
         "goto": 13
       }
-    }
+    },
+    "title": "Drunken Revelry"
   },
   "6": {
     "action": {
@@ -205,7 +210,7 @@
               }
             ],
             "stats": {
-              "résistance": {
+              "resistance": {
                 "operator": "+",
                 "value": 2
               },
@@ -217,7 +222,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "The Gates Revisited"
   },
   "7": {
     "action": {
@@ -227,13 +233,10 @@
         {
           "text": "Go North, to the market",
           "goto": 45
-        },
-        {
-          "text": "Go South, to your cave",
-          "goto": 50
         }
       ]
-    }
+    },
+    "title": "The Curse of Goff"
   },
   "8": {
     "action": {
@@ -272,7 +275,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Desecration and Defiance"
   },
   "9": {
     "action": {
@@ -324,7 +328,8 @@
     "lose": {
       "text": "The Curer reduces your TUFF score to zero. Turn to 13.",
       "goto": 13
-    }
+    },
+    "title": "Gastromo's Challenge"
   },
   "10": {
     "action": {
@@ -362,7 +367,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Plundering the Blue Crab Tavern"
   },
   "11": {
     "action": {
@@ -396,7 +402,7 @@
                   "checkType": "comparison",
                   "stat": "intelligence",
                   "operator": ">=",
-                  "failureText": "You pull out a keg of beer, and then another, and then another…",
+                  "failureText": "You pull out a keg of beer, and then another, and then another\u2026",
                   "goto": 6
                 }
               ]
@@ -404,7 +410,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "At Gastromo's Tower"
   },
   "12": {
     "action": {
@@ -420,12 +427,14 @@
           "goto": 25
         }
       ]
-    }
+    },
+    "title": "End of the Line"
   },
   "13": {
     "action": {
-      "text": "You are dead! ☠"
-    }
+      "text": "You are dead! \u2620"
+    },
+    "title": "Battle with Vaitharre the Adventuress"
   },
   "14": {
     "action": {
@@ -441,7 +450,6 @@
       "choices": [
         {
           "text": "Throw a boulder at Vaitharre",
-          "goto": 7,
           "require": {
             "type": "item",
             "item": {
@@ -456,7 +464,8 @@
         }
       ],
       "win": {
-        "text": "you have slain the adventuress",
+        "text": "You have slain the adventuress",
+        "goto": 7,
         "impact": {
           "stuff": [
             {
@@ -471,7 +480,8 @@
         "text": "You have lose",
         "goto": 13
       }
-    }
+    },
+    "title": "Awakening of the Statue of Goff"
   },
   "15": {
     "action": {
@@ -523,7 +533,8 @@
           ]
         }
       }
-    }
+    },
+    "title": "Teleported by Magic"
   },
   "16": {
     "action": {
@@ -560,7 +571,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "The Temple's New Day"
   },
   "17": {
     "action": {
@@ -580,7 +592,8 @@
           "goto": 5
         }
       ]
-    }
+    },
+    "title": "Assault on Gastromo's Tower"
   },
   "18": {
     "action": {
@@ -624,7 +637,8 @@
           "goto": 12
         }
       ]
-    }
+    },
+    "title": "Flames at the Forge"
   },
   "19": {
     "action": {
@@ -633,51 +647,55 @@
       "choices": [
         {
           "text": "Roll the dice",
-          "action": {
-            "type": "dice",
-            "numberOfDice": 1,
-            "diceResult": [
-              {
-                "checkType": "comparison",
-                "stat": "intelligence",
-                "operator": "<",
-                "successText": "You manage to avoid the flames",
-                "impact": {
-                  "stuff": [
-                    {
-                      "id_item": 9,
-                      "operator": "+",
-                      "quantity": 1
-                    }
-                  ]
+          "require" :{
+            "action": {
+              "type": "dice",
+              "numberOfDice": 1,
+              "diceResult": [
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": "<",
+                  "successText": "You manage to avoid the flames",
+                  "impact": {
+                    "stuff": [
+                      {
+                        "id_item": 9,
+                        "operator": "+",
+                        "quantity": 1
+                      }
+                    ]
+                  },
+                  "goto": 2
                 },
-                "goto": 2
-              },
-              {
-                "checkType": "comparison",
-                "stat": "intelligence",
-                "operator": ">=",
-                "failureText": "You suffer burns",
-                "impact": {
-                  "stats": {
-                    "resistance": {
-                      "operator": "-",
-                      "value": 1
+                {
+                  "checkType": "comparison",
+                  "stat": "intelligence",
+                  "operator": ">=",
+                  "failureText": "You suffer burns",
+                  "impact": {
+                    "stats": {
+                      "resistance": {
+                        "operator": "-",
+                        "value": 1
+                      }
                     }
                   }
                 }
-              }
-            ]
+              ]
+            }
           }
+
         }
       ]
-    }
+    },
+    "title": "Confrontation at the Blue Crab Tavern"
   },
   "20": {
     "action": {
       "alreadyVisited": 3,
       "type": "combat",
-      "text": "The Blue Crab Tavern sits atop a grassy rise overlooking the market, and as you stomp up the path towards it, most of the patrons flee out the back and away to the north. One figure remains, a tall muscular human holding a dark-bladed sword. It is none other than Yadda Blackhead, an albino warrior with a bad skin complexion. His magical blade Soultaker is sentient and reputed to steal the spirits of those it wounds. \"Every bloody time!\" he rants at you. \"Can't you monsters give me a moment's peace? All I want is a quiet afternoon quaffing ale and carousing with tavern wenches, but, no, you have to decide to attack Boulder Ford today…\" \"Could be worse,\" adds Soultaker in a metallic voice. \"At least it's not Malthus Fire, seeking revenge for that time with his wife Delectia when you…\" \"Silence!' screams Yadda, charging towards you, waving the talkative sword. You must fight one of the greatest heroes in all Gallansia! If you want. However",
+      "text": "The Blue Crab Tavern sits atop a grassy rise overlooking the market, and as you stomp up the path towards it, most of the patrons flee out the back and away to the north. One figure remains, a tall muscular human holding a dark-bladed sword. It is none other than Yadda Blackhead, an albino warrior with a bad skin complexion. His magical blade Soultaker is sentient and reputed to steal the spirits of those it wounds. \"Every bloody time!\" he rants at you. \"Can't you monsters give me a moment's peace? All I want is a quiet afternoon quaffing ale and carousing with tavern wenches, but, no, you have to decide to attack Boulder Ford today\u2026\" \"Could be worse,\" adds Soultaker in a metallic voice. \"At least it's not Malthus Fire, seeking revenge for that time with his wife Delectia when you\u2026\" \"Silence!' screams Yadda, charging towards you, waving the talkative sword. You must fight one of the greatest heroes in all Gallansia! If you want. However",
       "enemy": {
         "name": "Yadda Blackhead",
         "strength": 4,
@@ -696,7 +714,7 @@
           },
           "impact": {
             "stats": {
-              "résistance": {
+              "r\u00e9sistance": {
                 "operator": "-",
                 "value": 2
               }
@@ -731,7 +749,8 @@
           }
         }
       }
-    }
+    },
+    "title": "The Fall of Gastromo's Tower"
   },
   "21": {
     "action": {
@@ -804,7 +823,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Return to the Blue Crab Tavern"
   },
   "22": {
     "action": {
@@ -820,7 +840,8 @@
           "goto": 45
         }
       ]
-    }
+    },
+    "title": "Aftermath at the Forge"
   },
   "23": {
     "action": {
@@ -842,7 +863,8 @@
           "goto": 2
         }
       ]
-    }
+    },
+    "title": "The Curer's Desperation"
   },
   "24": {
     "action": {
@@ -879,7 +901,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Siege of Brilligan's Keep"
   },
   "25": {
     "action": {
@@ -927,7 +950,8 @@
           "goto": 27
         }
       ]
-    }
+    },
+    "title": "Clash at the Gates"
   },
   "26": {
     "action": {
@@ -965,7 +989,8 @@
         "text": "The guards reduce your TUFF score to zero.",
         "goto": 13
       }
-    }
+    },
+    "title": "Choices at Brilligan's Keep"
   },
   "27": {
     "action": {
@@ -985,7 +1010,8 @@
           "goto": 10
         }
       ]
-    }
+    },
+    "title": "Chaos at the Merchant's Mansion"
   },
   "28": {
     "action": {
@@ -1032,7 +1058,8 @@
         "text": "The mob reduces your TUFF score to zero.",
         "goto": 13
       }
-    }
+    },
+    "title": "Disaster at the Alchemist's Workshop"
   },
   "2805": {
     "action": {
@@ -1093,7 +1120,7 @@
                     "stuff": [
                       {
                         "id_item": 17,
-                        "operator" : "+",
+                        "operator": "+",
                         "quantity": 1
                       }
                     ]
@@ -1106,7 +1133,7 @@
                     "stats": [
                       {
                         "id_item": 6,
-                        "operator" : "+",
+                        "operator": "+",
                         "quantity": 1
                       }
                     ]
@@ -1119,7 +1146,7 @@
                     "stuff": [
                       {
                         "id_item": 18,
-                        "operator" : "+",
+                        "operator": "+",
                         "quantity": 1
                       }
                     ]
@@ -1237,7 +1264,7 @@
                         "stuff": [
                           {
                             "id_item": 13,
-                            "operator" : "+",
+                            "operator": "+",
                             "quantity": 1
                           }
                         ]
@@ -1250,7 +1277,7 @@
                         "stuff": [
                           {
                             "id_item": 27,
-                            "operator" : "+",
+                            "operator": "+",
                             "quantity": 1
                           }
                         ]
@@ -1263,7 +1290,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Standoff at the Livestock Pens"
   },
   "30": {
     "action": {
@@ -1314,7 +1342,8 @@
           "goto": 32
         }
       ]
-    }
+    },
+    "title": "Catastrophic Spellcasting"
   },
   "31": {
     "action": {
@@ -1416,7 +1445,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "The Livestock Pens Again"
   },
   "32": {
     "action": {
@@ -1432,16 +1462,17 @@
           "goto": 45
         }
       ]
-    }
+    },
+    "title": "Ambush in the Market"
   },
   "33": {
     "action": {
       "type": "story",
       "text": "The market is erily silent, and strewn with the wreckage of broken stalls and shattered pottery. Suddenly, a scrawny Gnome in brown leather waving a dagger, leaps out behind you and attempts to stab you in the leg, screaming \"Ferret the Rogue strikes back!\".",
-      "choices" : [
+      "choices": [
         {
-          "text" : "Roll the dice",
-          "require" : {
+          "text": "Roll the dice",
+          "require": {
             "action": {
               "type": "dice",
               "numberOfDice": 1,
@@ -1474,10 +1505,10 @@
               }
             }
           }
-
         }
       ]
-    }
+    },
+    "title": "A Healing Surprise"
   },
   "34": {
     "action": {
@@ -1593,7 +1624,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "The Merchant's Last Defender"
   },
   "35": {
     "action": {
@@ -1632,7 +1664,8 @@
         "text": "you have defeated Bronze the Merchant's elite bodyguard! ",
         "goto": 3505
       }
-    }
+    },
+    "title": "Loot at Brilligan's Keep"
   },
   "3505": {
     "action": {
@@ -1645,7 +1678,7 @@
             "stuff": [
               {
                 "id_item": 11,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1657,8 +1690,8 @@
           "impact": {
             "stuff": [
               {
-                "id_story": 19,
-                "operator" : "+",
+                "id_item": 19,
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1671,7 +1704,7 @@
             "stuff": [
               {
                 "id_item": 6,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1684,7 +1717,7 @@
             "stuff": [
               {
                 "id_item": 20,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1705,7 +1738,7 @@
             "stuff": [
               {
                 "id_item": 5,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1718,7 +1751,7 @@
             "stuff": [
               {
                 "id_item": 11,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1731,7 +1764,7 @@
             "stuff": [
               {
                 "id_item": 16,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1744,7 +1777,7 @@
             "stuff": [
               {
                 "id_item": 22,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1757,7 +1790,7 @@
             "stuff": [
               {
                 "id_item": 6,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1770,7 +1803,7 @@
             "stuff": [
               {
                 "id_item": 20,
-                "operator" : "+",
+                "operator": "+",
                 "quantity": 1
               }
             ]
@@ -1778,7 +1811,8 @@
           "goto": 27
         }
       ]
-    }
+    },
+    "title": "The Ruins of Hicobemus' Workshop"
   },
   "37": {
     "action": {
@@ -1794,7 +1828,8 @@
           "goto": 25
         }
       ]
-    }
+    },
+    "title": "Militia in the Ruins"
   },
   "38": {
     "action": {
@@ -1834,13 +1869,14 @@
           "stuff": [
             {
               "id_item": 5,
-              "operator" : "+",
+              "operator": "+",
               "quantity": 1
             }
           ]
         }
       }
-    }
+    },
+    "title": "Battle with the Elf Ranger"
   },
   "39": {
     "action": {
@@ -1876,12 +1912,12 @@
           "stuff": [
             {
               "id_item": 23,
-              "operator" : "+",
+              "operator": "+",
               "quantity": 1
             },
             {
               "id_item": 24,
-              "operator" : "+",
+              "operator": "+",
               "quantity": 1
             }
           ],
@@ -1895,11 +1931,12 @@
         "text": "Beech reduces your TUFF score to zero",
         "goto": 13
       }
-    }
+    },
+    "title": "Confrontation at the Workshop"
   },
   "40": {
     "action": {
-      "text": "The Workshop of Hicobemus the Alchemist is a most peculiar dwelling. It is built into the Groaning Bridge, which spans a loop of the Hagfish River as it flows through the northern part of Boulder Ford. The Workshop is all arches and columns, full of pumps and distillery apparatus powered by the riverís waters as it surges downstream. A door is slammed open, and out staggers the Gnomish alchemist Hicobemus, in stained grey robes, with a patched, pointy hat upon his head, and a long filthy beard that grows down to his feet. He's ridiculously drunk, you can smell the reek of distilled liquor from up here. Of more immediate concern is the bizarre apparatus strapped to his back. It appears to be some sort of pressurized tank, with a long segmented tube connecting it to a hand-held iron wand held in Hicobemus' right hand. \"Come on then, you bastard!\" he rants at you. \"I'll have ya! Say hello to my latest invention, I call it Dragon Breath!\" So saying he pulls a trigger on the iron wand and a jet of flame erupts from its tip, forcing you backwards. You must fight the intoxicated alchemist and his fiery secret weapon!.",
+      "text": "The Workshop of Hicobemus the Alchemist is a most peculiar dwelling. It is built into the Groaning Bridge, which spans a loop of the Hagfish River as it flows through the northern part of Boulder Ford. The Workshop is all arches and columns, full of pumps and distillery apparatus powered by the river\u00eds waters as it surges downstream. A door is slammed open, and out staggers the Gnomish alchemist Hicobemus, in stained grey robes, with a patched, pointy hat upon his head, and a long filthy beard that grows down to his feet. He's ridiculously drunk, you can smell the reek of distilled liquor from up here. Of more immediate concern is the bizarre apparatus strapped to his back. It appears to be some sort of pressurized tank, with a long segmented tube connecting it to a hand-held iron wand held in Hicobemus' right hand. \"Come on then, you bastard!\" he rants at you. \"I'll have ya! Say hello to my latest invention, I call it Dragon Breath!\" So saying he pulls a trigger on the iron wand and a jet of flame erupts from its tip, forcing you backwards. You must fight the intoxicated alchemist and his fiery secret weapon!.",
       "alreadyVisited": 48,
       "type": "combat",
       "enemy": {
@@ -1931,7 +1968,8 @@
         "text": "Hicobemus reduces your TUFF score to zero",
         "goto": 13
       }
-    }
+    },
+    "title": "King Brilligan's Last Stand"
   },
   "41": {
     "action": {
@@ -1969,7 +2007,8 @@
         "text": "You have defeated the King of the Gnomes! ",
         "goto": 36
       }
-    }
+    },
+    "title": "Quiet in the Market"
   },
   "42": {
     "action": {
@@ -1981,10 +2020,6 @@
           "goto": 5
         },
         {
-          "text": "South, to the gate",
-          "goto": 1
-        },
-        {
           "text": "East, to the livestock pens",
           "goto": 30
         },
@@ -1993,7 +2028,8 @@
           "goto": 20
         }
       ]
-    }
+    },
+    "title": "Feral Dogs at the Pen"
   },
   "43": {
     "action": {
@@ -2030,7 +2066,8 @@
         "text": "The dog pack reduces your TUFF score to zero.",
         "goto": 13
       }
-    }
+    },
+    "title": "Treasure in the Temple"
   },
   "44": {
     "action": {
@@ -2063,11 +2100,12 @@
           }
         }
       ]
-    }
+    },
+    "title": "The Market's Defiance"
   },
   "45": {
     "action": {
-      "type": "enemy",
+      "type": "combat",
       "alreadyVisited": "33",
       "text": "The market is in an uproar owing to your intrusion. Stall-holders are frantically shutting up shop, people are rushing all over the place, pack-animals are milling around in confusion, and Gnomish guards are everywhere trying to maintain order. You leisurely contemplate the rich pickings on offer, but one lone figure stands in your way.",
       "enemy": {
@@ -2099,12 +2137,12 @@
           "stuff": [
             {
               "id_item": 21,
-              "operator" : "+",
+              "operator": "+",
               "quantity": 1
             },
             {
               "id_item": 17,
-              "operator" : "+",
+              "operator": "+",
               "quantity": 1
             }
           ]
@@ -2115,7 +2153,8 @@
         "text": "Your opponent reduces your TUFF score to zero.",
         "goto": 13
       }
-    }
+    },
+    "title": "Gastromo's Escape"
   },
   "46": {
     "action": {
@@ -2235,7 +2274,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Return to the Merchant's Mansion"
   },
   "47": {
     "action": {
@@ -2255,7 +2295,8 @@
           "goto": 5
         }
       ]
-    }
+    },
+    "title": "Aftermath at the Workshop"
   },
   "48": {
     "action": {
@@ -2278,33 +2319,35 @@
                     "stuff": [
                       {
                         "id_item": 3,
-                        "operator" : "+",
+                        "operator": "+",
                         "quantity": 1
                       }
                     ]
                   }
                 },
                 {
+                  "checkType": "fromTo",
                   "from": 3,
                   "to": 4,
                   "impact": {
                     "stuff": [
                       {
                         "id_item": 2,
-                        "operator" : "+",
+                        "operator": "+",
                         "quantity": 1
                       }
                     ]
                   }
                 },
                 {
+                  "checkType": "fromTo",
                   "from": 5,
                   "to": 6,
                   "impact": {
-                    "stuff" : [
+                    "stuff": [
                       {
                         "id_item": 4,
-                        "operator" : "+",
+                        "operator": "+",
                         "quantity": 1
                       }
                     ]
@@ -2316,7 +2359,8 @@
           }
         }
       ]
-    }
+    },
+    "title": "Demon's Release"
   },
   "49": {
     "action": {
@@ -2352,16 +2396,18 @@
           "stuff": [
             {
               "id_item": 25,
-              "operator" : "+",
+              "operator": "+",
               "quantity": 1
             }
           ]
         }
       },
       "goto": 12
-    }
+    },
+    "title": "Retreat to the Cave"
   },
   "50": {
-    "text": "You think you've spent enough time sacking and looting the town of Boulder Ford, and decide to return to your cave and take stock of the booty you've acquired. Besides, King Yalamon of the Southlands has a garrison nearby, and you'll be damned to the Six Hells if you are still stuck here when his crack legions show up! Back in your humble lair, you empty out the contents of your Sack(s) and recount your exploits."
+    "text": "You think you've spent enough time sacking and looting the town of Boulder Ford, and decide to return to your cave and take stock of the booty you've acquired. Besides, King Yalamon of the Southlands has a garrison nearby, and you'll be damned to the Six Hells if you are still stuck here when his crack legions show up! Back in your humble lair, you empty out the contents of your Sack(s) and recount your exploits.",
+    "title": "Loot Amidst the Rubble"
   }
 }

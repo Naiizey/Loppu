@@ -63,13 +63,13 @@ pool.connect().then(async () => {
   // insert the sections
   var story_id = storyInsertResult.rows[0].id;
   var type_id = typeInsertResult.rows[0].id;
-  var title = "unknown";
   var image = "unknown.png";
 
   for (var i = 1; i <= sections.length; i++) {
     var sectionid = sections[i - 1];
     var content = story[sectionid];
     var id_book_section = sectionid;
+    var title = content.title ? content.title : "unknown";
 
     var sectionInsertResult = await pool.query(
       "INSERT INTO sections (id_book_section,title, content, image, type_id, story_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
@@ -188,7 +188,7 @@ pool.connect().then(async () => {
   console.log("database filled with the choices");
 
   var character = await pool.query("INSERT INTO characters(id, stats, character_model_id, stuff, user_id) VALUES(1, $1, 1, $2, 1)", [base_stats, base_stuff])
-  
+
   var path1 = await pool.query("INSERT INTO paths(id_character, id_sections) VALUES(1, 15)");
   var path2 = await pool.query("INSERT INTO paths(id_character, id_sections) VALUES(1, 36)");
   var path3 = await pool.query("INSERT INTO paths(id_character, id_sections) VALUES(1, 22)");

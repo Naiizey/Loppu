@@ -62,6 +62,11 @@
     text-align: right;
 }
 
+.storyProgressComponent > div + div {
+    max-width: 18em;
+    text-align: right;
+}
+
 .storyProgressComponent h2{
     font-size: 2em;
     font-family: 'Inknut-Antiqua-Regular', serif;
@@ -72,4 +77,14 @@
     font-size: 1.5em;
     font-family: 'Inria-Sans-Regular', sans-serif;
     color: var(--light-grey);
+    text-wrap: balance;
+}
+
+.storyProgressComponent ol h3:hover{
+    color: var(--white-shade);
+}
+
+.storyProgressComponent h4{
+    font-family: 'Inria-Sans-Regular', sans-serif;
+    line-height: 1.5;
 }

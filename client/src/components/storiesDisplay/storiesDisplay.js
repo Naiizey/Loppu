@@ -47,11 +47,17 @@ const StoriesDisplay = ({storyId, Image, name, isStarted, isClicked, onClick}) =
             </div>
             <img src={Image} alt="story illustration"></img>
             { userChar && userCharModel &&
-                <CharacterSheet type="small" name={userCharModel.name} stats={userChar.stats} inventory={userChar.stuff} img={CharImage}/>
+                <CharacterSheet
+                    type="small"
+                    name={userCharModel.name}
+                    character={userChar}
+                    inventory={userChar.stuff}
+                    img={CharImage}
+                />
             }
             { isClicked === storyId &&
                 <div className="storyDetails">
-                    <StoryProgress section={localStorage.getItem("sectionId")}/>
+                    <StoryProgress storyId={storyId} storyTitle={name} sectionId={localStorage.getItem("sectionId")}/>
                     <Button size="small" Icon={ArrowIcon} text="Continue my story" type="dark" onClick={() => {
                         if(!localStorage.getItem("storyId")){
                             localStorage.setItem("storyId", 1);
