@@ -831,7 +831,7 @@ function setDiceAndDead(setDiceValue, setDead)
   });
 }
 
-function storyButtonChoice(key, adaptedOnClick, adaptedText="Next", targetIdSection="13") {
+function storyButtonChoice(key, adaptedOnClick, adaptedText="Next", targetIdSection="13", diceStats=null) {
   return (
     <Button
       key={key}
@@ -839,6 +839,7 @@ function storyButtonChoice(key, adaptedOnClick, adaptedText="Next", targetIdSect
       text={adaptedText}
       type={"story"}
       onClick={adaptedOnClick}
+      diceStats={diceStats}
       targetIdSection={targetIdSection}
     />
   )
@@ -933,6 +934,19 @@ function getGotoFromItem(choice)
     }
   }
   return targetIdSections;
+}
+
+function getRolledStats(choice)
+{
+  let statsDice = []
+  let diceResult = choice?.require?.action?.diceResult;
+  diceResult?.forEach((elem) => { 
+    let text = elem.stat;
+    if (!statsDice.includes(text)) {
+      statsDice.push(text);
+    }
+  });
+  return statsDice;
 }
 
 /**
@@ -1119,7 +1133,7 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
           storyButtonChoice(displayButtonIdGoto,() => {
             gotoSection(displayButtonIdGoto, setSectionId, setDiceValue);
             setDisplayButtonIdGoto(0);
-          }, "Next", displayButtonIdGoto)
+          }, "Next", displayButtonIdGoto, )
         ) :
         (
           choices &&
@@ -1131,13 +1145,13 @@ const Choices = ({ id, setSectionId, section, setCombatInfo, currEnemyHealth, se
             if (!item.victory && !item.lose && targetIdTuple) {
               return storyButtonChoice(i, () => {
                 handleButtonClick(item, i);
-              }, item.content || item.text, targetIdTuple[0]);
+              }, item.content || item.text, targetIdTuple[0], getRolledStats(item));
             }
             else if (!item.victory && !item.lose)
             {
               return storyButtonChoice(i, () => {
-                handleButtonClick(item, i);
-              }, item.content || item.text);
+               handleButtonClick(item, i);
+              }, item.content || item.text, getRolledStats(item));
             }
             return null;
           })
