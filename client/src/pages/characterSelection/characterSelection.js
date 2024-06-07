@@ -8,7 +8,6 @@ const CharacterSelection = ({storyId}) => {
     const [clickedCharacter, setClickedCharacter] = useState(null);
 
     const handleCharacterClick = (characterName) => {
-        localStorage.removeItem('tmpStoryId');
         setClickedCharacter(prev => prev === characterName ? null : characterName);
     };
 

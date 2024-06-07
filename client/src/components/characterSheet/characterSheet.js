@@ -66,17 +66,20 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                                 { character.description }
                             </p>
                             <button onClick={async () => {
-                                console.log('base stats : ', JSON.stringify(character.base_stats));
-                                console.log('base stuff : ', JSON.stringify(character.base_stuff));
-
                                 const newCharacter = await API("characters", "POST", {
                                     "stats": JSON.stringify(character.base_stats),
                                     "character_model_id": character.id,
                                     "stuff": JSON.stringify(character.base_stuff),
                                     "user_id": localStorage.getItem('userId')
-                                });
+                                }).then(resp => resp.result)
 
                                 console.log(newCharacter)
+
+                                localStorage.setItem('storyId', localStorage.getItem('tmpStoryId'));
+                                localStorage.removeItem('tmpStoryId');
+                                localStorage.setItem('charaId', newCharacter.id);
+                                localStorage.removeItem('fromStoriesDisplay');
+                                window.location = "/story";
                             }}>Select</button>
                         </article>
                     }

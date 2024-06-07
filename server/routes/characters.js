@@ -33,16 +33,22 @@ router.post("/characters", async (req, res) => {
   const stuff = req.body.stuff;
   const user_id = req.body.user_id;
 
-  const lastId = await pool.query("SELECT id FROM characters ORDER BY id DESC LIMIT 1").then((result) => {
-    if(result){
-      return result.rows[0].id;
-    }
-  });
+  let lastId;
 
-  pool.query("INSERT INTO characters (id, stats, character_model_id, stuff, user_id) VALUES ($1, $2::jsonb, $3, $4::jsonb, $5)", [lastId + 1, stats, character_model_id, stuff, user_id]).then((result) => {
+  try{
+    lastId = await pool.query("SELECT id FROM characters ORDER BY id DESC LIMIT 1").then((result) => {
+      if(result){
+        return result.rows[0].id;
+      }
+    })
+  } catch(error) {
+    lastId = 0;
+  }
+
+  pool.query("INSERT INTO characters (id, stats, character_model_id, stuff, user_id) VALUES ($1, $2::jsonb, $3, $4::jsonb, $5) RETURNING id, stats, character_model_id, stuff, user_id", [lastId + 1, stats, character_model_id, stuff, user_id]).then((result) => {
     res.json({
       message: "Character added successfully!",
-      result: result
+      result: result.rows[0]
     });
   });
 });

@@ -52,6 +52,7 @@ pool.connect().then(async () => {
   );
 
   // insert the user
+  // TODO remove
   var username = "unknown";
   var password = "unknown";
   var email = "unknown";

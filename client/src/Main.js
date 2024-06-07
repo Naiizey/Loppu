@@ -27,7 +27,7 @@ const Main = ({isSliderOpened, sliderType, setSliderType, setIsSliderOpened, dar
                     element={ <Home/> }
                 />
 
-                { localStorage.getItem('userId') && (
+                { localStorage.getItem('userId') && localStorage.getItem('charaId') && (
                     <Route
                         exact
                         path="/story"

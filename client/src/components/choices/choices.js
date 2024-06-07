@@ -12,12 +12,7 @@ import { rollAllDices } from "../../components/dices/dices";
  * @returns the id of the character
  */
 function getCharaId() {
-  if (localStorage.getItem("charaId") === null) {
-    localStorage.setItem("charaId", 1);
-    return 1;
-  } else {
-    return localStorage.getItem("charaId");
-  }
+  return localStorage.getItem("charaId");
 }
 
 /**
