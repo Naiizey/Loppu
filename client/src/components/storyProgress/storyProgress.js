@@ -21,7 +21,6 @@ const StoryProgress = ({ storyId, storyTitle, sectionId, sectionTitle }) => {
                     tempSectionsTitles.push(sectionRes[0].title);
                 });
             }
-            console.log(lastSections, tempSectionsTitles);
             setLastSectionsTitles(tempSectionsTitles);
         }
     }, [storyId, lastSections]);

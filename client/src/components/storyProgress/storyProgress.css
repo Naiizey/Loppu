@@ -80,6 +80,10 @@
     text-wrap: balance;
 }
 
+.storyProgressComponent ol h3:hover{
+    color: var(--white-shade);
+}
+
 .storyProgressComponent h4{
     font-family: 'Inria-Sans-Regular', sans-serif;
     line-height: 1.5;

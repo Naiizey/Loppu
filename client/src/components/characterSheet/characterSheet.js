@@ -129,7 +129,6 @@ const characterSheet = ({type, img, name, character, inventory, isClicked, onCli
                         <ul>
                             {
                             inventory.map((item, index) => {
-                                console.log(inventory)
                                 return <li key={index}><span>{item.split(" - ")[0]}</span><span>{item.split(" - ")[1]}</span></li>
                             })
                             }

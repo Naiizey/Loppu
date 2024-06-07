@@ -1,6 +1,52 @@
 {
-    "characters":
-    [
-      {"id": "1", "stats": "{"strength": 4, "resistance": 5, "intelligence": 2}", "character_model_id": "1", "stuff": "{"stuff": {"stuff": [{"5": "weapon"}], "inventory": [{"29": "treasure"}]}}", "user_id": "1"}
-    ]
+  "action": {
+    "goto": 37,
+    "text": "The Workshop of Hicobemus, and indeed much of the Groaning Bridge, is little more that a steaming pile of rubble lying in the middle of the Hagfish River. A prolonged search of the debris turns up nothing apart from one of the following.",
+    "type": "dice",
+    "diceResult": [
+      {
+        "to": 2,
+        "from": 1,
+        "impact": {
+          "stuff": [
+            {
+              "id_item": 3,
+              "operator": "+",
+              "quantity": 1
+            }
+          ]
+        },
+        "checkType": "fromTo"
+      },
+      {
+        "to": 4,
+        "from": 3,
+        "impact": {
+          "stuff": [
+            {
+              "id_item": 2,
+              "operator": "+",
+              "quantity": 1
+            }
+          ]
+        },
+        "checkType": "fromTo"
+      },
+      {
+        "to": 6,
+        "from": 5,
+        "impact": {
+          "stuff": [
+            {
+              "id_item": 4,
+              "operator": "+",
+              "quantity": 1
+            }
+          ]
+        },
+        "checkType": "fromTo"
+      }
+    ],
+    "numberOfDice": 1
   }
+}
