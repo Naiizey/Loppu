@@ -942,7 +942,7 @@ function getRolledStats(choice)
   let diceResult = choice?.require?.action?.diceResult;
   diceResult?.forEach((elem) => { 
     let text = elem.stat;
-    if (!statsDice.includes(text)) {
+    if (!statsDice.includes(text) && text != undefined) {
       statsDice.push(text);
     }
   });
