@@ -630,11 +630,33 @@ function interpretRequireFight(action, choiceNumber, char, currEnemyHealth, setC
   let charItems = char.stuff.stuff.map(elem => {
     return Object.keys(elem)[0]
   });
+  console.log('items : ', charItems);
   if (charItems.includes(item.toString())) {
     let storyId = localStorage.getItem("storyId");
     API("stuff/" + storyId + "/" + item).then((itemResp) => {
       item = itemResp[0];
       if (currEnemyHealth < char.stats.strength + item.stats.strength) {
+        setCombatInfo("win");
+        setMaxEnemyHealth(null);
+      } else {
+        action.enemy.resistance -= char.stats.strength;
+        editStat("-", action.enemy.strength, 'resistance', char.stats, userChar, setUserChar)
+        if (char.stats.resistance > 0) {
+          setCombatInfo("during");
+          setCurrEnemyHealth(action.enemy.resistance);
+        } else {
+          checkIfDead();
+          setCombatInfo("lose");
+          setMaxEnemyHealth(null);
+        }
+      }
+    });
+  }
+  else{
+    let storyId = localStorage.getItem("storyId");
+    API("stuff/" + storyId + "/" + item).then((itemResp) => {
+      item = itemResp[0];
+      if (currEnemyHealth < char.stats.strength) {
         setCombatInfo("win");
         setMaxEnemyHealth(null);
       } else {
@@ -951,7 +973,7 @@ function getRolledStats(choice)
 {
   let statsDice = []
   let diceResult = choice?.require?.action?.diceResult;
-  diceResult?.forEach((elem) => { 
+  diceResult?.forEach((elem) => {
     let text = elem.stat;
     if (!statsDice.includes(text) && text != undefined) {
       statsDice.push(text);
