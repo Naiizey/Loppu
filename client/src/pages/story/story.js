@@ -238,7 +238,7 @@ const SectionPage = () => {
             name={userCharModel.name}
             character={userChar}
             inventory={inventory}
-            img={CharImage}
+            img={`${userCharModel.name.split(" ").join("").toLowerCase()}.jpg`}
             isClicked={clickedCharacter === `${userCharModel.name}`}
             onClick={() => handleCharacterClick(`${userCharModel.name}`)}
           />
